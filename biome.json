@@ -21,6 +21,7 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off",
+        "noExplicitAny": "off",
         "noConsole": "off"
       }
     },
