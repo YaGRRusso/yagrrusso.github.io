@@ -18,9 +18,5 @@ export default function RootRedirectPage() {
     }
   }, [router]);
 
-  return (
-    <html lang="en">
-      <body />
-    </html>
-  );
+  return null;
 }
