@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: Props) {
 
   return generateSEO({
     namespace: "AboutPage",
+    path: "about",
     locale,
   });
 }

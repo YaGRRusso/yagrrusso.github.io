@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import ph from "node:path";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -14,20 +16,22 @@ export async function generateSEO({ namespace, locale, path = "" }: SEOOptions) 
   const description = t("description");
 
   const baseUrl = "https://yagrrusso.github.io";
-  const finalUrl = `${baseUrl}${path ? `/${locale}/${path}` : `/${locale}`}`;
+  const formattedPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
+  const finalUrl = `${baseUrl}/${locale}${formattedPath}`;
 
-  const mainImage = `/images/og/${namespace.toLowerCase()}-${locale}.png`;
-  const fallbackImage = `/images/og/default-${locale}.png`;
+  const mainImagePath = ph.join(process.cwd(), "public", "images", "og", `${namespace.toLowerCase()}-${locale}.png`);
+  const mainImageExists = fs.existsSync(mainImagePath);
 
-  const imageUrl = `${baseUrl}${mainImage}`;
-  const imageFallbackUrl = `${baseUrl}${fallbackImage}`;
+  const mainImageUrl = `${baseUrl}/images/og/${namespace.toLowerCase()}-${locale}.png`;
+  const fallbackImageUrl = `${baseUrl}/images/og/default-${locale}.png`;
+  const imageUrl = mainImageExists ? mainImageUrl : fallbackImageUrl;
 
   return {
     title,
     description,
     alternates: {
       canonical: finalUrl,
-      languages: Object.fromEntries(routing.locales.map((l) => [l, `${baseUrl}/${l}${path ? `/${path}` : ""}`])),
+      languages: Object.fromEntries(routing.locales.map((lang) => [lang, `${baseUrl}/${lang}${formattedPath}`])),
     },
     openGraph: {
       siteName: "Yago Russo",
@@ -43,19 +47,13 @@ export async function generateSEO({ namespace, locale, path = "" }: SEOOptions) 
           height: 630,
           alt: title,
         },
-        {
-          url: imageFallbackUrl,
-          width: 1200,
-          height: 630,
-          alt: `${title} fallback`,
-        },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [imageUrl, imageFallbackUrl],
+      images: [imageUrl],
     },
   };
 }
