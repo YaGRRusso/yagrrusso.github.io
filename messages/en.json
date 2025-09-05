@@ -2,5 +2,9 @@
   "HomePage": {
     "title": "Welcome!",
     "description": "This is a static site with i18n."
+  },
+  "AboutPage": {
+    "title": "About Us",
+    "description": "This page provides information about us."
   }
 }

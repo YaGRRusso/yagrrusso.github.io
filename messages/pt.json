@@ -2,5 +2,9 @@
   "HomePage": {
     "title": "Bem-vindo!",
     "description": "Este é um site estático com i18n."
+  },
+  "AboutPage": {
+    "title": "Sobre nós",
+    "description": "Esta página fornece informações sobre nós."
   }
 }

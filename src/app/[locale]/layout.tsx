@@ -3,6 +3,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
 import { routing } from "@/i18n/routing";
+import { ClientRootLayout } from "./layout-client";
 
 type Props = {
   children: ReactNode;
@@ -21,7 +22,10 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang={locale ?? routing.defaultLocale}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <ClientRootLayout locale={locale} />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );
