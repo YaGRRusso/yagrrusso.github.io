@@ -11,6 +11,21 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+export const metadata = {
+  icons: [
+    {
+      rel: "icon",
+      url: "/favicon-black.svg",
+      media: "(prefers-color-scheme: light)",
+    },
+    {
+      rel: "icon",
+      url: "/favicon-white.svg",
+      media: "(prefers-color-scheme: dark)",
+    },
+  ],
+};
+
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
 

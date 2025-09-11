@@ -1,7 +1,8 @@
 "use client";
 
 import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
-import { type HTMLAttributes, useEffect } from "react";
+import Image from "next/image";
+import { type HTMLAttributes, useEffect, useMemo } from "react";
 import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { Link, redirect, usePathname } from "@/i18n/navigation";
@@ -15,6 +16,17 @@ interface Props extends HTMLAttributes<HTMLBodyElement> {
 export function ClientRootLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
   const { theme, setTheme } = useThemeStore();
+
+  const logo = useMemo(() => {
+    switch (theme) {
+      case "dark":
+        return "/favicon-white.svg";
+      case "light":
+        return "/favicon-black.svg";
+      default:
+        return "/favicon.svg";
+    }
+  }, [theme]);
 
   useEffect(() => {
     switch (theme) {
@@ -38,7 +50,8 @@ export function ClientRootLayout({ locale, children, ...rest }: Props) {
     <body className="flex min-h-screen flex-col" {...rest}>
       <header className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop:blur-2xl">
         <div className="container flex items-center justify-between space-x-2">
-          <Link href="/">
+          <Link className="flex items-center justify-center space-x-2" href="/">
+            <Image alt="Logo" className="h-10 w-10" height={32} src={logo} width={32} />
             <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
           </Link>
           <div className="flex items-center justify-center space-x-2">
