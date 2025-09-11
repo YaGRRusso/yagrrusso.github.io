@@ -19,10 +19,18 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "style": {
+        "useFragmentSyntax": "off",
+        "noMagicNumbers": "off"
+      },
       "suspicious": {
         "noUnknownAtRules": "off",
+        "noArrayIndexKey": "off",
         "noExplicitAny": "off",
         "noConsole": "off"
+      },
+      "performance": {
+        "noNamespaceImport": "off"
       }
     },
     "domains": {

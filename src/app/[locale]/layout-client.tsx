@@ -1,25 +1,81 @@
 "use client";
 
-import { redirect, usePathname } from "@/i18n/navigation";
+import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { type HTMLAttributes, useEffect } from "react";
+import { Select } from "@/components/ui/select";
+import { ToggleGroup } from "@/components/ui/toggle-group";
+import { Link, redirect, usePathname } from "@/i18n/navigation";
+import { localeNames, routing } from "@/i18n/routing";
+import { useThemeStore } from "@/stores/theme";
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLBodyElement> {
   locale: string;
-};
+}
 
-export function ClientRootLayout({ locale }: Props) {
+export function ClientRootLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
+  const { theme, setTheme } = useThemeStore();
+
+  useEffect(() => {
+    switch (theme) {
+      case "dark":
+        document.documentElement.classList.add("dark");
+        break;
+      case "light":
+        document.documentElement.classList.remove("dark");
+        break;
+      default:
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        break;
+    }
+  }, [theme]);
 
   return (
-    <header>
-      <button onClick={() => console.log(locale, pathname)} type="button">
-        Current
-      </button>
-      <button onClick={() => redirect({ href: pathname, locale: "en" })} type="button">
-        English
-      </button>
-      <button onClick={() => redirect({ href: pathname, locale: "pt" })} type="button">
-        Português
-      </button>
-    </header>
+    <body className="flex min-h-screen flex-col" {...rest}>
+      <header className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop:blur-2xl">
+        <div className="container flex items-center justify-between space-x-2">
+          <Link href="/">
+            <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
+          </Link>
+          <div className="flex items-center justify-center space-x-2">
+            <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
+              <Select.Trigger>
+                <Select.Value placeholder="Language" />
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Group>
+                  {routing.locales.map((lang) => (
+                    <Select.Item key={lang} value={lang}>
+                      {localeNames[lang]}
+                    </Select.Item>
+                  ))}
+                </Select.Group>
+              </Select.Content>
+            </Select.Root>
+            <ToggleGroup.Root
+              onValueChange={(value) => setTheme(value as any)}
+              type="single"
+              value={theme}
+              variant="outline"
+            >
+              <ToggleGroup.Item value="light">
+                <SunIcon />
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="dark">
+                <MoonIcon />
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="system">
+                <DesktopIcon />
+              </ToggleGroup.Item>
+            </ToggleGroup.Root>
+          </div>
+        </div>
+      </header>
+      <main className="container flex flex-1 flex-col">{children}</main>
+    </body>
   );
 }

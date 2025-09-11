@@ -6,9 +6,5 @@ type Props = {
 };
 
 export default function RootLayout({ children }: Props) {
-  return (
-    <html lang={routing.defaultLocale}>
-      <body>{children}</body>
-    </html>
-  );
+  return <html lang={routing.defaultLocale}>{children}</html>;
 }
