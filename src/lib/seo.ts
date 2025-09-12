@@ -2,11 +2,12 @@ import fs from "node:fs";
 import ph from "node:path";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import type { Locale, Namespace } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
 
 type SEOOptions = {
-  namespace: string;
-  locale: string;
+  namespace: Namespace;
+  locale: Locale;
   path?: string;
 };
 

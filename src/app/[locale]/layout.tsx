@@ -2,13 +2,13 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
-import { type Locale, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { ClientLayout } from "./layout-client";
 import "@/styles/globals.css";
 
 type Props = {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export default async function Layout({ children, params }: Props) {

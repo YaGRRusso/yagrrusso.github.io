@@ -7,11 +7,11 @@ import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link, redirect, usePathname } from "@/i18n/navigation";
-import { localeNames, routing } from "@/i18n/routing";
+import { type Locale, localeNames, routing } from "@/i18n/routing";
 import { usePreferencesStore } from "@/stores/theme";
 
 interface Props extends HTMLAttributes<HTMLBodyElement> {
-  locale: string;
+  locale: Locale;
 }
 
 export function ClientLayout({ locale, children, ...rest }: Props) {
@@ -28,7 +28,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
             <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
           </Link>
           <div className="flex items-center justify-center space-x-2">
-            <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev as any })} value={locale}>
+            <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
               <Select.Trigger aria-label="language">
                 <Select.Value placeholder="Language" />
               </Select.Trigger>
