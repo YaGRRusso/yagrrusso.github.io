@@ -1,19 +1,19 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export type Theme = "light" | "dark" | "system";
+export type ThemePreference = "light" | "dark" | "system";
 
-type ThemeStore = {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
+type PreferencesStore = {
+  theme: ThemePreference;
+  setTheme: (theme: ThemePreference) => void;
 };
 
-export const useThemeStore = create<ThemeStore>()(
+export const usePreferencesStore = create<PreferencesStore>()(
   persist(
     (set) => ({
       theme: "system",
-      setTheme: (theme: Theme) => set({ theme }),
+      setTheme: (theme: ThemePreference) => set({ theme }),
     }),
-    { name: "theme-preference", storage: createJSONStorage(() => localStorage) }
+    { name: "preference", storage: createJSONStorage(() => localStorage) }
   )
 );

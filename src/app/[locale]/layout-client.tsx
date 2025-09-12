@@ -2,12 +2,13 @@
 
 import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
 import Image from "next/image";
-import { type HTMLAttributes, useEffect, useMemo } from "react";
+import type { HTMLAttributes } from "react";
 import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
+import { ThemeProvider } from "@/contexts/theme";
 import { Link, redirect, usePathname } from "@/i18n/navigation";
 import { localeNames, routing } from "@/i18n/routing";
-import { useThemeStore } from "@/stores/theme";
+import { usePreferencesStore } from "@/stores/theme";
 
 interface Props extends HTMLAttributes<HTMLBodyElement> {
   locale: string;
@@ -15,43 +16,15 @@ interface Props extends HTMLAttributes<HTMLBodyElement> {
 
 export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
-  const { theme, setTheme } = useThemeStore();
-
-  const logo = useMemo(() => {
-    switch (theme) {
-      case "dark":
-        return "/favicon-white.svg";
-      case "light":
-        return "/favicon-black.svg";
-      default:
-        return "/favicon.svg";
-    }
-  }, [theme]);
-
-  useEffect(() => {
-    switch (theme) {
-      case "dark":
-        document.documentElement.classList.add("dark");
-        break;
-      case "light":
-        document.documentElement.classList.remove("dark");
-        break;
-      default:
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-        break;
-    }
-  }, [theme]);
+  const { theme: preferredTheme, setTheme: setPreferredTheme } = usePreferencesStore();
 
   return (
     <body className="flex min-h-screen flex-col" {...rest}>
       <header className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop:blur-2xl">
         <div className="container flex items-center justify-between space-x-2">
           <Link className="flex items-center justify-center space-x-2" href="/">
-            <Image alt="Logo" className="h-10 w-10" height={32} src={logo} width={32} />
+            <Image alt="Logo" className="block h-10 w-10 dark:hidden" height={32} src="/favicon-black.svg" width={32} />
+            <Image alt="Logo" className="hidden h-10 w-10 dark:block" height={32} src="/favicon-white.svg" width={32} />
             <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
           </Link>
           <div className="flex items-center justify-center space-x-2">
@@ -70,9 +43,9 @@ export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
               </Select.Content>
             </Select.Root>
             <ToggleGroup.Root
-              onValueChange={(value) => setTheme(value as any)}
+              onValueChange={(value) => setPreferredTheme(value as any)}
               type="single"
-              value={theme}
+              value={preferredTheme}
               variant="outline"
             >
               <ToggleGroup.Item aria-label="light" value="light">
@@ -88,7 +61,9 @@ export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
           </div>
         </div>
       </header>
-      <main className="container flex flex-1 flex-col">{children}</main>
+      <ThemeProvider>
+        <main className="container flex flex-1 flex-col">{children}</main>
+      </ThemeProvider>
     </body>
   );
 }
