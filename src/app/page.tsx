@@ -1,22 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
 const { locales, defaultLocale } = routing;
-export default function RootRedirectPage() {
-  const router = useRouter();
+export default function RootPage() {
+  const browserLocale = navigator.language.split("-")[0];
 
-  useEffect(() => {
-    const browserLocale = navigator.language.split("-")[0];
-
-    if (locales.includes(browserLocale as any)) {
-      router.replace(`/${browserLocale}`);
-    } else {
-      router.replace(`/${defaultLocale}`);
-    }
-  }, [router]);
-
-  return null;
+  if (locales.includes(browserLocale as any)) {
+    redirect({ href: "/", locale: browserLocale });
+  } else {
+    redirect({ href: "/", locale: defaultLocale });
+  }
 }

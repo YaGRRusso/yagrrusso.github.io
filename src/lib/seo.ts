@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import ph from "node:path";
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -9,7 +10,7 @@ type SEOOptions = {
   path?: string;
 };
 
-export async function generateSEO({ namespace, locale, path = "" }: SEOOptions) {
+export async function generateSEO({ namespace, locale, path = "" }: SEOOptions): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace });
 
   const title = t("title");

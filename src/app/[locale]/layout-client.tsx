@@ -56,7 +56,7 @@ export function ClientRootLayout({ locale, children, ...rest }: Props) {
           </Link>
           <div className="flex items-center justify-center space-x-2">
             <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
-              <Select.Trigger>
+              <Select.Trigger title="Language">
                 <Select.Value placeholder="Language" />
               </Select.Trigger>
               <Select.Content>
@@ -75,13 +75,13 @@ export function ClientRootLayout({ locale, children, ...rest }: Props) {
               value={theme}
               variant="outline"
             >
-              <ToggleGroup.Item value="light">
+              <ToggleGroup.Item title="light" value="light">
                 <SunIcon />
               </ToggleGroup.Item>
-              <ToggleGroup.Item value="dark">
+              <ToggleGroup.Item title="dark" value="dark">
                 <MoonIcon />
               </ToggleGroup.Item>
-              <ToggleGroup.Item value="system">
+              <ToggleGroup.Item title="system" value="system">
                 <DesktopIcon />
               </ToggleGroup.Item>
             </ToggleGroup.Root>
