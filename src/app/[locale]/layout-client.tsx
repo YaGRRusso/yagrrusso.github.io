@@ -13,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLBodyElement> {
   locale: string;
 }
 
-export function ClientRootLayout({ locale, children, ...rest }: Props) {
+export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
   const { theme, setTheme } = useThemeStore();
 
@@ -56,7 +56,7 @@ export function ClientRootLayout({ locale, children, ...rest }: Props) {
           </Link>
           <div className="flex items-center justify-center space-x-2">
             <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
-              <Select.Trigger title="Language">
+              <Select.Trigger aria-label="Language">
                 <Select.Value placeholder="Language" />
               </Select.Trigger>
               <Select.Content>
@@ -75,13 +75,13 @@ export function ClientRootLayout({ locale, children, ...rest }: Props) {
               value={theme}
               variant="outline"
             >
-              <ToggleGroup.Item title="light" value="light">
+              <ToggleGroup.Item aria-label="light" value="light">
                 <SunIcon />
               </ToggleGroup.Item>
-              <ToggleGroup.Item title="dark" value="dark">
+              <ToggleGroup.Item aria-label="dark" value="dark">
                 <MoonIcon />
               </ToggleGroup.Item>
-              <ToggleGroup.Item title="system" value="system">
+              <ToggleGroup.Item aria-label="system" value="system">
                 <DesktopIcon />
               </ToggleGroup.Item>
             </ToggleGroup.Root>
