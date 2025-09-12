@@ -1,10 +1,14 @@
 {
+  "Routes": {
+    "home": "Início",
+    "repos": "Repositórios"
+  },
   "HomePage": {
     "title": "Bem-vindo!",
     "description": "Este é um site estático com i18n."
   },
-  "AboutPage": {
-    "title": "Sobre nós",
-    "description": "Esta página fornece informações sobre nós."
+  "ReposPage": {
+    "title": "Meus repositórios",
+    "description": "Esta página fornece informações sobre meus repositórios."
   }
 }

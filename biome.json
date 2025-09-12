@@ -31,6 +31,9 @@
       },
       "performance": {
         "noNamespaceImport": "off"
+      },
+      "nursery": {
+        "useConsistentTypeDefinitions": "off"
       }
     },
     "domains": {

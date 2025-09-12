@@ -14,7 +14,7 @@ interface Props extends HTMLAttributes<HTMLBodyElement> {
   locale: string;
 }
 
-export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
+export function ClientLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
   const { theme: preferredTheme, setTheme: setPreferredTheme } = usePreferencesStore();
 
@@ -28,14 +28,14 @@ export function ClientLocaleLayout({ locale, children, ...rest }: Props) {
             <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
           </Link>
           <div className="flex items-center justify-center space-x-2">
-            <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
-              <Select.Trigger aria-label="Language">
+            <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev as any })} value={locale}>
+              <Select.Trigger aria-label="language">
                 <Select.Value placeholder="Language" />
               </Select.Trigger>
               <Select.Content>
                 <Select.Group>
                   {routing.locales.map((lang) => (
-                    <Select.Item key={lang} value={lang}>
+                    <Select.Item aria-label={localeNames[lang]} key={lang} value={lang}>
                       {localeNames[lang]}
                     </Select.Item>
                   ))}

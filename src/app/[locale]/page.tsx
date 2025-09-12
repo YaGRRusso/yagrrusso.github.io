@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
-import { routing } from "@/i18n/routing";
+import { type Locale, routing } from "@/i18n/routing";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
 
@@ -18,12 +18,12 @@ export async function generateMetadata({ params }: Props) {
 }
 
 type Props = {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 };
 
 export default function Page({ params }: Props) {
   const { locale } = use(params);
   setRequestLocale(locale);
 
-  return <ClientPage locale={locale} />;
+  return <ClientPage />;
 }
