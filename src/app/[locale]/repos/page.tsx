@@ -1,6 +1,7 @@
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
 import { getRepos } from "@/services/repos";
 import { ClientPage } from "./page-client";
