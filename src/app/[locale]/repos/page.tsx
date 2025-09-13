@@ -1,3 +1,4 @@
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { generateSEO } from "@/lib/seo";
@@ -26,7 +27,16 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const getReposInit = await getRepos();
+  const queryClient = new QueryClient();
 
-  return <ClientPage initialData={{ getReposInit }} />;
+  await queryClient.prefetchQuery({
+    queryKey: ["getRepos"],
+    queryFn: () => getRepos(),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ClientPage />
+    </HydrationBoundary>
+  );
 }
