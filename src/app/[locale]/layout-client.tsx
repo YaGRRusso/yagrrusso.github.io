@@ -1,6 +1,7 @@
 "use client";
 
 import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import type { HTMLAttributes } from "react";
 import { Select } from "@/components/ui/select";
@@ -13,6 +14,21 @@ import { usePreferencesStore } from "@/stores/theme";
 interface Props extends HTMLAttributes<HTMLBodyElement> {
   locale: Locale;
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 600_000, // 10 minutes
+      retryDelay: 10_000, // 10 seconds
+      retry: 3,
+    },
+    mutations: {
+      retryDelay: 10_000, // 10 seconds
+      retry: 3,
+    },
+  },
+});
 
 export function ClientLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
@@ -61,9 +77,11 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
           </div>
         </div>
       </header>
-      <ThemeProvider>
-        <main className="container flex flex-1 flex-col">{children}</main>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <main className="container flex flex-1 flex-col">{children}</main>
+        </ThemeProvider>
+      </QueryClientProvider>
     </body>
   );
 }
