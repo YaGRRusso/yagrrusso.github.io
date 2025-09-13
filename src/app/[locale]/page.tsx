@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props) {
   const { locale } = await params;
 
   return generateSEO({
-    namespace: "HomePage",
+    namespace: "homePage",
     path: "/",
     locale,
   });

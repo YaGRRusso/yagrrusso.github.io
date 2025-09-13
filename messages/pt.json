@@ -1,14 +1,20 @@
 {
-  "Routes": {
-    "home": "Início",
-    "repos": "Repositórios"
+  "routes": {
+    "homePage": {
+      "title": "Yago Russo",
+      "description": "Este é o site pessoal de Yago Russo."
+    },
+    "reposPage": {
+      "title": "Repositórios",
+      "description": "Esta página fornece informações sobre meus repositórios."
+    }
   },
-  "HomePage": {
-    "title": "Bem-vindo!",
-    "description": "Este é um site estático com i18n."
+  "homePage": {
+    "title": "Yago Russo",
+    "description": "Este é o site pessoal de Yago Russo."
   },
-  "ReposPage": {
-    "title": "Meus repositórios",
+  "reposPage": {
+    "title": "Repositórios",
     "description": "Esta página fornece informações sobre meus repositórios."
   }
 }

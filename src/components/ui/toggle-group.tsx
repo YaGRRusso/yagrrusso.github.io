@@ -63,9 +63,7 @@ function ToggleGroupItem({
   );
 }
 
-const ToggleGroup = {
+export const ToggleGroup = {
   Root: ToggleGroupRoot,
   Item: ToggleGroupItem,
 };
-
-export { ToggleGroup, ToggleGroupRoot, ToggleGroupItem };

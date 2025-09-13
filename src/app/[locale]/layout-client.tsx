@@ -36,14 +36,14 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
 
   return (
     <body className="flex min-h-screen flex-col" {...rest}>
-      <header className="sticky top-0 z-10 w-full border-b bg-background/80 backdrop:blur-2xl">
-        <div className="container flex items-center justify-between space-x-2">
-          <Link className="flex items-center justify-center space-x-2" href="/">
+      <header className="sticky top-0 z-10 w-full border-b bg-background/80 py-2 backdrop:blur-2xl">
+        <div className="container flex items-center justify-between gap-x-2">
+          <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image alt="Logo" className="block h-10 w-10 dark:hidden" height={32} src="/favicon-black.svg" width={32} />
             <Image alt="Logo" className="hidden h-10 w-10 dark:block" height={32} src="/favicon-white.svg" width={32} />
-            <h1 className="font-semibold text-3xl tracking-wide">Yago Russo</h1>
+            <h2 className="font-semibold text-3xl tracking-wide">Yago Russo</h2>
           </Link>
-          <div className="flex items-center justify-center space-x-2">
+          <div className="flex items-center justify-center gap-x-2">
             <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
               <Select.Trigger aria-label="language">
                 <Select.Value placeholder="Language" />
@@ -79,7 +79,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
       </header>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <main className="container flex flex-1 flex-col">{children}</main>
+          <main className="container flex flex-1 flex-col py-16">{children}</main>
         </ThemeProvider>
       </QueryClientProvider>
     </body>

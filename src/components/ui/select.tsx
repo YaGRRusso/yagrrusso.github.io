@@ -142,27 +142,15 @@ function SelectScrollDownButton({ className, ...props }: ComponentProps<typeof S
   );
 }
 
-const Select = {
+export const Select = {
   Root: SelectRoot,
   Content: SelectContent,
   Group: SelectGroup,
   Item: SelectItem,
   Label: SelectLabel,
+  ScrollDownButton: SelectScrollDownButton,
+  ScrollUpButton: SelectScrollUpButton,
   Separator: SelectSeparator,
   Trigger: SelectTrigger,
   Value: SelectValue,
-};
-
-export {
-  Select,
-  SelectRoot,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
 };
