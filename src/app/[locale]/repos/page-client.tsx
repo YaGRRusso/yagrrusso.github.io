@@ -20,7 +20,7 @@ export function ClientPage() {
           {getRepos.data?.map((repo) => (
             <li key={repo.id}>
               <Button asChild className="w-full justify-between" variant="ghost">
-                <a href={repo.html_url} target="_blank">
+                <a href={repo.html_url} rel="noopener" target="_blank">
                   {repo.name}
                 </a>
               </Button>
