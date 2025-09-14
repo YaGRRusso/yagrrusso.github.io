@@ -106,16 +106,19 @@ export type Repo = {
   default_branch: string;
 };
 
-export type SearchParams = {
+export type GetReposParams = {
   q?: string;
   sort?: string;
   order?: "asc" | "desc";
   per_page?: string;
   page?: string;
+  type?: string;
 };
 
-export const getRepos = async (data?: SearchParams): Promise<Repo[]> => {
+const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`, Accept: "application/vnd.github+json" };
+
+export const getRepos = async (data?: GetReposParams): Promise<Repo[]> => {
   const query = new URLSearchParams(data).toString();
-  const res = await fetch(`https://api.github.com/users/yagrrusso/repos?sort=update&${query}`);
+  const res = await fetch(`https://api.github.com/user/repos?${query}`, { headers });
   return await res.json();
 };

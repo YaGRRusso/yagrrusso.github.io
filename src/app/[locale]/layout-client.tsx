@@ -3,7 +3,7 @@
 import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
-import type { HTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ThemeProvider } from "@/contexts/theme";
@@ -11,7 +11,7 @@ import { Link, redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, localeNames, routing } from "@/i18n/routing";
 import { usePreferencesStore } from "@/stores/theme";
 
-interface Props extends HTMLAttributes<HTMLBodyElement> {
+interface Props extends ComponentProps<"body"> {
   locale: Locale;
 }
 

@@ -1,33 +1,29 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Title } from "@/components/title";
 import { Button } from "@/components/ui/button";
-import { getRepos } from "@/services/repos";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetRepos } from "@/hooks/queries/github";
 
 export function ClientPage() {
   const t = useTranslations("reposPage");
-
-  const useGetRepos = useQuery({
-    queryKey: ["getRepos"],
-    queryFn: () => getRepos(),
-  });
+  const getRepos = useGetRepos({ sort: "updated" });
 
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Title className="w-full" description={t("description")} title={t("title")} />
-      {useGetRepos.isLoading ? (
-        <strong>Loading...</strong>
+      {getRepos.isLoading ? (
+        <Skeleton className="h-64 w-full" />
       ) : (
         <ul className="grid w-full grid-cols-1 gap-2 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {useGetRepos.data?.map((repo) => (
+          {getRepos.data?.map((repo) => (
             <li key={repo.id}>
-              <a href={repo.html_url} target="_blank">
-                <Button className="w-full justify-between" variant="ghost">
+              <Button asChild className="w-full justify-between" variant="ghost">
+                <a href={repo.html_url} target="_blank">
                   {repo.name}
-                </Button>
-              </a>
+                </a>
+              </Button>
             </li>
           ))}
         </ul>
