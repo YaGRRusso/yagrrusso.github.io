@@ -8,7 +8,7 @@ import { useGetRepos } from "@/hooks/queries/github";
 
 export function ClientPage() {
   const t = useTranslations("reposPage");
-  const getRepos = useGetRepos({ sort: "updated" });
+  const getRepos = useGetRepos();
 
   return (
     <div className="flex flex-1 flex-col gap-y-8">
@@ -18,7 +18,7 @@ export function ClientPage() {
       ) : (
         <ul className="grid w-full grid-cols-1 gap-2 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {getRepos.data?.map((repo) => (
-            <li key={repo.id}>
+            <li id={repo.name} key={repo.id}>
               <Button asChild className="w-full justify-between" variant="ghost">
                 <a href={repo.html_url} rel="noopener" target="_blank">
                   {repo.name}
