@@ -33,7 +33,7 @@ jobs:
       - name: Build Next.js site
         run: npm run build
         env:
-          API_TOKEN: ${{ secrets.API_TOKEN }}
+          NEXT_PUBLIC_API_TOKEN: ${{ secrets.API_TOKEN }}
 
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
