@@ -36,16 +36,16 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
 
   return (
     <body className="flex min-h-screen flex-col" {...rest}>
-      <header className="sticky top-0 z-10 w-full border-b bg-background/80 py-2 backdrop:blur-2xl">
-        <div className="container flex items-center justify-between gap-x-2">
+      <header className="sticky top-0 z-10 w-full border-b bg-background py-2">
+        <div className="container flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image alt="Logo" className="block h-10 w-10 dark:hidden" height={32} src="/favicon-black.svg" width={32} />
             <Image alt="Logo" className="hidden h-10 w-10 dark:block" height={32} src="/favicon-white.svg" width={32} />
             <h2 className="font-semibold text-3xl tracking-wide">Yago Russo</h2>
           </Link>
-          <div className="flex items-center justify-center gap-x-2">
+          <div className="flex min-w-72 flex-1 items-center justify-center gap-2 sm:max-w-80">
             <Select.Root onValueChange={(ev) => redirect({ href: pathname, locale: ev })} value={locale}>
-              <Select.Trigger aria-label="language">
+              <Select.Trigger aria-label="language" className="flex-1">
                 <Select.Value placeholder="Language" />
               </Select.Trigger>
               <Select.Content>

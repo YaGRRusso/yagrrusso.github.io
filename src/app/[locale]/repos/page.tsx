@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
 
   const queryClient = new QueryClient();
 
-  await prefetchGetRepos(queryClient);
+  await prefetchGetRepos(queryClient, { sort: "updated", type: "owner" });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -8,15 +8,17 @@ import { useGetRepos } from "@/hooks/queries/github";
 
 export function ClientPage() {
   const t = useTranslations("reposPage");
-  const getRepos = useGetRepos();
+
+  const getRepos = useGetRepos({ sort: "updated", type: "owner" });
 
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Title className="w-full" description={t("description")} title={t("title")} />
+      {/* <Input onChange={(e) => setQ(e.target.value)} placeholder="search repositories" value={q} /> */}
       {getRepos.isLoading ? (
         <Skeleton className="h-64 w-full" />
       ) : (
-        <ul className="grid w-full grid-cols-1 gap-2 py-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {getRepos.data?.map((repo) => (
             <li id={repo.name} key={repo.id}>
               <Button asChild className="w-full justify-between" variant="ghost">

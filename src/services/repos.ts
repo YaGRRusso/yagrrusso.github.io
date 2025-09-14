@@ -107,12 +107,11 @@ export type Repo = {
 };
 
 export type GetReposParams = {
-  q?: string;
-  sort?: string;
-  order?: "asc" | "desc";
+  type?: "all" | "owner" | "member";
+  sort?: "created" | "updated" | "pushed" | "full_name";
+  direction?: "asc" | "desc";
   per_page?: string;
   page?: string;
-  type?: string;
 };
 
 export type GetReposResponse = Repo[];
