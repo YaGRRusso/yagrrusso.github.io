@@ -117,9 +117,11 @@ export type GetReposParams = {
 
 export type GetReposResponse = Repo[];
 
-const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`, Accept: "application/vnd.github+json" };
-
 export const getRepos = async (data?: GetReposParams): Promise<GetReposResponse> => {
+  const headers = {
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+    Accept: "application/vnd.github+json",
+  };
   const query = new URLSearchParams(data).toString();
   const res = await fetch(`https://api.github.com/user/repos?${query}`, { headers });
   return await res.json();
