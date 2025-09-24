@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { generateSEO } from "@/lib/seo";
@@ -11,10 +12,10 @@ interface Props {
   params: Promise<ReturnType<typeof generateStaticParams>[number]>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
-  return generateSEO({
+  return await generateSEO({
     namespace: "homePage",
     path: "/",
     locale,

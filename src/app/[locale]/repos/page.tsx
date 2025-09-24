@@ -1,4 +1,5 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { prefetchGetRepos } from "@/hooks/queries/github";
 import { routing } from "@/i18n/routing";
@@ -14,10 +15,10 @@ interface Props {
   params: Promise<ReturnType<typeof generateStaticParams>[number]>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
-  return generateSEO({
+  return await generateSEO({
     namespace: "reposPage",
     path: "/repos",
     locale,
