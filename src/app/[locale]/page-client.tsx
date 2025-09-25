@@ -1,13 +1,20 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
+import { useGetMe } from "@/hooks/queries/auth";
 import { Link } from "@/i18n/navigation";
 
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tRoutes = useTranslations("routes");
+  const getMe = useGetMe();
+
+  useEffect(() => {
+    console.log(getMe.data);
+  }, [getMe.data]);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-y-4">

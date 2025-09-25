@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "serve": "serve -s out -l 3000"
+    "serve": "serve -s out -l 3000",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "back": "cd ../profile-info && npm run start"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -34,7 +36,12 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.15.0",
     "@biomejs/biome": "^2.2.4",
+    "@graphql-codegen/cli": "^6.0.0",
+    "@graphql-codegen/schema-ast": "^5.0.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.5.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",

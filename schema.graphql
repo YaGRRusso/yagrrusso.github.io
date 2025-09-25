@@ -1,0 +1,175 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input CreateProjectInput {
+  demoUrl: String
+  i18n: [CreateProjectTranslationLocaleInput!]!
+  images: [String!]
+  repositoryUrl: String
+  skills: [String!]
+  slug: String!
+}
+
+input CreateProjectTranslationInput {
+  description: String!
+  name: String!
+}
+
+input CreateProjectTranslationLocaleInput {
+  locale: String!
+  messages: CreateProjectTranslationInput!
+}
+
+input CreateSkillInput {
+  category: String!
+  name: String!
+}
+
+input CreateUserInput {
+  address: String
+  avatar: String
+  birthDate: String
+  description: String
+  email: String!
+  hobbies: [String!]
+  name: String!
+  nickname: String!
+  password: String!
+  phone: String
+  postalCode: String
+  school: String
+  title: String
+  urls: [CreateUserUrlInput!]
+  work: String
+}
+
+input CreateUserUrlInput {
+  code: String!
+  value: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createProject(createProjectInput: CreateProjectInput!): Project!
+  createSkill(createSkillInput: CreateSkillInput!): Skill!
+  createUser(createUserInput: CreateUserInput!): User!
+  removeProject(id: ID!): Project!
+  removeSkill(id: ID!): Skill!
+  removeUser(id: ID!): User!
+  signIn(signInInput: SignInInput!): String!
+  updateProject(updateProjectInput: UpdateProjectInput!): Project!
+  updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+}
+
+type Project {
+  createdAt: DateTime!
+  demoUrl: String
+  i18n: [ProjectTranslationLocale!]!
+  id: ID!
+  images: [String!]
+  repositoryUrl: String
+  skills: [Skill!]
+  slug: String!
+  updatedAt: DateTime!
+}
+
+type ProjectTranslation {
+  description: String!
+  name: String!
+}
+
+type ProjectTranslationLocale {
+  locale: String!
+  messages: ProjectTranslation!
+}
+
+type Query {
+  findAllProjects: [Project!]!
+  findAllSkills: [Skill!]!
+  findAllUsers: [User!]!
+  findOneProjectById(id: ID!): Project!
+  findOneSkillById(id: ID!): Skill!
+  findOneUserById(id: ID!): User!
+  getMe: User!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+type Skill {
+  category: String!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input UpdateProjectInput {
+  demoUrl: String
+  i18n: [CreateProjectTranslationLocaleInput!]
+  id: ID!
+  images: [String!]
+  repositoryUrl: String
+  skills: [String!]
+  slug: String
+}
+
+input UpdateSkillInput {
+  category: String
+  id: ID!
+  name: String
+}
+
+input UpdateUserInput {
+  address: String
+  avatar: String
+  birthDate: String
+  description: String
+  email: String
+  hobbies: [String!]
+  id: ID!
+  name: String
+  nickname: String
+  password: String
+  phone: String
+  postalCode: String
+  school: String
+  title: String
+  urls: [CreateUserUrlInput!]
+  work: String
+}
+
+type User {
+  address: String
+  avatar: String
+  birthDate: String
+  createdAt: DateTime!
+  description: String
+  email: String!
+  hobbies: [String!]
+  id: ID!
+  name: String!
+  nickname: String!
+  phone: String
+  postalCode: String
+  role: String!
+  school: String
+  title: String
+  updatedAt: DateTime!
+  urls: [UserUrl!]
+  work: String
+}
+
+type UserUrl {
+  code: String!
+  value: String!
+}

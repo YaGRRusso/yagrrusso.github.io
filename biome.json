@@ -1,5 +1,16 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "overrides": [
+    {
+      "includes": ["src/graphql/**"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
+        "enabled": false
+      }
+    }
+  ],
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -20,6 +31,7 @@
     "rules": {
       "recommended": true,
       "style": {
+        "noNonNullAssertion": "off",
         "useFragmentSyntax": "off",
         "noMagicNumbers": "off"
       },
