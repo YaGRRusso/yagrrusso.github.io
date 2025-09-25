@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindOneUserById(queryClient, { findOneUserByIdId: "68d06687630d57a95f056a01" });
+  await prefetchFindOneUserById(queryClient, { findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -9,7 +9,7 @@ import { Link } from "@/i18n/navigation";
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tRoutes = useTranslations("routes");
-  const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d06687630d57a95f056a01" });
+  const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-y-4">
