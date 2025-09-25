@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: process.env.NEXT_PUBLIC_API_URL,
-  documents: ["src/**/*.ts"],
+  documents: ["src/services/**/*.ts"],
   ignoreNoDocuments: true,
   generates: {
     "./src/graphql/": {
