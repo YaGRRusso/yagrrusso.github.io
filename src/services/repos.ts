@@ -117,7 +117,7 @@ export type GetReposParams = {
 export type GetReposResponse = Repo[];
 
 const headers = {
-  Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+  Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
   Accept: "application/vnd.github+json",
 };
 
