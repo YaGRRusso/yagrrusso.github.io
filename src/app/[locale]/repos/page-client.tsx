@@ -2,30 +2,30 @@
 
 import { useTranslations } from "next-intl";
 import { Title } from "@/components/title";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetRepos } from "@/hooks/queries/github";
+import { useFindAllSkills } from "@/hooks/queries/skills";
 
 export function ClientPage() {
   const t = useTranslations("reposPage");
 
-  const getRepos = useGetRepos({ sort: "updated", type: "owner" });
+  const findAllSkills = useFindAllSkills();
 
   return (
     <div className="flex flex-1 flex-col gap-y-8">
       <Title className="w-full" description={t("description")} title={t("title")} />
       {/* <Input onChange={(e) => setQ(e.target.value)} placeholder="search repositories" value={q} /> */}
-      {getRepos.isLoading ? (
+      {findAllSkills.isLoading ? (
         <Skeleton className="h-64 w-full" />
       ) : (
         <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {getRepos.data?.map((repo) => (
-            <li id={repo.name} key={repo.id}>
-              <Button asChild className="w-full justify-between" variant="ghost">
-                <a href={repo.html_url} rel="noopener" target="_blank">
-                  {repo.name}
-                </a>
-              </Button>
+          {findAllSkills.data?.findAllSkills?.map((skill) => (
+            <li
+              className="inline-flex items-center justify-between gap-2 rounded border p-4"
+              id={skill.name}
+              key={skill.id}
+            >
+              <span>{skill.name}</span>
+              <span className="text-muted-foreground text-xs">{skill.category}</span>
             </li>
           ))}
         </ul>

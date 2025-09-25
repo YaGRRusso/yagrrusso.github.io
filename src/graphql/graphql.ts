@@ -257,10 +257,17 @@ export type UserUrl = {
   value: Scalars['String']['output'];
 };
 
-export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindOneUserByIdQueryVariables = Exact<{
+  findOneUserByIdId: Scalars['ID']['input'];
+}>;
 
 
-export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', id: string, email: string, name: string, role: string } };
+export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'User', address?: string | null, avatar?: string | null, birthDate?: string | null, description?: string | null, email: string, hobbies?: Array<string> | null, id: string, name: string, nickname: string, phone?: string | null, postalCode?: string | null, role: string, school?: string | null, title?: string | null, work?: string | null, urls?: Array<{ __typename?: 'UserUrl', code: string, value: string }> | null } };
+
+export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -281,13 +288,37 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
-export const GetMeDocument = new TypedDocumentString(`
-    query GetMe {
-  getMe {
-    id
+export const FindOneUserByIdDocument = new TypedDocumentString(`
+    query findOneUserById($findOneUserByIdId: ID!) {
+  findOneUserById(id: $findOneUserByIdId) {
+    address
+    avatar
+    birthDate
+    description
     email
+    hobbies
+    id
     name
+    nickname
+    phone
+    postalCode
     role
+    school
+    title
+    work
+    urls {
+      code
+      value
+    }
   }
 }
-    `) as unknown as TypedDocumentString<GetMeQuery, GetMeQueryVariables>;
+    `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
+export const FindAllSkillsDocument = new TypedDocumentString(`
+    query findAllSkills {
+  findAllSkills {
+    id
+    name
+    category
+  }
+}
+    `) as unknown as TypedDocumentString<FindAllSkillsQuery, FindAllSkillsQueryVariables>;

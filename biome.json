@@ -33,7 +33,8 @@
       "style": {
         "noNonNullAssertion": "off",
         "useFragmentSyntax": "off",
-        "noMagicNumbers": "off"
+        "noMagicNumbers": "off",
+        "useBlockStatements": "off"
       },
       "suspicious": {
         "noUnknownAtRules": "off",

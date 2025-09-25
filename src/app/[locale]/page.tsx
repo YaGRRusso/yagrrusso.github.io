@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { prefetchGetMe } from "@/hooks/queries/auth";
+import { prefetchFindOneUserById } from "@/hooks/queries/auth";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
@@ -30,7 +30,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchGetMe(queryClient);
+  await prefetchFindOneUserById(queryClient, { findOneUserByIdId: "68d06687630d57a95f056a01" });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -15,16 +15,22 @@ import * as types from './graphql';
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query GetMe {\n    getMe {\n      id\n      email\n      name\n      role\n    }\n  }\n": typeof types.GetMeDocument,
+    "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n": typeof types.FindOneUserByIdDocument,
+    "\n  query findAllSkills {\n    findAllSkills {\n      id\n      name\n      category\n    }\n  }\n": typeof types.FindAllSkillsDocument,
 };
 const documents: Documents = {
-    "\n  query GetMe {\n    getMe {\n      id\n      email\n      name\n      role\n    }\n  }\n": types.GetMeDocument,
+    "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n": types.FindOneUserByIdDocument,
+    "\n  query findAllSkills {\n    findAllSkills {\n      id\n      name\n      category\n    }\n  }\n": types.FindAllSkillsDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetMe {\n    getMe {\n      id\n      email\n      name\n      role\n    }\n  }\n"): typeof import('./graphql').GetMeDocument;
+export function graphql(source: "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n"): typeof import('./graphql').FindOneUserByIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query findAllSkills {\n    findAllSkills {\n      id\n      name\n      category\n    }\n  }\n"): typeof import('./graphql').FindAllSkillsDocument;
 
 
 export function graphql(source: string) {
