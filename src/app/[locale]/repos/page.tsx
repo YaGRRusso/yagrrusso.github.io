@@ -30,7 +30,6 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-
   await prefetchGetRepos(queryClient, { sort: "updated", type: "owner" });
 
   return (

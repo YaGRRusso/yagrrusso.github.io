@@ -1,6 +1,9 @@
+import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { prefetchGetMe } from "@/hooks/queries/auth";
 import { routing } from "@/i18n/routing";
+import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
 
@@ -26,5 +29,12 @@ export default async function Page({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <ClientPage />;
+  const queryClient = new QueryClient();
+  await prefetchGetMe(queryClient);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ClientPage />
+    </HydrationBoundary>
+  );
 }
