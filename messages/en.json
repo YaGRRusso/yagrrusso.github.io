@@ -4,17 +4,17 @@
       "title": "Yago Russo",
       "description": "This is Yago Russo's personal website."
     },
-    "reposPage": {
-      "title": "Repositories",
-      "description": "This page provides information about my repositories."
+    "skillsPage": {
+      "title": "Skills",
+      "description": "This page provides information about my skills."
     }
   },
   "homePage": {
     "title": "Yago Russo",
     "description": "This is Yago Russo's personal website."
   },
-  "reposPage": {
-    "title": "Repositories",
-    "description": "This page provides information about my repositories."
+  "skillsPage": {
+    "title": "Skills",
+    "description": "This page provides information about my skills."
   }
 }

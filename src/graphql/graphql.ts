@@ -40,6 +40,7 @@ export type CreateProjectTranslationLocaleInput = {
 export type CreateSkillInput = {
   category: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateUserInput = {
@@ -191,6 +192,7 @@ export type Skill = {
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -208,6 +210,7 @@ export type UpdateSkillInput = {
   category?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateUserInput = {
@@ -267,7 +270,7 @@ export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __
 export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string }> };
+export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug?: string | null }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -319,6 +322,7 @@ export const FindAllSkillsDocument = new TypedDocumentString(`
     id
     name
     category
+    slug
   }
 }
     `) as unknown as TypedDocumentString<FindAllSkillsQuery, FindAllSkillsQueryVariables>;

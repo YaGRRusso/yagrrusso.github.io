@@ -18,8 +18,8 @@ export function ClientPage() {
         <h1 className="text-5xl">{findOneUserById.data?.findOneUserById.name ?? t("title")}</h1>
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
-      <Link href="/repos">
-        <Button variant="outline">{tRoutes("reposPage.title")}</Button>
+      <Link href="/skills">
+        <Button variant="outline">{tRoutes("skillsPage.title")}</Button>
       </Link>
     </div>
   );

@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   return await generateSEO({
-    namespace: "reposPage",
-    path: "/repos",
+    namespace: "skillsPage",
+    path: "/skills",
     locale,
   });
 }

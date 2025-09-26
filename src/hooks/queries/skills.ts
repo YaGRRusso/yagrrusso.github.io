@@ -9,6 +9,7 @@ const findAllSkills = graphql(`
       id
       name
       category
+      slug
     }
   }
 `);
