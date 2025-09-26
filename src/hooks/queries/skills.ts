@@ -10,6 +10,7 @@ const findAllSkills = graphql(`
       name
       category
       slug
+      color
     }
   }
 `);
@@ -17,6 +18,4 @@ const findAllSkills = graphql(`
 export const { prefetch: prefetchFindAllSkills, use: useFindAllSkills } = defineQuery<
   FindAllSkillsQuery,
   FindAllSkillsQueryVariables
->("findAllSkills", async () => {
-  return await execute(findAllSkills).then((data) => data.data!);
-});
+>("findAllSkills", async () => await execute(findAllSkills).then((data) => data.data!));

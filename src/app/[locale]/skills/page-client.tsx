@@ -2,7 +2,7 @@
 
 import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
 import { Title } from "@/components/title";
 import { Alert } from "@/components/ui/alert";
@@ -29,7 +29,8 @@ export function ClientPage() {
   const filteredList = useMemo(() => {
     if (!findAllSkills.data?.findAllSkills) return [];
     return new QueryHelper(findAllSkills.data.findAllSkills)
-      .filter("category", category)
+      .filter("SOFT", "category", "!==")
+      .filter(category, "category")
       .query(q, ["name"])
       .sort("name")
       .exec();
@@ -69,9 +70,10 @@ export function ClientPage() {
           <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {filteredList?.map((skill) => (
               <li
-                className="flex flex-col items-center justify-center gap-2 rounded border p-4"
+                className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-[var(--skill-color)]"
                 id={skill.name}
                 key={skill.id}
+                style={{ "--skill-color": skill.color ?? "transparent" } as CSSProperties}
               >
                 <Avatar.Root>
                   <Avatar.Image alt={skill.name} src={simpleIconsCdn(skill.slug)} />

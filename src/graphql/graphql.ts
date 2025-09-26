@@ -273,7 +273,7 @@ export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __
 export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug: string }> };
+export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug: string, color?: string | null }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -326,6 +326,7 @@ export const FindAllSkillsDocument = new TypedDocumentString(`
     name
     category
     slug
+    color
   }
 }
     `) as unknown as TypedDocumentString<FindAllSkillsQuery, FindAllSkillsQueryVariables>;

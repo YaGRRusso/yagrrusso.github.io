@@ -1,6 +1,7 @@
 import lodash from "lodash";
 
-type Operator = undefined | "===" | "!==" | ">" | ">=" | "<" | "<=" | "includes";
+type Operator = undefined | "===" | "!==" | ">" | ">=" | "<" | "<=";
+type Order = undefined | "asc" | "desc";
 
 export class QueryHelper<T extends object> {
   private result: T[];
@@ -9,32 +10,27 @@ export class QueryHelper<T extends object> {
     this.result = [...data];
   }
 
-  filter<K extends keyof T>(key: K, value: any, operator?: Operator) {
+  filter<K extends keyof T>(term: any, key: K, operator?: Operator) {
     this.result = this.result.filter((item) => {
       const fieldValue = lodash.get(item, key as string);
 
       switch (operator) {
         case "===":
-          return fieldValue === value;
+          return fieldValue === term;
         case "!==":
-          return fieldValue !== value;
+          return fieldValue !== term;
         case ">":
-          return fieldValue > value;
+          return fieldValue > term;
         case ">=":
-          return fieldValue >= value;
+          return fieldValue >= term;
         case "<":
-          return fieldValue < value;
+          return fieldValue < term;
         case "<=":
-          return fieldValue <= value;
+          return fieldValue <= term;
         default:
-          return String(fieldValue).toLowerCase().includes(String(value).toLowerCase());
+          return String(fieldValue).toLowerCase().includes(String(term).toLowerCase());
       }
     });
-    return this;
-  }
-
-  sort<K extends keyof T>(key: K, order: "asc" | "desc" = "asc") {
-    this.result = lodash.orderBy(this.result, [key as string], [order]);
     return this;
   }
 
@@ -47,6 +43,11 @@ export class QueryHelper<T extends object> {
         return String(value).toLowerCase().includes(lowerTerm);
       });
     });
+    return this;
+  }
+
+  sort<K extends keyof T>(key: K, order: Order = "asc") {
+    this.result = lodash.orderBy(this.result, [key as string], [order]);
     return this;
   }
 
