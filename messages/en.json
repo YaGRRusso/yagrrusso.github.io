@@ -9,6 +9,12 @@
       "description": "This page provides information about my skills."
     }
   },
+  "common": {
+    "loadingTitle": "Loading",
+    "loadingDescription": "Please wait while the content is loading.",
+    "emptyTitle": "No items found",
+    "emptyDescription": "There are no items to display at the moment."
+  },
   "homePage": {
     "title": "Yago Russo",
     "description": "This is Yago Russo's personal website."
