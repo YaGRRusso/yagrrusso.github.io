@@ -34,7 +34,8 @@
         "noNonNullAssertion": "off",
         "useFragmentSyntax": "off",
         "noMagicNumbers": "off",
-        "useBlockStatements": "off"
+        "useBlockStatements": "off",
+        "useNamingConvention": "off"
       },
       "suspicious": {
         "noUnknownAtRules": "off",
