@@ -5,7 +5,6 @@ import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
-import { prefetchFindAllSkills } from "@/hooks/queries/skills";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -30,7 +29,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindAllSkills(queryClient);
+  // await prefetchFindAllSkills(queryClient);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
