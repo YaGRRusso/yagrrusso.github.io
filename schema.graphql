@@ -58,11 +58,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createProject(createProjectInput: CreateProjectInput!): Project!
-  createSkill(createSkillInput: CreateSkillInput!): Skill!
+  createProject(createProjectInput: [CreateProjectInput!]!): [Project!]!
+  createSkill(createSkillInput: [CreateSkillInput!]!): [Skill!]!
   createUser(createUserInput: CreateUserInput!): User!
-  removeProject(id: ID!): Project!
-  removeSkill(id: ID!): Skill!
+  removeProject(id: ID!): [Project!]!
+  removeSkill(id: ID!): [Skill!]!
   removeUser(id: ID!): User!
   signIn(signInInput: SignInInput!): String!
   updateProject(updateProjectInput: UpdateProjectInput!): Project!

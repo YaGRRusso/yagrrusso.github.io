@@ -69,11 +69,11 @@ export type CreateUserUrlInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createProject: Project;
-  createSkill: Skill;
+  createProject: Array<Project>;
+  createSkill: Array<Skill>;
   createUser: User;
-  removeProject: Project;
-  removeSkill: Skill;
+  removeProject: Array<Project>;
+  removeSkill: Array<Skill>;
   removeUser: User;
   signIn: Scalars['String']['output'];
   updateProject: Project;
@@ -83,12 +83,12 @@ export type Mutation = {
 
 
 export type MutationCreateProjectArgs = {
-  createProjectInput: CreateProjectInput;
+  createProjectInput: Array<CreateProjectInput>;
 };
 
 
 export type MutationCreateSkillArgs = {
-  createSkillInput: CreateSkillInput;
+  createSkillInput: Array<CreateSkillInput>;
 };
 
 

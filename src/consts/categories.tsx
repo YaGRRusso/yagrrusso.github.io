@@ -1,4 +1,16 @@
-import { CodeIcon, PackageIcon, ScribbleLoopIcon } from "@phosphor-icons/react";
+import {
+  BrainIcon,
+  CloudIcon,
+  CodeIcon,
+  DatabaseIcon,
+  DesktopIcon,
+  PackageIcon,
+  RocketIcon,
+  StackIcon,
+  StarIcon,
+  TestTubeIcon,
+  WrenchIcon,
+} from "@phosphor-icons/react";
 
 export const Categories = [
   {
@@ -7,13 +19,53 @@ export const Categories = [
     icon: <PackageIcon />,
   },
   {
-    label: "Development",
-    value: "DEV",
+    label: "Soft",
+    value: "SOFT",
+    icon: <BrainIcon />,
+  },
+  {
+    label: "Languages",
+    value: "LANGUAGE",
     icon: <CodeIcon />,
   },
   {
-    label: "Design",
-    value: "DESIGN",
-    icon: <ScribbleLoopIcon />,
+    label: "Frameworks",
+    value: "FRAMEWORK",
+    icon: <StackIcon />,
+  },
+  {
+    label: "Databases",
+    value: "DATABASE",
+    icon: <DatabaseIcon />,
+  },
+  {
+    label: "Tools",
+    value: "TOOL",
+    icon: <WrenchIcon />,
+  },
+  {
+    label: "Systems",
+    value: "SYSTEM",
+    icon: <DesktopIcon />,
+  },
+  {
+    label: "Testing",
+    value: "TESTING",
+    icon: <TestTubeIcon />,
+  },
+  {
+    label: "Patterns",
+    value: "PATTERN",
+    icon: <RocketIcon />,
+  },
+  {
+    label: "DevOps",
+    value: "DEVOPS",
+    icon: <CloudIcon />,
+  },
+  {
+    label: "Other",
+    value: "OTHER",
+    icon: <StarIcon />,
   },
 ];
