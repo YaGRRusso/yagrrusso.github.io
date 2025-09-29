@@ -56,7 +56,11 @@ export function ClientPage() {
           </Select.Content>
         </Select.Root>
       </div>
-      <List.Root isEmpty={!filteredList?.length} isLoading={findAllSkills.isLoading}>
+      <List.Root
+        isEmpty={!filteredList?.length}
+        isFetching={findAllSkills.isFetching}
+        isLoading={findAllSkills.isLoading}
+      >
         <List.Loading>
           <Skeleton className="h-64 w-full" />
         </List.Loading>
@@ -87,6 +91,7 @@ export function ClientPage() {
             ))}
           </ul>
         </List.Content>
+        <List.Info updatedAt={findAllSkills.dataUpdatedAt} />
       </List.Root>
     </div>
   );

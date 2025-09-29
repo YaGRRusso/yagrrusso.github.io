@@ -13,7 +13,15 @@
     "loadingTitle": "Carregando",
     "loadingDescription": "Por favor, aguarde enquanto o conteúdo está sendo carregado.",
     "emptyTitle": "Nenhum item encontrado",
-    "emptyDescription": "Não há itens para exibir no momento."
+    "emptyDescription": "Não há itens para exibir no momento.",
+    "errorTitle": "Ocorreu um erro",
+    "errorDescription": "Algo deu errado ao buscar os dados.",
+    "successTitle": "Operação bem-sucedida",
+    "successDescription": "A operação foi concluída com sucesso.",
+    "retryTitle": "Tentar novamente",
+    "retryDescription": "Clique para tentar novamente.",
+    "updatedAtTitle": "Atualizado em { date }",
+    "updatedAtDescription": "A última vez que os dados foram atualizados."
   },
   "homePage": {
     "title": "Yago Russo",

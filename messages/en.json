@@ -13,7 +13,15 @@
     "loadingTitle": "Loading",
     "loadingDescription": "Please wait while the content is loading.",
     "emptyTitle": "No items found",
-    "emptyDescription": "There are no items to display at the moment."
+    "emptyDescription": "There are no items to display at the moment.",
+    "errorTitle": "An error occurred",
+    "errorDescription": "Something went wrong while fetching the data.",
+    "successTitle": "Operation successful",
+    "successDescription": "The operation was completed successfully.",
+    "retryTitle": "Retry",
+    "retryDescription": "Click to try again.",
+    "updatedAtTitle": "Updated at { date }",
+    "updatedAtDescription": "The last time the data was updated."
   },
   "homePage": {
     "title": "Yago Russo",
