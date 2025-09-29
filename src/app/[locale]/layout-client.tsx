@@ -20,12 +20,12 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 600_000, // 10 minutes
-      retryDelay: 10_000, // 10 seconds
-      retry: 3,
+      retryDelay: 30_000, // 30 seconds
+      retry: 5,
     },
     mutations: {
-      retryDelay: 10_000, // 10 seconds
-      retry: 3,
+      retryDelay: 30_000, // 30 seconds
+      retry: 5,
     },
   },
 });
