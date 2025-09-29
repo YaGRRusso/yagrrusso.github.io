@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Wake up API
         run: |
-          curl --retry 3 --retry-delay 30 \
+          curl --retry 5 --retry-delay 30 \
             -X POST ${{ secrets.API_URL }} \
             -H "Content-Type: application/json" \
             -d '{"query":"{ __typename }"}' \
