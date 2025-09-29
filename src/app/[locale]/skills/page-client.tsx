@@ -75,7 +75,6 @@ export function ClientPage() {
             {filteredList?.map((skill) => (
               <li
                 className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-[var(--skill-color)]"
-                id={skill.name}
                 key={skill.id}
                 style={{ "--skill-color": skill.color ?? "transparent" } as CSSProperties}
               >

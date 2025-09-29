@@ -43,7 +43,7 @@ function ListInfo({ className, updatedAt, ...props }: ComponentProps<"div"> & { 
       <time dateTime={new Date(updatedAt ?? 0).toISOString()}>
         {updatedAt && tCommon("updatedAtTitle", { date: new Date(updatedAt).toLocaleString() })}
       </time>
-      <CircleNotchIcon className="animate-spin group-data-[state=content]:hidden" />
+      <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />
     </div>
   );
 }
