@@ -2,7 +2,8 @@
 
 import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { type CSSProperties, useMemo, useState } from "react";
+import { parseAsString, useQueryState } from "nuqs";
+import { type CSSProperties, useMemo } from "react";
 import { QueryHelper } from "@/classes/query";
 import { Title } from "@/components/title";
 import { Alert } from "@/components/ui/alert";
@@ -13,16 +14,20 @@ import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Categories } from "@/consts/categories";
 import { useFindAllSkills } from "@/hooks/queries/skills";
-import { useDebounce } from "@/hooks/reactive/useDebounce";
 import { simpleIconsCdn } from "@/lib/cdn";
+
+// const schema = z.object({
+//   category: z.string().optional(),
+//   query: z.string().optional(),
+// });
 
 export function ClientPage() {
   const t = useTranslations("skillsPage");
   const tCommon = useTranslations("common");
 
-  const [q, setQ] = useState("");
-  const [tempQ, setTempQ] = useState("");
-  const [category, setCategory] = useState<string>("");
+  // const [params, setParams] = useQueryState("params", parseAsJson(schema));
+  const [query, setQuery] = useQueryState("query", parseAsString.withDefault(""));
+  const [category, setCategory] = useQueryState("category", parseAsString.withDefault(""));
 
   const findAllSkills = useFindAllSkills();
 
@@ -31,18 +36,16 @@ export function ClientPage() {
     return new QueryHelper(findAllSkills.data.findAllSkills)
       .filter("SOFT", "category", "!==")
       .filter(category, "category")
-      .query(q, ["name"])
+      .query(query, ["name"])
       .sort("name")
       .exec();
-  }, [findAllSkills.data, q, category]);
-
-  useDebounce(() => setQ(tempQ), [tempQ], 500);
+  }, [findAllSkills.data, query, category]);
 
   return (
     <div className="flex flex-1 flex-col gap-4">
       <Title className="w-full" description={t("description")} title={t("title")} />
       <div className="flex w-full items-center gap-2">
-        <Input className="flex-1" onChange={(e) => setTempQ(e.target.value)} placeholder="Query" value={tempQ} />
+        <Input className="flex-1" onChange={(e) => setQuery(e.target.value)} placeholder="Query" value={query} />
         <Select.Root onValueChange={(value) => setCategory(value === "ALL" ? "" : value)} value={category}>
           <Select.Trigger className="max-w-52 flex-1">
             <Select.Value placeholder="Category" />
