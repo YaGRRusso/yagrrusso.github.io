@@ -6,7 +6,11 @@
 @utility container {
   margin-inline: auto;
   max-width: 1280px;
-  padding: 1rem;
+  padding: 1rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 }
 
 @utility ellipsis {
@@ -150,21 +154,9 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-0.5rem) rotate(2deg);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 transition-all;
   }
   body {
     @apply bg-background text-foreground;
