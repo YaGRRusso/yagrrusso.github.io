@@ -2,8 +2,7 @@
 
 import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { parseAsString, useQueryState } from "nuqs";
-import { type CSSProperties, useMemo } from "react";
+import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
 import { Title } from "@/components/title";
 import { Alert } from "@/components/ui/alert";
@@ -16,18 +15,12 @@ import { Categories } from "@/consts/categories";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
 
-// const schema = z.object({
-//   category: z.string().optional(),
-//   query: z.string().optional(),
-// });
-
 export function ClientPage() {
   const t = useTranslations("skillsPage");
   const tCommon = useTranslations("common");
 
-  // const [params, setParams] = useQueryState("params", parseAsJson(schema));
-  const [query, setQuery] = useQueryState("query", parseAsString.withDefault(""));
-  const [category, setCategory] = useQueryState("category", parseAsString.withDefault(""));
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('')
 
   const findAllSkills = useFindAllSkills();
 
