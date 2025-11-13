@@ -36,25 +36,13 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
   const { theme: preferredTheme, setTheme: setPreferredTheme } = usePreferencesStore();
 
   return (
-    <body className="flex min-h-screen flex-col" {...rest}>
+    <body className="flex min-h-screen flex-col font-inter" {...rest}>
       <NuqsAdapter>
         <header className="sticky top-0 z-10 w-full border-b bg-background py-2">
           <div className="container flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
             <Link className="flex items-center justify-center gap-x-2" href="/">
-              <Image
-                alt="Logo"
-                className="block h-10 w-10 dark:hidden"
-                height={32}
-                src="/favicon-black.svg"
-                width={32}
-              />
-              <Image
-                alt="Logo"
-                className="hidden h-10 w-10 dark:block"
-                height={32}
-                src="/favicon-white.svg"
-                width={32}
-              />
+              <Image alt="Logo" className="block size-8 dark:hidden" height={32} src="/favicon-black.svg" width={32} />
+              <Image alt="Logo" className="hidden size-8 dark:block" height={32} src="/favicon-white.svg" width={32} />
               <h2 className="font-semibold text-3xl tracking-wide">Yago Russo</h2>
             </Link>
             <div className="flex min-w-72 flex-1 items-center justify-center gap-2 sm:max-w-80">

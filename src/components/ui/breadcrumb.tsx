@@ -1,6 +1,7 @@
 import { CaretRightIcon, DotsThreeIcon } from "@phosphor-icons/react";
 import { Slot } from "@radix-ui/react-slot";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef } from "react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 function BreadcrumbRoot({ ...props }: ComponentProps<"nav">) {
@@ -28,12 +29,13 @@ function BreadcrumbLink({
   asChild,
   className,
   ...props
-}: ComponentProps<"a"> & {
+}: ComponentPropsWithoutRef<typeof Link> & {
   asChild?: boolean;
 }) {
-  const Comp = asChild ? Slot : "a";
+  const Comp = asChild ? Slot : Link;
 
   return (
+    // @ts-expect-error TypeScript is confused by the polymorphic 'asChild' prop
     <Comp
       className={cn("inline-flex items-center gap-x-1 transition-colors hover:text-foreground", className)}
       data-slot="breadcrumb-link"

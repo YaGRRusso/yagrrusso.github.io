@@ -5,13 +5,8 @@
 
 @utility container {
   margin-inline: auto;
+  max-width: 1280px;
   padding: 1rem;
-  max-width: 100%;
-
-  @media (min-width: 1440px) {
-    max-width: 1024px;
-    padding-inline: 2rem;
-  }
 }
 
 @utility ellipsis {
@@ -47,6 +42,8 @@
 }
 
 @theme inline {
+  --font-jetbrains-mono: var(--font-jetbrains-mono);
+  --font-inter: var(--font-inter);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -151,6 +148,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.5rem) rotate(2deg);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @layer base {
