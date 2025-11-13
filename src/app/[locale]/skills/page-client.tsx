@@ -19,8 +19,8 @@ export function ClientPage() {
   const t = useTranslations("skillsPage");
   const tCommon = useTranslations("common");
 
-  const [query, setQuery] = useState('')
-  const [category, setCategory] = useState('')
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
 
   const findAllSkills = useFindAllSkills();
 
@@ -36,10 +36,22 @@ export function ClientPage() {
 
   return (
     <div className="flex flex-1 flex-col gap-4">
-      <Title className="w-full" description={t("description")} title={t("title")} />
+      <Title
+        className="w-full"
+        description={t("description")}
+        title={t("title")}
+      />
       <div className="flex w-full items-center gap-2">
-        <Input className="flex-1" onChange={(e) => setQuery(e.target.value)} placeholder="Query" value={query} />
-        <Select.Root onValueChange={(value) => setCategory(value === "ALL" ? "" : value)} value={category}>
+        <Input
+          className="flex-1"
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Query"
+          value={query}
+        />
+        <Select.Root
+          onValueChange={(value) => setCategory(value === "ALL" ? "" : value)}
+          value={category}
+        >
           <Select.Trigger className="max-w-52 flex-1">
             <Select.Value placeholder="Category" />
           </Select.Trigger>
@@ -71,17 +83,27 @@ export function ClientPage() {
             {filteredList?.map((skill) => (
               <li
                 className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-[var(--skill-color)]"
+                id={skill.slug}
                 key={skill.id}
-                style={{ "--skill-color": skill.color ?? "transparent" } as CSSProperties}
+                style={
+                  {
+                    "--skill-color": skill.color ?? "transparent",
+                  } as CSSProperties
+                }
               >
                 <Avatar.Root>
-                  <Avatar.Image alt={skill.name} src={simpleIconsCdn(skill.slug)} />
+                  <Avatar.Image
+                    alt={skill.name}
+                    src={simpleIconsCdn(skill.slug)}
+                  />
                   <Avatar.Fallback>
                     <ImageBrokenIcon />
                   </Avatar.Fallback>
                 </Avatar.Root>
                 <span>{skill.name}</span>
-                <span className="text-muted-foreground text-xs">{skill.category}</span>
+                <span className="text-muted-foreground text-xs">
+                  {skill.category}
+                </span>
               </li>
             ))}
           </ul>

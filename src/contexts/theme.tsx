@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
 
 type Theme = Exclude<ThemePreference, "system">;
@@ -37,7 +43,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, [preferredTheme]);
 
-  return <ThemeContext.Provider value={{ theme }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ theme }}>{children}</ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {

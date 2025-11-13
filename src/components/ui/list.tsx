@@ -21,7 +21,14 @@ function ListRoot({
     return "content";
   }, [isLoading, isEmpty]);
 
-  return <div className={cn("group", className)} data-fetching={isFetching} data-state={state} {...props} />;
+  return (
+    <div
+      className={cn("group", className)}
+      data-fetching={isFetching}
+      data-state={state}
+      {...props}
+    />
+  );
 }
 
 function ListLoading(props: ComponentProps<typeof Slot>) {
@@ -35,13 +42,26 @@ function ListLoading(props: ComponentProps<typeof Slot>) {
   );
 }
 
-function ListInfo({ className, updatedAt, ...props }: ComponentProps<"div"> & { updatedAt?: number }) {
+function ListInfo({
+  className,
+  updatedAt,
+  ...props
+}: ComponentProps<"div"> & { updatedAt?: number }) {
   const tCommon = useTranslations("common");
 
   return (
-    <div className={cn("inline-flex items-center gap-1 py-3 text-muted-foreground text-xs", className)} {...props}>
+    <div
+      className={cn(
+        "inline-flex items-center gap-1 py-3 text-muted-foreground text-xs",
+        className
+      )}
+      {...props}
+    >
       <time dateTime={new Date(updatedAt ?? 0).toISOString()}>
-        {updatedAt && tCommon("updatedAtTitle", { date: new Date(updatedAt).toLocaleString() })}
+        {updatedAt &&
+          tCommon("updatedAtTitle", {
+            date: new Date(updatedAt).toLocaleString(),
+          })}
       </time>
       <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />
     </div>

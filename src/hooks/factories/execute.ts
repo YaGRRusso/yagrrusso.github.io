@@ -23,7 +23,9 @@ export async function execute<TResult, TVariables>(
   });
 
   if (!response.ok) {
-    const error = new Error(`Failed to fetch: ${response.status} ${response.statusText}`);
+    const error = new Error(
+      `Failed to fetch: ${response.status} ${response.statusText}`
+    );
     throw error;
   }
 

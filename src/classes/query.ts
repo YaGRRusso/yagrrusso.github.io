@@ -28,7 +28,9 @@ export class QueryHelper<T extends object> {
         case "<=":
           return fieldValue <= term;
         default:
-          return String(fieldValue).toLowerCase().includes(String(term).toLowerCase());
+          return String(fieldValue)
+            .toLowerCase()
+            .includes(String(term).toLowerCase());
       }
     });
     return this;

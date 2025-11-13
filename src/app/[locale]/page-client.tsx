@@ -20,7 +20,12 @@ export function ClientPage() {
           <h1 className="font-jetbrains-mono text-5xl">{t("title")}</h1>
           <p className="text-muted-foreground">{t("description")}</p>
           <div className="mt-4 flex items-center gap-4">
-            <Button asChild className="max-w-64 flex-1" size="sm" variant="outline">
+            <Button
+              asChild
+              className="max-w-64 flex-1"
+              size="sm"
+              variant="outline"
+            >
               <Link href="/skills">{tRoutes("skillsPage.title")}</Link>
             </Button>
           </div>

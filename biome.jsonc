@@ -1,36 +1,19 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/core", "ultracite/next", "ultracite/react"],
   "overrides": [
     {
       "includes": ["src/graphql/**"],
-      "linter": {
-        "enabled": false
-      },
-      "formatter": {
-        "enabled": false
-      }
+      "linter": { "enabled": false },
+      "formatter": { "enabled": false }
     }
   ],
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 120
-  },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "style": {
+        "useConsistentTypeDefinitions": "off",
         "noNonNullAssertion": "off",
         "useFragmentSyntax": "off",
         "noMagicNumbers": "off",
@@ -45,9 +28,6 @@
       },
       "performance": {
         "noNamespaceImport": "off"
-      },
-      "nursery": {
-        "useConsistentTypeDefinitions": "off"
       }
     },
     "domains": {
@@ -61,6 +41,5 @@
         "organizeImports": "on"
       }
     }
-  },
-  "extends": ["ultracite"]
+  }
 }

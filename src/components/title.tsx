@@ -14,7 +14,14 @@ interface Props extends ComponentProps<"div"> {
   }[];
 }
 
-export function Title({ children, className, title, description, path, ...props }: Props) {
+export function Title({
+  children,
+  className,
+  title,
+  description,
+  path,
+  ...props
+}: Props) {
   return (
     <div className={cn("flex flex-col gap-2 pb-4", className)} {...props}>
       <Breadcrumb.Root>

@@ -22,7 +22,13 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
 }
 
 function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
-  return <li className={cn("inline-flex items-center gap-1.5", className)} data-slot="breadcrumb-item" {...props} />;
+  return (
+    <li
+      className={cn("inline-flex items-center gap-1.5", className)}
+      data-slot="breadcrumb-item"
+      {...props}
+    />
+  );
 }
 
 function BreadcrumbLink({
@@ -37,7 +43,10 @@ function BreadcrumbLink({
   return (
     // @ts-expect-error TypeScript is confused by the polymorphic 'asChild' prop
     <Comp
-      className={cn("inline-flex items-center gap-x-1 transition-colors hover:text-foreground", className)}
+      className={cn(
+        "inline-flex items-center gap-x-1 transition-colors hover:text-foreground",
+        className
+      )}
       data-slot="breadcrumb-link"
       {...props}
     />
@@ -56,7 +65,11 @@ function BreadcrumbPage({ className, ...props }: ComponentProps<"span">) {
   );
 }
 
-function BreadcrumbSeparator({ children, className, ...props }: ComponentProps<"li">) {
+function BreadcrumbSeparator({
+  children,
+  className,
+  ...props
+}: ComponentProps<"li">) {
   return (
     <li
       aria-hidden="true"

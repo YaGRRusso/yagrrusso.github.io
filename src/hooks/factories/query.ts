@@ -1,4 +1,9 @@
-import { type QueryClient, queryOptions, type UndefinedInitialDataOptions, useQuery } from "@tanstack/react-query";
+import {
+  type QueryClient,
+  queryOptions,
+  type UndefinedInitialDataOptions,
+  useQuery,
+} from "@tanstack/react-query";
 
 export const defineQuery = <Data, Params = undefined>(
   queryKey: string,
@@ -12,11 +17,15 @@ export const defineQuery = <Data, Params = undefined>(
       queryFn: () => queryFn(params),
     });
 
-  const prefetch = (client: QueryClient, params?: Params) => client.prefetchQuery(options(params));
+  const prefetch = (client: QueryClient, params?: Params) =>
+    client.prefetchQuery(options(params));
 
   const use = (
     params?: Params,
-    opts?: Omit<UndefinedInitialDataOptions<Data, Error, Data, ReturnType<typeof key>>, "queryKey" | "queryFn">
+    opts?: Omit<
+      UndefinedInitialDataOptions<Data, Error, Data, ReturnType<typeof key>>,
+      "queryKey" | "queryFn"
+    >
   ) =>
     useQuery({
       ...options(params),

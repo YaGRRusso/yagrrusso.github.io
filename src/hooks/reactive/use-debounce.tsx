@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-export function useDebounce(callback: any, dependencies: any[], delay = 1000, skipMount = true) {
+export function useDebounce(
+  callback: any,
+  dependencies: any[],
+  delay = 1000,
+  skipMount = true
+) {
   const [isFirstRender, setIsFirstRender] = useState(skipMount);
 
   return useEffect(() => {

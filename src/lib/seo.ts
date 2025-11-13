@@ -11,7 +11,11 @@ type SEOOptions = {
   path?: string;
 };
 
-export async function generateSEO({ namespace, locale, path = "" }: SEOOptions): Promise<Metadata> {
+export async function generateSEO({
+  namespace,
+  locale,
+  path = "",
+}: SEOOptions): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace });
 
   const title = t("title");
@@ -21,7 +25,13 @@ export async function generateSEO({ namespace, locale, path = "" }: SEOOptions):
   const formattedPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
   const finalUrl = `${baseUrl}/${locale}${formattedPath}`;
 
-  const mainImagePath = ph.join(process.cwd(), "public", "images", "og", `${namespace.toLowerCase()}-${locale}.png`);
+  const mainImagePath = ph.join(
+    process.cwd(),
+    "public",
+    "images",
+    "og",
+    `${namespace.toLowerCase()}-${locale}.png`
+  );
   const mainImageExists = fs.existsSync(mainImagePath);
 
   const mainImageUrl = `${baseUrl}/images/og/${namespace.toLowerCase()}-${locale}.png`;
@@ -33,7 +43,12 @@ export async function generateSEO({ namespace, locale, path = "" }: SEOOptions):
     description,
     alternates: {
       canonical: finalUrl,
-      languages: Object.fromEntries(routing.locales.map((lang) => [lang, `${baseUrl}/${lang}${formattedPath}`])),
+      languages: Object.fromEntries(
+        routing.locales.map((lang) => [
+          lang,
+          `${baseUrl}/${lang}${formattedPath}`,
+        ])
+      ),
     },
     openGraph: {
       siteName: "Yago Russo",

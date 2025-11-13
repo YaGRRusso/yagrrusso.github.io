@@ -9,11 +9,15 @@ function SelectRoot({ ...props }: ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;
 }
 
-function SelectGroup({ ...props }: ComponentProps<typeof SelectPrimitive.Group>) {
+function SelectGroup({
+  ...props
+}: ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />;
 }
 
-function SelectValue({ ...props }: ComponentProps<typeof SelectPrimitive.Value>) {
+function SelectValue({
+  ...props
+}: ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />;
 }
 
@@ -78,7 +82,10 @@ function SelectContent({
   );
 }
 
-function SelectLabel({ className, ...props }: ComponentProps<typeof SelectPrimitive.Label>) {
+function SelectLabel({
+  className,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.Label>) {
   return (
     <SelectPrimitive.Label
       className={cn("px-2 py-1.5 text-muted-foreground text-xs", className)}
@@ -88,7 +95,11 @@ function SelectLabel({ className, ...props }: ComponentProps<typeof SelectPrimit
   );
 }
 
-function SelectItem({ className, children, ...props }: ComponentProps<typeof SelectPrimitive.Item>) {
+function SelectItem({
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       className={cn(
@@ -108,7 +119,10 @@ function SelectItem({ className, children, ...props }: ComponentProps<typeof Sel
   );
 }
 
-function SelectSeparator({ className, ...props }: ComponentProps<typeof SelectPrimitive.Separator>) {
+function SelectSeparator({
+  className,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.Separator>) {
   return (
     <SelectPrimitive.Separator
       className={cn("-mx-1 pointer-events-none my-1 h-px bg-border", className)}
@@ -118,10 +132,16 @@ function SelectSeparator({ className, ...props }: ComponentProps<typeof SelectPr
   );
 }
 
-function SelectScrollUpButton({ className, ...props }: ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
+function SelectScrollUpButton({
+  className,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
   return (
     <SelectPrimitive.ScrollUpButton
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
+      className={cn(
+        "flex cursor-default items-center justify-center py-1",
+        className
+      )}
       data-slot="select-scroll-up-button"
       {...props}
     >
@@ -130,10 +150,16 @@ function SelectScrollUpButton({ className, ...props }: ComponentProps<typeof Sel
   );
 }
 
-function SelectScrollDownButton({ className, ...props }: ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
+function SelectScrollDownButton({
+  className,
+  ...props
+}: ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
   return (
     <SelectPrimitive.ScrollDownButton
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
+      className={cn(
+        "flex cursor-default items-center justify-center py-1",
+        className
+      )}
       data-slot="select-scroll-down-button"
       {...props}
     >

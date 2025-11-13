@@ -8,7 +8,10 @@ import "@/styles/globals.css";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 type Props = {
@@ -26,7 +29,10 @@ export default async function Layout({ children, params }: Props) {
   }
 
   return (
-    <html className={cn(jetbrainsMono.variable, inter.variable)} lang={locale ?? routing.defaultLocale}>
+    <html
+      className={cn(jetbrainsMono.variable, inter.variable)}
+      lang={locale ?? routing.defaultLocale}
+    >
       <NextIntlClientProvider>
         <ClientLayout locale={locale}>{children}</ClientLayout>
       </NextIntlClientProvider>
