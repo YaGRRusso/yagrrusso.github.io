@@ -31,7 +31,7 @@
     "lodash": "^4.17.21",
     "motion": "^12.23.24",
     "next": "15.5.6",
-    "next-intl": "^4.5.2",
+    "next-intl": "^4.5.3",
     "radix-ui": "^1.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.15.1",
-    "@biomejs/biome": "^2.3.4",
+    "@biomejs/biome": "^2.3.5",
     "@graphql-codegen/cli": "^6.0.2",
     "@graphql-codegen/schema-ast": "^5.0.0",
     "@graphql-typed-document-node/core": "^3.2.0",
