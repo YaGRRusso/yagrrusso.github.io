@@ -27,7 +27,7 @@ export function ClientPage() {
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="flex flex-col">
         <div className="container relative flex min-h-[80vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="-z-10 absolute inset-0 overflow-hidden">
             <InteractiveGridPattern className="-skew-y-7 [mask-image:radial-gradient(24rem_circle_at_center,white,transparent)] max-md:h-1/2 md:ml-64" />
           </div>
           <div className="flex max-w-lg flex-1 flex-col gap-2">
