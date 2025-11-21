@@ -22,7 +22,7 @@ export async function generateSEO({
   const description = t("description");
 
   const baseUrl = "https://yagrrusso.github.io";
-  const formattedPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
+  const formattedPath = path.startsWith("/") ? path : `/${path}`;
   const finalUrl = `${baseUrl}/${locale}${formattedPath}`;
 
   const mainImagePath = ph.join(
