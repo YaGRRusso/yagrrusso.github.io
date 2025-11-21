@@ -1,21 +1,36 @@
 "use client";
 
-import { motion } from "motion/react";
+import {
+  CaretDownIcon,
+  ImageBrokenIcon,
+  MagnifyingGlassIcon,
+} from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { BackgroundBeams } from "@/components/ui/background-beams";
+import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Marquee } from "@/components/ui/marquee";
+import { Tooltip } from "@/components/ui/tooltip";
+import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
+import { simpleIconsCdn } from "@/lib/cdn";
 
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tRoutes = useTranslations("routes");
+
+  const findAllSkills = useFindAllSkills();
   // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-y-4">
-      <div className="container flex min-h-[80vh] w-full items-center justify-center gap-8 border-b max-md:flex-col-reverse">
-        <BackgroundBeams />
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="container relative flex min-h-[80vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
+        {/* <InteractiveGridPattern
+          className={cn(
+            "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+            "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+          )}
+        /> */}
         <div className="flex max-w-lg flex-1 flex-col gap-2">
           <span>Yago Russo</span>
           <h1 className="font-jetbrains-mono text-5xl">{t("title")}</h1>
@@ -48,22 +63,46 @@ export function ClientPage() {
             src="/images/sticker.png"
             width={512}
           />
-          <motion.div
-            animate={{
-              scale: [0.8, 1, 1, 0.8, 0.8],
-              rotate: [0, 0, 180, 180, 0],
-              borderRadius: ["5%", "5%", "50%", "50%", "5%"],
-            }}
-            className="-z-10 absolute top-0 aspect-square h-3/5 bg-accent/75"
-            transition={{
-              duration: 5,
-              repeat: Number.POSITIVE_INFINITY,
-              repeatDelay: 1,
-            }}
-          />
+          <div className="-z-10 absolute top-0 aspect-square h-3/5 rotate-45 rounded-4xl bg-accent/75" />
+        </div>
+        <div className="absolute bottom-2 flex flex-col items-center justify-center gap-1 text-muted-foreground text-xs opacity-75">
+          <span>{t("getToKnowMe")}</span>
+          <CaretDownIcon className="animate-bounce" />
         </div>
       </div>
-      <div>xxx</div>
+      <div className="group relative flex w-full flex-col items-center justify-center border-y">
+        <Marquee className="w-full gap-0" pauseOnHover>
+          <div className="flex items-center gap-16 p-8">
+            {findAllSkills.data?.findAllSkills?.map((skill) => (
+              <Tooltip.Root key={skill.id}>
+                <Tooltip.Trigger asChild>
+                  <Avatar.Root className="size-6 opacity-50 hover:opacity-100">
+                    <Avatar.Image
+                      alt={skill.name}
+                      src={simpleIconsCdn(skill.slug)}
+                    />
+                    <Avatar.Fallback>
+                      <ImageBrokenIcon />
+                    </Avatar.Fallback>
+                  </Avatar.Root>
+                </Tooltip.Trigger>
+                <Tooltip.Content>{skill.name}</Tooltip.Content>
+              </Tooltip.Root>
+            ))}
+          </div>
+        </Marquee>
+        <Button
+          className="absolute w-fit text-xs opacity-0 group-hover:opacity-100"
+          size="sm"
+          variant="outline"
+        >
+          {t("viewAll")}
+          <MagnifyingGlassIcon />
+        </Button>
+      </div>
+      {/* <div className="container">
+        <strong>Portfolio</strong>
+      </div> */}
     </div>
   );
 }

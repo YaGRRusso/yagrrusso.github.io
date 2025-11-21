@@ -25,7 +25,9 @@
   },
   "homePage": {
     "title": "Full-stack Software Engineer",
-    "description": "Bringing innovative, scalable, and efficient solutions to web development. Passionate about creating exceptional digital experiences that drive business success."
+    "description": "Bringing innovative, scalable, and efficient solutions to web development. Passionate about creating exceptional digital experiences that drive business success.",
+    "viewAll": "View All",
+    "getToKnowMe": "Get to Know Me"
   },
   "skillsPage": {
     "title": "Skills",

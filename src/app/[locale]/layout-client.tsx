@@ -38,7 +38,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
   return (
     <body className="flex min-h-screen flex-col font-inter" {...rest}>
       <header className="sticky top-0 z-10 w-full border-b bg-background py-2">
-        <div className="container flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+        <div className="container flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image
               alt="Logo"
@@ -100,7 +100,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
       </header>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <main className="flex flex-1 flex-col py-16">{children}</main>
+          <main className="flex flex-1 flex-col">{children}</main>
         </ThemeProvider>
       </QueryClientProvider>
     </body>
