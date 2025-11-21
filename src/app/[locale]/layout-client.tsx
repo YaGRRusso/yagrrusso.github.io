@@ -56,7 +56,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
             />
             <h2 className="font-semibold text-3xl tracking-wide">Yago Russo</h2>
           </Link>
-          <div className="flex min-w-72 flex-1 items-center justify-center gap-2 sm:max-w-80">
+          <div className="flex flex-1 flex-wrap items-center justify-center gap-2 sm:max-w-80">
             <Select.Root
               onValueChange={(ev) => redirect({ href: pathname, locale: ev })}
               value={locale}
@@ -79,6 +79,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
               </Select.Content>
             </Select.Root>
             <ToggleGroup.Root
+              className="flex-1"
               onValueChange={(value) => setPreferredTheme(value as any)}
               type="single"
               value={preferredTheme}
@@ -99,9 +100,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
       </header>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <main className="container flex flex-1 flex-col py-16">
-            {children}
-          </main>
+          <main className="flex flex-1 flex-col py-16">{children}</main>
         </ThemeProvider>
       </QueryClientProvider>
     </body>

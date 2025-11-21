@@ -14,8 +14,8 @@ export function ClientPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-y-4">
-      <BackgroundBeams />
-      <div className="flex w-full items-center justify-center gap-8 max-md:flex-col-reverse">
+      <div className="container flex min-h-[80vh] w-full items-center justify-center gap-8 border-b max-md:flex-col-reverse">
+        <BackgroundBeams />
         <div className="flex max-w-lg flex-1 flex-col gap-2">
           <span>Yago Russo</span>
           <h1 className="font-jetbrains-mono text-5xl">{t("title")}</h1>
@@ -44,6 +44,7 @@ export function ClientPage() {
             alt="Sticker"
             className="object-contain object-center opacity-90 drop-shadow-primary/25 drop-shadow-xl saturate-[75%] max-md:[mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]"
             height={512}
+            priority={true}
             src="/images/sticker.png"
             width={512}
           />
@@ -62,6 +63,7 @@ export function ClientPage() {
           />
         </div>
       </div>
+      <div>xxx</div>
     </div>
   );
 }

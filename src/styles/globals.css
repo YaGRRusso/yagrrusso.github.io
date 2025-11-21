@@ -6,10 +6,10 @@
 @utility container {
   margin-inline: auto;
   max-width: 1280px;
-  padding: 1rem 2rem;
+  padding: 2rem 3rem;
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 2rem 1.5rem;
   }
 }
 
