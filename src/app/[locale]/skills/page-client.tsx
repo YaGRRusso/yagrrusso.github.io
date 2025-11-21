@@ -35,7 +35,7 @@ export function ClientPage() {
   }, [findAllSkills.data, query, category]);
 
   return (
-    <div className="flex flex-1 flex-col gap-4">
+    <div className="container flex flex-1 flex-col gap-4">
       <Title
         className="w-full"
         description={t("description")}

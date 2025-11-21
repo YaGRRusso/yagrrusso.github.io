@@ -91,12 +91,15 @@ export function ClientPage() {
           </div>
         </Marquee>
         <Button
+          asChild
           className="absolute w-fit text-xs opacity-0 group-hover:opacity-100"
           size="sm"
           variant="outline"
         >
-          {t("viewAll")}
-          <MagnifyingGlassIcon />
+          <Link href="/skills">
+            {t("viewAll")}
+            <MagnifyingGlassIcon />
+          </Link>
         </Button>
       </div>
     </div>
