@@ -14,7 +14,7 @@ interface Props extends ComponentProps<"div"> {
   }[];
 }
 
-export function Title({
+export function PageTitle({
   children,
   className,
   title,

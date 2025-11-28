@@ -4,7 +4,7 @@ import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
-import { Title } from "@/components/title";
+import { PageTitle } from "@/components/page-title";
 import { Alert } from "@/components/ui/alert";
 import { Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,7 @@ export function ClientPage() {
 
   return (
     <div className="container flex flex-1 flex-col gap-4">
-      <Title
+      <PageTitle
         className="w-full"
         description={t("description")}
         title={t("title")}

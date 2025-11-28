@@ -27,7 +27,15 @@
     "title": "Full-stack Software Engineer",
     "description": "Trazendo soluções inovadoras, escaláveis e eficientes para o desenvolvimento web. Apaixonado por criar experiências digitais excepcionais que impulsionam o sucesso dos negócios.",
     "viewAll": "Ver tudo",
-    "meetMe": "Conheça-me"
+    "meetMe": "Conheça-me",
+    "infos": {
+      "name": "Nome",
+      "age": "Idade",
+      "address": "Endereço",
+      "email": "Email",
+      "phone": "Telefone",
+      "yearsOld": "{ age } anos"
+    }
   },
   "skillsPage": {
     "title": "Habilidades",
