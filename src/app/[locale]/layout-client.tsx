@@ -4,6 +4,7 @@ import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import type { ComponentProps } from "react";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ThemeProvider } from "@/contexts/theme";
@@ -97,6 +98,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
             </ToggleGroup.Root>
           </div>
         </div>
+        <ScrollProgress />
       </header>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>

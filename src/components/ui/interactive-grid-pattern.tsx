@@ -57,7 +57,7 @@ export function InteractiveGridPattern({
           // biome-ignore lint/a11y/noStaticElementInteractions: this is a demo component
           <rect
             className={cn(
-              "stroke-muted-foreground/30 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000",
+              "stroke-muted-foreground/30 transition-all duration-100 not-[&:hover]:duration-1000 ease-in-out",
               hoveredSquare === index
                 ? "fill-muted-foreground/30"
                 : "fill-transparent",

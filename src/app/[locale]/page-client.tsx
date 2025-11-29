@@ -47,7 +47,7 @@ export function ClientPage() {
     <div className="flex flex-1 flex-col items-center justify-center">
       <div className="container relative flex min-h-[80vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
         <div className="-z-10 absolute inset-0 overflow-hidden">
-          <InteractiveGridPattern className="-skew-y-7 [mask-image:radial-gradient(24rem_circle_at_center,white,transparent)] max-md:h-1/2 md:ml-64 max-md:[mask-image:radial-gradient(50vw_circle_at_center,white,transparent)]" />
+          <InteractiveGridPattern className="-skew-y-7 mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] max-md:h-1/2 md:ml-64" />
         </div>
         <div className="flex max-w-lg flex-1 flex-col gap-2">
           <span>Yago Russo</span>
@@ -77,7 +77,7 @@ export function ClientPage() {
         <div className="max-md:-mb-16 relative flex flex-1 items-center justify-center max-md:justify-center">
           <Image
             alt="Sticker"
-            className="object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-[75%] max-md:[mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]"
+            className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
             height={512}
             priority={true}
             src="/images/sticker.png"
@@ -125,7 +125,7 @@ export function ClientPage() {
         </Button>
       </div>
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-        <DotPattern className="opacity-30 [mask-image:radial-gradient(20rem_circle_at_center,white,transparent)]" />
+        <DotPattern className="mask-[radial-gradient(20rem_circle_at_center,white,transparent)] opacity-30" />
         <SectionTitle description="My Intro" id="my-intro" title="About Me" />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
           <p className="w-full text-center text-muted-foreground">
