@@ -41,7 +41,6 @@ function BreadcrumbLink({
   const Comp = asChild ? Slot : Link;
 
   return (
-    // @ts-expect-error TypeScript is confused by the polymorphic 'asChild' prop
     <Comp
       className={cn(
         "inline-flex items-center gap-x-1 transition-colors hover:text-foreground",
