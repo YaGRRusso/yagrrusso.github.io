@@ -19,7 +19,7 @@ export function ScrollProgress({
   return (
     <motion.div
       className={cn(
-        "absolute inset-x-0 bottom-0 z-50 h-px origin-left bg-linear-to-r from-[#A97CF8] via-[#F38CB8] to-[#FDCC92]",
+        "absolute inset-x-0 bottom-0 z-50 h-px origin-left bg-linear-to-r from-primary/40 to-primary",
         className
       )}
       ref={ref}

@@ -23,6 +23,10 @@
     "updatedAtTitle": "Atualizado em { date }",
     "updatedAtDescription": "A última vez que os dados foram atualizados."
   },
+  "layout": {
+    "rightsReserved": "© { year } Yago Russo. Todos os direitos reservados.",
+    "updatedAt": "Atualizado em { date }."
+  },
   "homePage": {
     "title": "Full-stack Software Engineer",
     "description": "Trazendo soluções inovadoras, escaláveis e eficientes para o desenvolvimento web. Apaixonado por criar experiências digitais excepcionais que impulsionam o sucesso dos negócios.",

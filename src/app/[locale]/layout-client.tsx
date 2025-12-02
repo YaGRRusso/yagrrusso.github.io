@@ -3,6 +3,7 @@
 import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Select } from "@/components/ui/select";
@@ -32,6 +33,7 @@ const queryClient = new QueryClient({
 });
 
 export function ClientLayout({ locale, children, ...rest }: Props) {
+  const t = useTranslations("layout");
   const pathname = usePathname();
   const { theme: preferredTheme, setTheme: setPreferredTheme } =
     usePreferencesStore();
@@ -105,6 +107,22 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
           <main className="flex flex-1 flex-col">{children}</main>
         </ThemeProvider>
       </QueryClientProvider>
+      <footer className="border-t bg-background">
+        <div className="container flex flex-wrap items-center justify-between gap-1 py-2 text-center text-muted-foreground text-xs">
+          <span>{t("rightsReserved", { year: new Date().getFullYear() })}</span>
+          <span>
+            {t("updatedAt", {
+              date: new Date(
+                process.env.NEXT_PUBLIC_BUILD_DATE ?? new Date()
+              ).toLocaleDateString(locale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }),
+            })}
+          </span>
+        </div>
+      </footer>
     </body>
   );
 }
