@@ -30,16 +30,16 @@
     "cmdk": "^1.1.1",
     "dotenv": "^17.2.3",
     "lodash": "^4.17.21",
-    "motion": "^12.23.24",
-    "next": "16.0.5",
-    "next-intl": "^4.5.6",
+    "motion": "^12.23.25",
+    "next": "16.0.6",
+    "next-intl": "^4.5.7",
     "radix-ui": "^1.4.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "rough-notation": "^0.5.1",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.1.13",
-    "zustand": "^5.0.8"
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.15.1",
