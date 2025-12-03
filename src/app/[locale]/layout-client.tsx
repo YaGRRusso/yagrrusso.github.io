@@ -1,6 +1,14 @@
 "use client";
 
-import { DesktopIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import {
+  DesktopIcon,
+  EnvelopeIcon,
+  GithubLogoIcon,
+  LinkedinLogoIcon,
+  MoonIcon,
+  SunIcon,
+  WhatsappLogoIcon,
+} from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -108,8 +116,42 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
         </ThemeProvider>
       </QueryClientProvider>
       <footer className="border-t bg-background">
-        <div className="container flex flex-wrap items-center justify-between gap-1 py-2 text-center text-muted-foreground text-xs">
+        <div className="container flex items-center justify-between gap-2 py-2 text-center text-muted-foreground text-xs max-sm:flex-col">
           <span>{t("rightsReserved", { year: new Date().getFullYear() })}</span>
+          <div className="flex items-center gap-2 text-base">
+            <a
+              className="hover:text-foreground"
+              href="https://github.com/yagrrusso"
+              rel="noopener"
+              target="_blank"
+            >
+              <GithubLogoIcon />
+            </a>
+            <a
+              className="hover:text-foreground"
+              href="https://www.linkedin.com/in/yago-russo/"
+              rel="noopener"
+              target="_blank"
+            >
+              <LinkedinLogoIcon />
+            </a>
+            <a
+              className="hover:text-foreground"
+              href="https://wa.me/5551986824203"
+              rel="noopener"
+              target="_blank"
+            >
+              <WhatsappLogoIcon />
+            </a>
+            <a
+              className="hover:text-foreground"
+              href="mailto:yagrrusso@gmail.com"
+              rel="noopener"
+              target="_blank"
+            >
+              <EnvelopeIcon />
+            </a>
+          </div>
           <span>
             {t("updatedAt", {
               date: new Date(
@@ -118,6 +160,8 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
               }),
             })}
           </span>
