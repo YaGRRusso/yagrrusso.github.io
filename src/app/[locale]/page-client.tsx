@@ -20,12 +20,45 @@ import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { Marquee } from "@/components/ui/marquee";
+import { Separator } from "@/components/ui/separator";
+import { Timeline } from "@/components/ui/timeline";
 import { Tooltip } from "@/components/ui/tooltip";
 import { isDarkColor } from "@/helpers/color";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
+
+const items = [
+  {
+    date: "Mar 15, 2024",
+    description:
+      "Initial team meeting and project scope definition. Established key milestones and resource allocation.",
+    id: 1,
+    title: "Project Kickoff",
+  },
+  {
+    date: "Mar 22, 2024",
+    description:
+      "Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.",
+    id: 2,
+    title: "Design Phase",
+  },
+  {
+    date: "Apr 5, 2024",
+    description:
+      "Backend API implementation and frontend component development in progress.",
+    id: 3,
+    title: "Development Sprint",
+  },
+  {
+    date: "Apr 19, 2024",
+    description:
+      "Quality assurance testing, performance optimization, and production deployment preparation.",
+    id: 4,
+    title: "Testing & Deployment",
+  },
+];
 
 export function ClientPage() {
   const t = useTranslations("homePage");
@@ -85,7 +118,8 @@ export function ClientPage() {
           />
         </div>
       </div>
-      <div className="group relative flex w-full flex-col items-center justify-center border-y">
+      <Separator />
+      <div className="group relative flex w-full flex-col items-center justify-center">
         <Marquee className="w-full gap-0" pauseOnHover>
           <div className="flex items-center gap-16 p-8">
             {findAllSkills.data?.findAllSkills?.map((skill) => (
@@ -124,8 +158,8 @@ export function ClientPage() {
           </Link>
         </Button>
       </div>
+      <Separator />
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-        <DotPattern className="mask-[radial-gradient(20rem_circle_at_center,white,transparent)] opacity-30" />
         <SectionTitle description="My Intro" id="my-intro" title="About Me" />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
           <p className="w-full text-center text-muted-foreground">
@@ -163,6 +197,62 @@ export function ClientPage() {
               title={t("infos.address")}
             />
           </div>
+        </div>
+      </div>
+      <Separator />
+      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+        <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
+        <SectionTitle
+          description="My Portfolio"
+          id="my-portfolio"
+          title="Recent and Notable Works"
+        />
+        <div className="grid w-full grid-cols-3 gap-6 max-md:grid-cols-1 max-lg:grid-cols-2">
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <Button asChild className="col-span-full" size="sm" variant="outline">
+            <Link href="/portfolio">{t("viewAll")}</Link>
+          </Button>
+        </div>
+      </div>
+      <Separator />
+      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+        <SectionTitle
+          description="My Qualifications"
+          id="my-qualifications"
+          title="Education and Experience"
+        />
+        <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
+          <Timeline.Root defaultValue={3}>
+            {items.map((item) => (
+              <Timeline.Item key={item.id} step={item.id}>
+                <Timeline.Header>
+                  <Timeline.Separator />
+                  <Timeline.Date>{item.date}</Timeline.Date>
+                  <Timeline.Title>{item.title}</Timeline.Title>
+                  <Timeline.Indicator />
+                </Timeline.Header>
+                <Timeline.Content>{item.description}</Timeline.Content>
+              </Timeline.Item>
+            ))}
+          </Timeline.Root>
+          <Timeline.Root defaultValue={3}>
+            {items.map((item) => (
+              <Timeline.Item key={item.id} step={item.id}>
+                <Timeline.Header>
+                  <Timeline.Separator />
+                  <Timeline.Date>{item.date}</Timeline.Date>
+                  <Timeline.Title>{item.title}</Timeline.Title>
+                  <Timeline.Indicator />
+                </Timeline.Header>
+                <Timeline.Content>{item.description}</Timeline.Content>
+              </Timeline.Item>
+            ))}
+          </Timeline.Root>
         </div>
       </div>
     </div>
