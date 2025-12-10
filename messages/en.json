@@ -32,6 +32,10 @@
     "description": "Bringing innovative, scalable, and efficient solutions to web development. Passionate about creating exceptional digital experiences that drive business success.",
     "viewAll": "View All",
     "meetMe": "Meet me",
+    "yearsOfExperience": "Years of Experience",
+    "projectsCompleted": "Projects Completed",
+    "technologiesUsed": "Technologies Used",
+    "clientsServed": "Clients Served",
     "infos": {
       "name": "Name",
       "age": "Age",
@@ -39,6 +43,20 @@
       "email": "Email",
       "phone": "Phone",
       "yearsOld": "{ age } years old"
+    },
+    "sections": {
+      "aboutMe": {
+        "title": "About Me",
+        "description": "My Intro"
+      },
+      "myPortfolio": {
+        "title": "Recent and Notable Works",
+        "description": "My Portfolio"
+      },
+      "myQualifications": {
+        "title": "Education and Experience",
+        "description": "My Qualifications"
+      }
     }
   },
   "skillsPage": {

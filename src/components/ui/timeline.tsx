@@ -1,11 +1,14 @@
 "use client";
 
+import { useInView } from "motion/react";
 import { Slot } from "radix-ui";
 import {
   createContext,
   type HTMLAttributes,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import { cn } from "@/lib/utils";
@@ -13,6 +16,7 @@ import { cn } from "@/lib/utils";
 type TimelineContextValue = {
   activeStep: number;
   setActiveStep: (step: number) => void;
+  scrollReveal?: boolean;
 };
 
 const TimelineContext = createContext<TimelineContextValue | undefined>(
@@ -27,19 +31,42 @@ const useTimeline = () => {
   return context;
 };
 
+interface TimelineProgressProps extends HTMLAttributes<HTMLDivElement> {}
+
+function TimelineProgress({ className, ...props }: TimelineProgressProps) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        "sticky bottom-[calc(15%-1rem)] size-4 rounded-full bg-primary/10",
+        className
+      )}
+      data-slot="timeline-progress"
+      {...props}
+    />
+  );
+}
+
 interface TimelineProps extends HTMLAttributes<HTMLDivElement> {
   defaultValue?: number;
+  currentValue?: number;
   value?: number;
   onValueChange?: (value: number) => void;
   orientation?: "horizontal" | "vertical";
+  scrollReveal?: boolean;
+  scrollProgress?: boolean;
 }
 
 function TimelineRoot({
-  defaultValue = 1,
+  defaultValue = 0,
+  currentValue,
   value,
   onValueChange,
   orientation = "vertical",
+  scrollReveal = false,
+  scrollProgress = false,
   className,
+  children,
   ...props
 }: TimelineProps) {
   const [activeStep, setInternalStep] = useState(defaultValue);
@@ -54,21 +81,24 @@ function TimelineRoot({
     [value, onValueChange]
   );
 
-  const currentStep = value ?? activeStep;
+  const currentStep = currentValue ?? value ?? activeStep;
 
   return (
     <TimelineContext.Provider
-      value={{ activeStep: currentStep, setActiveStep }}
+      value={{ activeStep: currentStep, setActiveStep, scrollReveal }}
     >
       <div
         className={cn(
-          "group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col",
+          "group/timeline relative flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col",
           className
         )}
         data-orientation={orientation}
         data-slot="timeline"
         {...props}
-      />
+      >
+        {children}
+        {scrollProgress && <TimelineProgress />}
+      </div>
     </TimelineContext.Provider>
   );
 }
@@ -154,18 +184,29 @@ function TimelineItem({
   className,
   ...props
 }: TimelineItemProps) {
-  const { activeStep } = useTimeline();
+  const { activeStep, setActiveStep, scrollReveal } = useTimeline();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "-15%" });
+
+  useEffect(() => {
+    if (scrollReveal && inView) {
+      setActiveStep(step);
+    } else {
+      setActiveStep(step - 1);
+    }
+  }, [scrollReveal, inView, step, setActiveStep]);
 
   return (
     <div
       className={cn(
-        "group/timeline-item relative flex flex-1 flex-col gap-0.5 has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-primary group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:not-last:pb-12",
+        "group/timeline-item relative flex flex-1 flex-col gap-0.5 transition-all has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-primary group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:not-last:pb-12",
         alternate &&
           "even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:-right-6 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:-right-6 w-[calc(50%-1.5rem)] odd:ms-auto even:text-right even:group-data-[orientation=vertical]/timeline:ms-0 even:group-data-[orientation=vertical]/timeline:me-8 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:left-auto even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:left-auto even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:translate-x-1/2 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:translate-x-1/2",
         className
       )}
       data-completed={step <= activeStep || undefined}
       data-slot="timeline-item"
+      ref={ref}
       {...props}
     />
   );

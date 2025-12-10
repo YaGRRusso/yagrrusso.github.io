@@ -32,6 +32,10 @@
     "description": "Trazendo soluções inovadoras, escaláveis e eficientes para o desenvolvimento web. Apaixonado por criar experiências digitais excepcionais que impulsionam o sucesso dos negócios.",
     "viewAll": "Ver tudo",
     "meetMe": "Conheça-me",
+    "yearsOfExperience": "Anos de Experiência",
+    "projectsCompleted": "Projetos Concluídos",
+    "technologiesUsed": "Tecnologias Utilizadas",
+    "clientsServed": "Clientes Atendidos",
     "infos": {
       "name": "Nome",
       "age": "Idade",
@@ -39,6 +43,20 @@
       "email": "Email",
       "phone": "Telefone",
       "yearsOld": "{ age } anos"
+    },
+    "sections": {
+      "aboutMe": {
+        "title": "Sobre Mim",
+        "description": "Minha Introdução"
+      },
+      "myPortfolio": {
+        "title": "Trabalhos Recentes e Notáveis",
+        "description": "Meu Portfólio"
+      },
+      "myQualifications": {
+        "title": "Educação e Experiência",
+        "description": "Minhas Qualificações"
+      }
     }
   },
   "skillsPage": {

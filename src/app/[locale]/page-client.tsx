@@ -62,7 +62,6 @@ const items = [
 
 export function ClientPage() {
   const t = useTranslations("homePage");
-  const tRoutes = useTranslations("routes");
 
   const birth = useMemo(() => {
     const birthDate = new Date(2001, 10, 30);
@@ -88,23 +87,20 @@ export function ClientPage() {
             <Highlighter action="underline">{t("title")}</Highlighter>
           </h1>
           <p className="text-muted-foreground">{t("description")}</p>
-          <div className="mt-4 flex items-center gap-2">
-            <Button
-              asChild
-              className="max-w-64 flex-1"
-              size="sm"
-              variant="outline"
-            >
-              <Link href="/skills">{tRoutes("skillsPage.title")}</Link>
-            </Button>
-            <Button
-              asChild
-              className="max-w-64 flex-1"
-              size="sm"
-              variant="outline"
-            >
-              <Link href="/skills">{tRoutes("skillsPage.title")}</Link>
-            </Button>
+          <div className="mt-6 flex justify-between gap-2">
+            <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+              <strong className="text-5xl">
+                5<span className="text-primary-foreground">+</span>
+              </strong>
+              <span className="max-w-28 text-sm">{t("yearsOfExperience")}</span>
+            </div>
+            <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+              <strong className="text-5xl">
+                {findAllSkills.data?.findAllSkills?.length}
+                <span className="text-primary-foreground">+</span>
+              </strong>
+              <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
+            </div>
           </div>
         </div>
         <div className="max-md:-mb-16 relative flex flex-1 items-center justify-center max-md:justify-center">
@@ -160,7 +156,11 @@ export function ClientPage() {
       </div>
       <Separator />
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-        <SectionTitle description="My Intro" id="my-intro" title="About Me" />
+        <SectionTitle
+          description={t("sections.aboutMe.description")}
+          id="my-intro"
+          title={t("sections.aboutMe.title")}
+        />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
           <p className="w-full text-center text-muted-foreground">
             lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -203,9 +203,9 @@ export function ClientPage() {
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
         <SectionTitle
-          description="My Portfolio"
+          description={t("sections.myPortfolio.description")}
           id="my-portfolio"
-          title="Recent and Notable Works"
+          title={t("sections.myPortfolio.title")}
         />
         <div className="grid w-full grid-cols-3 gap-6 max-md:grid-cols-1 max-lg:grid-cols-2">
           <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
@@ -222,12 +222,12 @@ export function ClientPage() {
       <Separator />
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
-          description="My Qualifications"
+          description={t("sections.myQualifications.description")}
           id="my-qualifications"
-          title="Education and Experience"
+          title={t("sections.myQualifications.title")}
         />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <Timeline.Root defaultValue={3}>
+          <Timeline.Root scrollProgress scrollReveal>
             {items.map((item) => (
               <Timeline.Item key={item.id} step={item.id}>
                 <Timeline.Header>
@@ -240,7 +240,7 @@ export function ClientPage() {
               </Timeline.Item>
             ))}
           </Timeline.Root>
-          <Timeline.Root defaultValue={3}>
+          <Timeline.Root scrollProgress scrollReveal>
             {items.map((item) => (
               <Timeline.Item key={item.id} step={item.id}>
                 <Timeline.Header>
