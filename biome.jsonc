@@ -2,13 +2,7 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite/core", "ultracite/next", "ultracite/react"],
   "files": {
-    "includes": [
-      "**",
-      "!!**/out",
-      "!!**/.next",
-      "!!**/node_modules",
-      "!!**/graphql"
-    ]
+    "includes": ["!!**/out", "!!**/.next", "!!**/node_modules", "!!**/graphql"]
   },
   "linter": {
     "enabled": true,
