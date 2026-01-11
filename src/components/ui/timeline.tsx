@@ -1,6 +1,5 @@
 "use client";
 
-import { useInView } from "motion/react";
 import { Slot } from "radix-ui";
 import {
   createContext,
@@ -16,7 +15,6 @@ import { cn } from "@/lib/utils";
 type TimelineContextValue = {
   activeStep: number;
   setActiveStep: (step: number) => void;
-  scrollReveal?: boolean;
 };
 
 const TimelineContext = createContext<TimelineContextValue | undefined>(
@@ -31,30 +29,12 @@ const useTimeline = () => {
   return context;
 };
 
-interface TimelineProgressProps extends HTMLAttributes<HTMLDivElement> {}
-
-function TimelineProgress({ className, ...props }: TimelineProgressProps) {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn(
-        "sticky bottom-[calc(15%-1rem)] size-4 rounded-full bg-primary/10",
-        className
-      )}
-      data-slot="timeline-progress"
-      {...props}
-    />
-  );
-}
-
 interface TimelineProps extends HTMLAttributes<HTMLDivElement> {
   defaultValue?: number;
   currentValue?: number;
   value?: number;
   onValueChange?: (value: number) => void;
   orientation?: "horizontal" | "vertical";
-  scrollReveal?: boolean;
-  scrollProgress?: boolean;
 }
 
 function TimelineRoot({
@@ -63,8 +43,6 @@ function TimelineRoot({
   value,
   onValueChange,
   orientation = "vertical",
-  scrollReveal = false,
-  scrollProgress = false,
   className,
   children,
   ...props
@@ -85,7 +63,7 @@ function TimelineRoot({
 
   return (
     <TimelineContext.Provider
-      value={{ activeStep: currentStep, setActiveStep, scrollReveal }}
+      value={{ activeStep: currentStep, setActiveStep }}
     >
       <div
         className={cn(
@@ -97,7 +75,6 @@ function TimelineRoot({
         {...props}
       >
         {children}
-        {scrollProgress && <TimelineProgress />}
       </div>
     </TimelineContext.Provider>
   );
@@ -184,17 +161,12 @@ function TimelineItem({
   className,
   ...props
 }: TimelineItemProps) {
-  const { activeStep, setActiveStep, scrollReveal } = useTimeline();
+  const { activeStep, setActiveStep } = useTimeline();
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-15%" });
 
   useEffect(() => {
-    if (scrollReveal && inView) {
-      setActiveStep(step);
-    } else {
-      setActiveStep(step - 1);
-    }
-  }, [scrollReveal, inView, step, setActiveStep]);
+    setActiveStep(step);
+  }, [step, setActiveStep]);
 
   return (
     <div

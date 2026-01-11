@@ -214,9 +214,16 @@ export function ClientPage() {
           <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
           <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
           <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <Button asChild className="col-span-full" size="sm" variant="outline">
-            <Link href="/portfolio">{t("viewAll")}</Link>
-          </Button>
+          <div className="col-span-full flex items-center justify-center">
+            <Button
+              asChild
+              className="w-full max-w-70"
+              size="sm"
+              variant="outline"
+            >
+              <Link href="/portfolio">{t("viewAll")}</Link>
+            </Button>
+          </div>
         </div>
       </div>
       <Separator />
@@ -227,7 +234,7 @@ export function ClientPage() {
           title={t("sections.myQualifications.title")}
         />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <Timeline.Root scrollProgress scrollReveal>
+          <Timeline.Root>
             {items.map((item) => (
               <Timeline.Item key={item.id} step={item.id}>
                 <Timeline.Header>
@@ -240,7 +247,7 @@ export function ClientPage() {
               </Timeline.Item>
             ))}
           </Timeline.Root>
-          <Timeline.Root scrollProgress scrollReveal>
+          <Timeline.Root>
             {items.map((item) => (
               <Timeline.Item key={item.id} step={item.id}>
                 <Timeline.Header>
