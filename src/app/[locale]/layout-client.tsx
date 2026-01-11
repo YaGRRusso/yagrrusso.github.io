@@ -12,14 +12,15 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ComponentProps } from "react";
+import { type ComponentProps, useCallback, useRef } from "react";
+import { flushSync } from "react-dom";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link, redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, localeNames, routing } from "@/i18n/routing";
-import { usePreferencesStore } from "@/stores/theme";
+import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
 
 interface Props extends ComponentProps<"body"> {
   locale: Locale;
@@ -45,6 +46,51 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
   const pathname = usePathname();
   const { theme: preferredTheme, setTheme: setPreferredTheme } =
     usePreferencesStore();
+
+  const lastInteractionRef = useRef<{ x: number; y: number } | null>(null);
+
+  const changeTheme = useCallback(
+    async (preference: ThemePreference) => {
+      if (
+        !document.startViewTransition ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        setPreferredTheme(preference);
+        return;
+      }
+
+      const transition = document.startViewTransition(() => {
+        flushSync(() => {
+          setPreferredTheme(preference);
+        });
+      });
+
+      const x = lastInteractionRef.current?.x ?? window.innerWidth / 2;
+      const y = lastInteractionRef.current?.y ?? window.innerHeight / 2;
+
+      const right = window.innerWidth - x;
+      const bottom = window.innerHeight - y;
+
+      const maxRadius = Math.hypot(Math.max(x, right), Math.max(y, bottom));
+
+      await transition.ready;
+
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${maxRadius}px at ${x}px ${y}px)`,
+      ];
+
+      document.documentElement.animate(
+        { clipPath },
+        {
+          duration: 500,
+          easing: "ease-in-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
+    },
+    [setPreferredTheme]
+  );
 
   return (
     <body className="flex min-h-screen flex-col font-inter" {...rest}>
@@ -91,7 +137,10 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
             </Select.Root>
             <ToggleGroup.Root
               className="flex-1"
-              onValueChange={(value) => setPreferredTheme(value as any)}
+              onPointerDown={(e) => {
+                lastInteractionRef.current = { x: e.clientX, y: e.clientY };
+              }}
+              onValueChange={(value) => changeTheme(value as ThemePreference)}
               type="single"
               value={preferredTheme}
               variant="outline"

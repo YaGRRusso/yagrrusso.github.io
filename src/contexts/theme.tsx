@@ -4,7 +4,7 @@ import {
   createContext,
   type ReactNode,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
@@ -21,7 +21,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const { theme: preferredTheme } = usePreferencesStore();
   const [theme, setTheme] = useState<Theme>("light");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     switch (preferredTheme) {
       case "dark":
         document.documentElement.classList.add("dark");
