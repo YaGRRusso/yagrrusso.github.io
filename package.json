@@ -32,7 +32,7 @@
     "cmdk": "^1.1.1",
     "dotenv": "^17.2.3",
     "lodash": "^4.17.21",
-    "motion": "^12.25.0",
+    "motion": "^12.26.1",
     "next": "16.1.1",
     "next-intl": "^4.7.0",
     "radix-ui": "^1.4.3",
@@ -41,7 +41,7 @@
     "rough-notation": "^0.5.1",
     "tailwind-merge": "^3.4.0",
     "zod": "^4.3.5",
-    "zustand": "^5.0.9"
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.15.2",
@@ -49,7 +49,7 @@
     "@graphql-codegen/cli": "^6.1.1",
     "@graphql-codegen/schema-ast": "^5.0.0",
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@parcel/watcher": "^2.5.1",
+    "@parcel/watcher": "^2.5.4",
     "@tailwindcss/postcss": "^4",
     "@types/lodash": "^4.17.23",
     "@types/node": "^24",
