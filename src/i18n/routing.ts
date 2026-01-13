@@ -17,7 +17,19 @@ export type Namespace = {
     : never;
 }[keyof Messages];
 
-export const localeNames: Record<Locale, string> = {
-  en: "English",
-  pt: "Português",
+export const locales: Record<
+  Locale,
+  {
+    name: string;
+    flag: string;
+  }
+> = {
+  en: {
+    name: "English",
+    flag: "🇺🇸",
+  },
+  pt: {
+    name: "Português",
+    flag: "🇧🇷",
+  },
 };

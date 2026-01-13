@@ -4,7 +4,6 @@ import {
   CalendarIcon,
   EnvelopeIcon,
   ImageBrokenIcon,
-  MagnifyingGlassIcon,
   MapPinAreaIcon,
   PhoneIcon,
   UserIcon,
@@ -23,11 +22,9 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
 import { Tooltip } from "@/components/ui/tooltip";
-import { isDarkColor } from "@/helpers/color";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
-import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -115,45 +112,26 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <div className="group relative flex w-full flex-col items-center justify-center">
-        <Marquee className="w-full gap-0" pauseOnHover>
-          <div className="flex items-center gap-16 p-8">
-            {findAllSkills.data?.findAllSkills?.map((skill) => (
-              <Tooltip.Root key={skill.id}>
-                <Tooltip.Trigger asChild>
-                  <Avatar.Root
-                    className={cn(
-                      "size-6 opacity-75 hover:opacity-100",
-                      isDarkColor(skill.color) &&
-                        "drop-shadow drop-shadow-primary/25"
-                    )}
-                  >
-                    <Avatar.Image
-                      alt={skill.name}
-                      src={simpleIconsCdn(skill.slug)}
-                    />
-                    <Avatar.Fallback>
-                      <ImageBrokenIcon />
-                    </Avatar.Fallback>
-                  </Avatar.Root>
-                </Tooltip.Trigger>
-                <Tooltip.Content>{skill.name}</Tooltip.Content>
-              </Tooltip.Root>
-            ))}
-          </div>
-        </Marquee>
-        <Button
-          asChild
-          className="absolute w-fit text-xs opacity-0 group-hover:opacity-100"
-          size="sm"
-          variant="outline"
-        >
-          <Link href="/skills">
-            {t("viewAll")}
-            <MagnifyingGlassIcon />
-          </Link>
-        </Button>
-      </div>
+      <Marquee className="w-full gap-0" pauseOnHover>
+        <div className="flex items-center gap-16 p-8">
+          {findAllSkills.data?.findAllSkills?.map((skill) => (
+            <Tooltip.Root key={skill.id}>
+              <Tooltip.Trigger asChild>
+                <Avatar.Root className="size-6 opacity-75 hover:opacity-100">
+                  <Avatar.Image
+                    alt={skill.name}
+                    src={simpleIconsCdn(skill.slug)}
+                  />
+                  <Avatar.Fallback>
+                    <ImageBrokenIcon />
+                  </Avatar.Fallback>
+                </Avatar.Root>
+              </Tooltip.Trigger>
+              <Tooltip.Content>{skill.name}</Tooltip.Content>
+            </Tooltip.Root>
+          ))}
+        </div>
+      </Marquee>
       <Separator />
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
