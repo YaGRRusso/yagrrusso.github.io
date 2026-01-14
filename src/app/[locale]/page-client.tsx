@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { IntroInfo } from "@/components/intro-info";
 import { SectionTitle } from "@/components/section-title";
 import { Avatar } from "@/components/ui/avatar";
@@ -117,7 +118,7 @@ export function ClientPage() {
           {findAllSkills.data?.findAllSkills?.map((skill) => (
             <Tooltip.Root key={skill.id}>
               <Tooltip.Trigger asChild>
-                <Avatar.Root className="size-6 opacity-75 hover:opacity-100">
+                <Avatar.Root className="size-6 opacity-75 drop-shadow drop-shadow-foreground/10 hover:opacity-100">
                   <Avatar.Image
                     alt={skill.name}
                     src={simpleIconsCdn(skill.slug)}
@@ -133,7 +134,10 @@ export function ClientPage() {
         </div>
       </Marquee>
       <Separator />
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+      <AnimateOnScroll
+        className="container relative flex w-full flex-col items-center justify-center gap-16"
+        y={32}
+      >
         <SectionTitle
           description={t("sections.aboutMe.description")}
           id="my-intro"
@@ -176,9 +180,12 @@ export function ClientPage() {
             />
           </div>
         </div>
-      </div>
+      </AnimateOnScroll>
       <Separator />
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+      <AnimateOnScroll
+        className="container relative flex w-full flex-col items-center justify-center gap-16"
+        y={32}
+      >
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
         <SectionTitle
           description={t("sections.myPortfolio.description")}
@@ -203,9 +210,12 @@ export function ClientPage() {
             </Button>
           </div>
         </div>
-      </div>
+      </AnimateOnScroll>
       <Separator />
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+      <AnimateOnScroll
+        className="container relative flex w-full flex-col items-center justify-center gap-16"
+        y={32}
+      >
         <SectionTitle
           description={t("sections.myQualifications.description")}
           id="my-qualifications"
@@ -239,7 +249,7 @@ export function ClientPage() {
             ))}
           </Timeline.Root>
         </div>
-      </div>
+      </AnimateOnScroll>
     </div>
   );
 }
