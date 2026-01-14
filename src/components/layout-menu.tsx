@@ -18,7 +18,7 @@ interface Props extends ComponentProps<typeof Popover.Root> {
   locale: Locale;
 }
 
-export function Menu({ locale, ...props }: Props) {
+export function LayoutMenu({ locale, ...props }: Props) {
   const pathname = usePathname();
   const { theme: preferredTheme, setTheme: setPreferredTheme } =
     usePreferencesStore();

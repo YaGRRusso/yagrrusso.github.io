@@ -101,7 +101,10 @@ export function ClientPage() {
             </div>
           </div>
         </div>
-        <div className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center">
+        <AnimateOnScroll
+          className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
+          x={32}
+        >
           <Image
             alt="Sticker"
             className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
@@ -110,7 +113,7 @@ export function ClientPage() {
             src="/images/sticker.png"
             width={512}
           />
-        </div>
+        </AnimateOnScroll>
       </div>
       <Separator />
       <Marquee className="w-full gap-0" pauseOnHover>
@@ -134,25 +137,25 @@ export function ClientPage() {
         </div>
       </Marquee>
       <Separator />
-      <AnimateOnScroll
-        className="container relative flex w-full flex-col items-center justify-center gap-16"
-        y={32}
-      >
+      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
           description={t("sections.aboutMe.description")}
           id="my-intro"
           title={t("sections.aboutMe.title")}
         />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <p className="w-full text-center text-muted-foreground">
+          <AnimateOnScroll
+            className="w-full text-center text-muted-foreground"
+            x={-32}
+          >
             lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat. Duis aute irure dolor in
             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
             pariatur. Excepteur sint occaecat cupidatat non proident.
-          </p>
-          <div className="flex w-full flex-col gap-2">
+          </AnimateOnScroll>
+          <AnimateOnScroll className="flex w-full flex-col gap-2" x={32}>
             <IntroInfo
               description="Yago Russo"
               icon={<UserIcon />}
@@ -178,14 +181,11 @@ export function ClientPage() {
               icon={<MapPinAreaIcon />}
               title={t("infos.address")}
             />
-          </div>
+          </AnimateOnScroll>
         </div>
-      </AnimateOnScroll>
+      </div>
       <Separator />
-      <AnimateOnScroll
-        className="container relative flex w-full flex-col items-center justify-center gap-16"
-        y={32}
-      >
+      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
         <SectionTitle
           description={t("sections.myPortfolio.description")}
@@ -193,12 +193,30 @@ export function ClientPage() {
           title={t("sections.myPortfolio.title")}
         />
         <div className="grid w-full grid-cols-3 gap-6 max-md:grid-cols-1 max-lg:grid-cols-2">
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
-          <div className="flex h-64 items-center justify-center rounded bg-primary p-4" />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
+          <AnimateOnScroll
+            className="flex h-64 items-center justify-center rounded bg-primary p-4"
+            y={32}
+          />
           <div className="col-span-full flex items-center justify-center">
             <Button
               asChild
@@ -210,46 +228,47 @@ export function ClientPage() {
             </Button>
           </div>
         </div>
-      </AnimateOnScroll>
+      </div>
       <Separator />
-      <AnimateOnScroll
-        className="container relative flex w-full flex-col items-center justify-center gap-16"
-        y={32}
-      >
+      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
           description={t("sections.myQualifications.description")}
           id="my-qualifications"
           title={t("sections.myQualifications.title")}
         />
         <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <Timeline.Root>
-            {items.map((item) => (
-              <Timeline.Item key={item.id} step={item.id}>
-                <Timeline.Header>
-                  <Timeline.Separator />
-                  <Timeline.Date>{item.date}</Timeline.Date>
-                  <Timeline.Title>{item.title}</Timeline.Title>
-                  <Timeline.Indicator />
-                </Timeline.Header>
-                <Timeline.Content>{item.description}</Timeline.Content>
-              </Timeline.Item>
-            ))}
-          </Timeline.Root>
-          <Timeline.Root>
-            {items.map((item) => (
-              <Timeline.Item key={item.id} step={item.id}>
-                <Timeline.Header>
-                  <Timeline.Separator />
-                  <Timeline.Date>{item.date}</Timeline.Date>
-                  <Timeline.Title>{item.title}</Timeline.Title>
-                  <Timeline.Indicator />
-                </Timeline.Header>
-                <Timeline.Content>{item.description}</Timeline.Content>
-              </Timeline.Item>
-            ))}
-          </Timeline.Root>
+          <AnimateOnScroll x={-32}>
+            <Timeline.Root>
+              {items.map((item) => (
+                <Timeline.Item key={item.id} step={item.id}>
+                  <Timeline.Header>
+                    <Timeline.Separator />
+                    <Timeline.Date>{item.date}</Timeline.Date>
+                    <Timeline.Title>{item.title}</Timeline.Title>
+                    <Timeline.Indicator />
+                  </Timeline.Header>
+                  <Timeline.Content>{item.description}</Timeline.Content>
+                </Timeline.Item>
+              ))}
+            </Timeline.Root>
+          </AnimateOnScroll>
+          <AnimateOnScroll x={32}>
+            <Timeline.Root>
+              {items.map((item) => (
+                <Timeline.Item key={item.id} step={item.id}>
+                  <Timeline.Header>
+                    <Timeline.Separator />
+                    <Timeline.Date>{item.date}</Timeline.Date>
+                    <Timeline.Title>{item.title}</Timeline.Title>
+                    <Timeline.Indicator />
+                  </Timeline.Header>
+                  <Timeline.Content>{item.description}</Timeline.Content>
+                </Timeline.Item>
+              ))}
+            </Timeline.Root>
+          </AnimateOnScroll>
         </div>
-      </AnimateOnScroll>
+      </div>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <html
-      className={cn(jetbrainsMono.variable, inter.variable)}
+      className={cn("dark", jetbrainsMono.variable, inter.variable)}
       lang={locale ?? routing.defaultLocale}
     >
       <NextIntlClientProvider>

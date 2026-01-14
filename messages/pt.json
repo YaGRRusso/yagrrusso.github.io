@@ -24,6 +24,7 @@
     "updatedAtDescription": "A última vez que os dados foram atualizados."
   },
   "layout": {
+    "welcome": "Bem-vindo!",
     "rightsReserved": "© { year } Yago Russo. Todos os direitos reservados.",
     "updatedAt": "Atualizado em { date }."
   },

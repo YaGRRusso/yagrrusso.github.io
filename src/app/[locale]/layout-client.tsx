@@ -10,7 +10,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
-import { Menu } from "@/components/menu";
+import { LayoutLoading } from "@/components/layout-loading";
+import { LayoutMenu } from "@/components/layout-menu";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
@@ -40,6 +41,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
 
   return (
     <body className="flex min-h-screen flex-col font-inter" {...rest}>
+      <LayoutLoading />
       <header className="sticky top-0 z-10 w-full border-b bg-background py-2">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">
@@ -59,7 +61,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
             />
             <h2 className="font-semibold text-2xl tracking-wide">Yago Russo</h2>
           </Link>
-          <Menu locale={locale} />
+          <LayoutMenu locale={locale} />
         </div>
         <ScrollProgress />
       </header>
