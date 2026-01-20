@@ -107,7 +107,7 @@ export function ClientPage() {
         </div>
         <AnimateOnScroll
           className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
-          x={32}
+          x={16}
         >
           <Image
             alt="Sticker"
@@ -151,7 +151,7 @@ export function ClientPage() {
           <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
             <AnimateOnScroll
               className="w-full text-center text-muted-foreground"
-              x={-32}
+              x={-16}
             >
               lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -160,7 +160,7 @@ export function ClientPage() {
               reprehenderit in voluptate velit esse cillum dolore eu fugiat
               nulla pariatur. Excepteur sint occaecat cupidatat non proident.
             </AnimateOnScroll>
-            <AnimateOnScroll className="flex w-full flex-col gap-2" x={32}>
+            <AnimateOnScroll className="flex w-full flex-col gap-2" x={16}>
               <IntroInfo
                 description="Yago Russo"
                 icon={<UserIcon />}
@@ -201,27 +201,27 @@ export function ClientPage() {
         <div className="grid w-full grid-cols-3 gap-6 max-md:grid-cols-1 max-lg:grid-cols-2">
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={32}
+            y={16}
           />
           <div className="col-span-full flex items-center justify-center">
             <Button
@@ -244,7 +244,7 @@ export function ClientPage() {
             title={t("sections.myQualifications.title")}
           />
           <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-            <AnimateOnScroll x={-32}>
+            <AnimateOnScroll x={-16}>
               <Timeline.Root>
                 {items.map((item) => (
                   <Timeline.Item key={item.id} step={item.id}>
@@ -259,7 +259,7 @@ export function ClientPage() {
                 ))}
               </Timeline.Root>
             </AnimateOnScroll>
-            <AnimateOnScroll x={32}>
+            <AnimateOnScroll x={16}>
               <Timeline.Root>
                 {items.map((item) => (
                   <Timeline.Item key={item.id} step={item.id}>
@@ -284,7 +284,7 @@ export function ClientPage() {
           title={t("sections.myQualifications.title")}
         />
         <div className="flex w-full items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-32}>
+          <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
             <div className="flex flex-col">
               <strong className="text-4xl">Yago Russo</strong>
               <span className="text-muted-foreground">Software Developer</span>
@@ -332,7 +332,7 @@ export function ClientPage() {
               </Button>
             </div>
           </AnimateOnScroll>
-          <AnimateOnScroll className="flex-1" x={32}>
+          <AnimateOnScroll className="flex-1" x={16}>
             <ContactForm />
           </AnimateOnScroll>
         </div>

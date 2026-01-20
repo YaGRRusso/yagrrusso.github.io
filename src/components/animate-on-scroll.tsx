@@ -14,7 +14,7 @@ type AnimateOnScrollProps = MotionDivProps & AnimationProps;
 export function AnimateOnScroll({
   children,
   transition = { duration: 0.5 },
-  viewport = { amount: 0.35 },
+  viewport = { amount: 0.5 },
   opacity = 0,
   x,
   y,
