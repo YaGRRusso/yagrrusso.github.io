@@ -23,6 +23,28 @@
     "updatedAtTitle": "Updated at { date }",
     "updatedAtDescription": "The last time the data was updated."
   },
+  "form": {
+    "common": {
+      "submit": "Submit",
+      "reset": "Clear",
+      "success": "Form submitted successfully!",
+      "error": "An error occurred while submitting the form. Please try again.",
+      "characterCount": "{ count }/{ total } characters"
+    },
+    "contactMe": {
+      "title": "Contact Me",
+      "description": "I look forward to hearing from you!",
+      "name": "Name",
+      "namePlaceholder": "Your full name",
+      "phone": "Phone",
+      "phonePlaceholder": "Your phone number",
+      "email": "Email",
+      "emailPlaceholder": "Your email address",
+      "message": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "messageDescription": "Include any relevant details so I can assist you better."
+    }
+  },
   "layout": {
     "welcome": "Welcome!",
     "rightsReserved": "© { year } Yago Russo. All rights reserved.",
@@ -57,6 +79,10 @@
       "myQualifications": {
         "title": "Education and Experience",
         "description": "My Qualifications"
+      },
+      "getInTouch": {
+        "title": "Get in Touch",
+        "description": "Contact Me"
       }
     }
   },

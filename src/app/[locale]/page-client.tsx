@@ -110,7 +110,7 @@ export function ClientPage() {
           x={16}
         >
           <Image
-            alt="Sticker"
+            alt="sticker"
             className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
             height={512}
             priority={true}
@@ -279,16 +279,34 @@ export function ClientPage() {
       </div>
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
-          description={t("sections.myQualifications.description")}
-          id="my-qualifications"
-          title={t("sections.myQualifications.title")}
+          description={t("sections.getInTouch.description")}
+          id="get-in-touch"
+          title={t("sections.getInTouch.title")}
         />
-        <div className="flex w-full items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
-            <div className="flex flex-col">
-              <strong className="text-4xl">Yago Russo</strong>
-              <span className="text-muted-foreground">Software Developer</span>
+        <div className="flex w-full gap-x-24 gap-y-16 max-lg:flex-col">
+          <AnimateOnScroll className="flex flex-1 flex-col gap-6" x={-16}>
+            <div className="flex items-center gap-8">
+              <Image
+                alt="portrait"
+                className="rounded-3xl"
+                height={96}
+                priority={true}
+                src="/images/portrait.jpg"
+                width={96}
+              />
+              <div className="flex flex-col gap-2">
+                <strong className="text-4xl">Yago Russo</strong>
+                <span className="text-muted-foreground">Software Engineer</span>
+              </div>
             </div>
+            <span className="text-muted-foreground text-sm">
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+            </span>
             <div className="flex items-center gap-1">
               <Button asChild size="auto" variant="ghost">
                 <a
@@ -297,7 +315,7 @@ export function ClientPage() {
                   rel="noopener"
                   target="_blank"
                 >
-                  <GithubLogoIcon className="size-6" />
+                  <GithubLogoIcon className="size-7" />
                 </a>
               </Button>
               <Button asChild size="auto" variant="ghost">
@@ -307,7 +325,7 @@ export function ClientPage() {
                   rel="noopener"
                   target="_blank"
                 >
-                  <LinkedinLogoIcon className="size-6" />
+                  <LinkedinLogoIcon className="size-7" />
                 </a>
               </Button>
               <Button asChild size="auto" variant="ghost">
@@ -317,7 +335,7 @@ export function ClientPage() {
                   rel="noopener"
                   target="_blank"
                 >
-                  <WhatsappLogoIcon className="size-6" />
+                  <WhatsappLogoIcon className="size-7" />
                 </a>
               </Button>
               <Button asChild size="auto" variant="ghost">
@@ -327,7 +345,7 @@ export function ClientPage() {
                   rel="noopener"
                   target="_blank"
                 >
-                  <EnvelopeIcon className="size-6" />
+                  <EnvelopeIcon className="size-7" />
                 </a>
               </Button>
             </div>

@@ -28,6 +28,28 @@
     "rightsReserved": "© { year } Yago Russo. Todos os direitos reservados.",
     "updatedAt": "Atualizado em { date }."
   },
+  "form": {
+    "common": {
+      "submit": "Enviar",
+      "reset": "Limpar",
+      "success": "Formulário enviado com sucesso!",
+      "error": "Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.",
+      "characterCount": "{ count }/{ total } caracteres"
+    },
+    "contactMe": {
+      "title": "Entre em Contato Comigo",
+      "description": "Estou ansioso para ouvir de você!",
+      "name": "Nome",
+      "namePlaceholder": "Seu nome completo",
+      "phone": "Telefone",
+      "phonePlaceholder": "Seu número de telefone",
+      "email": "Email",
+      "emailPlaceholder": "Seu endereço de email",
+      "message": "Mensagem",
+      "messagePlaceholder": "Escreva sua mensagem aqui...",
+      "messageDescription": "Inclua qualquer detalhe relevante para que eu possa ajudá-lo melhor."
+    }
+  },
   "homePage": {
     "title": "Full-stack Software Engineer",
     "description": "Trazendo soluções inovadoras, escaláveis e eficientes para o desenvolvimento web. Apaixonado por criar experiências digitais excepcionais que impulsionam o sucesso dos negócios.",
@@ -57,6 +79,10 @@
       "myQualifications": {
         "title": "Educação e Experiência",
         "description": "Minhas Qualificações"
+      },
+      "getInTouch": {
+        "title": "Vamos Conversar",
+        "description": "Entre em Contato Comigo"
       }
     }
   },

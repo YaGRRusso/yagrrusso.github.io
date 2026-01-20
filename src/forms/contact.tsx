@@ -15,10 +15,14 @@ const contactSchema = z.object({
 interface Props extends ComponentProps<"form"> {}
 
 import { useForm } from "@tanstack/react-form";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { InputGroup } from "@/components/ui/input-group";
 
 export function ContactForm({ ...props }: Props) {
+  const t = useTranslations("form.contactMe");
+  const tCommons = useTranslations("form.common");
+
   const form = useForm({
     defaultValues: {
       name: "",
@@ -40,11 +44,8 @@ export function ContactForm({ ...props }: Props) {
       {...props}
     >
       <Field.Set>
-        <Field.Legend>Contact Us</Field.Legend>
-        <Field.Description>
-          Please fill out the form below and we will get back to you as soon as
-          possible.
-        </Field.Description>
+        {/* <Field.Legend>{t("title")}</Field.Legend>
+        <Field.Description>{t("description")}</Field.Description> */}
         <Field.Group>
           <form.Field
             children={(field) => {
@@ -52,14 +53,14 @@ export function ContactForm({ ...props }: Props) {
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field.Root data-invalid={isInvalid}>
-                  <Field.Label htmlFor={field.name}>Your Name</Field.Label>
+                  <Field.Label htmlFor={field.name}>{t("name")}</Field.Label>
                   <Input
                     aria-invalid={isInvalid}
                     autoComplete="off"
                     id={field.name}
                     name={field.name}
                     onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Your full name"
+                    placeholder={t("namePlaceholder")}
                     value={field.state.value}
                   />
                   {isInvalid && (
@@ -77,14 +78,14 @@ export function ContactForm({ ...props }: Props) {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field.Root data-invalid={isInvalid}>
-                    <Field.Label htmlFor={field.name}>Phone Number</Field.Label>
+                    <Field.Label htmlFor={field.name}>{t("phone")}</Field.Label>
                     <Input
                       aria-invalid={isInvalid}
                       autoComplete="off"
                       id={field.name}
                       name={field.name}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="+1 234 567 8901"
+                      placeholder={t("phonePlaceholder")}
                       value={field.state.value}
                     />
                     {isInvalid && (
@@ -101,16 +102,14 @@ export function ContactForm({ ...props }: Props) {
                   field.state.meta.isTouched && !field.state.meta.isValid;
                 return (
                   <Field.Root data-invalid={isInvalid}>
-                    <Field.Label htmlFor={field.name}>
-                      Email Address
-                    </Field.Label>
+                    <Field.Label htmlFor={field.name}>{t("email")}</Field.Label>
                     <Input
                       aria-invalid={isInvalid}
                       autoComplete="off"
                       id={field.name}
                       name={field.name}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="your.email@example.com"
+                      placeholder={t("emailPlaceholder")}
                       value={field.state.value}
                     />
                     {isInvalid && (
@@ -128,25 +127,28 @@ export function ContactForm({ ...props }: Props) {
                 field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field.Root data-invalid={isInvalid}>
-                  <Field.Label htmlFor={field.name}>Message</Field.Label>
+                  <Field.Label htmlFor={field.name}>{t("message")}</Field.Label>
                   <InputGroup.Root>
                     <InputGroup.Textarea
                       aria-invalid={isInvalid}
                       id={field.name}
                       name={field.name}
                       onChange={(e) => field.handleChange(e.target.value)}
-                      placeholder="Your message here..."
+                      placeholder={t("messagePlaceholder")}
                       rows={6}
                       value={field.state.value}
                     />
                     <InputGroup.Addon align="block-end">
                       <InputGroup.Text className="tabular-nums">
-                        {field.state.value.length}/1000 characters
+                        {tCommons("characterCount", {
+                          count: field.state.value.length,
+                          total: 1000,
+                        })}
                       </InputGroup.Text>
                     </InputGroup.Addon>
                   </InputGroup.Root>
                   <Field.Description>
-                    Include any details or questions you have.
+                    {t("messageDescription")}
                   </Field.Description>
                   {isInvalid && (
                     <Field.Error errors={field.state.meta.errors} />
@@ -162,10 +164,10 @@ export function ContactForm({ ...props }: Props) {
               return (
                 <Field.Root className="justify-end" orientation="horizontal">
                   <Button onClick={() => form.reset()} variant="ghost">
-                    Reset
+                    {tCommons("reset")}
                   </Button>
                   <Button disabled={isDisabled} type="submit" variant="outline">
-                    Submit
+                    {tCommons("submit")}
                   </Button>
                 </Field.Root>
               );
