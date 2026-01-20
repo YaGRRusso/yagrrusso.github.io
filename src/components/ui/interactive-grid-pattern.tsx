@@ -1,7 +1,6 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
+import { type SVGProps, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -14,7 +13,7 @@ import { cn } from "@/lib/utils";
  * @param className - The class name of the grid.
  * @param squaresClassName - The class name of the squares.
  */
-interface InteractiveGridPatternProps extends React.SVGProps<SVGSVGElement> {
+interface InteractiveGridPatternProps extends SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   squares?: [number, number]; // [horizontal, vertical]

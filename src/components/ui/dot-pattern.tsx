@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import type React from "react";
-import { useEffect, useId, useRef, useState } from "react";
+import { type SVGProps, useEffect, useId, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -19,7 +18,7 @@ import { cn } from "@/lib/utils";
  * @param {string} [className] - Additional CSS classes to apply to the SVG container
  * @param {boolean} [glow=false] - Whether dots should have a glowing animation effect
  */
-interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
+interface DotPatternProps extends SVGProps<SVGSVGElement> {
   width?: number;
   height?: number;
   x?: number;
@@ -81,7 +80,6 @@ export function DotPattern({
   useEffect(() => {
     const updateDimensions = () => {
       if (containerRef.current) {
-        // biome-ignore lint/nursery/noShadow: dont fuck
         const { width, height } = containerRef.current.getBoundingClientRect();
         setDimensions({ width, height });
       }

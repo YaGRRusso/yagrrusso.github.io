@@ -3,10 +3,13 @@
 import {
   CalendarIcon,
   EnvelopeIcon,
+  GithubLogoIcon,
   ImageBrokenIcon,
+  LinkedinLogoIcon,
   MapPinAreaIcon,
   PhoneIcon,
   UserIcon,
+  WhatsappLogoIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -23,6 +26,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
 import { Tooltip } from "@/components/ui/tooltip";
+import { ContactForm } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
@@ -137,51 +141,53 @@ export function ClientPage() {
         </div>
       </Marquee>
       <Separator />
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-        <SectionTitle
-          description={t("sections.aboutMe.description")}
-          id="my-intro"
-          title={t("sections.aboutMe.title")}
-        />
-        <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <AnimateOnScroll
-            className="w-full text-center text-muted-foreground"
-            x={-32}
-          >
-            lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident.
-          </AnimateOnScroll>
-          <AnimateOnScroll className="flex w-full flex-col gap-2" x={32}>
-            <IntroInfo
-              description="Yago Russo"
-              icon={<UserIcon />}
-              title={t("infos.name")}
-            />
-            <IntroInfo
-              description={t("infos.yearsOld", { age: birth })}
-              icon={<CalendarIcon />}
-              title={t("infos.age")}
-            />
-            <IntroInfo
-              description="(51) 98682-4203"
-              icon={<PhoneIcon />}
-              title={t("infos.phone")}
-            />
-            <IntroInfo
-              description="yagrrusso@gmail.com"
-              icon={<EnvelopeIcon />}
-              title={t("infos.email")}
-            />
-            <IntroInfo
-              description="Gravataí RS, Brasil"
-              icon={<MapPinAreaIcon />}
-              title={t("infos.address")}
-            />
-          </AnimateOnScroll>
+      <div className="w-full bg-alternative">
+        <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+          <SectionTitle
+            description={t("sections.aboutMe.description")}
+            id="my-intro"
+            title={t("sections.aboutMe.title")}
+          />
+          <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
+            <AnimateOnScroll
+              className="w-full text-center text-muted-foreground"
+              x={-32}
+            >
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+            </AnimateOnScroll>
+            <AnimateOnScroll className="flex w-full flex-col gap-2" x={32}>
+              <IntroInfo
+                description="Yago Russo"
+                icon={<UserIcon />}
+                title={t("infos.name")}
+              />
+              <IntroInfo
+                description={t("infos.yearsOld", { age: birth })}
+                icon={<CalendarIcon />}
+                title={t("infos.age")}
+              />
+              <IntroInfo
+                description="(51) 98682-4203"
+                icon={<PhoneIcon />}
+                title={t("infos.phone")}
+              />
+              <IntroInfo
+                description="yagrrusso@gmail.com"
+                icon={<EnvelopeIcon />}
+                title={t("infos.email")}
+              />
+              <IntroInfo
+                description="Gravataí RS, Brasil"
+                icon={<MapPinAreaIcon />}
+                title={t("infos.address")}
+              />
+            </AnimateOnScroll>
+          </div>
         </div>
       </div>
       <Separator />
@@ -230,42 +236,104 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
+      <div className="w-full bg-alternative">
+        <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+          <SectionTitle
+            description={t("sections.myQualifications.description")}
+            id="my-qualifications"
+            title={t("sections.myQualifications.title")}
+          />
+          <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
+            <AnimateOnScroll x={-32}>
+              <Timeline.Root>
+                {items.map((item) => (
+                  <Timeline.Item key={item.id} step={item.id}>
+                    <Timeline.Header>
+                      <Timeline.Separator />
+                      <Timeline.Date>{item.date}</Timeline.Date>
+                      <Timeline.Title>{item.title}</Timeline.Title>
+                      <Timeline.Indicator />
+                    </Timeline.Header>
+                    <Timeline.Content>{item.description}</Timeline.Content>
+                  </Timeline.Item>
+                ))}
+              </Timeline.Root>
+            </AnimateOnScroll>
+            <AnimateOnScroll x={32}>
+              <Timeline.Root>
+                {items.map((item) => (
+                  <Timeline.Item key={item.id} step={item.id}>
+                    <Timeline.Header>
+                      <Timeline.Separator />
+                      <Timeline.Date>{item.date}</Timeline.Date>
+                      <Timeline.Title>{item.title}</Timeline.Title>
+                      <Timeline.Indicator />
+                    </Timeline.Header>
+                    <Timeline.Content>{item.description}</Timeline.Content>
+                  </Timeline.Item>
+                ))}
+              </Timeline.Root>
+            </AnimateOnScroll>
+          </div>
+        </div>
+      </div>
       <div className="container relative flex w-full flex-col items-center justify-center gap-16">
         <SectionTitle
           description={t("sections.myQualifications.description")}
           id="my-qualifications"
           title={t("sections.myQualifications.title")}
         />
-        <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-          <AnimateOnScroll x={-32}>
-            <Timeline.Root>
-              {items.map((item) => (
-                <Timeline.Item key={item.id} step={item.id}>
-                  <Timeline.Header>
-                    <Timeline.Separator />
-                    <Timeline.Date>{item.date}</Timeline.Date>
-                    <Timeline.Title>{item.title}</Timeline.Title>
-                    <Timeline.Indicator />
-                  </Timeline.Header>
-                  <Timeline.Content>{item.description}</Timeline.Content>
-                </Timeline.Item>
-              ))}
-            </Timeline.Root>
+        <div className="flex w-full items-center gap-x-24 gap-y-16 max-lg:flex-col">
+          <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-32}>
+            <div className="flex flex-col">
+              <strong className="text-4xl">Yago Russo</strong>
+              <span className="text-muted-foreground">Software Developer</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button asChild size="auto" variant="ghost">
+                <a
+                  className="hover:text-foreground"
+                  href="https://github.com/yagrrusso"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <GithubLogoIcon className="size-6" />
+                </a>
+              </Button>
+              <Button asChild size="auto" variant="ghost">
+                <a
+                  className="hover:text-foreground"
+                  href="https://www.linkedin.com/in/yago-russo/"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <LinkedinLogoIcon className="size-6" />
+                </a>
+              </Button>
+              <Button asChild size="auto" variant="ghost">
+                <a
+                  className="hover:text-foreground"
+                  href="https://wa.me/5551986824203"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <WhatsappLogoIcon className="size-6" />
+                </a>
+              </Button>
+              <Button asChild size="auto" variant="ghost">
+                <a
+                  className="hover:text-foreground"
+                  href="mailto:yagrrusso@gmail.com"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <EnvelopeIcon className="size-6" />
+                </a>
+              </Button>
+            </div>
           </AnimateOnScroll>
-          <AnimateOnScroll x={32}>
-            <Timeline.Root>
-              {items.map((item) => (
-                <Timeline.Item key={item.id} step={item.id}>
-                  <Timeline.Header>
-                    <Timeline.Separator />
-                    <Timeline.Date>{item.date}</Timeline.Date>
-                    <Timeline.Title>{item.title}</Timeline.Title>
-                    <Timeline.Indicator />
-                  </Timeline.Header>
-                  <Timeline.Content>{item.description}</Timeline.Content>
-                </Timeline.Item>
-              ))}
-            </Timeline.Root>
+          <AnimateOnScroll className="flex-1" x={32}>
+            <ContactForm />
           </AnimateOnScroll>
         </div>
       </div>

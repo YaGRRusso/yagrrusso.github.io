@@ -1,11 +1,5 @@
 "use client";
 
-import {
-  EnvelopeIcon,
-  GithubLogoIcon,
-  LinkedinLogoIcon,
-  WhatsappLogoIcon,
-} from "@phosphor-icons/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -40,9 +34,12 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
   const t = useTranslations("layout");
 
   return (
-    <body className="flex min-h-screen flex-col font-inter" {...rest}>
+    <body
+      className="flex min-h-screen flex-col bg-background font-inter text-foreground"
+      {...rest}
+    >
       <LayoutLoading />
-      <header className="sticky top-0 z-10 w-full border-b bg-background py-2">
+      <header className="sticky top-0 z-10 w-full border-b bg-background py-2 text-foreground">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image
@@ -70,43 +67,10 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
           <main className="flex flex-1 flex-col">{children}</main>
         </ThemeProvider>
       </QueryClientProvider>
-      <footer className="border-t bg-background">
+      <footer className="border-t">
         <div className="container flex items-center justify-between gap-2 py-2 text-center text-muted-foreground text-xs max-sm:flex-col">
           <span>{t("rightsReserved", { year: new Date().getFullYear() })}</span>
-          <div className="flex items-center gap-2 text-base">
-            <a
-              className="hover:text-foreground"
-              href="https://github.com/yagrrusso"
-              rel="noopener"
-              target="_blank"
-            >
-              <GithubLogoIcon />
-            </a>
-            <a
-              className="hover:text-foreground"
-              href="https://www.linkedin.com/in/yago-russo/"
-              rel="noopener"
-              target="_blank"
-            >
-              <LinkedinLogoIcon />
-            </a>
-            <a
-              className="hover:text-foreground"
-              href="https://wa.me/5551986824203"
-              rel="noopener"
-              target="_blank"
-            >
-              <WhatsappLogoIcon />
-            </a>
-            <a
-              className="hover:text-foreground"
-              href="mailto:yagrrusso@gmail.com"
-              rel="noopener"
-              target="_blank"
-            >
-              <EnvelopeIcon />
-            </a>
-          </div>
+
           <span>
             {t("updatedAt", {
               date: new Date(

@@ -1,12 +1,12 @@
 "use client";
 
 import { type MotionProps, motion, useScroll } from "motion/react";
-
+import type { HTMLAttributes, Ref } from "react";
 import { cn } from "@/lib/utils";
 
 interface ScrollProgressProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {
-  ref?: React.Ref<HTMLDivElement>;
+  extends Omit<HTMLAttributes<HTMLElement>, keyof MotionProps> {
+  ref?: Ref<HTMLDivElement>;
 }
 
 export function ScrollProgress({

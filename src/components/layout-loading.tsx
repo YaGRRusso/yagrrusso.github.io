@@ -29,7 +29,7 @@ export function LayoutLoading({ className, ...props }: Props) {
   return (
     <div
       className={cn(
-        "fixed inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-black text-3xl text-white/75 transition-transform duration-700",
+        "fixed inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-background text-3xl text-foreground transition-transform duration-700",
         !isShowing && "-translate-y-full",
         className
       )}
