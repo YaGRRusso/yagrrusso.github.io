@@ -20,7 +20,7 @@ export function SectionTitle({
   return (
     <div className={cn("flex flex-col text-center", className)} {...props}>
       <Link
-        className="group -ml-5 flex items-center justify-center gap-1 font-jetbrains-mono font-medium text-primary"
+        className="group -ml-5 flex scroll-mt-[12vh] items-center justify-center gap-1 font-jetbrains-mono font-medium text-primary"
         href={`#${id}`}
         id={id}
       >

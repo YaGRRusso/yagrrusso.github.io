@@ -111,24 +111,20 @@ export function ClientPage() {
           </div> */}
           <div className="scrollbar-hidden mt-6 flex items-center gap-1 overflow-auto md:flex-wrap">
             <Button asChild size="sm" variant="outline">
-              <Link href="#my-intro" id="my-intro">
-                {t("sections.aboutMe.title")}
-              </Link>
+              <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="#my-portfolio" id="my-portfolio">
+              <Link href="#my-portfolio">
                 {t("sections.myPortfolio.title")}
               </Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="#my-qualifications" id="my-qualifications">
+              <Link href="#my-qualifications">
                 {t("sections.myQualifications.title")}
               </Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="#get-in-touch" id="get-in-touch">
-                {t("sections.getInTouch.title")}
-              </Link>
+              <Link href="#get-in-touch">{t("sections.getInTouch.title")}</Link>
             </Button>
           </div>
         </div>
