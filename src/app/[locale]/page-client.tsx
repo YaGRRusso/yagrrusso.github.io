@@ -87,28 +87,31 @@ export function ClientPage() {
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <InteractiveGridPattern className="mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] -skew-y-7 max-md:h-1/2 md:ml-64" />
         </div>
-        <div className="flex w-full min-w-0 max-w-lg flex-1 flex-col gap-2">
+        <AnimateOnScroll
+          className="flex w-full min-w-0 max-w-lg flex-1 flex-col gap-2"
+          y={16}
+        >
           <span>Yago Russo</span>
           <h1 className="font-jetbrains-mono text-5xl">
             <Highlighter action="underline">{t("title")}</Highlighter>
           </h1>
           <p className="text-muted-foreground">{t("description")}</p>
           {/* <div className="mt-6 flex justify-between gap-2">
-            <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-              <strong className="text-5xl">
-                {exp}
-                <span className="text-primary">+</span>
-              </strong>
-              <span className="max-w-28 text-sm">{t("yearsOfExperience")}</span>
-            </div>
-            <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-              <strong className="text-5xl">
-                {findAllSkills.data?.findAllSkills?.length}
-                <span className="text-primary">+</span>
-              </strong>
-              <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
-            </div>
-          </div> */}
+              <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+                <strong className="text-5xl">
+                  {exp}
+                  <span className="text-primary">+</span>
+                </strong>
+                <span className="max-w-28 text-sm">{t("yearsOfExperience")}</span>
+              </div>
+              <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+                <strong className="text-5xl">
+                  {findAllSkills.data?.findAllSkills?.length}
+                  <span className="text-primary">+</span>
+                </strong>
+                <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
+              </div>
+            </div> */}
           <div className="scrollbar-hidden mt-6 flex items-center gap-1 overflow-auto md:flex-wrap">
             <Button asChild size="sm" variant="outline">
               <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
@@ -127,10 +130,10 @@ export function ClientPage() {
               <Link href="#get-in-touch">{t("sections.getInTouch.title")}</Link>
             </Button>
           </div>
-        </div>
+        </AnimateOnScroll>
         <AnimateOnScroll
           className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
-          x={16}
+          y={16}
         >
           <Image
             alt="sticker"
