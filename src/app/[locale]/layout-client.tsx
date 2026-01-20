@@ -7,6 +7,7 @@ import type { ComponentProps } from "react";
 import { LayoutLoading } from "@/components/layout-loading";
 import { LayoutMenu } from "@/components/layout-menu";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
@@ -39,6 +40,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
       {...rest}
     >
       <LayoutLoading />
+      <Toaster />
       <header className="sticky top-0 z-10 w-full border-b bg-background py-2 text-foreground">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">

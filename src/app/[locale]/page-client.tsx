@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo } from "react";
+import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { IntroInfo } from "@/components/intro-info";
 import { SectionTitle } from "@/components/section-title";
@@ -65,6 +66,7 @@ const items = [
 
 export function ClientPage() {
   const t = useTranslations("homePage");
+  const tCommons = useTranslations("common");
 
   const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
   const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
@@ -72,9 +74,13 @@ export function ClientPage() {
   const findAllSkills = useFindAllSkills();
   // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
 
-  const handleSendMail = useCallback((data: ContactSchema) => {
-    window.location.href = `mailto:yagrrusso@gmail.com?subject=${data.name}&body=${data.message}%0A%0A${data.phone}%0A${data.email}`;
-  }, []);
+  const handleSendMail = useCallback(
+    (data: ContactSchema) => {
+      window.location.href = `mailto:yagrrusso@gmail.com?subject=${data.name}&body=${data.message}%0A%0A${data.phone}%0A${data.email}`;
+      toast.success(tCommons("successTitle"));
+    },
+    [tCommons]
+  );
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
