@@ -5,30 +5,39 @@ import { z } from "zod";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
-const contactSchema = z.object({
+export const contactSchema = z.object({
   name: z.string().min(2).max(100),
   phone: z.string().refine(validator.isMobilePhone),
   email: z.email(),
   message: z.string().min(8).max(1000),
 });
 
-interface Props extends ComponentProps<"form"> {}
+export type ContactSchema = z.infer<typeof contactSchema>;
+type Props = ComponentProps<"form"> & CommonFormProps<ContactSchema>;
 
 import { useForm } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { InputGroup } from "@/components/ui/input-group";
+import type { CommonFormProps } from "./common";
 
-export function ContactForm({ ...props }: Props) {
+export function ContactForm({
+  onSub,
+  defaultValues,
+  disabled,
+  ...props
+}: Props) {
   const t = useTranslations("form.contactMe");
   const tCommons = useTranslations("form.common");
 
   const form = useForm({
+    onSubmit: (data) => onSub?.(data.value),
     defaultValues: {
       name: "",
       phone: "",
       email: "",
       message: "",
+      ...defaultValues,
     },
     validators: {
       onSubmit: contactSchema,
@@ -43,7 +52,7 @@ export function ContactForm({ ...props }: Props) {
       }}
       {...props}
     >
-      <Field.Set>
+      <Field.Set disabled={disabled}>
         {/* <Field.Legend>{t("title")}</Field.Legend>
         <Field.Description>{t("description")}</Field.Description> */}
         <Field.Group>

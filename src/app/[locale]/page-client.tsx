@@ -11,9 +11,10 @@ import {
   UserIcon,
   WhatsappLogoIcon,
 } from "@phosphor-icons/react";
+import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { IntroInfo } from "@/components/intro-info";
 import { SectionTitle } from "@/components/section-title";
@@ -26,7 +27,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
 import { Tooltip } from "@/components/ui/tooltip";
-import { ContactForm } from "@/forms/contact";
+import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
@@ -65,17 +66,15 @@ const items = [
 export function ClientPage() {
   const t = useTranslations("homePage");
 
-  const birth = useMemo(() => {
-    const birthDate = new Date(2001, 10, 30);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age -= 1;
-    return age;
-  }, []);
+  const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
+  const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
 
   const findAllSkills = useFindAllSkills();
   // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
+
+  const handleSendMail = useCallback((data: ContactSchema) => {
+    window.location.href = `mailto:yagrrusso@gmail.com?subject=${data.name}&body=${data.message}%0A%0A${data.phone}%0A${data.email}`;
+  }, []);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
@@ -92,14 +91,15 @@ export function ClientPage() {
           <div className="mt-6 flex justify-between gap-2">
             <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
               <strong className="text-5xl">
-                5<span className="text-primary-foreground">+</span>
+                {exp}
+                <span className="text-primary">+</span>
               </strong>
               <span className="max-w-28 text-sm">{t("yearsOfExperience")}</span>
             </div>
             <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
               <strong className="text-5xl">
                 {findAllSkills.data?.findAllSkills?.length}
-                <span className="text-primary-foreground">+</span>
+                <span className="text-primary">+</span>
               </strong>
               <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
             </div>
@@ -285,7 +285,7 @@ export function ClientPage() {
         />
         <div className="flex w-full gap-x-24 gap-y-16 max-lg:flex-col">
           <AnimateOnScroll className="flex flex-1 flex-col gap-6" x={-16}>
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-8 max-sm:flex-col max-sm:justify-start">
               <Image
                 alt="portrait"
                 className="rounded-3xl"
@@ -299,15 +299,7 @@ export function ClientPage() {
                 <span className="text-muted-foreground">Software Engineer</span>
               </div>
             </div>
-            <span className="text-muted-foreground text-sm">
-              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
-            </span>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-4 max-sm:justify-center max-sm:gap-2">
               <Button asChild size="auto" variant="ghost">
                 <a
                   className="hover:text-foreground"
@@ -349,9 +341,18 @@ export function ClientPage() {
                 </a>
               </Button>
             </div>
+            <Separator />
+            <span className="text-center text-muted-foreground text-sm">
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+            </span>
           </AnimateOnScroll>
           <AnimateOnScroll className="flex-1" x={16}>
-            <ContactForm />
+            <ContactForm onSub={handleSendMail} />
           </AnimateOnScroll>
         </div>
       </div>
