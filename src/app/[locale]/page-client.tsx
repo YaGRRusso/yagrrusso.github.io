@@ -2,9 +2,9 @@
 
 import {
   CalendarIcon,
+  DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
-  ImageBrokenIcon,
   LinkedinLogoIcon,
   MapPinAreaIcon,
   PhoneIcon,
@@ -14,7 +14,7 @@ import {
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
+import { Fragment, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { IntroInfo } from "@/components/intro-info";
@@ -27,7 +27,6 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
-import { Tooltip } from "@/components/ui/tooltip";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
@@ -69,7 +68,7 @@ export function ClientPage() {
   const tCommons = useTranslations("common");
 
   const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
-  const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
+  // const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
 
   const findAllSkills = useFindAllSkills();
   // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
@@ -84,17 +83,17 @@ export function ClientPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <div className="container relative flex min-h-[80vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
+      <div className="container relative flex min-h-[92vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <InteractiveGridPattern className="mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] -skew-y-7 max-md:h-1/2 md:ml-64" />
         </div>
-        <div className="flex max-w-lg flex-1 flex-col gap-2">
+        <div className="flex w-full min-w-0 max-w-lg flex-1 flex-col gap-2">
           <span>Yago Russo</span>
           <h1 className="font-jetbrains-mono text-5xl">
             <Highlighter action="underline">{t("title")}</Highlighter>
           </h1>
           <p className="text-muted-foreground">{t("description")}</p>
-          <div className="mt-6 flex justify-between gap-2">
+          {/* <div className="mt-6 flex justify-between gap-2">
             <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
               <strong className="text-5xl">
                 {exp}
@@ -109,6 +108,28 @@ export function ClientPage() {
               </strong>
               <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
             </div>
+          </div> */}
+          <div className="scrollbar-hidden mt-6 flex items-center gap-1 overflow-auto md:flex-wrap">
+            <Button asChild size="sm" variant="outline">
+              <Link href="#my-intro" id="my-intro">
+                {t("sections.aboutMe.title")}
+              </Link>
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <Link href="#my-portfolio" id="my-portfolio">
+                {t("sections.myPortfolio.title")}
+              </Link>
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <Link href="#my-qualifications" id="my-qualifications">
+                {t("sections.myQualifications.title")}
+              </Link>
+            </Button>
+            <Button asChild size="sm" variant="outline">
+              <Link href="#get-in-touch" id="get-in-touch">
+                {t("sections.getInTouch.title")}
+              </Link>
+            </Button>
           </div>
         </div>
         <AnimateOnScroll
@@ -126,23 +147,37 @@ export function ClientPage() {
         </AnimateOnScroll>
       </div>
       <Separator />
-      <Marquee className="w-full gap-0" pauseOnHover>
-        <div className="flex items-center gap-16 p-8">
+      <Marquee className="w-full" pauseOnHover>
+        <div className="flex items-center gap-16 px-4 py-6 opacity-75">
           {findAllSkills.data?.findAllSkills?.map((skill) => (
-            <Tooltip.Root key={skill.id}>
-              <Tooltip.Trigger asChild>
-                <Avatar.Root className="size-6 opacity-75 drop-shadow drop-shadow-foreground/10 hover:opacity-100">
-                  <Avatar.Image
-                    alt={skill.name}
-                    src={simpleIconsCdn(skill.slug)}
-                  />
-                  <Avatar.Fallback>
-                    <ImageBrokenIcon />
-                  </Avatar.Fallback>
-                </Avatar.Root>
-              </Tooltip.Trigger>
-              <Tooltip.Content>{skill.name}</Tooltip.Content>
-            </Tooltip.Root>
+            // <Tooltip.Root key={skill.id}>
+            //   <Tooltip.Trigger asChild>
+            //     <Avatar.Root className="size-6 opacity-75 drop-shadow drop-shadow-foreground/10 hover:opacity-100">
+            //       <Avatar.Image
+            //         alt={skill.name}
+            //         src={simpleIconsCdn(skill.slug)}
+            //       />
+            //       <Avatar.Fallback>
+            //         <ImageBrokenIcon />
+            //       </Avatar.Fallback>
+            //     </Avatar.Root>
+            //   </Tooltip.Trigger>
+            //   <Tooltip.Content>{skill.name}</Tooltip.Content>
+            // </Tooltip.Root>
+            <Fragment key={skill.id}>
+              <Avatar.Root className="size-4 brightness-0 dark:invert">
+                <Avatar.Image
+                  alt={skill.name}
+                  src={simpleIconsCdn(skill.slug)}
+                />
+                <Avatar.Fallback className="bg-transparent">
+                  <DiamondIcon className="size-4" weight="fill" />
+                </Avatar.Fallback>
+              </Avatar.Root>
+              <span className="font-medium text-xs uppercase" key={skill.id}>
+                {skill.name}
+              </span>
+            </Fragment>
           ))}
         </div>
       </Marquee>
@@ -204,15 +239,7 @@ export function ClientPage() {
           id="my-portfolio"
           title={t("sections.myPortfolio.title")}
         />
-        <div className="grid w-full grid-cols-3 gap-6 max-md:grid-cols-1 max-lg:grid-cols-2">
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
-          />
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
-          />
+        <div className="grid w-full grid-cols-2 gap-6 max-lg:grid-cols-1">
           <AnimateOnScroll
             className="flex h-64 items-center justify-center rounded bg-primary p-4"
             y={16}

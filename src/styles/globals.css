@@ -20,6 +20,15 @@
   max-width: 100%;
 }
 
+@utility scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
