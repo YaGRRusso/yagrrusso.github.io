@@ -187,7 +187,7 @@ export function ClientPage() {
           />
           <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
             <AnimateOnScroll
-              className="w-full text-center text-muted-foreground"
+              className="w-full text-muted-foreground max-sm:text-center"
               x={-16}
             >
               lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
@@ -371,13 +371,8 @@ export function ClientPage() {
               </Button>
             </div>
             <Separator />
-            <span className="text-center text-muted-foreground text-sm">
-              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+            <span className="text-muted-foreground text-sm max-sm:text-center">
+              {t("sections.getInTouch.message")}
             </span>
           </AnimateOnScroll>
           <AnimateOnScroll className="flex-1" x={16}>
