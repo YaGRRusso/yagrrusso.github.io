@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { IntroInfo } from "@/components/intro-info";
 import { SectionTitle } from "@/components/section-title";
+import { SocialLink } from "@/components/social-links";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "@/components/ui/dot-pattern";
@@ -27,6 +28,7 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
@@ -112,7 +114,7 @@ export function ClientPage() {
                 <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
               </div>
             </div> */}
-          <div className="scrollbar-hidden mt-6 flex items-center gap-1 overflow-auto md:flex-wrap">
+          <div className="scrollbar-hidden mt-6 flex items-center gap-2 overflow-auto md:flex-wrap">
             <Button asChild size="sm" variant="outline">
               <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
             </Button>
@@ -193,12 +195,21 @@ export function ClientPage() {
               className="w-full text-muted-foreground max-sm:text-center"
               x={-16}
             >
-              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+              <div className="mb-4 font-semibold text-4xl">
+                {t.rich("sections.aboutMe.intro", {
+                  startYear: 2020,
+                  span: (chunks) => (
+                    <span className="font-jetbrains-mono text-primary">
+                      {chunks}
+                    </span>
+                  ),
+                })}
+              </div>
+              <span>{t("sections.aboutMe.message")}</span>
+              <TypingAnimation
+                loop
+                words={["lorem", "ipsum", "dolor", "sit", "amet"]}
+              />
             </AnimateOnScroll>
             <AnimateOnScroll className="flex w-full flex-col gap-2" x={16}>
               <IntroInfo
@@ -331,47 +342,28 @@ export function ClientPage() {
                 <span className="text-muted-foreground">Software Engineer</span>
               </div>
             </div>
-            <div className="flex items-center gap-4 max-sm:justify-center max-sm:gap-2">
-              <Button asChild size="auto" variant="ghost">
-                <a
-                  className="hover:text-foreground"
-                  href="https://github.com/yagrrusso"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  <GithubLogoIcon className="size-7" />
-                </a>
-              </Button>
-              <Button asChild size="auto" variant="ghost">
-                <a
-                  className="hover:text-foreground"
-                  href="https://www.linkedin.com/in/yago-russo/"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  <LinkedinLogoIcon className="size-7" />
-                </a>
-              </Button>
-              <Button asChild size="auto" variant="ghost">
-                <a
-                  className="hover:text-foreground"
-                  href="https://wa.me/5551986824203"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  <WhatsappLogoIcon className="size-7" />
-                </a>
-              </Button>
-              <Button asChild size="auto" variant="ghost">
-                <a
-                  className="hover:text-foreground"
-                  href="mailto:yagrrusso@gmail.com"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  <EnvelopeIcon className="size-7" />
-                </a>
-              </Button>
+            <div className="flex items-center gap-2 max-sm:justify-center">
+              <SocialLink
+                href="https://github.com/yagrrusso"
+                icon={<GithubLogoIcon className="size-6" />}
+                title="GitHub"
+              />
+              <SocialLink
+                href="https://www.linkedin.com/in/yago-russo"
+                icon={<LinkedinLogoIcon className="size-6" />}
+              />
+              <SocialLink
+                href="https://wa.me/5551986824203"
+                icon={<WhatsappLogoIcon className="size-6" />}
+              />
+              <SocialLink
+                href="mailto:yagrrusso@gmail.com"
+                icon={<EnvelopeIcon className="size-6" />}
+              />
+              <SocialLink
+                href="tel:51986824203"
+                icon={<PhoneIcon className="size-6" />}
+              />
             </div>
             <Separator />
             <span className="text-muted-foreground text-sm max-sm:text-center">

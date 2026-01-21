@@ -70,7 +70,9 @@
     "sections": {
       "aboutMe": {
         "title": "About Me",
-        "description": "My Intro"
+        "description": "My Intro",
+        "intro": "Writing <span>colorful letters</span> since { startYear }",
+        "message": "Hello, my name is Yago, I am a full-stack software engineer passionate about creating innovative, efficient, and scalable solutions, always striving to follow best practices. In my free time, I also enjoy "
       },
       "myPortfolio": {
         "title": "Recent and Notable Works",
