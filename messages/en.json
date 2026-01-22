@@ -70,22 +70,26 @@
     "sections": {
       "aboutMe": {
         "title": "About Me",
-        "description": "My Intro",
-        "intro": "Writing <span>colorful letters</span> since { startYear }",
-        "message": "Hello, my name is Yago, I am a full-stack software engineer passionate about creating innovative, <span>playing guitar;reading books;create codes;playing video games;watching movies</span> efficient, and scalable solutions, always striving to follow best practices. In my free time, I also enjoy "
+        "description": "Writing colorful letters since { startYear }",
+        "message": "Hello, my name is Yago, I am { age } years old, I live in { address }, I like to <span>play guitar;read books;create codes;play video games;watch movies</span> and I am not very good at creating texts about myself.",
+        "experience": "I have loved technology since I was a child and started programming at { startAge } years old as a self-taught person. Over the years, I have developed my skills and gained experience in various technologies and programming languages, including several areas of software development."
       },
-      "myPortfolio": {
-        "title": "Recent and Notable Works",
-        "description": "My Portfolio"
+      "skills": {
+        "title": "Skills",
+        "description": "My stack, tools, and technologies"
       },
-      "myQualifications": {
-        "title": "Education and Experience",
-        "description": "My Qualifications"
+      "portfolio": {
+        "title": "Portfolio",
+        "description": "Cool projects that might be interesting"
+      },
+      "qualifications": {
+        "title": "Education & Experience",
+        "description": "Things I studied and places I worked"
       },
       "getInTouch": {
-        "title": "Get in Touch",
-        "description": "Contact Me",
-        "message": "I am always open to discussing new projects, creative ideas or opportunities to be part of your visions. Whether you have a question, feel free to reach out to me. You can also follow my work and updates on my social media channels. Let's build something amazing together! I'll try my best to get back to you across any of these platforms."
+        "title": "Let's Talk",
+        "description": "Feel free to reach out, let's chat",
+        "message": "If you want to talk about a project or just say hi, feel free to contact me. I am always open to new opportunities, collaborations, and interesting conversations."
       }
     }
   },

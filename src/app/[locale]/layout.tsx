@@ -5,14 +5,17 @@ import type { ReactNode } from "react";
 import { routing } from "@/i18n/routing";
 import { ClientLayout } from "./layout-client";
 import "@/styles/globals.css";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 type Props = {
   children: ReactNode;
@@ -33,7 +36,7 @@ export default async function Layout({ children, params }: Props) {
       className={cn(
         "dark scroll-smooth",
         jetbrainsMono.variable,
-        inter.variable
+        spaceGrotesk.variable
       )}
       lang={locale ?? routing.defaultLocale}
     >

@@ -58,6 +58,22 @@
   }
 }
 
+@keyframes astronaut-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+}
+
 @theme {
   --color-red-\*: initial;
   --color-orange-\*: initial;
@@ -85,7 +101,7 @@
 
 @theme inline {
   --font-jetbrains-mono: var(--font-jetbrains-mono);
-  --font-inter: var(--font-inter);
+  --font-space-grotesk: var(--font-space-grotesk);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -124,6 +140,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-astronaut-float: astronaut-float 16s ease-in-out infinite;
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
 }
 

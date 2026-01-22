@@ -13,7 +13,7 @@ export function SocialLink({
   ...props
 }: Props) {
   return (
-    <Button asChild size="auto" variant="ghost">
+    <Button asChild size="auto" variant="outline">
       <a rel={rel} target={target} {...props}>
         {icon}
       </a>

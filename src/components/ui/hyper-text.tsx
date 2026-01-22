@@ -9,7 +9,7 @@ type CharacterSet = string[] | readonly string[];
 
 interface HyperTextProps extends MotionProps {
   /** The text content to be animated */
-  children: string;
+  content: string;
   /** Optional className for styling */
   className?: string;
   /** Duration of the animation in milliseconds */
@@ -33,7 +33,7 @@ const DEFAULT_CHARACTER_SET = Object.freeze(
 const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
 
 export function HyperText({
-  children,
+  content,
   className,
   duration = 800,
   delay = 0,
@@ -48,7 +48,7 @@ export function HyperText({
   });
 
   const [displayText, setDisplayText] = useState<string[]>(() =>
-    children.split("")
+    content.split("")
   );
   const [isAnimating, setIsAnimating] = useState(false);
   const iterationCount = useRef(0);
@@ -93,7 +93,7 @@ export function HyperText({
   useEffect(() => {
     if (!isAnimating) return;
 
-    const maxIterations = children.length;
+    const maxIterations = content.length;
     const startTime = performance.now();
     let animationFrameId: number;
 
@@ -109,7 +109,7 @@ export function HyperText({
             ? letter
             : // biome-ignore lint/style/noNestedTernary: shadcn generated
               index <= iterationCount.current
-              ? children[index]
+              ? content[index]
               : characterSet[getRandomInt(characterSet.length)]
         )
       );
@@ -124,7 +124,7 @@ export function HyperText({
     animationFrameId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [children, duration, isAnimating, characterSet]);
+  }, [content, duration, isAnimating, characterSet]);
 
   return (
     <MotionComponent

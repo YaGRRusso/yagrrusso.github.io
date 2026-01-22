@@ -70,22 +70,26 @@
     "sections": {
       "aboutMe": {
         "title": "Sobre Mim",
-        "description": "Minha Introdução",
-        "intro": "Escrevendo <span>letrinhas coloridas</span> desde { startYear }",
-        "message": "Olá, meu nome é Yago, sou um engenheiro de software full-stack apaixonado por criar soluções inovadoras, <span>tocar violão;ler livros;criar códigos;jogar videogames;assistir filmes</span> eficientes e escaláveis, sempre buscando seguir as melhores práticas. Nos tempos livres também gosto de "
+        "description": "Escrevendo letrinhas coloridas desde { startYear }",
+        "message": "Olá, meu nome é Yago, tenho { age } anos, moro em { address }, gosto de <span>tocar violão;ler livros;criar códigos;jogar videogames;assistir filmes</span> e não sou muito bom criando textos sobre mim.",
+        "experience": "Gosto de tecnologia desde criança e comecei na programação aos { startAge } anos como autodidata. Ao longo dos anos, desenvolvi minhas habilidades e adquiri experiência em várias tecnologias e linguagens de programação, incluindo diversas áreas de desenvolvimento de software."
       },
-      "myPortfolio": {
-        "title": "Trabalhos Recentes e Notáveis",
-        "description": "Meu Portfólio"
+      "skills": {
+        "title": "Habilidades",
+        "description": "Minha stack, ferramentas e tecnologias"
       },
-      "myQualifications": {
+      "portfolio": {
+        "title": "Portfólio",
+        "description": "Projetos legais que talvez sejam interessantes"
+      },
+      "qualifications": {
         "title": "Educação e Experiência",
-        "description": "Minhas Qualificações"
+        "description": "Coisas que estudei e lugares que trabalhei"
       },
       "getInTouch": {
         "title": "Vamos Conversar",
-        "description": "Entre em Contato Comigo",
-        "message": "Estou sempre aberto a discutir novos projetos, ideias criativas ou oportunidades de fazer parte de suas visões. Se você tiver uma pergunta, sinta-se à vontade para entrar em contato comigo. Você também pode acompanhar meu trabalho e atualizações em meus canais de mídia social. Vamos construir algo incrível juntos! Farei o meu melhor para responder a você através de qualquer uma dessas plataformas."
+        "description": "Pode me chamar, bora trocar uma ideia",
+        "message": "Se quiser conversar sobre algum projeto ou apenas dizer oi, sinta-se à vontade para entrar em contato comigo. Estou sempre aberto a novas oportunidades, colaborações e conversas interessantes."
       }
     }
   },

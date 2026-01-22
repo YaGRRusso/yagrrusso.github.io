@@ -1,4 +1,4 @@
-import { LinkIcon } from "@phosphor-icons/react";
+import { CaretRightIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -18,16 +18,22 @@ export function SectionTitle({
   ...props
 }: Props) {
   return (
-    <div className={cn("flex flex-col text-center", className)} {...props}>
+    <div
+      className={cn("flex max-w-lg flex-col gap-2 tracking-wide", className)}
+      {...props}
+    >
       <Link
-        className="group -ml-5 flex scroll-mt-[12vh] items-center justify-center gap-1 font-jetbrains-mono font-medium text-primary"
+        className="group -ml-5 flex scroll-mt-[12vh] items-center gap-1 font-jetbrains-mono font-medium text-primary"
         href={`#${id}`}
         id={id}
       >
-        <LinkIcon className="size-4 opacity-0 group-hover:opacity-100" />
-        <span>{description}</span>
+        <CaretRightIcon
+          className="mb-0.5 animate-caret-blink group-hover:animate-none"
+          weight="bold"
+        />
+        <span className="uppercase">{title}</span>
       </Link>
-      <h3 className="font-semibold text-3xl">{title}</h3>
+      <h3 className="font-bold text-4xl">{description}</h3>
     </div>
   );
 }

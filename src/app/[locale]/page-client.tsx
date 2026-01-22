@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import { Fragment, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import { Counter } from "@/components/counter";
 import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
 import { Avatar } from "@/components/ui/avatar";
@@ -81,31 +82,35 @@ export function ClientPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <div className="container relative flex min-h-[92vh] w-full items-center justify-center gap-8 max-md:flex-col-reverse">
+      <div className="container relative flex min-h-[92vh] w-full items-center gap-8 max-md:flex-col-reverse">
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <InteractiveGridPattern className="mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] -skew-y-7 max-md:h-1/2 md:ml-64" />
         </div>
         <AnimateOnScroll
-          className="flex w-full min-w-0 max-w-lg flex-1 flex-col gap-2"
+          className="flex w-full min-w-0 flex-1 flex-col gap-4"
           y={16}
         >
-          <span>Yago Russo</span>
-          <h1 className="font-jetbrains-mono text-5xl">
-            <Highlighter action="underline">{t("title")}</Highlighter>
-          </h1>
+          <div className="flex max-w-136 flex-col gap-2 tracking-wide">
+            <h2 className="font-jetbrains-mono text-primary tracking-wide">
+              Yago Russo
+            </h2>
+            <h1 className="font-semibold text-6xl">
+              <Highlighter action="underline" padding={4}>
+                {t("title")}
+              </Highlighter>
+            </h1>
+          </div>
           <p className="text-muted-foreground">{t("description")}</p>
-          <div className="scrollbar-hidden mt-6 flex items-center gap-2 overflow-auto md:flex-wrap">
+          <div className="scrollbar-hidden flex items-center gap-2 overflow-auto md:flex-wrap">
             <Button asChild size="sm" variant="outline">
               <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="#my-portfolio">
-                {t("sections.myPortfolio.title")}
-              </Link>
+              <Link href="#my-portfolio">{t("sections.portfolio.title")}</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
               <Link href="#my-qualifications">
-                {t("sections.myQualifications.title")}
+                {t("sections.qualifications.title")}
               </Link>
             </Button>
             <Button asChild size="sm" variant="outline">
@@ -119,7 +124,7 @@ export function ClientPage() {
         >
           <Image
             alt="sticker"
-            className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
+            className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
             height={512}
             priority={true}
             src="/images/sticker.png"
@@ -129,22 +134,8 @@ export function ClientPage() {
       </div>
       <Separator />
       <Marquee className="w-full" pauseOnHover>
-        <div className="flex items-center gap-16 px-4 py-6 opacity-75">
+        <div className="flex items-center gap-8 px-4 py-6 opacity-75">
           {findAllSkills.data?.findAllSkills?.map((skill) => (
-            // <Tooltip.Root key={skill.id}>
-            //   <Tooltip.Trigger asChild>
-            //     <Avatar.Root className="size-6 opacity-75 drop-shadow drop-shadow-foreground/10 hover:opacity-100">
-            //       <Avatar.Image
-            //         alt={skill.name}
-            //         src={simpleIconsCdn(skill.slug)}
-            //       />
-            //       <Avatar.Fallback>
-            //         <ImageBrokenIcon />
-            //       </Avatar.Fallback>
-            //     </Avatar.Root>
-            //   </Tooltip.Trigger>
-            //   <Tooltip.Content>{skill.name}</Tooltip.Content>
-            // </Tooltip.Root>
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
@@ -164,26 +155,20 @@ export function ClientPage() {
       </Marquee>
       <Separator />
       <div className="w-full bg-alternative">
-        <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-          <SectionTitle
-            description={t("sections.aboutMe.description")}
-            id="my-intro"
-            title={t("sections.aboutMe.title")}
-          />
-          <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-            <AnimateOnScroll className="w-full max-sm:text-center" x={-16}>
-              <div className="mb-4 font-semibold text-4xl">
-                {t.rich("sections.aboutMe.intro", {
+        <div className="container relative flex w-full flex-col justify-center gap-8">
+          <div className="flex items-center gap-x-32 gap-y-4 max-lg:flex-col">
+            <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
+              <SectionTitle
+                description={t("sections.aboutMe.description", {
                   startYear: 2020,
-                  span: (chunks) => (
-                    <span className="font-jetbrains-mono text-primary">
-                      {chunks}
-                    </span>
-                  ),
                 })}
-              </div>
-              <span className="text-muted-foreground">
+                id="my-intro"
+                title={t("sections.aboutMe.title")}
+              />
+              <p className="text-muted-foreground">
                 {t.rich("sections.aboutMe.message", {
+                  age: dayjs().diff("2001-11-30", "year", false),
+                  address: "Rio Grande do Sul, Brazil",
                   span: (chunks) => {
                     const text = Array.isArray(chunks) ? chunks[0] : chunks;
                     const words =
@@ -191,55 +176,37 @@ export function ClientPage() {
                     return <TypingAnimation loop words={words} />;
                   },
                 })}
-              </span>
+              </p>
             </AnimateOnScroll>
-            <AnimateOnScroll className="flex w-full flex-col gap-2" x={16}>
-              {/* <IntroInfo
-                description="Yago Russo"
-                icon={<UserIcon />}
-                title={t("infos.name")}
-              />
-              <IntroInfo
-                description={t("infos.yearsOld", { age: birth })}
-                icon={<CalendarIcon />}
-                title={t("infos.age")}
-              />
-              <IntroInfo
-                description="Gravataí RS, Brasil"
-                icon={<MapPinAreaIcon />}
-                title={t("infos.address")}
-              /> */}
-              <div className="mt-6 flex justify-between gap-2">
-                <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-                  <strong className="text-5xl">
-                    {exp}
-                    <span className="text-primary">+</span>
-                  </strong>
-                  <span className="max-w-28 text-sm">
-                    {t("yearsOfExperience")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-                  <strong className="text-5xl">
-                    {findAllSkills.data?.findAllSkills?.length}
-                    <span className="text-primary">+</span>
-                  </strong>
-                  <span className="max-w-28 text-sm">
-                    {t("technologiesUsed")}
-                  </span>
-                </div>
+            <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={16}>
+              <p className="text-muted-foreground">
+                {t("sections.aboutMe.experience", { startAge: 18 })}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-8">
+                <Counter
+                  accent="+"
+                  className="flex-1"
+                  label={t("yearsOfExperience")}
+                  value={exp}
+                />
+                <Counter
+                  accent="+"
+                  className="flex-1"
+                  label={t("projectsCompleted")}
+                  value={32}
+                />
               </div>
             </AnimateOnScroll>
           </div>
         </div>
       </div>
       <Separator />
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
+      <div className="container relative flex w-full flex-col justify-center gap-8">
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
         <SectionTitle
-          description={t("sections.myPortfolio.description")}
+          description={t("sections.portfolio.description")}
           id="my-portfolio"
-          title={t("sections.myPortfolio.title")}
+          title={t("sections.portfolio.title")}
         />
         <div className="grid w-full grid-cols-2 gap-6 max-lg:grid-cols-1">
           <AnimateOnScroll
@@ -272,58 +239,56 @@ export function ClientPage() {
       </div>
       <Separator />
       <div className="w-full bg-alternative">
-        <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-          <SectionTitle
-            description={t("sections.myQualifications.description")}
-            id="my-qualifications"
-            title={t("sections.myQualifications.title")}
-          />
-          <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-            <AnimateOnScroll x={-16}>
-              <Timeline.Root>
-                {items.map((item) => (
-                  <Timeline.Item key={item.id} step={item.id}>
-                    <Timeline.Header>
-                      <Timeline.Separator />
-                      <Timeline.Date>{item.date}</Timeline.Date>
-                      <Timeline.Title>{item.title}</Timeline.Title>
-                      <Timeline.Indicator />
-                    </Timeline.Header>
-                    <Timeline.Content>{item.description}</Timeline.Content>
-                  </Timeline.Item>
-                ))}
-              </Timeline.Root>
-            </AnimateOnScroll>
-            <AnimateOnScroll x={16}>
-              <Timeline.Root>
-                {items.map((item) => (
-                  <Timeline.Item key={item.id} step={item.id}>
-                    <Timeline.Header>
-                      <Timeline.Separator />
-                      <Timeline.Date>{item.date}</Timeline.Date>
-                      <Timeline.Title>{item.title}</Timeline.Title>
-                      <Timeline.Indicator />
-                    </Timeline.Header>
-                    <Timeline.Content>{item.description}</Timeline.Content>
-                  </Timeline.Item>
-                ))}
-              </Timeline.Root>
-            </AnimateOnScroll>
-          </div>
+        <div className="container relative flex w-full justify-center gap-x-32 gap-y-8 max-lg:flex-col">
+          <AnimateOnScroll className="flex flex-col gap-8" x={-16}>
+            <SectionTitle
+              description={t("sections.qualifications.description")}
+              id="my-qualifications"
+              title={t("sections.qualifications.title")}
+            />
+            <Timeline.Root>
+              {items.map((item) => (
+                <Timeline.Item key={item.id} step={item.id}>
+                  <Timeline.Header>
+                    <Timeline.Separator />
+                    <Timeline.Date>{item.date}</Timeline.Date>
+                    <Timeline.Title>{item.title}</Timeline.Title>
+                    <Timeline.Indicator />
+                  </Timeline.Header>
+                  <Timeline.Content>{item.description}</Timeline.Content>
+                </Timeline.Item>
+              ))}
+            </Timeline.Root>
+          </AnimateOnScroll>
+          <AnimateOnScroll x={16}>
+            <Timeline.Root>
+              {items.map((item) => (
+                <Timeline.Item key={item.id} step={item.id}>
+                  <Timeline.Header>
+                    <Timeline.Separator />
+                    <Timeline.Date>{item.date}</Timeline.Date>
+                    <Timeline.Title>{item.title}</Timeline.Title>
+                    <Timeline.Indicator />
+                  </Timeline.Header>
+                  <Timeline.Content>{item.description}</Timeline.Content>
+                </Timeline.Item>
+              ))}
+            </Timeline.Root>
+          </AnimateOnScroll>
         </div>
       </div>
-      <div className="container relative flex w-full flex-col items-center justify-center gap-16">
-        <SectionTitle
-          description={t("sections.getInTouch.description")}
-          id="get-in-touch"
-          title={t("sections.getInTouch.title")}
-        />
-        <div className="flex w-full gap-x-24 gap-y-16 max-lg:flex-col">
-          <AnimateOnScroll className="flex flex-1 flex-col gap-6" x={-16}>
-            <div className="flex items-center gap-8 max-sm:flex-col max-sm:justify-start">
+      <div className="container relative flex w-full gap-x-32 gap-y-8 max-lg:flex-col">
+        <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={-16}>
+          <SectionTitle
+            description={t("sections.getInTouch.description")}
+            id="get-in-touch"
+            title={t("sections.getInTouch.title")}
+          />
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-6 max-sm:flex-col">
               <Image
                 alt="portrait"
-                className="rounded-3xl"
+                className="rounded-lg"
                 height={96}
                 priority={true}
                 src="/images/portrait.jpg"
@@ -334,7 +299,7 @@ export function ClientPage() {
                 <span className="text-muted-foreground">Software Engineer</span>
               </div>
             </div>
-            <div className="flex items-center gap-2 max-sm:justify-center">
+            <div className="flex gap-2">
               <SocialLink
                 href="https://github.com/yagrrusso"
                 icon={<GithubLogoIcon className="size-6" />}
@@ -357,15 +322,15 @@ export function ClientPage() {
                 icon={<PhoneIcon className="size-6" />}
               />
             </div>
-            <Separator />
-            <span className="text-muted-foreground text-sm max-sm:text-center">
-              {t("sections.getInTouch.message")}
-            </span>
-          </AnimateOnScroll>
-          <AnimateOnScroll className="flex-1" x={16}>
-            <ContactForm onSub={handleSendMail} />
-          </AnimateOnScroll>
-        </div>
+          </div>
+          {/* <Separator className="-my-4" /> */}
+          <span className="text-muted-foreground">
+            {t("sections.getInTouch.message")}
+          </span>
+        </AnimateOnScroll>
+        <AnimateOnScroll className="flex-1" x={16}>
+          <ContactForm onSub={handleSendMail} />
+        </AnimateOnScroll>
       </div>
     </div>
   );

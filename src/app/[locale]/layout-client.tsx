@@ -36,7 +36,7 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
 
   return (
     <body
-      className="flex min-h-screen flex-col bg-background font-inter text-foreground"
+      className="flex min-h-screen flex-col bg-background font-space-grotesk text-foreground"
       {...rest}
     >
       <LayoutLoading />
