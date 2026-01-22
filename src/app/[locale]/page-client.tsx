@@ -1,14 +1,11 @@
 "use client";
 
 import {
-  CalendarIcon,
   DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
   LinkedinLogoIcon,
-  MapPinAreaIcon,
   PhoneIcon,
-  UserIcon,
   WhatsappLogoIcon,
 } from "@phosphor-icons/react";
 import dayjs from "dayjs";
@@ -17,7 +14,6 @@ import { useTranslations } from "next-intl";
 import { Fragment, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
-import { IntroInfo } from "@/components/intro-info";
 import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
 import { Avatar } from "@/components/ui/avatar";
@@ -69,8 +65,8 @@ export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
 
-  const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
-  // const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
+  // const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
+  const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
 
   const findAllSkills = useFindAllSkills();
   // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
@@ -98,22 +94,6 @@ export function ClientPage() {
             <Highlighter action="underline">{t("title")}</Highlighter>
           </h1>
           <p className="text-muted-foreground">{t("description")}</p>
-          {/* <div className="mt-6 flex justify-between gap-2">
-              <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-                <strong className="text-5xl">
-                  {exp}
-                  <span className="text-primary">+</span>
-                </strong>
-                <span className="max-w-28 text-sm">{t("yearsOfExperience")}</span>
-              </div>
-              <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
-                <strong className="text-5xl">
-                  {findAllSkills.data?.findAllSkills?.length}
-                  <span className="text-primary">+</span>
-                </strong>
-                <span className="max-w-28 text-sm">{t("technologiesUsed")}</span>
-              </div>
-            </div> */}
           <div className="scrollbar-hidden mt-6 flex items-center gap-2 overflow-auto md:flex-wrap">
             <Button asChild size="sm" variant="outline">
               <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
@@ -191,10 +171,7 @@ export function ClientPage() {
             title={t("sections.aboutMe.title")}
           />
           <div className="flex items-center gap-x-24 gap-y-16 max-lg:flex-col">
-            <AnimateOnScroll
-              className="w-full text-muted-foreground max-sm:text-center"
-              x={-16}
-            >
+            <AnimateOnScroll className="w-full max-sm:text-center" x={-16}>
               <div className="mb-4 font-semibold text-4xl">
                 {t.rich("sections.aboutMe.intro", {
                   startYear: 2020,
@@ -205,14 +182,19 @@ export function ClientPage() {
                   ),
                 })}
               </div>
-              <span>{t("sections.aboutMe.message")}</span>
-              <TypingAnimation
-                loop
-                words={["lorem", "ipsum", "dolor", "sit", "amet"]}
-              />
+              <span className="text-muted-foreground">
+                {t.rich("sections.aboutMe.message", {
+                  span: (chunks) => {
+                    const text = Array.isArray(chunks) ? chunks[0] : chunks;
+                    const words =
+                      typeof text === "string" ? text.split(";") : [];
+                    return <TypingAnimation loop words={words} />;
+                  },
+                })}
+              </span>
             </AnimateOnScroll>
             <AnimateOnScroll className="flex w-full flex-col gap-2" x={16}>
-              <IntroInfo
+              {/* <IntroInfo
                 description="Yago Russo"
                 icon={<UserIcon />}
                 title={t("infos.name")}
@@ -223,20 +205,30 @@ export function ClientPage() {
                 title={t("infos.age")}
               />
               <IntroInfo
-                description="(51) 98682-4203"
-                icon={<PhoneIcon />}
-                title={t("infos.phone")}
-              />
-              <IntroInfo
-                description="yagrrusso@gmail.com"
-                icon={<EnvelopeIcon />}
-                title={t("infos.email")}
-              />
-              <IntroInfo
                 description="Gravataí RS, Brasil"
                 icon={<MapPinAreaIcon />}
                 title={t("infos.address")}
-              />
+              /> */}
+              <div className="mt-6 flex justify-between gap-2">
+                <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+                  <strong className="text-5xl">
+                    {exp}
+                    <span className="text-primary">+</span>
+                  </strong>
+                  <span className="max-w-28 text-sm">
+                    {t("yearsOfExperience")}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 max-sm:flex-col-reverse max-sm:text-center">
+                  <strong className="text-5xl">
+                    {findAllSkills.data?.findAllSkills?.length}
+                    <span className="text-primary">+</span>
+                  </strong>
+                  <span className="max-w-28 text-sm">
+                    {t("technologiesUsed")}
+                  </span>
+                </div>
+              </div>
             </AnimateOnScroll>
           </div>
         </div>

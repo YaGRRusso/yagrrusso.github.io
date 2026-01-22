@@ -18,6 +18,7 @@ type Props = ComponentProps<"form"> & CommonFormProps<ContactSchema>;
 import { useForm } from "@tanstack/react-form";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { handleConfetti } from "@/components/ui/confetti";
 import { InputGroup } from "@/components/ui/input-group";
 import type { CommonFormProps } from "./common";
 
@@ -175,7 +176,12 @@ export function ContactForm({
                   <Button onClick={() => form.reset()} variant="ghost">
                     {tCommons("reset")}
                   </Button>
-                  <Button disabled={isDisabled} type="submit" variant="outline">
+                  <Button
+                    disabled={isDisabled}
+                    onClick={(e) => handleConfetti(e)}
+                    type="submit"
+                    variant="outline"
+                  >
                     {tCommons("submit")}
                   </Button>
                 </Field.Root>

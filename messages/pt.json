@@ -72,7 +72,7 @@
         "title": "Sobre Mim",
         "description": "Minha Introdução",
         "intro": "Escrevendo <span>letrinhas coloridas</span> desde { startYear }",
-        "message": "Olá, meu nome é Yago, sou um engenheiro de software full-stack apaixonado por criar soluções inovadoras, eficientes e escaláveis, sempre buscando seguir as melhores práticas. Nos tempos livres também gosto de "
+        "message": "Olá, meu nome é Yago, sou um engenheiro de software full-stack apaixonado por criar soluções inovadoras, <span>tocar violão;ler livros;criar códigos;jogar videogames;assistir filmes</span> eficientes e escaláveis, sempre buscando seguir as melhores práticas. Nos tempos livres também gosto de "
       },
       "myPortfolio": {
         "title": "Trabalhos Recentes e Notáveis",
