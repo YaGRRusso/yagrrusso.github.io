@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  ArrowUpRightIcon,
+  CaretRightIcon,
   DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
@@ -17,6 +19,7 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
+import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "@/components/ui/dot-pattern";
@@ -28,7 +31,6 @@ import { Timeline } from "@/components/ui/timeline";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
-import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
 
 const items = [
@@ -62,6 +64,53 @@ const items = [
   },
 ];
 
+const project = {
+  createdAt: new Date(),
+  demoUrl: "https://example.com/demo",
+  i18n: [
+    {
+      locale: "pt",
+      messages: {
+        description: "lorem ipsum dolor sit amet",
+        name: "lorem ipsum",
+      },
+    },
+    {
+      locale: "en",
+      messages: {
+        description: "lorem ipsum dolor sit amet",
+        name: "lorem ipsum",
+      },
+    },
+  ],
+  id: "abc123",
+  images: [
+    "https://picsum.photos/1280/720?random=1",
+    "https://picsum.photos/1280/720?random=2",
+    "https://picsum.photos/1280/720?random=3",
+  ],
+  repositoryUrl: "https://example.com/demo",
+  skills: [
+    {
+      id: "html",
+      name: "html",
+      slug: "html",
+    },
+    {
+      id: "css",
+      name: "css",
+      slug: "css",
+    },
+    {
+      id: "javascript",
+      name: "javascript",
+      slug: "javascript",
+    },
+  ],
+  slug: "abc",
+  updatedAt: new Date(),
+};
+
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
@@ -90,32 +139,33 @@ export function ClientPage() {
           className="flex w-full min-w-0 flex-1 flex-col gap-4"
           y={16}
         >
-          <div className="flex max-w-136 flex-col gap-2 tracking-wide">
-            <h2 className="font-jetbrains-mono text-primary tracking-wide">
-              Yago Russo
-            </h2>
-            <h1 className="font-semibold text-6xl">
-              <Highlighter action="underline" padding={4}>
-                {t("title")}
-              </Highlighter>
-            </h1>
+          <div className="flex flex-col gap-2 tracking-wide">
+            <div className="-ml-5 flex items-center gap-1 font-jetbrains-mono font-medium text-primary uppercase">
+              <CaretRightIcon
+                className="mb-0.5 animate-caret-blink"
+                weight="bold"
+              />
+              <h2>Yago Russo</h2>
+            </div>
+            <Highlighter action="underline" padding={4}>
+              <h1 className="font-semibold text-6xl">{t("title")}</h1>
+            </Highlighter>
           </div>
           <p className="text-muted-foreground">{t("description")}</p>
           <div className="scrollbar-hidden flex items-center gap-2 overflow-auto md:flex-wrap">
-            <Button asChild size="sm" variant="outline">
-              <Link href="#my-intro">{t("sections.aboutMe.title")}</Link>
-            </Button>
-            <Button asChild size="sm" variant="outline">
-              <Link href="#my-portfolio">{t("sections.portfolio.title")}</Link>
-            </Button>
-            <Button asChild size="sm" variant="outline">
-              <Link href="#my-qualifications">
-                {t("sections.qualifications.title")}
-              </Link>
-            </Button>
-            <Button asChild size="sm" variant="outline">
-              <Link href="#get-in-touch">{t("sections.getInTouch.title")}</Link>
-            </Button>
+            <TitleLink href="#about-me" title={t("sections.aboutMe.title")} />
+            <TitleLink
+              href="#my-portfolio"
+              title={t("sections.portfolio.title")}
+            />
+            <TitleLink
+              href="#my-qualifications"
+              title={t("sections.qualifications.title")}
+            />
+            <TitleLink
+              href="#get-in-touch"
+              title={t("sections.getInTouch.title")}
+            />
           </div>
         </AnimateOnScroll>
         <AnimateOnScroll
@@ -156,13 +206,13 @@ export function ClientPage() {
       <Separator />
       <div className="w-full bg-alternative">
         <div className="container relative flex w-full flex-col justify-center gap-8">
-          <div className="flex items-center gap-x-32 gap-y-4 max-lg:flex-col">
+          <div className="flex gap-x-32 gap-y-4 max-lg:flex-col">
             <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
               <SectionTitle
                 description={t("sections.aboutMe.description", {
                   startYear: 2020,
                 })}
-                id="my-intro"
+                id="about-me"
                 title={t("sections.aboutMe.title")}
               />
               <p className="text-muted-foreground">
@@ -173,7 +223,16 @@ export function ClientPage() {
                     const text = Array.isArray(chunks) ? chunks[0] : chunks;
                     const words =
                       typeof text === "string" ? text.split(";") : [];
-                    return <TypingAnimation loop words={words} />;
+                    return (
+                      <TypingAnimation
+                        deleteSpeed={30}
+                        loop
+                        pauseDelay={1600}
+                        startOnView
+                        typeSpeed={80}
+                        words={words}
+                      />
+                    );
                   },
                 })}
               </p>
@@ -203,39 +262,22 @@ export function ClientPage() {
       <Separator />
       <div className="container relative flex w-full flex-col justify-center gap-8">
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
-        <SectionTitle
-          description={t("sections.portfolio.description")}
-          id="my-portfolio"
-          title={t("sections.portfolio.title")}
-        />
-        <div className="grid w-full grid-cols-2 gap-6 max-lg:grid-cols-1">
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
+        <AnimateOnScroll className="flex flex-1 justify-between gap-8" x={-16}>
+          <SectionTitle
+            description={t("sections.portfolio.description")}
+            id="my-portfolio"
+            title={t("sections.portfolio.title")}
           />
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
-          />
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
-          />
-          <AnimateOnScroll
-            className="flex h-64 items-center justify-center rounded bg-primary p-4"
-            y={16}
-          />
-          <div className="col-span-full flex items-center justify-center">
-            <Button
-              asChild
-              className="w-full max-w-70"
-              size="sm"
-              variant="outline"
-            >
-              <Link href="/portfolio">{t("viewAll")}</Link>
-            </Button>
-          </div>
-        </div>
+          <Button size="lg" variant="outline">
+            {t("viewAll")}
+            <ArrowUpRightIcon weight="bold" />
+          </Button>
+        </AnimateOnScroll>
+        {[project, project, project].map((proj, index) => (
+          <AnimateOnScroll key={proj.id + index} y={16}>
+            <div className="flex h-64 items-center justify-center rounded bg-center bg-cover bg-no-repeat p-4 shadow-lg" style={{ backgroundImage: `url(${proj.images[index]})` }}/>
+          </AnimateOnScroll>
+        ))}
       </div>
       <Separator />
       <div className="w-full bg-alternative">

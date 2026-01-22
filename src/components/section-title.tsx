@@ -23,7 +23,7 @@ export function SectionTitle({
       {...props}
     >
       <Link
-        className="group -ml-5 flex scroll-mt-[12vh] items-center gap-1 font-jetbrains-mono font-medium text-primary"
+        className="group -ml-5 flex scroll-mt-[12vh] items-center gap-1 font-jetbrains-mono font-medium text-primary uppercase"
         href={`#${id}`}
         id={id}
       >
@@ -31,7 +31,7 @@ export function SectionTitle({
           className="mb-0.5 animate-caret-blink group-hover:animate-none"
           weight="bold"
         />
-        <span className="uppercase">{title}</span>
+        <span>{title}</span>
       </Link>
       <h3 className="font-bold text-4xl">{description}</h3>
     </div>

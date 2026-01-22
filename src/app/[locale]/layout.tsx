@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { routing } from "@/i18n/routing";
 import { ClientLayout } from "./layout-client";
 import "@/styles/globals.css";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const jetbrainsMono = JetBrains_Mono({

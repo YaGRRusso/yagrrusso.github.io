@@ -21,7 +21,8 @@
     "retryTitle": "Tentar novamente",
     "retryDescription": "Clique para tentar novamente.",
     "updatedAtTitle": "Atualizado em { date }",
-    "updatedAtDescription": "A última vez que os dados foram atualizados."
+    "updatedAtDescription": "A última vez que os dados foram atualizados.",
+    "viewAll": "Ver tudo"
   },
   "layout": {
     "welcome": "Bem-vindo!",

@@ -21,7 +21,8 @@
     "retryTitle": "Retry",
     "retryDescription": "Click to try again.",
     "updatedAtTitle": "Updated at { date }",
-    "updatedAtDescription": "The last time the data was updated."
+    "updatedAtDescription": "The last time the data was updated.",
+    "viewAll": "View All"
   },
   "form": {
     "common": {
