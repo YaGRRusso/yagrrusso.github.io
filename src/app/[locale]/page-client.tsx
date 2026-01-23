@@ -6,6 +6,7 @@ import {
   DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
+  HashIcon,
   LinkedinLogoIcon,
   PhoneIcon,
   WhatsappLogoIcon,
@@ -21,6 +22,7 @@ import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
@@ -32,6 +34,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -71,15 +74,15 @@ const project = {
     {
       locale: "pt",
       messages: {
-        description: "lorem ipsum dolor sit amet",
-        name: "lorem ipsum",
+        description: "Lorem ipsum dolor sit amet",
+        name: "Lorem Ipsum",
       },
     },
     {
       locale: "en",
       messages: {
-        description: "lorem ipsum dolor sit amet",
-        name: "lorem ipsum",
+        description: "Lorem ipsum dolor sit amet",
+        name: "Lorem Ipsum",
       },
     },
   ],
@@ -89,12 +92,12 @@ const project = {
     "https://picsum.photos/1280/720?random=2",
     "https://picsum.photos/1280/720?random=3",
   ],
-  repositoryUrl: "https://example.com/demo",
+  repositoryUrl: "https://github.com/demo",
   skills: [
     {
-      id: "html",
-      name: "html",
-      slug: "html",
+      id: "html5",
+      name: "html5",
+      slug: "html5",
     },
     {
       id: "css",
@@ -148,7 +151,9 @@ export function ClientPage() {
               <h2>Yago Russo</h2>
             </div>
             <Highlighter action="underline" padding={4}>
-              <h1 className="font-semibold text-6xl">{t("title")}</h1>
+              <h1 className="font-semibold text-6xl max-md:text-5xl">
+                {t("title")}
+              </h1>
             </Highlighter>
           </div>
           <p className="text-muted-foreground">{t("description")}</p>
@@ -174,7 +179,7 @@ export function ClientPage() {
         >
           <Image
             alt="sticker"
-            className="max-md:mask-[linear-gradient(to_bottom,black_70%,transparent_100%)] animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
+            className="max-md:mask-b-from-70% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
             height={512}
             priority={true}
             src="/images/sticker.png"
@@ -262,7 +267,10 @@ export function ClientPage() {
       <Separator />
       <div className="container relative flex w-full flex-col justify-center gap-8">
         <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
-        <AnimateOnScroll className="flex flex-1 justify-between gap-8" x={-16}>
+        <AnimateOnScroll
+          className="flex flex-1 flex-wrap justify-between gap-8"
+          y={16}
+        >
           <SectionTitle
             description={t("sections.portfolio.description")}
             id="my-portfolio"
@@ -275,7 +283,122 @@ export function ClientPage() {
         </AnimateOnScroll>
         {[project, project, project].map((proj, index) => (
           <AnimateOnScroll key={proj.id + index} y={16}>
-            <div className="flex h-64 items-center justify-center rounded bg-center bg-cover bg-no-repeat p-4 shadow-lg" style={{ backgroundImage: `url(${proj.images[index]})` }}/>
+            <div
+              className={cn(
+                "flex h-128 items-center justify-center rounded border border-primary/25 bg-alternative max-lg:h-auto max-lg:flex-col-reverse",
+                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+              )}
+            >
+              <div className="h-full w-full min-w-0 flex-1">
+                <div className="flex h-full flex-col justify-between gap-8 p-8 max-md:p-6">
+                  <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide">
+                    <HashIcon weight="bold" />
+                    <span>{proj.slug}</span>
+                  </strong>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-semibold text-6xl max-md:text-5xl">
+                      {proj.i18n[0].messages.name}
+                    </h3>
+                    <p className="text-muted-foreground">
+                      {proj.i18n[0].messages.description}
+                    </p>
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                      {proj.skills.map((skill) => (
+                        <Badge
+                          className="uppercase"
+                          key={skill.id}
+                          variant="secondary"
+                        >
+                          <Avatar.Root className="size-3 brightness-0 invert">
+                            <Avatar.Image
+                              alt={skill.name}
+                              src={simpleIconsCdn(skill.slug)}
+                            />
+                            <Avatar.Fallback className="bg-transparent">
+                              <DiamondIcon className="size-4" weight="fill" />
+                            </Avatar.Fallback>
+                          </Avatar.Root>
+                          {skill.name}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex max-w-96 items-center gap-2 max-lg:hidden">
+                    <Button
+                      asChild
+                      className="flex-1"
+                      size="sm"
+                      variant="outline"
+                    >
+                      <a
+                        className="underline-offset-2 hover:underline"
+                        href={proj.repositoryUrl}
+                        target="_blank"
+                      >
+                        <GithubLogoIcon />
+                        Repo
+                      </a>
+                    </Button>
+                    <Button
+                      asChild
+                      className="flex-1"
+                      size="sm"
+                      variant="outline"
+                    >
+                      <a
+                        className="underline-offset-2 hover:underline"
+                        href={proj.demoUrl}
+                        target="_blank"
+                      >
+                        <ArrowUpRightIcon />
+                        Demo
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div className="relative h-full w-full min-w-0 flex-1">
+                <Image
+                  alt={proj.slug}
+                  className="h-full w-full rounded object-cover object-center"
+                  height={720}
+                  src={proj.images[index]}
+                  width={720}
+                />
+                <div className="absolute bottom-0 left-0 flex w-full items-center gap-2 p-2 opacity-75 transition-opacity hover:opacity-100 lg:hidden">
+                  <Button
+                    asChild
+                    className="flex-1"
+                    size="sm"
+                    variant="outline"
+                  >
+                    <a
+                      className="underline-offset-2 hover:underline"
+                      href={proj.repositoryUrl}
+                      target="_blank"
+                    >
+                      <GithubLogoIcon />
+                      Github
+                    </a>
+                  </Button>
+                  <Button
+                    asChild
+                    className="flex-1"
+                    size="sm"
+                    variant="outline"
+                  >
+                    <a
+                      className="underline-offset-2 hover:underline"
+                      href={proj.demoUrl}
+                      target="_blank"
+                    >
+                      <ArrowUpRightIcon />
+                      Demo
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
           </AnimateOnScroll>
         ))}
       </div>
