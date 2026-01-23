@@ -1,12 +1,18 @@
 "use client";
 
 import { motion } from "motion/react";
-import { type CSSProperties, useEffect, useState } from "react";
+import {
+  type CSSProperties,
+  type HTMLAttributes,
+  type Ref,
+  useEffect,
+  useState,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
-interface LightRaysProps extends React.HTMLAttributes<HTMLDivElement> {
-  ref?: React.Ref<HTMLDivElement>;
+interface LightRaysProps extends HTMLAttributes<HTMLDivElement> {
+  ref?: Ref<HTMLDivElement>;
   count?: number;
   color?: string;
   blur?: number;

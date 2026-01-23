@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, type MotionProps, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { type ElementType, useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,7 +17,7 @@ interface HyperTextProps extends MotionProps {
   /** Delay before animation starts in milliseconds */
   delay?: number;
   /** Component to render as - defaults to div */
-  as?: React.ElementType;
+  as?: ElementType;
   /** Whether to start animation when element comes into view */
   startOnView?: boolean;
   /** Whether to trigger animation on hover */
