@@ -33,6 +33,7 @@ import { Timeline } from "@/components/ui/timeline";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllSkills } from "@/hooks/queries/skills";
+import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
 
@@ -179,7 +180,7 @@ export function ClientPage() {
         >
           <Image
             alt="sticker"
-            className="max-md:mask-b-from-70% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
+            className="max-md:mask-b-from-75% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
             height={512}
             priority={true}
             src="/images/sticker.png"
@@ -266,7 +267,7 @@ export function ClientPage() {
       </div>
       <Separator />
       <div className="container relative flex w-full flex-col justify-center gap-8">
-        <DotPattern className="mask-[radial-gradient(36rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
+        <DotPattern className="mask-[radial-gradient(48rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
         <AnimateOnScroll
           className="flex flex-1 flex-wrap justify-between gap-8"
           y={16}
@@ -276,21 +277,23 @@ export function ClientPage() {
             id="my-portfolio"
             title={t("sections.portfolio.title")}
           />
-          <Button size="lg" variant="outline">
-            {t("viewAll")}
-            <ArrowUpRightIcon weight="bold" />
+          <Button asChild variant="outline">
+            <Link href="/portfolio">
+              {t("viewAll")}
+              <ArrowUpRightIcon weight="bold" />
+            </Link>
           </Button>
         </AnimateOnScroll>
         {[project, project, project].map((proj, index) => (
           <AnimateOnScroll key={proj.id + index} y={16}>
             <div
               className={cn(
-                "flex h-128 items-center justify-center rounded border border-primary/25 bg-alternative max-lg:h-auto max-lg:flex-col-reverse",
+                "flex h-128 items-center justify-center rounded border bg-alternative max-lg:h-auto max-lg:flex-col-reverse",
                 index % 2 === 0 ? "flex-row" : "flex-row-reverse"
               )}
             >
               <div className="h-full w-full min-w-0 flex-1">
-                <div className="flex h-full flex-col justify-between gap-8 p-8 max-md:p-6">
+                <div className="flex h-full flex-col justify-between gap-4 p-8 max-md:p-6">
                   <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide">
                     <HashIcon weight="bold" />
                     <span>{proj.slug}</span>
@@ -323,18 +326,14 @@ export function ClientPage() {
                       ))}
                     </div>
                   </div>
-                  <div className="flex max-w-96 items-center gap-2 max-lg:hidden">
+                  <div className="flex items-center gap-2 max-lg:mt-4 lg:max-w-96">
                     <Button
                       asChild
                       className="flex-1"
                       size="sm"
                       variant="outline"
                     >
-                      <a
-                        className="underline-offset-2 hover:underline"
-                        href={proj.repositoryUrl}
-                        target="_blank"
-                      >
+                      <a href={proj.repositoryUrl} target="_blank">
                         <GithubLogoIcon />
                         Repo
                       </a>
@@ -345,11 +344,7 @@ export function ClientPage() {
                       size="sm"
                       variant="outline"
                     >
-                      <a
-                        className="underline-offset-2 hover:underline"
-                        href={proj.demoUrl}
-                        target="_blank"
-                      >
+                      <a href={proj.demoUrl} target="_blank">
                         <ArrowUpRightIcon />
                         Demo
                       </a>
@@ -357,46 +352,19 @@ export function ClientPage() {
                   </div>
                 </div>
               </div>
-              <div className="relative h-full w-full min-w-0 flex-1">
+              <div className="h-full w-full min-w-0 flex-1">
                 <Image
                   alt={proj.slug}
-                  className="h-full w-full rounded object-cover object-center"
+                  className={cn(
+                    "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-center",
+                    index % 2 === 0
+                      ? "lg:mask-l-from-75% lg:mask-l-to-100%"
+                      : "lg:mask-r-from-75% lg:mask-r-to-100%"
+                  )}
                   height={720}
                   src={proj.images[index]}
                   width={720}
                 />
-                <div className="absolute bottom-0 left-0 flex w-full items-center gap-2 p-2 opacity-75 transition-opacity hover:opacity-100 lg:hidden">
-                  <Button
-                    asChild
-                    className="flex-1"
-                    size="sm"
-                    variant="outline"
-                  >
-                    <a
-                      className="underline-offset-2 hover:underline"
-                      href={proj.repositoryUrl}
-                      target="_blank"
-                    >
-                      <GithubLogoIcon />
-                      Github
-                    </a>
-                  </Button>
-                  <Button
-                    asChild
-                    className="flex-1"
-                    size="sm"
-                    variant="outline"
-                  >
-                    <a
-                      className="underline-offset-2 hover:underline"
-                      href={proj.demoUrl}
-                      target="_blank"
-                    >
-                      <ArrowUpRightIcon />
-                      Demo
-                    </a>
-                  </Button>
-                </div>
               </div>
             </div>
           </AnimateOnScroll>
@@ -442,6 +410,7 @@ export function ClientPage() {
           </AnimateOnScroll>
         </div>
       </div>
+      <Separator />
       <div className="container relative flex w-full gap-x-32 gap-y-8 max-lg:flex-col">
         <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={-16}>
           <SectionTitle
