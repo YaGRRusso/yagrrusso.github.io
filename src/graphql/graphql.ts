@@ -270,6 +270,11 @@ export type FindOneUserByIdQueryVariables = Exact<{
 
 export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'User', address?: string | null, avatar?: string | null, birthDate?: string | null, description?: string | null, email: string, hobbies?: Array<string> | null, id: string, name: string, nickname: string, phone?: string | null, postalCode?: string | null, role: string, school?: string | null, title?: string | null, work?: string | null, urls?: Array<{ __typename?: 'UserUrl', code: string, value: string }> | null } };
 
+export type FindAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', demoUrl?: string | null, id: string, images?: Array<string> | null, repositoryUrl?: string | null, slug: string, i18n: Array<{ __typename?: 'ProjectTranslationLocale', locale: string, messages: { __typename?: 'ProjectTranslation', description: string, name: string } }>, skills?: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug: string, color?: string | null }> | null }> };
+
 export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -319,6 +324,31 @@ export const FindOneUserByIdDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
+export const FindAllProjectsDocument = new TypedDocumentString(`
+    query findAllProjects {
+  findAllProjects {
+    demoUrl
+    i18n {
+      locale
+      messages {
+        description
+        name
+      }
+    }
+    id
+    images
+    repositoryUrl
+    skills {
+      id
+      name
+      category
+      slug
+      color
+    }
+    slug
+  }
+}
+    `) as unknown as TypedDocumentString<FindAllProjectsQuery, FindAllProjectsQueryVariables>;
 export const FindAllSkillsDocument = new TypedDocumentString(`
     query findAllSkills {
   findAllSkills {

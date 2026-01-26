@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { prefetchFindOneUserById } from "@/hooks/queries/auth";
+import { prefetchFindAllProjects } from "@/hooks/queries/projects";
 import { prefetchFindAllSkills } from "@/hooks/queries/skills";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
@@ -32,9 +32,7 @@ export default async function Page({ params }: Props) {
 
   const queryClient = new QueryClient();
   await prefetchFindAllSkills(queryClient);
-  await prefetchFindOneUserById(queryClient, {
-    findOneUserByIdId: "68d5b5a2b16f9272f9d6f549",
-  });
+  await prefetchFindAllProjects(queryClient);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

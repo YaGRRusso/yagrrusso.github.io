@@ -16,10 +16,12 @@ import * as types from './graphql';
  */
 type Documents = {
     "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n": typeof types.FindOneUserByIdDocument,
+    "\n  query findAllProjects {\n    findAllProjects {\n      demoUrl\n      i18n {\n        locale\n        messages {\n          description\n          name\n        }\n      }\n      id\n      images\n      repositoryUrl\n      skills {\n        id\n        name\n        category\n        slug\n        color\n      }\n      slug\n    }\n  }\n": typeof types.FindAllProjectsDocument,
     "\n  query findAllSkills {\n    findAllSkills {\n      id\n      name\n      category\n      slug\n      color\n    }\n  }\n": typeof types.FindAllSkillsDocument,
 };
 const documents: Documents = {
     "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n": types.FindOneUserByIdDocument,
+    "\n  query findAllProjects {\n    findAllProjects {\n      demoUrl\n      i18n {\n        locale\n        messages {\n          description\n          name\n        }\n      }\n      id\n      images\n      repositoryUrl\n      skills {\n        id\n        name\n        category\n        slug\n        color\n      }\n      slug\n    }\n  }\n": types.FindAllProjectsDocument,
     "\n  query findAllSkills {\n    findAllSkills {\n      id\n      name\n      category\n      slug\n      color\n    }\n  }\n": types.FindAllSkillsDocument,
 };
 
@@ -27,6 +29,10 @@ const documents: Documents = {
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query findOneUserById($findOneUserByIdId: ID!) {\n    findOneUserById(id: $findOneUserByIdId) {\n      address\n      avatar\n      birthDate\n      description\n      email\n      hobbies\n      id\n      name\n      nickname\n      phone\n      postalCode\n      role\n      school\n      title\n      work\n      urls {\n        code\n        value\n      }\n    }\n  }\n"): typeof import('./graphql').FindOneUserByIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query findAllProjects {\n    findAllProjects {\n      demoUrl\n      i18n {\n        locale\n        messages {\n          description\n          name\n        }\n      }\n      id\n      images\n      repositoryUrl\n      skills {\n        id\n        name\n        category\n        slug\n        color\n      }\n      slug\n    }\n  }\n"): typeof import('./graphql').FindAllProjectsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

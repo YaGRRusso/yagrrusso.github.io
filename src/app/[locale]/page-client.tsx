@@ -6,7 +6,6 @@ import {
   DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
-  HashIcon,
   LinkedinLogoIcon,
   PhoneIcon,
   WhatsappLogoIcon,
@@ -18,11 +17,11 @@ import { Fragment, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
+import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
@@ -32,10 +31,10 @@ import { Separator } from "@/components/ui/separator";
 import { Timeline } from "@/components/ui/timeline";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
+import { useFindAllProjects } from "@/hooks/queries/projects";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
-import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -68,53 +67,6 @@ const items = [
   },
 ];
 
-const project = {
-  createdAt: new Date(),
-  demoUrl: "https://example.com/demo",
-  i18n: [
-    {
-      locale: "pt",
-      messages: {
-        description: "Lorem ipsum dolor sit amet",
-        name: "Lorem Ipsum",
-      },
-    },
-    {
-      locale: "en",
-      messages: {
-        description: "Lorem ipsum dolor sit amet",
-        name: "Lorem Ipsum",
-      },
-    },
-  ],
-  id: "abc123",
-  images: [
-    "https://picsum.photos/1280/720?random=1",
-    "https://picsum.photos/1280/720?random=2",
-    "https://picsum.photos/1280/720?random=3",
-  ],
-  repositoryUrl: "https://github.com/demo",
-  skills: [
-    {
-      id: "html5",
-      name: "html5",
-      slug: "html5",
-    },
-    {
-      id: "css",
-      name: "css",
-      slug: "css",
-    },
-    {
-      id: "javascript",
-      name: "javascript",
-      slug: "javascript",
-    },
-  ],
-  slug: "abc",
-  updatedAt: new Date(),
-};
-
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
@@ -123,7 +75,7 @@ export function ClientPage() {
   const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
 
   const findAllSkills = useFindAllSkills();
-  // const findOneUserById = useFindOneUserById({ findOneUserByIdId: "68d5b5a2b16f9272f9d6f549" });
+  const findAllProjects = useFindAllProjects();
 
   const handleSendMail = useCallback(
     (data: ContactSchema) => {
@@ -284,91 +236,22 @@ export function ClientPage() {
             </Link>
           </Button>
         </AnimateOnScroll>
-        {[project, project, project].map((proj, index) => (
-          <AnimateOnScroll key={proj.id + index} y={16}>
-            <div
-              className={cn(
-                "flex h-128 items-center justify-center rounded border bg-alternative max-lg:h-auto max-lg:flex-col-reverse",
-                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
-              )}
-            >
-              <div className="h-full w-full min-w-0 flex-1">
-                <div className="flex h-full flex-col justify-between gap-4 p-8 max-md:p-6">
-                  <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide">
-                    <HashIcon weight="bold" />
-                    <span>{proj.slug}</span>
-                  </strong>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-semibold text-6xl max-md:text-5xl">
-                      {proj.i18n[0].messages.name}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {proj.i18n[0].messages.description}
-                    </p>
-                    <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-                      {proj.skills.map((skill) => (
-                        <Badge
-                          className="uppercase"
-                          key={skill.id}
-                          variant="secondary"
-                        >
-                          <Avatar.Root className="size-3 brightness-0 invert">
-                            <Avatar.Image
-                              alt={skill.name}
-                              src={simpleIconsCdn(skill.slug)}
-                            />
-                            <Avatar.Fallback className="bg-transparent">
-                              <DiamondIcon className="size-4" weight="fill" />
-                            </Avatar.Fallback>
-                          </Avatar.Root>
-                          {skill.name}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 max-lg:mt-4 lg:max-w-96">
-                    <Button
-                      asChild
-                      className="flex-1"
-                      size="sm"
-                      variant="outline"
-                    >
-                      <a href={proj.repositoryUrl} target="_blank">
-                        <GithubLogoIcon />
-                        Repo
-                      </a>
-                    </Button>
-                    <Button
-                      asChild
-                      className="flex-1"
-                      size="sm"
-                      variant="outline"
-                    >
-                      <a href={proj.demoUrl} target="_blank">
-                        <ArrowUpRightIcon />
-                        Demo
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-              <div className="h-full w-full min-w-0 flex-1">
-                <Image
-                  alt={proj.slug}
-                  className={cn(
-                    "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-center",
-                    index % 2 === 0
-                      ? "lg:mask-l-from-75% lg:mask-l-to-100%"
-                      : "lg:mask-r-from-75% lg:mask-r-to-100%"
-                  )}
-                  height={720}
-                  src={proj.images[index]}
-                  width={720}
-                />
-              </div>
-            </div>
-          </AnimateOnScroll>
-        ))}
+        {findAllProjects.data?.findAllProjects
+          .slice(0, 3)
+          ?.map((proj, index) => (
+            <AnimateOnScroll key={proj.id} y={16}>
+              <ProjectCard
+                demoUrl={proj.demoUrl}
+                description={proj.i18n[0]?.messages.description || ""}
+                direction={index % 2 === 0 ? "left" : "right"}
+                images={proj.images}
+                name={proj.i18n[0]?.messages.name || ""}
+                repositoryUrl={proj.repositoryUrl}
+                skills={proj.skills}
+                slug={proj.slug}
+              />
+            </AnimateOnScroll>
+          ))}
       </div>
       <Separator />
       <div className="w-full bg-alternative">
