@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type CarouselApi = UseEmblaCarouselType[1];
+export type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 type CarouselOptions = UseCarouselParameters[0];
 type CarouselPlugin = UseCarouselParameters[1];
@@ -49,7 +49,7 @@ function useCarousel() {
   return context;
 }
 
-function Carousel({
+function CarouselRoot({
   orientation = "horizontal",
   opts,
   setApi,
@@ -186,17 +186,11 @@ function CarouselPrevious({
   size = "icon",
   ...props
 }: ComponentProps<typeof Button>) {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+  const { scrollPrev, canScrollPrev } = useCarousel();
 
   return (
     <Button
-      className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
+      className={cn("size-8 rounded-full", className)}
       data-slot="carousel-previous"
       disabled={!canScrollPrev}
       onClick={scrollPrev}
@@ -216,17 +210,11 @@ function CarouselNext({
   size = "icon",
   ...props
 }: ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+  const { scrollNext, canScrollNext } = useCarousel();
 
   return (
     <Button
-      className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
+      className={cn("size-8 rounded-full", className)}
       data-slot="carousel-next"
       disabled={!canScrollNext}
       onClick={scrollNext}
@@ -240,11 +228,10 @@ function CarouselNext({
   );
 }
 
-export {
-  type CarouselApi,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+export const Carousel = {
+  Root: CarouselRoot,
+  Content: CarouselContent,
+  Item: CarouselItem,
+  Previous: CarouselPrevious,
+  Next: CarouselNext,
 };

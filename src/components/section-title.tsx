@@ -1,4 +1,4 @@
-import { CaretRightIcon } from "@phosphor-icons/react";
+import { CaretDoubleRightIcon, CaretRightIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -28,7 +28,11 @@ export function SectionTitle({
         id={id}
       >
         <CaretRightIcon
-          className="mb-0.5 animate-caret-blink group-hover:animate-none"
+          className="mb-0.5 animate-caret-blink group-hover:hidden"
+          weight="bold"
+        />
+        <CaretDoubleRightIcon
+          className="mb-0.5 hidden group-hover:inline"
           weight="bold"
         />
         <span>{title}</span>

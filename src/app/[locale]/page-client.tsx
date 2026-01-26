@@ -13,7 +13,7 @@ import {
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Fragment, useCallback, useMemo } from "react";
+import { Fragment, useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
@@ -70,9 +70,6 @@ const items = [
 export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
-
-  // const birth = useMemo(() => dayjs().diff("2001-11-30", "year", false), []);
-  const exp = useMemo(() => dayjs().diff("2020-01-01", "year", false), []);
 
   const findAllSkills = useFindAllSkills();
   const findAllProjects = useFindAllProjects();
@@ -204,7 +201,7 @@ export function ClientPage() {
                   accent="+"
                   className="flex-1"
                   label={t("yearsOfExperience")}
-                  value={exp}
+                  value={dayjs().diff("2020-01-01", "year", false)}
                 />
                 <Counter
                   accent="+"
