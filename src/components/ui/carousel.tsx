@@ -181,7 +181,6 @@ function CarouselItem({ className, ...props }: ComponentProps<"div">) {
 }
 
 function CarouselPrevious({
-  className,
   variant = "outline",
   size = "icon",
   ...props
@@ -190,7 +189,6 @@ function CarouselPrevious({
 
   return (
     <Button
-      className={cn("size-8 rounded-full", className)}
       data-slot="carousel-previous"
       disabled={!canScrollPrev}
       onClick={scrollPrev}
@@ -199,13 +197,12 @@ function CarouselPrevious({
       {...props}
     >
       <CaretLeftIcon />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">Previous</span>
     </Button>
   );
 }
 
 function CarouselNext({
-  className,
   variant = "outline",
   size = "icon",
   ...props
@@ -214,7 +211,6 @@ function CarouselNext({
 
   return (
     <Button
-      className={cn("size-8 rounded-full", className)}
       data-slot="carousel-next"
       disabled={!canScrollNext}
       onClick={scrollNext}
@@ -223,7 +219,7 @@ function CarouselNext({
       {...props}
     >
       <CaretRightIcon />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">Next</span>
     </Button>
   );
 }

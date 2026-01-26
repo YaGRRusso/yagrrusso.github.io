@@ -23,6 +23,7 @@ import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Carousel } from "@/components/ui/carousel";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
@@ -250,6 +251,40 @@ export function ClientPage() {
             </AnimateOnScroll>
           ))}
       </div>
+      <Separator />
+      <Carousel.Root
+        className="container relative flex w-full flex-col justify-center gap-8"
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+      >
+        <AnimateOnScroll
+          className="flex flex-1 flex-wrap justify-between gap-8"
+          y={16}
+        >
+          <SectionTitle
+            description={t("sections.portfolio.description")}
+            id="my-portfolio"
+            title={t("sections.portfolio.title")}
+          />
+          <div className="flex h-fit items-center gap-4">
+            <Carousel.Previous />
+            <Carousel.Next />
+          </div>
+        </AnimateOnScroll>
+        <AnimateOnScroll y={16}>
+          {[new Array(5)].map((_, index) => (
+            <Carousel.Content key={index}>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Carousel.Item className="basis-1/2 lg:basis-1/3" key={index}>
+                  <div className="h-64 rounded bg-primary p-8">{index + 1}</div>
+                </Carousel.Item>
+              ))}
+            </Carousel.Content>
+          ))}
+        </AnimateOnScroll>
+      </Carousel.Root>
       <Separator />
       <div className="w-full bg-alternative">
         <div className="container relative flex w-full justify-center gap-x-32 gap-y-8 max-lg:flex-col">
