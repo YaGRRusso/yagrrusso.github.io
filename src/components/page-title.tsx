@@ -7,7 +7,6 @@ import { DropdownMenu } from "./ui/dropdown-menu";
 
 interface Props extends ComponentProps<"div"> {
   title: string;
-  description: string;
   path?: {
     label: string;
     href: string;
@@ -18,7 +17,6 @@ export function PageTitle({
   children,
   className,
   title,
-  description,
   path,
   ...props
 }: Props) {
@@ -28,7 +26,7 @@ export function PageTitle({
         <Breadcrumb.List>
           <Breadcrumb.Item>
             <Breadcrumb.Link href="/">
-              <HouseIcon />
+              <HouseIcon className="mb-0.5" weight="bold" />
               <span className="max-sm:hidden">Home</span>
             </Breadcrumb.Link>
           </Breadcrumb.Item>
@@ -58,8 +56,7 @@ export function PageTitle({
           </Breadcrumb.Item>
         </Breadcrumb.List>
       </Breadcrumb.Root>
-      <h1 className="text-5xl">{title}</h1>
-      <p className="text-muted-foreground">{description}</p>
+      <h1 className="font-bold text-4xl">{title}</h1>
     </div>
   );
 }

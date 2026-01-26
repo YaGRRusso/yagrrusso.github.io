@@ -12,7 +12,7 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   return (
     <ol
       className={cn(
-        "wrap-reak-words flex flex-wrap items-center gap-1.5 text-muted-foreground text-sm sm:gap-2.5",
+        "wrap-reak-words flex flex-wrap items-center gap-1.5 font-jetbrains-mono font-medium text-muted-foreground tracking-wide sm:gap-2.5",
         className
       )}
       data-slot="breadcrumb-list"
@@ -24,7 +24,7 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
 function BreadcrumbItem({ className, ...props }: ComponentProps<"li">) {
   return (
     <li
-      className={cn("inline-flex items-center gap-1.5", className)}
+      className={cn("inline-flex items-center gap-1.5 uppercase", className)}
       data-slot="breadcrumb-item"
       {...props}
     />
@@ -43,7 +43,7 @@ function BreadcrumbLink({
   return (
     <Comp
       className={cn(
-        "inline-flex items-center gap-x-1 transition-colors hover:text-foreground",
+        "inline-flex items-center gap-x-1.5 transition-colors hover:text-primary",
         className
       )}
       data-slot="breadcrumb-link"
@@ -52,12 +52,12 @@ function BreadcrumbLink({
   );
 }
 
-function BreadcrumbPage({ className, ...props }: ComponentProps<"span">) {
+function BreadcrumbPage({ ...props }: ComponentProps<"span">) {
   return (
     <span
       aria-current="page"
       aria-disabled="true"
-      className={cn("font-normal text-foreground", className)}
+      className="text-primary"
       data-slot="breadcrumb-page"
       {...props}
     />
@@ -77,7 +77,7 @@ function BreadcrumbSeparator({
       role="presentation"
       {...props}
     >
-      {children ?? <CaretRightIcon />}
+      {children ?? <CaretRightIcon className="mb-0.5" weight="bold" />}
     </li>
   );
 }

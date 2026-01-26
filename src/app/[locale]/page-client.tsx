@@ -3,6 +3,7 @@
 import {
   ArrowUpRightIcon,
   CaretRightIcon,
+  CodeIcon,
   DiamondIcon,
   EnvelopeIcon,
   GithubLogoIcon,
@@ -114,6 +115,7 @@ export function ClientPage() {
               href="#my-portfolio"
               title={t("sections.portfolio.title")}
             />
+            <TitleLink href="#my-skills" title={t("sections.skills.title")} />
             <TitleLink
               href="#my-qualifications"
               title={t("sections.qualifications.title")}
@@ -264,11 +266,17 @@ export function ClientPage() {
           y={16}
         >
           <SectionTitle
-            description={t("sections.portfolio.description")}
-            id="my-portfolio"
-            title={t("sections.portfolio.title")}
+            description={t("sections.skills.description")}
+            id="my-skills"
+            title={t("sections.skills.title")}
           />
           <div className="flex h-fit items-center gap-4">
+            <Button asChild variant="outline">
+              <Link href="/skills">
+                {t("viewAll")}
+                <ArrowUpRightIcon weight="bold" />
+              </Link>
+            </Button>
             <Carousel.Previous />
             <Carousel.Next />
           </div>
@@ -277,8 +285,22 @@ export function ClientPage() {
           {[new Array(5)].map((_, index) => (
             <Carousel.Content key={index}>
               {Array.from({ length: 5 }).map((_, index) => (
-                <Carousel.Item className="basis-1/2 lg:basis-1/3" key={index}>
-                  <div className="h-64 rounded bg-primary p-8">{index + 1}</div>
+                <Carousel.Item
+                  className="basis-full sm:basis-1/2 lg:basis-1/3"
+                  key={index}
+                >
+                  <div className="flex h-full flex-col justify-center gap-4 rounded border bg-alternative px-8 py-12">
+                    <CodeIcon
+                      className="size-12 rounded bg-primary p-2"
+                      weight="bold"
+                    />
+                    <h3 className="font-semibold text-4xl max-md:text-3xl">
+                      {index + 1}. Lorem Ipsum
+                    </h3>
+                    <p className="text-muted-foreground">
+                      lorem ipsum dolor sit amet
+                    </p>
+                  </div>
                 </Carousel.Item>
               ))}
             </Carousel.Content>

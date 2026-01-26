@@ -4,6 +4,7 @@ import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
+import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
 import { Alert } from "@/components/ui/alert";
 import { Avatar } from "@/components/ui/avatar";
@@ -36,34 +37,33 @@ export function ClientPage() {
 
   return (
     <div className="container flex flex-1 flex-col gap-4">
-      <PageTitle
-        className="w-full"
-        description={t("description")}
-        title={t("title")}
-      />
-      <div className="flex w-full items-center gap-2">
-        <Input
-          className="flex-1"
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Query"
-          value={query}
-        />
-        <Select.Root
-          onValueChange={(value) => setCategory(value === "ALL" ? "" : value)}
-          value={category}
-        >
-          <Select.Trigger className="max-w-52 flex-1">
-            <Select.Value placeholder="Category" />
-          </Select.Trigger>
-          <Select.Content>
-            {Categories.map((cat) => (
-              <Select.Item key={cat.value} value={cat.value}>
-                {cat.icon} {cat.label}
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Root>
-      </div>
+      <AnimateOnScroll y={16}>
+        <PageTitle className="w-full" title={t("title")} />
+        <div className="flex w-full items-center gap-2">
+          <Input
+            className="flex-1"
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Query"
+            value={query}
+          />
+          <Select.Root
+            onValueChange={(value) => setCategory(value === "ALL" ? "" : value)}
+            value={category}
+          >
+            <Select.Trigger className="max-w-52 flex-1">
+              <Select.Value placeholder="Category" />
+            </Select.Trigger>
+            <Select.Content>
+              {Categories.map((cat) => (
+                <Select.Item key={cat.value} value={cat.value}>
+                  {cat.icon} {cat.label}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </div>
+      </AnimateOnScroll>
+
       <List.Root
         isEmpty={!filteredList?.length}
         isFetching={findAllSkills.isFetching}
@@ -81,29 +81,30 @@ export function ClientPage() {
         <List.Content>
           <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {filteredList?.map((skill) => (
-              <li
-                className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-[var(--skill-color)]"
-                id={skill.slug}
-                key={skill.id}
-                style={
-                  {
-                    "--skill-color": skill.color ?? "transparent",
-                  } as CSSProperties
-                }
-              >
-                <Avatar.Root>
-                  <Avatar.Image
-                    alt={skill.name}
-                    src={simpleIconsCdn(skill.slug)}
-                  />
-                  <Avatar.Fallback>
-                    <ImageBrokenIcon />
-                  </Avatar.Fallback>
-                </Avatar.Root>
-                <span>{skill.name}</span>
-                <span className="text-muted-foreground text-xs">
-                  {skill.category}
-                </span>
+              <li id={skill.slug} key={skill.id}>
+                <AnimateOnScroll
+                  className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-(--skill-color)"
+                  style={
+                    {
+                      "--skill-color": skill.color ?? "transparent",
+                    } as CSSProperties
+                  }
+                  y={16}
+                >
+                  <Avatar.Root>
+                    <Avatar.Image
+                      alt={skill.name}
+                      src={simpleIconsCdn(skill.slug)}
+                    />
+                    <Avatar.Fallback>
+                      <ImageBrokenIcon />
+                    </Avatar.Fallback>
+                  </Avatar.Root>
+                  <span>{skill.name}</span>
+                  <span className="text-muted-foreground text-xs">
+                    {skill.category}
+                  </span>
+                </AnimateOnScroll>
               </li>
             ))}
           </ul>
