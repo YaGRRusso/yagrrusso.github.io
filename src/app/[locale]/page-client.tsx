@@ -242,10 +242,10 @@ export function ClientPage() {
             <AnimateOnScroll key={proj.id} y={16}>
               <ProjectCard
                 demoUrl={proj.demoUrl}
-                description={proj.i18n[0]?.messages.description || ""}
+                description={proj.i18n[0]?.messages.description}
                 direction={index % 2 === 0 ? "left" : "right"}
                 images={proj.images}
-                name={proj.i18n[0]?.messages.name || ""}
+                name={proj.i18n[0]?.messages.name}
                 repositoryUrl={proj.repositoryUrl}
                 skills={proj.skills}
                 slug={proj.slug}
