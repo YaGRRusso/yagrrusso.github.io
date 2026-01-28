@@ -5,45 +5,45 @@
       "description": "This is Yago Russo's personal website."
     },
     "skillsPage": {
-      "title": "Skills",
-      "description": "This page provides information about my skills."
+      "title": "My Toolkit",
+      "description": "My arsenal of languages and tools"
     }
   },
   "common": {
-    "loadingTitle": "Loading",
-    "loadingDescription": "Please wait while the content is loading.",
-    "emptyTitle": "No items found",
-    "emptyDescription": "There are no items to display at the moment.",
-    "errorTitle": "An error occurred",
-    "errorDescription": "Something went wrong while fetching the data.",
-    "successTitle": "Operation successful",
-    "successDescription": "The operation was completed successfully.",
-    "retryTitle": "Retry",
-    "retryDescription": "Click to try again.",
-    "updatedAtTitle": "Updated at { date }",
-    "updatedAtDescription": "The last time the data was updated.",
+    "loadingTitle": "Loading...",
+    "loadingDescription": "Compiling the pixels, please wait.",
+    "emptyTitle": "Nothing Found",
+    "emptyDescription": "This section is empty (for now).",
+    "errorTitle": "Error",
+    "errorDescription": "Something went wrong. Let's pretend this didn't happen.",
+    "successTitle": "Success!",
+    "successDescription": "Operation completed successfully.",
+    "retryTitle": "Try Again",
+    "retryDescription": "Click to reload.",
+    "updatedAtTitle": "Last updated: { date }",
+    "updatedAtDescription": "Latest version deployment.",
     "viewAll": "View All"
   },
   "form": {
     "common": {
-      "submit": "Submit",
-      "reset": "Clear",
-      "success": "Form submitted successfully!",
-      "error": "An error occurred while submitting the form. Please try again.",
-      "characterCount": "{ count }/{ total } characters"
+      "submit": "Send Message",
+      "reset": "Clear Form",
+      "success": "Message received! I'll reply faster than a hotfix.",
+      "error": "Oops, something broke. Please try again.",
+      "characterCount": "{ count }/{ total } chars"
     },
     "contactMe": {
-      "title": "Contact Me",
-      "description": "I look forward to hearing from you!",
+      "title": "Get in Touch",
+      "description": "Let's talk about code, projects, or opportunities.",
       "name": "Name",
-      "namePlaceholder": "Your full name",
+      "namePlaceholder": "Your Name",
       "phone": "Phone",
-      "phonePlaceholder": "Your phone number",
+      "phonePlaceholder": "(00) 00000-0000",
       "email": "Email",
-      "emailPlaceholder": "Your email address",
+      "emailPlaceholder": "you@example.com",
       "message": "Message",
-      "messagePlaceholder": "Write your message here...",
-      "messageDescription": "Include any relevant details so I can assist you better."
+      "messagePlaceholder": "How can I help you?",
+      "messageDescription": "Don't worry, I don't bite."
     }
   },
   "layout": {
@@ -53,49 +53,66 @@
   },
   "homePage": {
     "title": "Full-stack Software Engineer",
-    "description": "Bringing innovative, scalable, and efficient solutions to web development. Passionate about creating exceptional digital experiences that drive business success.",
+    "description": "Hi, I’m Yago. This is the place where I overcomplicate simple things just to show I can code them. Explore my projects, check my stack, and see what happens when I have too much free time and a text editor.",
     "viewAll": "View All",
-    "meetMe": "Meet me",
     "yearsOfExperience": "Years of Experience",
-    "projectsCompleted": "Projects Completed",
-    "technologiesUsed": "Technologies Used",
-    "clientsServed": "Clients Served",
-    "infos": {
-      "name": "Name",
-      "age": "Age",
-      "address": "Address",
-      "email": "Email",
-      "phone": "Phone",
-      "yearsOld": "{ age } years old"
-    },
+    "projectsCompleted": "Projects Delivered",
+    "technologiesUsed": "Technologies",
+    "clientsServed": "Clients/Companies",
     "sections": {
       "aboutMe": {
         "title": "About Me",
-        "description": "Writing colorful letters since { startYear }",
-        "message": "Hello, my name is Yago, I am { age } years old, I live in { address }, I like to <span>play guitar;read books;create codes;play video games;watch movies</span> and I am not very good at creating texts about myself.",
-        "experience": "I have loved technology since I was a child and started programming at { startAge } years old as a self-taught person. Over the years, I have developed my skills and gained experience in various technologies and programming languages, including several areas of software development."
+        "description": "Writing colorful letters since { year }",
+        "message": "I’m Yago, { age }, currently based in { address }. I specialize in turning coffee into code and when I’m not staring at a dark theme IDE, I like to <span>play guitar;read books;create codes;play video games;watch movies</span>. I’m definitely better at writing functions than writing bios, so let’s stick to the tech.",
+        "experience": "It all started at { age }, when I realized those 'colorful letters' on a black screen actually did cool stuff. Since then, I’ve been on a self-taught journey through the endless void of software development. Over the years, I’ve swapped generic tutorials for complex documentation, gaining real-world experience across the full stack. I learn fast, break things occasionally, and always aim to fix them better than they were before."
       },
       "skills": {
-        "title": "Skills",
-        "description": "My stack, tools, and technologies"
+        "title": "Skills & Stack",
+        "description": "My arsenal of languages and tools",
+        "cards": {
+          "frontend": {
+            "title": "Frontend Development",
+            "description": "Building pixel-perfect interfaces that look good even on Internet Explorer (just kidding, I have standards). I turn Figma designs into responsive code and I actually know how to center a div."
+          },
+          "backend": {
+            "title": "Backend Engineering",
+            "description": "The heavy lifting behind the scenes. I build scalable APIs, secure authentication flows, and business logic that keeps the server from crashing on Friday afternoons."
+          },
+          "devops": {
+            "title": "DevOps & Cloud Infra",
+            "description": "Taking code from 'localhost:3000' to the real world. I handle CI/CD pipelines, Docker containers, and AWS instances so that 'it works on my machine' becomes 'it works everywhere'."
+          },
+          "database": {
+            "title": "Database Architecture",
+            "description": "Structuring data efficiently so queries don't take 3 business days to run. Experience with SQL and NoSQL, and I promise never to run a DELETE without a WHERE clause."
+          },
+          "quality": {
+            "title": "Code Quality & Testing",
+            "description": "Writing clean, maintainable code that my future self won't hate. I believe in testing (mostly) and refactoring spaghetti code until it looks like a gourmet pasta dish."
+          }
+        }
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "Cool projects that might be interesting"
+        "description": "Selected projects that works on my machine"
       },
-      "qualifications": {
-        "title": "Education & Experience",
-        "description": "Things I studied and places I worked"
+      "experience": {
+        "title": "Professional Experience",
+        "description": "My career changelog and positions"
+      },
+      "education": {
+        "title": "Education & Studies",
+        "description": "Certifications, courses and system upgrades"
       },
       "getInTouch": {
         "title": "Let's Talk",
         "description": "Feel free to reach out, let's chat",
-        "message": "If you want to talk about a project or just say hi, feel free to contact me. I am always open to new opportunities, collaborations, and interesting conversations."
+        "message": "Have a project idea? Or just want to argue about which JS framework is the best? Drop me a line. I’m always open to new opportunities."
       }
     }
   },
   "skillsPage": {
-    "title": "Skills",
-    "description": "This page provides information about my skills."
+    "title": "Skills & Stack",
+    "description": "My arsenal of languages and tools"
   }
 }

@@ -3,9 +3,13 @@
 import {
   ArrowUpRightIcon,
   CaretRightIcon,
+  CloudIcon,
   CodeIcon,
+  DatabaseIcon,
+  DevicesIcon,
   DiamondIcon,
   EnvelopeIcon,
+  FlaskIcon,
   GithubLogoIcon,
   LinkedinLogoIcon,
   PhoneIcon,
@@ -20,6 +24,7 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
+import { SkillCard } from "@/components/skill-card";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
@@ -30,44 +35,12 @@ import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
-import { Timeline } from "@/components/ui/timeline";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindAllProjects } from "@/hooks/queries/projects";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
-
-const items = [
-  {
-    date: "Mar 15, 2024",
-    description:
-      "Initial team meeting and project scope definition. Established key milestones and resource allocation.",
-    id: 1,
-    title: "Project Kickoff",
-  },
-  {
-    date: "Mar 22, 2024",
-    description:
-      "Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.",
-    id: 2,
-    title: "Design Phase",
-  },
-  {
-    date: "Apr 5, 2024",
-    description:
-      "Backend API implementation and frontend component development in progress.",
-    id: 3,
-    title: "Development Sprint",
-  },
-  {
-    date: "Apr 19, 2024",
-    description:
-      "Quality assurance testing, performance optimization, and production deployment preparation.",
-    id: 4,
-    title: "Testing & Deployment",
-  },
-];
 
 export function ClientPage() {
   const t = useTranslations("homePage");
@@ -117,10 +90,6 @@ export function ClientPage() {
             />
             <TitleLink href="#my-skills" title={t("sections.skills.title")} />
             <TitleLink
-              href="#my-qualifications"
-              title={t("sections.qualifications.title")}
-            />
-            <TitleLink
               href="#get-in-touch"
               title={t("sections.getInTouch.title")}
             />
@@ -164,11 +133,11 @@ export function ClientPage() {
       <Separator />
       <div className="w-full bg-alternative">
         <div className="container relative flex w-full flex-col justify-center gap-8">
-          <div className="flex gap-x-32 gap-y-4 max-lg:flex-col">
+          <div className="flex gap-x-32 max-lg:flex-col">
             <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
               <SectionTitle
                 description={t("sections.aboutMe.description", {
-                  startYear: 2020,
+                  year: 2020,
                 })}
                 id="about-me"
                 title={t("sections.aboutMe.title")}
@@ -195,9 +164,9 @@ export function ClientPage() {
                 })}
               </p>
             </AnimateOnScroll>
-            <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={16}>
+            <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={16}>
               <p className="text-muted-foreground">
-                {t("sections.aboutMe.experience", { startAge: 18 })}
+                {t("sections.aboutMe.experience", { age: 18 })}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-8">
                 <Counter
@@ -230,7 +199,11 @@ export function ClientPage() {
             title={t("sections.portfolio.title")}
           />
           <Button asChild variant="outline">
-            <Link href="/portfolio">
+            <Link
+              href="https://github.com/YaGRRusso?tab=repositories"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               {t("viewAll")}
               <ArrowUpRightIcon weight="bold" />
             </Link>
@@ -282,32 +255,57 @@ export function ClientPage() {
           </div>
         </AnimateOnScroll>
         <AnimateOnScroll y={16}>
-          {[new Array(5)].map((_, index) => (
-            <Carousel.Content key={index}>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <Carousel.Item
-                  className="basis-full sm:basis-1/2 lg:basis-1/3"
-                  key={index}
-                >
-                  <div className="flex h-full flex-col justify-center gap-4 rounded border bg-alternative px-8 py-12">
-                    <CodeIcon
-                      className="size-12 rounded bg-primary p-2"
-                      weight="bold"
-                    />
-                    <h3 className="font-semibold text-4xl max-md:text-3xl">
-                      {index + 1}. Lorem Ipsum
-                    </h3>
-                    <p className="text-muted-foreground">
-                      lorem ipsum dolor sit amet
-                    </p>
-                  </div>
-                </Carousel.Item>
-              ))}
-            </Carousel.Content>
-          ))}
+          <Carousel.Content>
+            <SkillCard
+              description={t("sections.skills.cards.frontend.description")}
+              icon={<DevicesIcon className="size-10" />}
+              title={t("sections.skills.cards.frontend.title")}
+            />
+            <SkillCard
+              description={t("sections.skills.cards.backend.description")}
+              icon={<CodeIcon className="size-10" />}
+              title={t("sections.skills.cards.backend.title")}
+            />
+            <SkillCard
+              description={t("sections.skills.cards.devops.description")}
+              icon={<CloudIcon className="size-10" />}
+              title={t("sections.skills.cards.devops.title")}
+            />
+            <SkillCard
+              description={t("sections.skills.cards.database.description")}
+              icon={<DatabaseIcon className="size-10" />}
+              title={t("sections.skills.cards.database.title")}
+            />
+            <SkillCard
+              description={t("sections.skills.cards.quality.description")}
+              icon={<FlaskIcon className="size-10" />}
+              title={t("sections.skills.cards.quality.title")}
+            />
+          </Carousel.Content>
         </AnimateOnScroll>
       </Carousel.Root>
       <Separator />
+      <Marquee className="w-full" pauseOnHover>
+        <div className="flex items-center gap-8 px-4 py-6 opacity-75">
+          {findAllSkills.data?.findAllSkills?.map((skill) => (
+            <Fragment key={skill.id}>
+              <Avatar.Root className="size-4 brightness-0 dark:invert">
+                <Avatar.Image
+                  alt={skill.name}
+                  src={simpleIconsCdn(skill.slug)}
+                />
+                <Avatar.Fallback className="bg-transparent">
+                  <DiamondIcon className="size-4" weight="fill" />
+                </Avatar.Fallback>
+              </Avatar.Root>
+              <span className="font-medium text-xs uppercase" key={skill.id}>
+                {skill.name}
+              </span>
+            </Fragment>
+          ))}
+        </div>
+      </Marquee>
+      {/* <Separator />
       <div className="w-full bg-alternative">
         <div className="container relative flex w-full justify-center gap-x-32 gap-y-8 max-lg:flex-col">
           <AnimateOnScroll className="flex flex-col gap-8" x={-16}>
@@ -346,7 +344,7 @@ export function ClientPage() {
             </Timeline.Root>
           </AnimateOnScroll>
         </div>
-      </div>
+      </div> */}
       <Separator />
       <div className="container relative flex w-full gap-x-32 gap-y-8 max-lg:flex-col">
         <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={-16}>
@@ -394,7 +392,6 @@ export function ClientPage() {
               />
             </div>
           </div>
-          {/* <Separator className="-my-4" /> */}
           <span className="text-muted-foreground">
             {t("sections.getInTouch.message")}
           </span>

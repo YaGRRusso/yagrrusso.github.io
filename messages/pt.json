@@ -2,100 +2,117 @@
   "routes": {
     "homePage": {
       "title": "Yago Russo",
-      "description": "Este é o site pessoal de Yago Russo."
+      "description": "Este é o site pessoal do Yago Russo."
     },
     "skillsPage": {
-      "title": "Habilidades",
-      "description": "Esta página fornece informações sobre minhas habilidades."
+      "title": "Meu Toolkit",
+      "description": "Meu arsenal de linguagens e ferramentas"
     }
   },
   "common": {
-    "loadingTitle": "Carregando",
-    "loadingDescription": "Por favor, aguarde enquanto o conteúdo está sendo carregado.",
-    "emptyTitle": "Nenhum item encontrado",
-    "emptyDescription": "Não há itens para exibir no momento.",
-    "errorTitle": "Ocorreu um erro",
-    "errorDescription": "Algo deu errado ao buscar os dados.",
-    "successTitle": "Operação bem-sucedida",
-    "successDescription": "A operação foi concluída com sucesso.",
-    "retryTitle": "Tentar novamente",
-    "retryDescription": "Clique para tentar novamente.",
-    "updatedAtTitle": "Atualizado em { date }",
-    "updatedAtDescription": "A última vez que os dados foram atualizados.",
-    "viewAll": "Ver tudo"
+    "loadingTitle": "Carregando...",
+    "loadingDescription": "Compilando os pixels, por favor aguarde.",
+    "emptyTitle": "Nada Encontrado",
+    "emptyDescription": "Esta seção está vazia (por enquanto).",
+    "errorTitle": "Erro",
+    "errorDescription": "Algo deu errado. Vamos fingir que isso não aconteceu.",
+    "successTitle": "Sucesso!",
+    "successDescription": "Operação concluída com sucesso.",
+    "retryTitle": "Tentar Novamente",
+    "retryDescription": "Clique para recarregar.",
+    "updatedAtTitle": "Última atualização: { date }",
+    "updatedAtDescription": "Deploy da versão mais recente.",
+    "viewAll": "Ver Tudo"
+  },
+  "form": {
+    "common": {
+      "submit": "Enviar Mensagem",
+      "reset": "Limpar Formulário",
+      "success": "Mensagem recebida! Responderei mais rápido que um hotfix.",
+      "error": "Ops, algo quebrou. Por favor, tente novamente.",
+      "characterCount": "{ count }/{ total } caracteres"
+    },
+    "contactMe": {
+      "title": "Entre em Contato",
+      "description": "Vamos falar sobre código, projetos ou oportunidades.",
+      "name": "Nome",
+      "namePlaceholder": "Seu Nome",
+      "phone": "Telefone",
+      "phonePlaceholder": "(00) 00000-0000",
+      "email": "Email",
+      "emailPlaceholder": "voce@exemplo.com",
+      "message": "Mensagem",
+      "messagePlaceholder": "Como posso ajudar?",
+      "messageDescription": "Não se preocupe, eu não mordo."
+    }
   },
   "layout": {
     "welcome": "Bem-vindo!",
     "rightsReserved": "© { year } Yago Russo. Todos os direitos reservados.",
     "updatedAt": "Atualizado em { date }."
   },
-  "form": {
-    "common": {
-      "submit": "Enviar",
-      "reset": "Limpar",
-      "success": "Formulário enviado com sucesso!",
-      "error": "Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.",
-      "characterCount": "{ count }/{ total } caracteres"
-    },
-    "contactMe": {
-      "title": "Entre em Contato Comigo",
-      "description": "Estou ansioso para ouvir de você!",
-      "name": "Nome",
-      "namePlaceholder": "Seu nome completo",
-      "phone": "Telefone",
-      "phonePlaceholder": "Seu número de telefone",
-      "email": "Email",
-      "emailPlaceholder": "Seu endereço de email",
-      "message": "Mensagem",
-      "messagePlaceholder": "Escreva sua mensagem aqui...",
-      "messageDescription": "Inclua qualquer detalhe relevante para que eu possa ajudá-lo melhor."
-    }
-  },
   "homePage": {
-    "title": "Full-stack Software Engineer",
-    "description": "Trazendo soluções inovadoras, escaláveis e eficientes para o desenvolvimento web. Apaixonado por criar experiências digitais excepcionais que impulsionam o sucesso dos negócios.",
-    "viewAll": "Ver tudo",
-    "meetMe": "Conheça-me",
+    "title": "Engenheiro de Software Full-stack",
+    "description": "Oi, eu sou o Yago. Este é o lugar onde eu complico coisas simples só para mostrar que sei codar. Explore meus projetos, confira minha stack, e veja o que acontece quando tenho muito tempo livre e um editor de texto.",
+    "viewAll": "Ver Tudo",
     "yearsOfExperience": "Anos de Experiência",
-    "projectsCompleted": "Projetos Concluídos",
-    "technologiesUsed": "Tecnologias Utilizadas",
-    "clientsServed": "Clientes Atendidos",
-    "infos": {
-      "name": "Nome",
-      "age": "Idade",
-      "address": "Endereço",
-      "email": "Email",
-      "phone": "Telefone",
-      "yearsOld": "{ age } anos"
-    },
+    "projectsCompleted": "Projetos Entregues",
+    "technologiesUsed": "Tecnologias",
+    "clientsServed": "Clientes/Empresas",
     "sections": {
       "aboutMe": {
         "title": "Sobre Mim",
-        "description": "Escrevendo letrinhas coloridas desde { startYear }",
-        "message": "Olá, meu nome é Yago, tenho { age } anos, moro em { address }, gosto de <span>tocar violão;ler livros;criar códigos;jogar videogames;assistir filmes</span> e não sou muito bom criando textos sobre mim.",
-        "experience": "Gosto de tecnologia desde criança e comecei na programação aos { startAge } anos como autodidata. Ao longo dos anos, desenvolvi minhas habilidades e adquiri experiência em várias tecnologias e linguagens de programação, incluindo diversas áreas de desenvolvimento de software."
+        "description": "Escrevendo letrinhas coloridas desde { year }",
+        "message": "Sou o Yago, tenho { age } e atualmente moro em { address }. Sou especializado em transformar café em código e, quando não estou encarando uma IDE com tema escuro, gosto de <span>tocar guitarra;ler livros;criar códigos;jogar videogames;assistir filmes</span>. Definitivamente sou melhor escrevendo funções do que biografias, então vamos focar na tecnologia.",
+        "experience": "Tudo começou aos { age }, quando percebi que aquelas 'letrinhas coloridas' numa tela preta faziam coisas legais. Desde então, estou numa jornada autodidata pelo vácuo infinito do desenvolvimento de software. Ao longo dos anos, troquei tutoriais genéricos por documentações complexas, ganhando experiência real em todo o stack. Aprendo rápido, quebro coisas ocasionalmente, e sempre tento consertar deixando melhor do que estava antes."
       },
       "skills": {
-        "title": "Habilidades",
-        "description": "Minha stack, ferramentas e tecnologias"
+        "title": "Habilidades & Stack",
+        "description": "Meu arsenal de linguagens e ferramentas",
+        "cards": {
+          "frontend": {
+            "title": "Desenvolvimento Frontend",
+            "description": "Criando interfaces pixel-perfect que ficam bonitas até no Internet Explorer (brincadeira, eu tenho critérios). Transformo designs do Figma em código responsivo e eu realmente sei centralizar uma div."
+          },
+          "backend": {
+            "title": "Engenharia Backend",
+            "description": "O trabalho pesado nos bastidores. Construo APIs escaláveis, fluxos de autenticação seguros e lógica de negócios que impede o servidor de cair nas tardes de sexta-feira."
+          },
+          "devops": {
+            "title": "DevOps & Cloud Infra",
+            "description": "Levando código do 'localhost:3000' para o mundo real. Cuido de pipelines CI/CD, containers Docker e instâncias AWS para que o 'funciona na minha máquina' vire 'funciona em qualquer lugar'."
+          },
+          "database": {
+            "title": "Arquitetura de Banco de Dados",
+            "description": "Estruturando dados eficientemente para que as queries não levem 3 dias úteis para rodar. Experiência com SQL e NoSQL, e prometo nunca rodar um DELETE sem WHERE."
+          },
+          "quality": {
+            "title": "Qualidade de Código & Testes",
+            "description": "Escrevendo código limpo e sustentável que meu eu do futuro não vai odiar. Acredito em testes (na maioria das vezes) e em refatorar código espaguete até virar um prato gourmet."
+          }
+        }
       },
       "portfolio": {
         "title": "Portfólio",
-        "description": "Projetos legais que talvez sejam interessantes"
+        "description": "Projetos selecionados que funcionam na minha máquina"
       },
-      "qualifications": {
-        "title": "Educação e Experiência",
-        "description": "Coisas que estudei e lugares que trabalhei"
+      "experience": {
+        "title": "Experiência Profissional",
+        "description": "Meu changelog de carreira e cargos"
+      },
+      "education": {
+        "title": "Educação & Estudos",
+        "description": "Certificações, cursos e upgrades de sistema"
       },
       "getInTouch": {
         "title": "Vamos Conversar",
-        "description": "Pode me chamar, bora trocar uma ideia",
-        "message": "Se quiser conversar sobre algum projeto ou apenas dizer oi, sinta-se à vontade para entrar em contato comigo. Estou sempre aberto a novas oportunidades, colaborações e conversas interessantes."
+        "description": "Fique à vontade para chamar, vamos bater um papo",
+        "message": "Tem uma ideia de projeto? Ou só quer discutir qual framework JS é o melhor? Mande um alô. Estou sempre aberto a novas oportunidades."
       }
     }
   },
   "skillsPage": {
-    "title": "Habilidades",
-    "description": "Esta página fornece informações sobre minhas habilidades."
+    "title": "Habilidades & Stack",
+    "description": "Meu arsenal de linguagens e ferramentas"
   }
 }
