@@ -116,7 +116,7 @@ export function ClientPage() {
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
-                  alt={skill.name}
+                  alt={skill.title}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
@@ -124,7 +124,7 @@ export function ClientPage() {
                 </Avatar.Fallback>
               </Avatar.Root>
               <span className="font-medium text-xs uppercase" key={skill.id}>
-                {skill.name}
+                {skill.title}
               </span>
             </Fragment>
           ))}
@@ -214,13 +214,13 @@ export function ClientPage() {
           ?.map((proj, index) => (
             <AnimateOnScroll key={proj.id} y={16}>
               <ProjectCard
-                demoUrl={proj.demoUrl}
+                // demoUrl={proj.demoUrl}
                 description={proj.i18n[0]?.messages.description}
                 direction={index % 2 === 0 ? "left" : "right"}
                 images={proj.images}
-                name={proj.i18n[0]?.messages.name}
-                repositoryUrl={proj.repositoryUrl}
-                skills={proj.skills}
+                name={proj.i18n[0]?.messages.title}
+                // repositoryUrl={proj.repositoryUrl}
+                skills={proj.skills ?? []}
                 slug={proj.slug}
               />
             </AnimateOnScroll>
@@ -291,7 +291,7 @@ export function ClientPage() {
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
-                  alt={skill.name}
+                  alt={skill.title}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
@@ -299,7 +299,7 @@ export function ClientPage() {
                 </Avatar.Fallback>
               </Avatar.Root>
               <span className="font-medium text-xs uppercase" key={skill.id}>
-                {skill.name}
+                {skill.title}
               </span>
             </Fragment>
           ))}

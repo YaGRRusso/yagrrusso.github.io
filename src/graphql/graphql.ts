@@ -19,17 +19,16 @@ export type Scalars = {
 };
 
 export type CreateProjectInput = {
-  demoUrl?: InputMaybe<Scalars['String']['input']>;
   i18n: Array<CreateProjectTranslationLocaleInput>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
-  repositoryUrl?: InputMaybe<Scalars['String']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
+  urls?: InputMaybe<Array<CreateProjectUrlInput>>;
 };
 
 export type CreateProjectTranslationInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type CreateProjectTranslationLocaleInput = {
@@ -37,25 +36,27 @@ export type CreateProjectTranslationLocaleInput = {
   messages: CreateProjectTranslationInput;
 };
 
+export type CreateProjectUrlInput = {
+  title: Scalars['String']['input'];
+  value: Scalars['String']['input'];
+};
+
 export type CreateSkillInput = {
   category: Scalars['String']['input'];
   color?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 export type CreateUserInput = {
   address?: InputMaybe<Scalars['String']['input']>;
   avatar?: InputMaybe<Scalars['String']['input']>;
-  birthDate?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+  birth?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
   name: Scalars['String']['input'];
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
   school?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<CreateUserUrlInput>>;
@@ -63,7 +64,7 @@ export type CreateUserInput = {
 };
 
 export type CreateUserUrlInput = {
-  code: Scalars['String']['input'];
+  title: Scalars['String']['input'];
   value: Scalars['String']['input'];
 };
 
@@ -134,26 +135,31 @@ export type MutationUpdateUserArgs = {
 export type Project = {
   __typename?: 'Project';
   createdAt: Scalars['DateTime']['output'];
-  demoUrl?: Maybe<Scalars['String']['output']>;
   i18n: Array<ProjectTranslationLocale>;
   id: Scalars['ID']['output'];
   images?: Maybe<Array<Scalars['String']['output']>>;
-  repositoryUrl?: Maybe<Scalars['String']['output']>;
   skills?: Maybe<Array<Skill>>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+  urls?: Maybe<Array<ProjectUrl>>;
 };
 
 export type ProjectTranslation = {
   __typename?: 'ProjectTranslation';
   description: Scalars['String']['output'];
-  name: Scalars['String']['output'];
+  title: Scalars['String']['output'];
 };
 
 export type ProjectTranslationLocale = {
   __typename?: 'ProjectTranslationLocale';
   locale: Scalars['String']['output'];
   messages: ProjectTranslation;
+};
+
+export type ProjectUrl = {
+  __typename?: 'ProjectUrl';
+  title: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type Query = {
@@ -193,42 +199,38 @@ export type Skill = {
   color?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UpdateProjectInput = {
-  demoUrl?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<Array<CreateProjectTranslationLocaleInput>>;
   id: Scalars['ID']['input'];
   images?: InputMaybe<Array<Scalars['String']['input']>>;
-  repositoryUrl?: InputMaybe<Scalars['String']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  urls?: InputMaybe<Array<CreateProjectUrlInput>>;
 };
 
 export type UpdateSkillInput = {
   category?: InputMaybe<Scalars['String']['input']>;
   color?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateUserInput = {
   address?: InputMaybe<Scalars['String']['input']>;
   avatar?: InputMaybe<Scalars['String']['input']>;
-  birthDate?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+  birth?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  hobbies?: InputMaybe<Array<Scalars['String']['input']>>;
   id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
-  postalCode?: InputMaybe<Scalars['String']['input']>;
   school?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<CreateUserUrlInput>>;
@@ -239,16 +241,13 @@ export type User = {
   __typename?: 'User';
   address?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
-  birthDate?: Maybe<Scalars['String']['output']>;
+  birth?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
   email: Scalars['String']['output'];
-  hobbies?: Maybe<Array<Scalars['String']['output']>>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   nickname: Scalars['String']['output'];
   phone?: Maybe<Scalars['String']['output']>;
-  postalCode?: Maybe<Scalars['String']['output']>;
   role: Scalars['String']['output'];
   school?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
@@ -259,7 +258,7 @@ export type User = {
 
 export type UserUrl = {
   __typename?: 'UserUrl';
-  code: Scalars['String']['output'];
+  title: Scalars['String']['output'];
   value: Scalars['String']['output'];
 };
 
@@ -268,17 +267,17 @@ export type FindOneUserByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'User', address?: string | null, avatar?: string | null, birthDate?: string | null, description?: string | null, email: string, hobbies?: Array<string> | null, id: string, name: string, nickname: string, phone?: string | null, postalCode?: string | null, role: string, school?: string | null, title?: string | null, work?: string | null, urls?: Array<{ __typename?: 'UserUrl', code: string, value: string }> | null } };
+export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'User', id: string, address?: string | null, school?: string | null, title?: string | null, updatedAt: any, work?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: string, urls?: Array<{ __typename?: 'UserUrl', title: string, value: string }> | null } };
 
 export type FindAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', demoUrl?: string | null, id: string, images?: Array<string> | null, repositoryUrl?: string | null, slug: string, i18n: Array<{ __typename?: 'ProjectTranslationLocale', locale: string, messages: { __typename?: 'ProjectTranslation', description: string, name: string } }>, skills?: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug: string, color?: string | null }> | null }> };
+export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectTranslationLocale', locale: string, messages: { __typename?: 'ProjectTranslation', description: string, title: string } }>, skills?: Array<{ __typename?: 'Skill', id: string, category: string, color?: string | null, slug: string, title: string }> | null, urls?: Array<{ __typename?: 'ProjectUrl', title: string, value: string }> | null }> };
 
 export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, name: string, category: string, slug: string, color?: string | null }> };
+export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', id: string, category: string, color?: string | null, slug: string, title: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -302,50 +301,50 @@ export class TypedDocumentString<TResult, TVariables>
 export const FindOneUserByIdDocument = new TypedDocumentString(`
     query findOneUserById($findOneUserByIdId: ID!) {
   findOneUserById(id: $findOneUserByIdId) {
-    address
-    avatar
-    birthDate
-    description
-    email
-    hobbies
     id
+    address
+    school
+    title
+    updatedAt
+    urls {
+      title
+      value
+    }
+    work
+    avatar
+    birth
+    email
     name
     nickname
     phone
-    postalCode
     role
-    school
-    title
-    work
-    urls {
-      code
-      value
-    }
   }
 }
     `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
 export const FindAllProjectsDocument = new TypedDocumentString(`
     query findAllProjects {
   findAllProjects {
-    demoUrl
+    id
     i18n {
       locale
       messages {
         description
-        name
+        title
       }
     }
-    id
     images
-    repositoryUrl
     skills {
       id
-      name
       category
-      slug
       color
+      slug
+      title
     }
     slug
+    urls {
+      title
+      value
+    }
   }
 }
     `) as unknown as TypedDocumentString<FindAllProjectsQuery, FindAllProjectsQueryVariables>;
@@ -353,10 +352,10 @@ export const FindAllSkillsDocument = new TypedDocumentString(`
     query findAllSkills {
   findAllSkills {
     id
-    name
     category
-    slug
     color
+    slug
+    title
   }
 }
     `) as unknown as TypedDocumentString<FindAllSkillsQuery, FindAllSkillsQueryVariables>;

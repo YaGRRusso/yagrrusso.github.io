@@ -9,25 +9,27 @@ import { defineQuery } from "../factories/query";
 const findAllProjects = graphql(`
   query findAllProjects {
     findAllProjects {
-      demoUrl
+      id
       i18n {
         locale
         messages {
           description
-          name
+          title
         }
       }
-      id
       images
-      repositoryUrl
       skills {
         id
-        name
         category
-        slug
         color
+        slug
+        title
       }
       slug
+      urls {
+        title
+        value
+      }
     }
   }
 `);

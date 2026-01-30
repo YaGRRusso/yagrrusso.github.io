@@ -10,10 +10,10 @@ const findAllSkills = graphql(`
   query findAllSkills {
     findAllSkills {
       id
-      name
       category
-      slug
       color
+      slug
+      title
     }
   }
 `);

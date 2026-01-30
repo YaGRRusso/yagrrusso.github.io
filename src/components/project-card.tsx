@@ -19,13 +19,11 @@ interface Props extends ComponentProps<"div"> {
   slug: string;
   name: string;
   description: string;
-  skills?:
-    | {
-        id: string;
-        name: string;
-        slug: string;
-      }[]
-    | null;
+  skills?: {
+    id: string;
+    title: string;
+    slug: string;
+  }[];
   repositoryUrl?: string | null;
   demoUrl?: string | null;
   images?: string[] | null;
@@ -75,14 +73,14 @@ export function ProjectCard({
                   >
                     <Avatar.Root className="size-4 brightness-0 invert">
                       <Avatar.Image
-                        alt={skill.name}
+                        alt={skill.title}
                         src={simpleIconsCdn(skill.slug)}
                       />
                       <Avatar.Fallback className="bg-transparent">
                         <DiamondIcon className="size-4" weight="fill" />
                       </Avatar.Fallback>
                     </Avatar.Root>
-                    {skill.name}
+                    {skill.title}
                   </Badge>
                 ))}
               </div>

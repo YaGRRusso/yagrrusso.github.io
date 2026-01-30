@@ -9,25 +9,23 @@ import { defineQuery } from "../factories/query";
 const findOneUserById = graphql(`
   query findOneUserById($findOneUserByIdId: ID!) {
     findOneUserById(id: $findOneUserByIdId) {
-      address
-      avatar
-      birthDate
-      description
-      email
-      hobbies
       id
+      address
+      school
+      title
+      updatedAt
+      urls {
+        title
+        value
+      }
+      work
+      avatar
+      birth
+      email
       name
       nickname
       phone
-      postalCode
       role
-      school
-      title
-      work
-      urls {
-        code
-        value
-      }
     }
   }
 `);

@@ -30,8 +30,8 @@ export function ClientPage() {
     return new QueryHelper(findAllSkills.data.findAllSkills)
       .filter("SOFT", "category", "!==")
       .filter(category, "category")
-      .query(query, ["name"])
-      .sort("name")
+      .query(query, ["title"])
+      .sort("title")
       .exec();
   }, [findAllSkills.data, query, category]);
 
@@ -93,14 +93,14 @@ export function ClientPage() {
                 >
                   <Avatar.Root>
                     <Avatar.Image
-                      alt={skill.name}
+                      alt={skill.title}
                       src={simpleIconsCdn(skill.slug)}
                     />
                     <Avatar.Fallback>
                       <ImageBrokenIcon />
                     </Avatar.Fallback>
                   </Avatar.Root>
-                  <span>{skill.name}</span>
+                  <span>{skill.title}</span>
                   <span className="text-muted-foreground text-xs">
                     {skill.category}
                   </span>
