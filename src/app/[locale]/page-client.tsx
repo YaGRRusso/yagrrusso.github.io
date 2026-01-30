@@ -210,18 +210,17 @@ export function ClientPage() {
           </Button>
         </AnimateOnScroll>
         {findAllProjects.data?.findAllProjects
-          .slice(0, 3)
+          .slice(0, 1)
           ?.map((proj, index) => (
             <AnimateOnScroll key={proj.id} y={16}>
               <ProjectCard
-                // demoUrl={proj.demoUrl}
                 description={proj.i18n[0]?.messages.description}
                 direction={index % 2 === 0 ? "left" : "right"}
                 images={proj.images}
                 name={proj.i18n[0]?.messages.title}
-                // repositoryUrl={proj.repositoryUrl}
                 skills={proj.skills ?? []}
                 slug={proj.slug}
+                urls={proj.urls ?? []}
               />
             </AnimateOnScroll>
           ))}

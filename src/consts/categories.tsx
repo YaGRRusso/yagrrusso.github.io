@@ -11,61 +11,65 @@ import {
   TestTubeIcon,
   WrenchIcon,
 } from "@phosphor-icons/react";
+import type { ReactNode } from "react";
 
-export const Categories = [
-  {
-    label: "All",
-    value: "ALL",
+export const Categories: Record<
+  string,
+  { value: string; key: string; icon: ReactNode }
+> = {
+  all: {
+    value: "all",
+    key: "categories.all",
     icon: <PackageIcon />,
   },
-  {
-    label: "Soft",
-    value: "SOFT",
+  soft: {
+    value: "soft",
+    key: "categories.soft",
     icon: <BrainIcon />,
   },
-  {
-    label: "Languages",
-    value: "LANGUAGE",
+  language: {
+    value: "language",
+    key: "categories.language",
     icon: <CodeIcon />,
   },
-  {
-    label: "Frameworks",
-    value: "FRAMEWORK",
+  framework: {
+    value: "framework",
+    key: "categories.framework",
     icon: <StackIcon />,
   },
-  {
-    label: "Databases",
-    value: "DATABASE",
+  database: {
+    value: "database",
+    key: "categories.database",
     icon: <DatabaseIcon />,
   },
-  {
-    label: "Tools",
-    value: "TOOL",
+  tool: {
+    value: "tool",
+    key: "categories.tool",
     icon: <WrenchIcon />,
   },
-  {
-    label: "Systems",
-    value: "SYSTEM",
+  system: {
+    value: "system",
+    key: "categories.system",
     icon: <DesktopIcon />,
   },
-  {
-    label: "Testing",
-    value: "TESTING",
+  testing: {
+    value: "testing",
+    key: "categories.testing",
     icon: <TestTubeIcon />,
   },
-  {
-    label: "Patterns",
-    value: "PATTERN",
+  pattern: {
+    value: "pattern",
+    key: "categories.pattern",
     icon: <RocketIcon />,
   },
-  {
-    label: "DevOps",
-    value: "DEVOPS",
+  devops: {
+    value: "devops",
+    key: "categories.devops",
     icon: <CloudIcon />,
   },
-  {
-    label: "Other",
-    value: "OTHER",
+  other: {
+    value: "other",
+    key: "categories.other",
     icon: <StarIcon />,
   },
-];
+};

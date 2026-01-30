@@ -2,11 +2,12 @@ import {
   ArrowUpRightIcon,
   DiamondIcon,
   FrameCornersIcon,
-  GithubLogoIcon,
   HashIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { Urls } from "@/consts/urls";
 import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
 import { Avatar } from "./ui/avatar";
@@ -24,8 +25,10 @@ interface Props extends ComponentProps<"div"> {
     title: string;
     slug: string;
   }[];
-  repositoryUrl?: string | null;
-  demoUrl?: string | null;
+  urls?: {
+    title: string;
+    value: string;
+  }[];
   images?: string[] | null;
 }
 
@@ -36,11 +39,12 @@ export function ProjectCard({
   name,
   description,
   skills,
-  repositoryUrl,
-  demoUrl,
+  urls,
   images,
   ...props
 }: Props) {
+  const tCommon = useTranslations("common");
+
   return (
     <div
       className={cn(
@@ -52,11 +56,11 @@ export function ProjectCard({
       <div className="h-full w-full min-w-0 flex-1">
         <div
           className={cn(
-            "flex h-full flex-col justify-between gap-4 p-8 max-md:p-6",
+            "flex h-full flex-col justify-between gap-6 p-8 max-md:p-6",
             direction === "left" ? "lg:pr-16" : "lg:pl-16"
           )}
         >
-          <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide">
+          <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
             <HashIcon weight="bold" />
             <span>{slug}</span>
           </strong>
@@ -64,20 +68,20 @@ export function ProjectCard({
             <h3 className="font-semibold text-6xl max-md:text-5xl">{name}</h3>
             <p className="text-muted-foreground">{description}</p>
             {skills && skills.length > 0 && (
-              <div className="scrollbar-hidden mt-2 flex max-w-11/12 items-center gap-2 overflow-auto text-sm">
+              <div className="scrollbar-hidden mt-2 flex max-w-11/12 items-center gap-1 overflow-auto text-sm">
                 {skills.map((skill) => (
                   <Badge
                     className="uppercase"
                     key={skill.id}
                     variant="secondary"
                   >
-                    <Avatar.Root className="size-4 brightness-0 invert">
+                    <Avatar.Root className="size-3 brightness-0 invert">
                       <Avatar.Image
                         alt={skill.title}
                         src={simpleIconsCdn(skill.slug)}
                       />
                       <Avatar.Fallback className="bg-transparent">
-                        <DiamondIcon className="size-4" weight="fill" />
+                        <DiamondIcon className="size-3" weight="fill" />
                       </Avatar.Fallback>
                     </Avatar.Root>
                     {skill.title}
@@ -86,30 +90,22 @@ export function ProjectCard({
               </div>
             )}
           </div>
-          {(repositoryUrl || demoUrl) && (
-            <div className="flex items-center gap-2 max-lg:mt-4">
-              {repositoryUrl && (
-                <Button asChild className="flex-1" size="sm" variant="outline">
-                  <a
-                    href={repositoryUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <GithubLogoIcon />
-                    Repo
-                  </a>
-                </Button>
-              )}
-              {demoUrl && (
-                <Button asChild className="flex-1" size="sm" variant="outline">
-                  <a href={demoUrl} rel="noopener noreferrer" target="_blank">
-                    Demo
-                    <ArrowUpRightIcon />
-                  </a>
-                </Button>
-              )}
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            {urls?.map((url) => (
+              <Button
+                asChild
+                className="flex-1"
+                key={url.value}
+                size="sm"
+                variant="outline"
+              >
+                <a href={url.value} rel="noopener noreferrer" target="_blank">
+                  {Urls[url.title]?.icon ?? <ArrowUpRightIcon />}
+                  {tCommon(Urls[url.title]?.key as any)}
+                </a>
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
       <Dialog.Root>
@@ -117,7 +113,7 @@ export function ProjectCard({
           <Image
             alt={slug}
             className={cn(
-              "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-top",
+              "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-top max-lg:max-h-96",
               direction === "left"
                 ? "lg:mask-l-from-75% lg:mask-l-to-100%"
                 : "lg:mask-r-from-75% lg:mask-r-to-100%"

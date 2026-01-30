@@ -22,7 +22,31 @@
     "retryDescription": "Clique para recarregar.",
     "updatedAtTitle": "Última atualização: { date }",
     "updatedAtDescription": "Deploy da versão mais recente.",
-    "viewAll": "Ver Tudo"
+    "viewAll": "Ver Tudo",
+    "categories": {
+      "all": "Todos",
+      "soft": "Habilidades Interpessoais",
+      "language": "Linguagens de Programação",
+      "framework": "Frameworks & Bibliotecas",
+      "database": "Bancos de Dados",
+      "tool": "Ferramentas & IDEs",
+      "system": "Sistemas Operacionais",
+      "testing": "Testes & QA",
+      "pattern": "Padrões & Arquitetura",
+      "devops": "DevOps & Cloud",
+      "other": "Outros"
+    },
+    "urls": {
+      "github": "Github",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "phone": "Telefone",
+      "other": "Outro",
+      "website": "Website",
+      "repository": "Repo",
+      "demo": "Demo"
+    }
   },
   "form": {
     "common": {

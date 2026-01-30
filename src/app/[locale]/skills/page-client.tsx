@@ -54,9 +54,9 @@ export function ClientPage() {
               <Select.Value placeholder="Category" />
             </Select.Trigger>
             <Select.Content>
-              {Categories.map((cat) => (
+              {Object.values(Categories).map((cat) => (
                 <Select.Item key={cat.value} value={cat.value}>
-                  {cat.icon} {cat.label}
+                  {cat.icon} {tCommon(cat.key as any)}
                 </Select.Item>
               ))}
             </Select.Content>

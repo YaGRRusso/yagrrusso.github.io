@@ -22,7 +22,31 @@
     "retryDescription": "Click to reload.",
     "updatedAtTitle": "Last updated: { date }",
     "updatedAtDescription": "Latest version deployment.",
-    "viewAll": "View All"
+    "viewAll": "View All",
+    "categories": {
+      "all": "All",
+      "soft": "Soft Skills",
+      "language": "Programming Languages",
+      "framework": "Frameworks & Libraries",
+      "database": "Databases",
+      "tool": "Tools & IDEs",
+      "system": "Operating Systems",
+      "testing": "Testing & QA",
+      "pattern": "Patterns & Architecture",
+      "devops": "DevOps & Cloud",
+      "other": "Other"
+    },
+    "urls": {
+      "github": "Github",
+      "linkedin": "LinkedIn",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "phone": "Phone",
+      "other": "Other",
+      "website": "Website",
+      "repository": "Repo",
+      "demo": "Demo"
+    }
   },
   "form": {
     "common": {
