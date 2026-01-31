@@ -210,7 +210,7 @@ export function ClientPage() {
           </Button>
         </AnimateOnScroll>
         {findAllProjects.data?.findAllProjects
-          .slice(0, 1)
+          .slice(0, 3)
           ?.map((proj, index) => (
             <AnimateOnScroll key={proj.id} y={16}>
               <ProjectCard
