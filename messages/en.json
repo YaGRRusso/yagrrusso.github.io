@@ -67,7 +67,7 @@
       "emailPlaceholder": "you@example.com",
       "message": "Message",
       "messagePlaceholder": "How can I help you?",
-      "messageDescription": "Don't worry, I don't bite."
+      "messageDescription": "Insert any relevant information here."
     }
   },
   "layout": {
@@ -77,7 +77,7 @@
   },
   "homePage": {
     "title": "Full-stack Software Engineer",
-    "description": "Hi, I’m Yago. This is the place where I overcomplicate simple things just to show I can code them. Explore my projects, check my stack, and see what happens when I have too much free time and a text editor.",
+    "description": "Hi, I'm Yago. This is my website, where I create simple things in super complicated ways just to prove I can. Explore my projects, check out my stack, and see what happens when I have free time and a text editor.",
     "viewAll": "View All",
     "yearsOfExperience": "Years of Experience",
     "projectsCompleted": "Projects Delivered",
@@ -87,56 +87,56 @@
       "aboutMe": {
         "title": "About Me",
         "description": "Writing colorful letters since { year }",
-        "message": "I’m Yago, { age }, currently based in { address }. I specialize in turning coffee into code and when I’m not staring at a dark theme IDE, I like to <span>play guitar;read books;create codes;play video games;watch movies</span>. I’m definitely better at writing functions than writing bios, so let’s stick to the tech.",
-        "experience": "It all started at { age }, when I realized those 'colorful letters' on a black screen actually did cool stuff. Since then, I’ve been on a self-taught journey through the endless void of software development. Over the years, I’ve swapped generic tutorials for complex documentation, gaining real-world experience across the full stack. I learn fast, break things occasionally, and always aim to fix them better than they were before."
+        "message": "I'm Yago, I'm { age } and currently living in { address }. I specialize in turning coffee into code and, when I'm not messing with a dark-themed IDE, I also like <span>playing guitar;reading books;coding;playing video games;watching movies</span> and I'm definitely better at writing functions than biographies, so let's focus on technology.",
+        "experience": "It all started at { age }, when I realized those 'colorful letters' on a black screen did cool things. Since then, I've been on a self-taught journey through the infinite vacuum of software development. Over the years, I swapped generic YouTube tutorials for complex documentation, gaining real experience across the entire stack. I learn fast, break things occasionally, but always fix them leaving them better than they were before."
       },
       "skills": {
-        "title": "Skills & Stack",
+        "title": "Skills",
         "description": "My arsenal of languages and tools",
         "cards": {
           "frontend": {
             "title": "Frontend Development",
-            "description": "Building pixel-perfect interfaces that look good even on Internet Explorer (just kidding, I have standards). I turn Figma designs into responsive code and I actually know how to center a div."
+            "description": "Creating pixel-perfect interfaces that look pretty even on Internet Explorer. I center divs and transform Figma designs into responsive and functional code."
           },
           "backend": {
             "title": "Backend Engineering",
-            "description": "The heavy lifting behind the scenes. I build scalable APIs, secure authentication flows, and business logic that keeps the server from crashing on Friday afternoons."
+            "description": "The heavy lifting behind the scenes. I build scalable APIs, secure authentication flows and business logic that keeps the server from crashing on Friday afternoons."
           },
           "devops": {
-            "title": "DevOps & Cloud Infra",
-            "description": "Taking code from 'localhost:3000' to the real world. I handle CI/CD pipelines, Docker containers, and AWS instances so that 'it works on my machine' becomes 'it works everywhere'."
+            "title": "DevOps",
+            "description": "Taking code from 'localhost:3000' to the real world. I handle CI/CD pipelines, Docker containers, and AWS instances so that 'it works on my machine' becomes 'it works anywhere'."
           },
           "database": {
             "title": "Database Architecture",
-            "description": "Structuring data efficiently so queries don't take 3 business days to run. Experience with SQL and NoSQL, and I promise never to run a DELETE without a WHERE clause."
+            "description": "Structuring data efficiently so queries don't take 3 business days to run. Experience with SQL and NoSQL, and I promise never to run a DELETE without a WHERE."
           },
           "quality": {
-            "title": "Code Quality & Testing",
-            "description": "Writing clean, maintainable code that my future self won't hate. I believe in testing (mostly) and refactoring spaghetti code until it looks like a gourmet pasta dish."
+            "title": "Code Quality",
+            "description": "Writing clean and sustainable code that my future self won't hate. I use automated tests, code reviews, and best practices to ensure the software doesn't break for no reason."
           }
         }
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "Selected projects that works on my machine"
+        "description": "Some of the projects that ran on my machine"
       },
       "experience": {
         "title": "Professional Experience",
-        "description": "My career changelog and positions"
+        "description": "My career history and roles"
       },
       "education": {
-        "title": "Education & Studies",
-        "description": "Certifications, courses and system upgrades"
+        "title": "Education",
+        "description": "Certifications, courses, and academic backgrounds"
       },
       "getInTouch": {
         "title": "Let's Talk",
-        "description": "Feel free to reach out, let's chat",
-        "message": "Have a project idea? Or just want to argue about which JS framework is the best? Drop me a line. I’m always open to new opportunities."
+        "description": "Feel free to reach out",
+        "message": "Have a project idea? Or just want to discuss which JS framework is best? Say hello. I'm always open to new opportunities."
       }
     }
   },
   "skillsPage": {
-    "title": "Skills & Stack",
+    "title": "Skills",
     "description": "My arsenal of languages and tools"
   }
 }

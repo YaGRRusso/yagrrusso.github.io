@@ -67,7 +67,7 @@
       "emailPlaceholder": "voce@exemplo.com",
       "message": "Mensagem",
       "messagePlaceholder": "Como posso ajudar?",
-      "messageDescription": "Não se preocupe, eu não mordo."
+      "messageDescription": "Insira qualquer informação relevante aqui."
     }
   },
   "layout": {
@@ -77,7 +77,7 @@
   },
   "homePage": {
     "title": "Engenheiro de Software Full-stack",
-    "description": "Oi, eu sou o Yago. Este é o lugar onde eu complico coisas simples só para mostrar que sei codar. Explore meus projetos, confira minha stack, e veja o que acontece quando tenho muito tempo livre e um editor de texto.",
+    "description": "Oi, eu sou o Yago. Este é o meu site, onde eu crio coisas simples de formas super complicadas apenas para provar que eu consigo. Explore meus projetos, confira minha stack, e veja o que acontece quando tenho tempo livre e um editor de texto.",
     "viewAll": "Ver Tudo",
     "yearsOfExperience": "Anos de Experiência",
     "projectsCompleted": "Projetos Entregues",
@@ -87,23 +87,23 @@
       "aboutMe": {
         "title": "Sobre Mim",
         "description": "Escrevendo letrinhas coloridas desde { year }",
-        "message": "Sou o Yago, tenho { age } e atualmente moro em { address }. Sou especializado em transformar café em código e, quando não estou encarando uma IDE com tema escuro, gosto de <span>tocar guitarra;ler livros;criar códigos;jogar videogames;assistir filmes</span>. Definitivamente sou melhor escrevendo funções do que biografias, então vamos focar na tecnologia.",
-        "experience": "Tudo começou aos { age }, quando percebi que aquelas 'letrinhas coloridas' numa tela preta faziam coisas legais. Desde então, estou numa jornada autodidata pelo vácuo infinito do desenvolvimento de software. Ao longo dos anos, troquei tutoriais genéricos por documentações complexas, ganhando experiência real em todo o stack. Aprendo rápido, quebro coisas ocasionalmente, e sempre tento consertar deixando melhor do que estava antes."
+        "message": "Sou o Yago, tenho { age } e atualmente moro em { address }. Sou especialista em transformar café em código e, quando não estou mexendo em uma IDE com tema escuro, também gosto de <span>tocar guitarra;ler livros;criar códigos;jogar videogames;assistir filmes</span> e definitivamente sou melhor escrevendo funções do que biografias, então vamos focar na tecnologia.",
+        "experience": "Tudo começou aos { age }, quando percebi que aquelas 'letrinhas coloridas' numa tela preta faziam coisas legais. Desde então, estou numa jornada autodidata pelo vácuo infinito do desenvolvimento de software. Ao longo dos anos, troquei tutoriais genéricos no Youtube por documentações complexas, ganhando experiência real em todo o stack. Aprendo rápido, quebro coisas ocasionalmente mas sempre conserto deixando melhor do que estava antes."
       },
       "skills": {
-        "title": "Habilidades & Stack",
+        "title": "Habilidades",
         "description": "Meu arsenal de linguagens e ferramentas",
         "cards": {
           "frontend": {
             "title": "Desenvolvimento Frontend",
-            "description": "Criando interfaces pixel-perfect que ficam bonitas até no Internet Explorer (brincadeira, eu tenho critérios). Transformo designs do Figma em código responsivo e eu realmente sei centralizar uma div."
+            "description": "Criando interfaces pixel-perfect que ficam bonitas até no Internet Explorer. Centralizo divs e transformo designs do Figma em código responsivo e funcional."
           },
           "backend": {
             "title": "Engenharia Backend",
             "description": "O trabalho pesado nos bastidores. Construo APIs escaláveis, fluxos de autenticação seguros e lógica de negócios que impede o servidor de cair nas tardes de sexta-feira."
           },
           "devops": {
-            "title": "DevOps & Cloud Infra",
+            "title": "DevOps",
             "description": "Levando código do 'localhost:3000' para o mundo real. Cuido de pipelines CI/CD, containers Docker e instâncias AWS para que o 'funciona na minha máquina' vire 'funciona em qualquer lugar'."
           },
           "database": {
@@ -111,32 +111,32 @@
             "description": "Estruturando dados eficientemente para que as queries não levem 3 dias úteis para rodar. Experiência com SQL e NoSQL, e prometo nunca rodar um DELETE sem WHERE."
           },
           "quality": {
-            "title": "Qualidade de Código & Testes",
-            "description": "Escrevendo código limpo e sustentável que meu eu do futuro não vai odiar. Acredito em testes (na maioria das vezes) e em refatorar código espaguete até virar um prato gourmet."
+            "title": "Qualidade de Código",
+            "description": "Escrevendo código limpo e sustentável que meu eu do futuro não vai odiar. Uso testes automatizados, revisões de código e boas práticas para garantir que o software não quebre sem motivo."
           }
         }
       },
       "portfolio": {
         "title": "Portfólio",
-        "description": "Projetos selecionados que funcionam na minha máquina"
+        "description": "Alguns dos projetos que rodaram na minha máquina"
       },
       "experience": {
         "title": "Experiência Profissional",
-        "description": "Meu changelog de carreira e cargos"
+        "description": "Meu histórico de carreira e cargos"
       },
       "education": {
-        "title": "Educação & Estudos",
-        "description": "Certificações, cursos e upgrades de sistema"
+        "title": "Estudos",
+        "description": "Certificações, cursos e formações acadêmicas"
       },
       "getInTouch": {
         "title": "Vamos Conversar",
-        "description": "Fique à vontade para chamar, vamos bater um papo",
+        "description": "Fique à vontade para entrar em contato",
         "message": "Tem uma ideia de projeto? Ou só quer discutir qual framework JS é o melhor? Mande um alô. Estou sempre aberto a novas oportunidades."
       }
     }
   },
   "skillsPage": {
-    "title": "Habilidades & Stack",
+    "title": "Habilidades",
     "description": "Meu arsenal de linguagens e ferramentas"
   }
 }
