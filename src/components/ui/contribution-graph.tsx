@@ -328,11 +328,11 @@ const ContributionGraphBlock = ({
   return (
     <rect
       className={cn(
-        'data-[level="0"]:fill-muted',
-        'data-[level="1"]:fill-muted-foreground/20',
-        'data-[level="2"]:fill-muted-foreground/40',
-        'data-[level="3"]:fill-muted-foreground/60',
-        'data-[level="4"]:fill-muted-foreground/80',
+        'data-[level="0"]:fill-primary/5',
+        'data-[level="1"]:fill-primary/20',
+        'data-[level="2"]:fill-primary/40',
+        'data-[level="3"]:fill-primary/60',
+        'data-[level="4"]:fill-primary/80',
         className
       )}
       data-count={activity.count}
@@ -378,7 +378,10 @@ const ContributionGraphCalendar = ({
 
   return (
     <div
-      className={cn("max-w-full overflow-x-auto overflow-y-hidden", className)}
+      className={cn(
+        "scrollbar-hidden max-w-full overflow-x-auto overflow-y-hidden",
+        className
+      )}
       {...props}
     >
       <svg
@@ -392,6 +395,7 @@ const ContributionGraphCalendar = ({
           <g className="fill-current">
             {monthLabels.map(({ label, weekIndex }) => (
               <text
+                className="text-muted-foreground"
                 dominantBaseline="hanging"
                 key={weekIndex}
                 x={(blockSize + blockMargin) * weekIndex}
@@ -494,11 +498,11 @@ const ContributionGraphLegend = ({
             <rect
               className={cn(
                 "stroke-[1px] stroke-border",
-                'data-[level="0"]:fill-muted',
-                'data-[level="1"]:fill-muted-foreground/20',
-                'data-[level="2"]:fill-muted-foreground/40',
-                'data-[level="3"]:fill-muted-foreground/60',
-                'data-[level="4"]:fill-muted-foreground/80'
+                'data-[level="0"]:fill-primary/5',
+                'data-[level="1"]:fill-primary/20',
+                'data-[level="2"]:fill-primary/30',
+                'data-[level="3"]:fill-primary/40',
+                'data-[level="4"]:fill-primary/50'
               )}
               data-level={level}
               height={blockSize}
@@ -518,8 +522,8 @@ const ContributionGraphLegend = ({
 
 export const ContributionGraph = {
   Root: ContributionGraphRoot,
-  Calendar: ContributionGraphCalendar,
   Block: ContributionGraphBlock,
+  Calendar: ContributionGraphCalendar,
   Footer: ContributionGraphFooter,
   TotalCount: ContributionGraphTotalCount,
   Legend: ContributionGraphLegend,

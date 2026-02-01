@@ -30,13 +30,17 @@ import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
+import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
+import { useGetContributions } from "@/hooks/queries/external";
 import { useFindAllProjects } from "@/hooks/queries/projects";
 import { useFindAllSkills } from "@/hooks/queries/skills";
 import { Link } from "@/i18n/navigation";
@@ -48,6 +52,7 @@ export function ClientPage() {
 
   const findAllSkills = useFindAllSkills();
   const findAllProjects = useFindAllProjects();
+  const getContributions = useGetContributions({ username: "yagrrusso" });
 
   const handleSendMail = useCallback(
     (data: ContactSchema) => {
@@ -345,58 +350,94 @@ export function ClientPage() {
         </div>
       </div> */}
       <Separator />
-      <div className="container relative flex w-full gap-x-32 gap-y-8 max-lg:flex-col">
-        <AnimateOnScroll className="flex flex-1 flex-col gap-8" x={-16}>
-          <SectionTitle
-            description={t("sections.getInTouch.description")}
-            id="get-in-touch"
-            title={t("sections.getInTouch.title")}
-          />
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-6 max-sm:flex-col">
-              <Image
-                alt="portrait"
-                className="rounded-lg"
-                height={96}
-                priority={true}
-                src="/images/portrait.jpg"
-                width={96}
-              />
-              <div className="flex flex-col gap-2">
-                <strong className="text-4xl">Yago Russo</strong>
-                <span className="text-muted-foreground">Software Engineer</span>
+      <div className="container relative flex w-full flex-col gap-8">
+        <div className="flex gap-x-32 gap-y-8 max-lg:flex-col">
+          <AnimateOnScroll
+            className="flex min-w-0 flex-1 flex-col gap-8"
+            x={-16}
+          >
+            <SectionTitle
+              description={t("sections.getInTouch.description")}
+              id="get-in-touch"
+              title={t("sections.getInTouch.title")}
+            />
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-6 max-sm:flex-col">
+                <Image
+                  alt="portrait"
+                  className="rounded-lg"
+                  height={96}
+                  priority={true}
+                  src="/images/portrait.jpg"
+                  width={96}
+                />
+                <div className="flex flex-col gap-2">
+                  <strong className="text-4xl">Yago Russo</strong>
+                  <span className="text-muted-foreground">
+                    Software Engineer
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <SocialLink
+                  href="https://github.com/yagrrusso"
+                  icon={<GithubLogoIcon className="size-6" />}
+                  title="GitHub"
+                />
+                <SocialLink
+                  href="https://www.linkedin.com/in/yago-russo"
+                  icon={<LinkedinLogoIcon className="size-6" />}
+                />
+                <SocialLink
+                  href="https://wa.me/5551986824203"
+                  icon={<WhatsappLogoIcon className="size-6" />}
+                />
+                <SocialLink
+                  href="mailto:yagrrusso@gmail.com"
+                  icon={<EnvelopeIcon className="size-6" />}
+                />
+                <SocialLink
+                  href="tel:51986824203"
+                  icon={<PhoneIcon className="size-6" />}
+                />
               </div>
             </div>
-            <div className="flex gap-2">
-              <SocialLink
-                href="https://github.com/yagrrusso"
-                icon={<GithubLogoIcon className="size-6" />}
-                title="GitHub"
-              />
-              <SocialLink
-                href="https://www.linkedin.com/in/yago-russo"
-                icon={<LinkedinLogoIcon className="size-6" />}
-              />
-              <SocialLink
-                href="https://wa.me/5551986824203"
-                icon={<WhatsappLogoIcon className="size-6" />}
-              />
-              <SocialLink
-                href="mailto:yagrrusso@gmail.com"
-                icon={<EnvelopeIcon className="size-6" />}
-              />
-              <SocialLink
-                href="tel:51986824203"
-                icon={<PhoneIcon className="size-6" />}
-              />
-            </div>
-          </div>
-          <span className="text-muted-foreground">
-            {t("sections.getInTouch.message")}
-          </span>
-        </AnimateOnScroll>
-        <AnimateOnScroll className="flex-1" x={16}>
-          <ContactForm onSub={handleSendMail} />
+            <span className="text-muted-foreground">
+              {t("sections.getInTouch.message")}
+            </span>
+          </AnimateOnScroll>
+          <AnimateOnScroll className="min-w-0 flex-1" x={16}>
+            <ContactForm onSub={handleSendMail} />
+          </AnimateOnScroll>
+        </div>
+        <AnimateOnScroll y={16}>
+          {getContributions.isLoading || !getContributions.data ? (
+            <Skeleton className="h-40 w-4xl" />
+          ) : (
+            <ContributionGraph.Root data={getContributions.data.contributions}>
+              <ContributionGraph.Calendar>
+                {({ activity, dayIndex, weekIndex }) => (
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <ContributionGraph.Block
+                        activity={activity}
+                        dayIndex={dayIndex}
+                        weekIndex={weekIndex}
+                      />
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                      <p className="font-semibold">{activity.date}</p>
+                      <p>{activity.count} contributions</p>
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+                )}
+              </ContributionGraph.Calendar>
+              <ContributionGraph.Footer>
+                <ContributionGraph.TotalCount />
+                <ContributionGraph.Legend />
+              </ContributionGraph.Footer>
+            </ContributionGraph.Root>
+          )}
         </AnimateOnScroll>
       </div>
     </div>

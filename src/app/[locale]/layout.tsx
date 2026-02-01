@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -40,6 +41,11 @@ export default async function Layout({ children, params }: Props) {
       )}
       lang={locale ?? routing.defaultLocale}
     >
+      <Script
+        data-website-id="73f73caf-1063-405d-9e17-ada211458cf9"
+        defer
+        src="https://cloud.umami.is/script.js"
+      />
       <NextIntlClientProvider>
         <ClientLayout locale={locale}>{children}</ClientLayout>
       </NextIntlClientProvider>
