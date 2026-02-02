@@ -36,7 +36,6 @@ import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
@@ -410,10 +409,8 @@ export function ClientPage() {
             <ContactForm onSub={handleSendMail} />
           </AnimateOnScroll>
         </div>
-        <AnimateOnScroll y={16}>
-          {getContributions.isLoading || !getContributions.data ? (
-            <Skeleton className="h-40 w-4xl" />
-          ) : (
+        {getContributions.data && (
+          <AnimateOnScroll y={16}>
             <ContributionGraph.Root data={getContributions.data.contributions}>
               <ContributionGraph.Calendar>
                 {({ activity, dayIndex, weekIndex }) => (
@@ -437,8 +434,8 @@ export function ClientPage() {
                 <ContributionGraph.Legend />
               </ContributionGraph.Footer>
             </ContributionGraph.Root>
-          )}
-        </AnimateOnScroll>
+          </AnimateOnScroll>
+        )}
       </div>
     </div>
   );

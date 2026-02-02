@@ -309,6 +309,9 @@ export type ContributionGraphBlockProps = HTMLAttributes<SVGRectElement> & {
   weekIndex: number;
 };
 
+const colors =
+  'data-[level="0"]:fill-primary/5 data-[level="1"]:fill-primary/20 data-[level="2"]:fill-primary/40 data-[level="3"]:fill-primary/60 data-[level="4"]:fill-primary/80';
+
 const ContributionGraphBlock = ({
   activity,
   dayIndex,
@@ -327,14 +330,7 @@ const ContributionGraphBlock = ({
 
   return (
     <rect
-      className={cn(
-        'data-[level="0"]:fill-primary/5',
-        'data-[level="1"]:fill-primary/20',
-        'data-[level="2"]:fill-primary/40',
-        'data-[level="3"]:fill-primary/60',
-        'data-[level="4"]:fill-primary/80',
-        className
-      )}
+      className={cn(colors, className)}
       data-count={activity.count}
       data-date={activity.date}
       data-level={activity.level}
@@ -496,14 +492,7 @@ const ContributionGraphLegend = ({
           <svg height={blockSize} key={level} width={blockSize}>
             <title>{`${level} contributions`}</title>
             <rect
-              className={cn(
-                "stroke-[1px] stroke-border",
-                'data-[level="0"]:fill-primary/5',
-                'data-[level="1"]:fill-primary/20',
-                'data-[level="2"]:fill-primary/30',
-                'data-[level="3"]:fill-primary/40',
-                'data-[level="4"]:fill-primary/50'
-              )}
+              className={cn("stroke-[1px] stroke-border", colors)}
               data-level={level}
               height={blockSize}
               rx={blockRadius}

@@ -1,6 +1,6 @@
 "use client";
 
-import { ImageBrokenIcon } from "@phosphor-icons/react";
+import { CircleNotchIcon, ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
@@ -9,7 +9,7 @@ import { PageTitle } from "@/components/page-title";
 import { Alert } from "@/components/ui/alert";
 import { Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { List } from "@/components/ui/list";
+import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Categories } from "@/consts/categories";
@@ -64,21 +64,21 @@ export function ClientPage() {
         </div>
       </AnimateOnScroll>
 
-      <List.Root
+      <Request.Root
         isEmpty={!filteredList?.length}
         isFetching={findAllSkills.isFetching}
         isLoading={findAllSkills.isLoading}
       >
-        <List.Loading>
+        <Request.Loading>
           <Skeleton className="h-64 w-full" />
-        </List.Loading>
-        <List.Empty>
+        </Request.Loading>
+        <Request.Empty>
           <Alert.Root>
             <Alert.Title>{tCommon("emptyTitle")}</Alert.Title>
             <Alert.Description>{tCommon("emptyDescription")}</Alert.Description>
           </Alert.Root>
-        </List.Empty>
-        <List.Content>
+        </Request.Empty>
+        <Request.Content>
           <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {filteredList?.map((skill) => (
               <li id={skill.slug} key={skill.id}>
@@ -108,9 +108,17 @@ export function ClientPage() {
               </li>
             ))}
           </ul>
-        </List.Content>
-        <List.Info updatedAt={findAllSkills.dataUpdatedAt} />
-      </List.Root>
+        </Request.Content>
+        <div className="inline-flex items-center gap-1 py-3 text-muted-foreground text-xs">
+          <time dateTime={new Date(findAllSkills.dataUpdatedAt).toISOString()}>
+            {findAllSkills.dataUpdatedAt &&
+              tCommon("updatedAtTitle", {
+                date: new Date(findAllSkills.dataUpdatedAt).toLocaleString(),
+              })}
+          </time>
+          <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />
+        </div>
+      </Request.Root>
     </div>
   );
 }
