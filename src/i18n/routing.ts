@@ -17,19 +17,19 @@ export type Namespace = {
     : never;
 }[keyof Messages];
 
-export const locales: Record<
-  Locale,
+export const locales: {
+  value: Locale;
+  name: string;
+  flag: string;
+}[] = [
   {
-    name: string;
-    flag: string;
-  }
-> = {
-  en: {
+    value: "en",
     name: "English",
     flag: "🇺🇸",
   },
-  pt: {
+  {
+    value: "pt",
     name: "Português",
     flag: "🇧🇷",
   },
-};
+];

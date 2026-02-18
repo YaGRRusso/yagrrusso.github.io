@@ -8,7 +8,7 @@ import { type ComponentProps, Fragment, useCallback, useRef } from "react";
 import { flushSync } from "react-dom";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { redirect, usePathname } from "@/i18n/navigation";
-import { type Locale, locales, routing } from "@/i18n/routing";
+import { type Locale, locales } from "@/i18n/routing";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
 import { Button } from "./ui/button";
 import { Popover } from "./ui/popover";
@@ -99,13 +99,13 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         </Select.Trigger>
         <Select.Content>
           <Select.Group>
-            {routing.locales.map((lang) => (
+            {locales.map((lang) => (
               <Select.Item
-                aria-label={locales[lang].name}
-                key={lang}
-                value={lang}
+                aria-label={lang.name}
+                key={lang.value}
+                value={lang.value}
               >
-                {locales[lang].flag} {locales[lang].name}
+                {lang.flag} {lang.name}
               </Select.Item>
             ))}
           </Select.Group>
