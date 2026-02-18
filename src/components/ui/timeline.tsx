@@ -159,6 +159,7 @@ function TimelineItem({
   step,
   alternate,
   className,
+  children,
   ...props
 }: TimelineItemProps) {
   const { activeStep, setActiveStep } = useTimeline();
@@ -171,7 +172,7 @@ function TimelineItem({
   return (
     <div
       className={cn(
-        "group/timeline-item relative flex flex-1 flex-col gap-0.5 transition-all has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-primary group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:not-last:pb-12",
+        "group/timeline-item relative flex flex-1 flex-col gap-0.5 transition-all has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-primary group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:not-last:pb-4",
         alternate &&
           "w-[calc(50%-1.5rem)] odd:ms-auto even:text-right even:group-data-[orientation=vertical]/timeline:ms-0 even:group-data-[orientation=vertical]/timeline:me-8 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:-right-6 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:-right-6 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:left-auto even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:left-auto even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:translate-x-1/2 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:translate-x-1/2",
         className
@@ -180,7 +181,11 @@ function TimelineItem({
       data-slot="timeline-item"
       ref={ref}
       {...props}
-    />
+    >
+      <TimelineIndicator />
+      <TimelineSeparator />
+      {children}
+    </div>
   );
 }
 
@@ -219,8 +224,6 @@ export const Timeline = {
   Content: TimelineContent,
   Date: TimelineDate,
   Header: TimelineHeader,
-  Indicator: TimelineIndicator,
   Item: TimelineItem,
-  Separator: TimelineSeparator,
   Title: TimelineTitle,
 };

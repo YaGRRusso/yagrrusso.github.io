@@ -1,6 +1,5 @@
 import {
   ArrowUpRightIcon,
-  DiamondIcon,
   FrameCornersIcon,
   HashIcon,
 } from "@phosphor-icons/react";
@@ -8,9 +7,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { Urls } from "@/consts/urls";
-import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
-import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Dialog } from "./ui/dialog";
@@ -75,15 +72,6 @@ export function ProjectCard({
                     key={skill.id}
                     variant="secondary"
                   >
-                    <Avatar.Root className="size-3 brightness-0 invert">
-                      <Avatar.Image
-                        alt={skill.title}
-                        src={simpleIconsCdn(skill.slug)}
-                      />
-                      <Avatar.Fallback className="bg-transparent">
-                        <DiamondIcon className="size-3" weight="fill" />
-                      </Avatar.Fallback>
-                    </Avatar.Root>
                     {skill.title}
                   </Badge>
                 ))}
