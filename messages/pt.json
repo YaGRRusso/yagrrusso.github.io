@@ -22,6 +22,7 @@
     "retryDescription": "Clique para recarregar.",
     "updatedAtTitle": "Última atualização: { date }",
     "updatedAtDescription": "Deploy da versão mais recente.",
+    "present": "Presente",
     "viewAll": "Ver Tudo",
     "categories": {
       "all": "Todos",

@@ -22,6 +22,7 @@ import { Fragment, useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
+import { ExperienceCard } from "@/components/experience-card";
 import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
 import { SkillCard } from "@/components/skill-card";
@@ -38,6 +39,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { experiences } from "@/consts/mocks";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindAllProjects } from "@/hooks/queries/projects";
@@ -191,102 +193,150 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <div className="container relative flex w-full flex-col justify-center gap-8">
-        <DotPattern className="mask-[radial-gradient(48rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
-          <SectionTitle
-            description={t("sections.portfolio.description")}
-            id="my-portfolio"
-            title={t("sections.portfolio.title")}
-          />
-          <Button asChild variant="outline">
-            <Link
-              href="https://github.com/YaGRRusso?tab=repositories"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {t("viewAll")}
-              <ArrowUpRightIcon weight="bold" />
-            </Link>
-          </Button>
-        </AnimateOnScroll>
-        {findAllProjects.data?.findAllProjects
-          .slice(0, 3)
-          ?.map((proj, index) => (
-            <AnimateOnScroll key={proj.id} y={16}>
-              <ProjectCard
-                description={proj.i18n[0]?.messages.description}
-                direction={index % 2 === 0 ? "left" : "right"}
-                images={proj.images}
-                name={proj.i18n[0]?.messages.title}
-                skills={proj.skills ?? []}
-                slug={proj.slug}
-                urls={proj.urls ?? []}
-              />
-            </AnimateOnScroll>
-          ))}
-      </div>
-      <Separator />
-      <Carousel.Root
-        className="container relative flex w-full flex-col justify-center gap-8"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
-          <SectionTitle
-            description={t("sections.skills.description")}
-            id="my-skills"
-            title={t("sections.skills.title")}
-          />
-          <div className="flex h-fit items-center gap-4">
+      <div className="w-full bg-background">
+        <div className="container relative flex w-full flex-col justify-center gap-8">
+          <DotPattern className="mask-[radial-gradient(48rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.portfolio.description")}
+              id="my-portfolio"
+              title={t("sections.portfolio.title")}
+            />
             <Button asChild variant="outline">
-              <Link href="/skills">
+              <Link
+                href="https://github.com/YaGRRusso?tab=repositories"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {t("viewAll")}
                 <ArrowUpRightIcon weight="bold" />
               </Link>
             </Button>
-            <Carousel.Previous />
-            <Carousel.Next />
-          </div>
-        </AnimateOnScroll>
-        <AnimateOnScroll y={16}>
-          <Carousel.Content>
-            <SkillCard
-              description={t("sections.skills.cards.frontend.description")}
-              icon={<DevicesIcon className="size-10" />}
-              title={t("sections.skills.cards.frontend.title")}
+          </AnimateOnScroll>
+          {findAllProjects.data?.findAllProjects
+            .slice(0, 3)
+            ?.map((proj, index) => (
+              <AnimateOnScroll key={proj.id} y={16}>
+                <ProjectCard
+                  description={proj.i18n[0]?.messages.description}
+                  direction={index % 2 === 0 ? "left" : "right"}
+                  images={proj.images}
+                  name={proj.i18n[0]?.messages.title}
+                  skills={proj.skills ?? []}
+                  slug={proj.slug}
+                  urls={proj.urls ?? []}
+                />
+              </AnimateOnScroll>
+            ))}
+        </div>
+      </div>
+      <Separator />
+      <div className="w-full bg-alternative">
+        <Carousel.Root
+          className="container relative flex w-full flex-col justify-center gap-8"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+        >
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.skills.description")}
+              id="my-skills"
+              title={t("sections.skills.title")}
             />
-            <SkillCard
-              description={t("sections.skills.cards.backend.description")}
-              icon={<CodeIcon className="size-10" />}
-              title={t("sections.skills.cards.backend.title")}
+            <div className="flex h-fit items-center gap-4">
+              <Button asChild variant="outline">
+                <Link href="/skills">
+                  {t("viewAll")}
+                  <ArrowUpRightIcon weight="bold" />
+                </Link>
+              </Button>
+              <Carousel.Previous />
+              <Carousel.Next />
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll y={16}>
+            <Carousel.Content>
+              <SkillCard
+                description={t("sections.skills.cards.frontend.description")}
+                icon={<DevicesIcon className="size-10" />}
+                title={t("sections.skills.cards.frontend.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.backend.description")}
+                icon={<CodeIcon className="size-10" />}
+                title={t("sections.skills.cards.backend.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.devops.description")}
+                icon={<CloudIcon className="size-10" />}
+                title={t("sections.skills.cards.devops.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.database.description")}
+                icon={<DatabaseIcon className="size-10" />}
+                title={t("sections.skills.cards.database.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.quality.description")}
+                icon={<FlaskIcon className="size-10" />}
+                title={t("sections.skills.cards.quality.title")}
+              />
+            </Carousel.Content>
+          </AnimateOnScroll>
+        </Carousel.Root>
+      </div>
+      <Separator />
+      <div className="w-full bg-background">
+        <div className="container relative flex w-full flex-col justify-center gap-8">
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.experience.description")}
+              id="my-experience"
+              title={t("sections.experience.title")}
             />
-            <SkillCard
-              description={t("sections.skills.cards.devops.description")}
-              icon={<CloudIcon className="size-10" />}
-              title={t("sections.skills.cards.devops.title")}
+          </AnimateOnScroll>
+          {experiences.map((experience) => (
+            <AnimateOnScroll key={experience.id} y={16}>
+              <ExperienceCard
+                category={experience.category}
+                company={experience.company}
+                roles={experience.roles.map((role) => ({
+                  title: role.i18n[0]?.messages.title ?? "",
+                  description: role.i18n[0]?.messages.description ?? "",
+                  ...role,
+                }))}
+                slug={experience.slug}
+              />
+            </AnimateOnScroll>
+          ))}
+        </div>
+      </div>
+      {/* <div className="w-full bg-background">
+        <div className="container relative flex w-full flex-col justify-center gap-8">
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.experience.description")}
+              id="my-experience"
+              title={t("sections.experience.title")}
             />
-            <SkillCard
-              description={t("sections.skills.cards.database.description")}
-              icon={<DatabaseIcon className="size-10" />}
-              title={t("sections.skills.cards.database.title")}
-            />
-            <SkillCard
-              description={t("sections.skills.cards.quality.description")}
-              icon={<FlaskIcon className="size-10" />}
-              title={t("sections.skills.cards.quality.title")}
-            />
-          </Carousel.Content>
-        </AnimateOnScroll>
-      </Carousel.Root>
+          </AnimateOnScroll>
+          <div className="h-32 w-full rounded bg-primary" />
+        </div>
+      </div> */}
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">
@@ -308,134 +358,98 @@ export function ClientPage() {
           ))}
         </div>
       </Marquee>
-      {/* <Separator />
-      <div className="w-full bg-alternative">
-        <div className="container relative flex w-full justify-center gap-x-32 gap-y-8 max-lg:flex-col">
-          <AnimateOnScroll className="flex flex-col gap-8" x={-16}>
-            <SectionTitle
-              description={t("sections.qualifications.description")}
-              id="my-qualifications"
-              title={t("sections.qualifications.title")}
-            />
-            <Timeline.Root>
-              {items.map((item) => (
-                <Timeline.Item key={item.id} step={item.id}>
-                  <Timeline.Header>
-                    <Timeline.Separator />
-                    <Timeline.Date>{item.date}</Timeline.Date>
-                    <Timeline.Title>{item.title}</Timeline.Title>
-                    <Timeline.Indicator />
-                  </Timeline.Header>
-                  <Timeline.Content>{item.description}</Timeline.Content>
-                </Timeline.Item>
-              ))}
-            </Timeline.Root>
-          </AnimateOnScroll>
-          <AnimateOnScroll x={16}>
-            <Timeline.Root>
-              {items.map((item) => (
-                <Timeline.Item key={item.id} step={item.id}>
-                  <Timeline.Header>
-                    <Timeline.Separator />
-                    <Timeline.Date>{item.date}</Timeline.Date>
-                    <Timeline.Title>{item.title}</Timeline.Title>
-                    <Timeline.Indicator />
-                  </Timeline.Header>
-                  <Timeline.Content>{item.description}</Timeline.Content>
-                </Timeline.Item>
-              ))}
-            </Timeline.Root>
-          </AnimateOnScroll>
-        </div>
-      </div> */}
       <Separator />
-      <div className="container relative flex w-full flex-col gap-8">
-        <div className="flex gap-x-32 gap-y-8 max-lg:flex-col">
-          <AnimateOnScroll
-            className="flex min-w-0 flex-1 flex-col gap-8"
-            x={-16}
-          >
-            <SectionTitle
-              description={t("sections.getInTouch.description")}
-              id="get-in-touch"
-              title={t("sections.getInTouch.title")}
-            />
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-6 max-sm:flex-col">
-                <Image
-                  alt="portrait"
-                  className="rounded-lg"
-                  height={96}
-                  priority={true}
-                  src="/images/portrait.jpg"
-                  width={96}
-                />
-                <div className="flex flex-col gap-2">
-                  <strong className="text-4xl">Yago Russo</strong>
-                  <span className="text-muted-foreground">
-                    Software Engineer
-                  </span>
+      <div className="w-full bg-background">
+        <div className="container relative flex w-full flex-col gap-8">
+          <div className="flex gap-x-32 gap-y-8 max-lg:flex-col">
+            <AnimateOnScroll
+              className="flex min-w-0 flex-1 flex-col gap-8"
+              x={-16}
+            >
+              <SectionTitle
+                description={t("sections.getInTouch.description")}
+                id="get-in-touch"
+                title={t("sections.getInTouch.title")}
+              />
+              <div className="flex flex-col gap-4">
+                <div className="flex gap-6 max-sm:flex-col">
+                  <Image
+                    alt="portrait"
+                    className="rounded-lg"
+                    height={96}
+                    priority={true}
+                    src="/images/portrait.jpg"
+                    width={96}
+                  />
+                  <div className="flex flex-col gap-2">
+                    <strong className="text-4xl">Yago Russo</strong>
+                    <span className="text-muted-foreground">
+                      Software Engineer
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <SocialLink
+                    href="https://github.com/yagrrusso"
+                    icon={<GithubLogoIcon className="size-6" />}
+                    title="GitHub"
+                  />
+                  <SocialLink
+                    href="https://www.linkedin.com/in/yago-russo"
+                    icon={<LinkedinLogoIcon className="size-6" />}
+                  />
+                  <SocialLink
+                    href="https://wa.me/5551986824203"
+                    icon={<WhatsappLogoIcon className="size-6" />}
+                  />
+                  <SocialLink
+                    href="mailto:yagrrusso@gmail.com"
+                    icon={<EnvelopeIcon className="size-6" />}
+                  />
+                  <SocialLink
+                    href="tel:51986824203"
+                    icon={<PhoneIcon className="size-6" />}
+                  />
                 </div>
               </div>
-              <div className="flex gap-2">
-                <SocialLink
-                  href="https://github.com/yagrrusso"
-                  icon={<GithubLogoIcon className="size-6" />}
-                  title="GitHub"
-                />
-                <SocialLink
-                  href="https://www.linkedin.com/in/yago-russo"
-                  icon={<LinkedinLogoIcon className="size-6" />}
-                />
-                <SocialLink
-                  href="https://wa.me/5551986824203"
-                  icon={<WhatsappLogoIcon className="size-6" />}
-                />
-                <SocialLink
-                  href="mailto:yagrrusso@gmail.com"
-                  icon={<EnvelopeIcon className="size-6" />}
-                />
-                <SocialLink
-                  href="tel:51986824203"
-                  icon={<PhoneIcon className="size-6" />}
-                />
-              </div>
-            </div>
-            <span className="text-muted-foreground">
-              {t("sections.getInTouch.message")}
-            </span>
-          </AnimateOnScroll>
-          <AnimateOnScroll className="min-w-0 flex-1" x={16}>
-            <ContactForm onSub={handleSendMail} />
-          </AnimateOnScroll>
+              <span className="text-muted-foreground">
+                {t("sections.getInTouch.message")}
+              </span>
+            </AnimateOnScroll>
+            <AnimateOnScroll className="min-w-0 flex-1" x={16}>
+              <ContactForm onSub={handleSendMail} />
+            </AnimateOnScroll>
+          </div>
+          {getContributions.data && (
+            <AnimateOnScroll y={16}>
+              <ContributionGraph.Root
+                data={getContributions.data.contributions}
+              >
+                <ContributionGraph.Calendar>
+                  {({ activity, dayIndex, weekIndex }) => (
+                    <Tooltip.Root>
+                      <Tooltip.Trigger asChild>
+                        <ContributionGraph.Block
+                          activity={activity}
+                          dayIndex={dayIndex}
+                          weekIndex={weekIndex}
+                        />
+                      </Tooltip.Trigger>
+                      <Tooltip.Content>
+                        <p className="font-semibold">{activity.date}</p>
+                        <p>{activity.count} contributions</p>
+                      </Tooltip.Content>
+                    </Tooltip.Root>
+                  )}
+                </ContributionGraph.Calendar>
+                <ContributionGraph.Footer>
+                  <ContributionGraph.TotalCount />
+                  <ContributionGraph.Legend />
+                </ContributionGraph.Footer>
+              </ContributionGraph.Root>
+            </AnimateOnScroll>
+          )}
         </div>
-        {getContributions.data && (
-          <AnimateOnScroll y={16}>
-            <ContributionGraph.Root data={getContributions.data.contributions}>
-              <ContributionGraph.Calendar>
-                {({ activity, dayIndex, weekIndex }) => (
-                  <Tooltip.Root>
-                    <Tooltip.Trigger asChild>
-                      <ContributionGraph.Block
-                        activity={activity}
-                        dayIndex={dayIndex}
-                        weekIndex={weekIndex}
-                      />
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>
-                      <p className="font-semibold">{activity.date}</p>
-                      <p>{activity.count} contributions</p>
-                    </Tooltip.Content>
-                  </Tooltip.Root>
-                )}
-              </ContributionGraph.Calendar>
-              <ContributionGraph.Footer>
-                <ContributionGraph.TotalCount />
-                <ContributionGraph.Legend />
-              </ContributionGraph.Footer>
-            </ContributionGraph.Root>
-          </AnimateOnScroll>
-        )}
       </div>
     </div>
   );
