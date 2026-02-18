@@ -32,7 +32,11 @@ export const experiences = [
   {
     id: "123",
     slug: "company-abc",
-    company: "Company ABC",
+    company: {
+      title: "Company ABC",
+      url: "https://www.example.com",
+      image: "https://via.placeholder.com/150",
+    },
     type: "FULL_TIME",
     roles: [
       {
@@ -42,7 +46,7 @@ export const experiences = [
             messages: {
               title: "Engenheiro de Software",
               description:
-                "Desenvolvimento de aplicações web utilizando React, Node.js e AWS.",
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
           {
@@ -50,7 +54,7 @@ export const experiences = [
             messages: {
               title: "Software Engineer",
               description:
-                "Development of web applications using React, Node.js and AWS.",
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
         ],
@@ -67,7 +71,7 @@ export const experiences = [
             messages: {
               title: "Engenheiro de Software Jr",
               description:
-                "Desenvolvimento de aplicações web utilizando HTML, CSS e JavaScript.",
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
           {
@@ -75,7 +79,7 @@ export const experiences = [
             messages: {
               title: "Software Engineer Jr",
               description:
-                "Development of web applications using HTML, CSS and JavaScript.",
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
         ],
@@ -91,7 +95,11 @@ export const experiences = [
   {
     id: "456",
     slug: "yago-russo",
-    company: "Yago Russo",
+    company: {
+      title: "Yago Russo",
+      url: "https://www.example.com",
+      image: "https://via.placeholder.com/150",
+    },
     type: "PART_TIME",
     roles: [
       {
@@ -100,14 +108,16 @@ export const experiences = [
             locale: "pt",
             messages: {
               title: "Freelancer",
-              description: "Desenvolvimento de tudo.",
+              description:
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
           {
             locale: "en",
             messages: {
               title: "Freelancer",
-              description: "Development of everything.",
+              description:
+                "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
             },
           },
         ],
@@ -126,7 +136,11 @@ export const educations = [
   {
     id: "123",
     slug: "example",
-    school: "Example",
+    school: {
+      title: "Example University",
+      url: "https://www.example.com",
+      image: "https://via.placeholder.com/150",
+    },
     type: "ACADEMIC",
     status: "COMPLETED",
     url: "https://www.example.com",
@@ -136,14 +150,16 @@ export const educations = [
         locale: "pt",
         messages: {
           title: "Curso de Exemplo",
-          description: "Descrição do curso de exemplo.",
+          description:
+            "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
         },
       },
       {
         locale: "en",
         messages: {
           title: "Example Course",
-          description: "Description of the example course.",
+          description:
+            "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
         },
       },
     ],
@@ -158,7 +174,11 @@ export const educations = [
   {
     id: "14563",
     slug: "sample",
-    school: "Sample",
+    school: {
+      title: "Sample University",
+      url: "https://www.example.com",
+      image: "https://via.placeholder.com/150",
+    },
     type: "COURSE",
     url: "https://www.example.com",
     status: "IN_PROGRESS",
@@ -168,14 +188,16 @@ export const educations = [
         locale: "pt",
         messages: {
           title: "Curso de Exemplo",
-          description: "Descrição do curso de exemplo.",
+          description:
+            "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
         },
       },
       {
         locale: "en",
         messages: {
           title: "Example Course",
-          description: "Description of the example course.",
+          description:
+            "Donec vulputate tincidunt sapien, vel semper magna accumsan at. Donec eleifend neque turpis, placerat pretium ligula ultricies vitae. Nulla facilisi. Nulla lacinia orci varius, imperdiet sapien eget, mattis lectus. Donec et finibus tellus. Morbi in vehicula nunc. Donec id cursus est. Duis viverra pretium massa quis pretium. Sed ut iaculis nisi, nec sagittis tortor. Duis pulvinar tincidunt bibendum. Sed aliquet ipsum ut varius commodo. Nulla facilisi. Curabitur tortor nibh, eleifend eu dolor quis, pulvinar tincidunt sem. Fusce vulputate felis nisi, eu scelerisque tellus porta nec. Maecenas non rutrum libero, sit amet rutrum nisl.",
         },
       },
     ],
