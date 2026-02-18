@@ -80,17 +80,8 @@ function TimelineRoot({
   );
 }
 
-function TimelineContent({
-  className,
-  ...props
-}: HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn("text-muted-foreground text-sm", className)}
-      data-slot="timeline-content"
-      {...props}
-    />
-  );
+function TimelineContent({ ...props }: HTMLAttributes<HTMLDivElement>) {
+  return <div data-slot="timeline-content" {...props} />;
 }
 
 interface TimelineDateProps extends HTMLAttributes<HTMLTimeElement> {
@@ -106,10 +97,7 @@ function TimelineDate({
 
   return (
     <Comp
-      className={cn(
-        "mb-1 block font-medium text-muted-foreground text-xs group-data-[orientation=vertical]/timeline:max-sm:h-4",
-        className
-      )}
+      className={cn("text-muted-foreground", className)}
       data-slot="timeline-date"
       {...props}
     />
@@ -206,17 +194,8 @@ function TimelineSeparator({
   );
 }
 
-function TimelineTitle({
-  className,
-  ...props
-}: HTMLAttributes<HTMLHeadingElement>) {
-  return (
-    <h3
-      className={cn("font-medium text-sm", className)}
-      data-slot="timeline-title"
-      {...props}
-    />
-  );
+function TimelineTitle({ ...props }: HTMLAttributes<HTMLDivElement>) {
+  return <div data-slot="timeline-title" {...props} />;
 }
 
 export const Timeline = {
