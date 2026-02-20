@@ -35,7 +35,7 @@ function AccordionTrigger({
       {children}
       {indicator && (
         <Button asChild size="icon" variant="ghost">
-          <div className="max-sm:hidden">
+          <div>
             <CaretDownIcon className="transition-transform group-data-[state=open]:rotate-180" />
           </div>
         </Button>

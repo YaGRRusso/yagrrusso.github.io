@@ -29,6 +29,7 @@ import { SkillCard } from "@/components/skill-card";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
@@ -39,7 +40,7 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { experiences } from "@/consts/mocks";
+import { educations, experiences } from "@/consts/mocks";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindAllProjects } from "@/hooks/queries/projects";
@@ -322,21 +323,82 @@ export function ClientPage() {
           ))}
         </div>
       </div>
-      {/* <div className="w-full bg-background">
+      <Separator />
+      <div className="w-full bg-background">
         <div className="container relative flex w-full flex-col justify-center gap-8">
           <AnimateOnScroll
             className="flex flex-1 flex-wrap justify-between gap-8"
             y={16}
           >
             <SectionTitle
-              description={t("sections.experience.description")}
-              id="my-experience"
-              title={t("sections.experience.title")}
+              description={t("sections.education.description")}
+              id="my-education"
+              title={t("sections.education.title")}
             />
           </AnimateOnScroll>
-          <div className="h-32 w-full rounded bg-primary" />
+          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+            {educations.map((education) => (
+              <AnimateOnScroll key={education.id} y={16}>
+                <div className="flex h-full flex-col gap-8 rounded border px-8 py-12">
+                  <div className="flex flex-col">
+                    <a
+                      className="flex flex-wrap items-center gap-4"
+                      href={education.url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <Avatar.Root className="size-14">
+                        <Avatar.Image
+                          alt={education.school.title}
+                          src={education.school.image}
+                        />
+                        <Avatar.Fallback />
+                      </Avatar.Root>
+                      <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
+                        {education.school.title}
+                      </div>
+                      <div className="flex flex-wrap gap-2 py-2">
+                        <Badge variant="secondary">{education.category}</Badge>
+                        <Badge variant="secondary">{education.status}</Badge>
+                        {education.hours && (
+                          <Badge variant="secondary">
+                            {education.hours} hours
+                          </Badge>
+                        )}
+                        {education?.date && (
+                          <Badge variant="secondary">
+                            {education.date?.from?.toLocaleDateString()} -{" "}
+                            {education.date?.to?.toLocaleDateString()}
+                          </Badge>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
+                        {education.i18n[0]?.messages.title}
+                      </div>
+                      <p className="text-muted-foreground">
+                        {education.i18n[0]?.messages.description}
+                      </p>
+                    </a>
+                    {education.skills && education.skills.length > 0 && (
+                      <div className="flex flex-wrap gap-2 py-2">
+                        {education.skills.map((skill) => (
+                          <Badge
+                            className="uppercase"
+                            key={skill.id}
+                            variant="secondary"
+                          >
+                            {skill.title}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </AnimateOnScroll>
+            ))}
+          </div>
         </div>
-      </div> */}
+      </div>
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">

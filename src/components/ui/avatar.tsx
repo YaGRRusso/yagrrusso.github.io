@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageBrokenIcon } from "@phosphor-icons/react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
@@ -35,6 +36,7 @@ function AvatarImage({
 
 function AvatarFallback({
   className,
+  children,
   ...props
 }: ComponentProps<typeof AvatarPrimitive.Fallback>) {
   return (
@@ -45,7 +47,9 @@ function AvatarFallback({
       )}
       data-slot="avatar-fallback"
       {...props}
-    />
+    >
+      {children ?? <ImageBrokenIcon />}
+    </AvatarPrimitive.Fallback>
   );
 }
 

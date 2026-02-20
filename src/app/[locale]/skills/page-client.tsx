@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleNotchIcon, ImageBrokenIcon } from "@phosphor-icons/react";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { type CSSProperties, useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
@@ -96,9 +96,7 @@ export function ClientPage() {
                       alt={skill.title}
                       src={simpleIconsCdn(skill.slug)}
                     />
-                    <Avatar.Fallback>
-                      <ImageBrokenIcon />
-                    </Avatar.Fallback>
+                    <Avatar.Fallback />
                   </Avatar.Root>
                   <span>{skill.title}</span>
                   <span className="text-muted-foreground text-xs">

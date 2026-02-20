@@ -1,11 +1,9 @@
-import { ImageBrokenIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 import { Accordion } from "./ui/accordion";
 import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
 import { Timeline } from "./ui/timeline";
 
 interface Props
@@ -53,22 +51,16 @@ export function ExperienceCard({
     >
       <div className="flex flex-col">
         <a
-          className="group/hover flex flex-wrap items-center gap-4"
+          className="flex flex-wrap items-center gap-4"
           href={company.url}
           rel="noopener noreferrer"
           target="_blank"
         >
           <Avatar.Root className="size-14">
             <Avatar.Image alt={company.title} src={company.image} />
-            <Avatar.Fallback>
-              <ImageBrokenIcon />
-            </Avatar.Fallback>
+            <Avatar.Fallback />
           </Avatar.Root>
-          <Button
-            className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl"
-            size="auto"
-            variant="ghost"
-          >
+          <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
             {company.title}
             {!roles.at(-1)?.date.to && (
               <div className="relative flex size-2">
@@ -76,7 +68,7 @@ export function ExperienceCard({
                 <div className="inline-flex size-2 rounded-full bg-primary" />
               </div>
             )}
-          </Button>
+          </div>
         </a>
       </div>
       <Timeline.Root className="w-full" defaultValue={0}>
