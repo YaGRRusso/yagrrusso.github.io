@@ -338,7 +338,7 @@ export const educations: Education[] = [
         },
       },
     ],
-    skills: undefined,
+    skills: [skills[0], skills[1], skills[2], skills[6], skills[7]], // React, TypeScript, Node.js, MySQL, PostgreSQL
     date: {
       from: new Date(2016, 2, 1),
       to: new Date(2020, 11, 20),
@@ -356,7 +356,6 @@ export const educations: Education[] = [
     },
     category: "ACADEMIC",
     status: "IN_PROGRESS",
-    url: "https://www.google.com",
     hours: 450,
     i18n: [
       {
@@ -376,7 +375,7 @@ export const educations: Education[] = [
         },
       },
     ],
-    skills: undefined,
+    skills: [skills[0], skills[1], skills[2], skills[3], skills[5]], // React, TypeScript, Node.js, Express, AWS
     date: {
       from: new Date(2023, 1, 15),
       to: new Date(2025, 6, 30),
@@ -394,7 +393,6 @@ export const educations: Education[] = [
     },
     category: "ACADEMIC",
     status: "PAUSED",
-    url: "https://www.google.com",
     hours: 360,
     i18n: [
       {
@@ -469,7 +467,6 @@ export const educations: Education[] = [
     },
     category: "COURSE",
     status: "IN_PROGRESS",
-    url: "https://www.google.com",
     hours: 60,
     i18n: [
       {

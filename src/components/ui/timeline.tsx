@@ -88,20 +88,10 @@ interface TimelineDateProps extends HTMLAttributes<HTMLTimeElement> {
   asChild?: boolean;
 }
 
-function TimelineDate({
-  asChild = false,
-  className,
-  ...props
-}: TimelineDateProps) {
+function TimelineDate({ asChild = false, ...props }: TimelineDateProps) {
   const Comp = asChild ? Slot.Root : "time";
 
-  return (
-    <Comp
-      className={cn("text-muted-foreground", className)}
-      data-slot="timeline-date"
-      {...props}
-    />
-  );
+  return <Comp data-slot="timeline-date" {...props} />;
 }
 
 function TimelineHeader({

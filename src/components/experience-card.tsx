@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
@@ -11,8 +12,6 @@ interface Props
     Extract<ComponentProps<typeof Accordion.Root>, { type: "multiple" }>,
     "type"
   > {
-  slug: string;
-  category: string;
   company: {
     title: string;
     image: string;
@@ -33,13 +32,7 @@ interface Props
   }[];
 }
 
-export function ExperienceCard({
-  className,
-  company,
-  slug,
-  roles,
-  ...props
-}: Props) {
+export function ExperienceCard({ className, company, roles, ...props }: Props) {
   const tCommon = useTranslations("common");
 
   return (
@@ -82,14 +75,15 @@ export function ExperienceCard({
                 >
                   <div className="flex flex-1 flex-col">
                     <div className="flex items-center gap-2">
-                      <Timeline.Date>
-                        {role.date.from.toLocaleDateString()} -{" "}
+                      <Timeline.Date className="font-semibold text-muted-foreground text-sm">
+                        {dayjs(role.date.from).format("MM/YYYY")}
+                        {" - "}
                         {role.date.to
-                          ? role.date.to.toLocaleDateString()
+                          ? dayjs(role.date.to).format("MM/YYYY")
                           : tCommon("present")}
                       </Timeline.Date>
                     </div>
-                    <Timeline.Title className="font-semibold text-2xl">
+                    <Timeline.Title className="hyphens-auto font-semibold text-2xl">
                       {role.title}
                     </Timeline.Title>
                   </div>

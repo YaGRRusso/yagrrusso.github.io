@@ -15,7 +15,7 @@ import { Dialog } from "./ui/dialog";
 interface Props extends ComponentProps<"div"> {
   direction?: "left" | "right";
   slug: string;
-  name: string;
+  title: string;
   description: string;
   skills?: {
     id: string;
@@ -33,7 +33,7 @@ export function ProjectCard({
   className,
   direction = "left",
   slug,
-  name,
+  title,
   description,
   skills,
   urls,
@@ -62,7 +62,7 @@ export function ProjectCard({
             <span>{slug}</span>
           </strong>
           <div className="flex flex-col gap-2">
-            <h3 className="font-semibold text-6xl max-md:text-5xl">{name}</h3>
+            <h3 className="font-semibold text-6xl max-md:text-5xl">{title}</h3>
             <p className="text-muted-foreground">{description}</p>
             {skills && skills.length > 0 && (
               <div className="scrollbar-hidden mt-2 flex max-w-11/12 items-center gap-1 overflow-auto text-sm">
@@ -116,7 +116,7 @@ export function ProjectCard({
         </div>
         <Dialog.Content>
           <Dialog.Header>
-            <Dialog.Title>{name}</Dialog.Title>
+            <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description>{description}</Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>

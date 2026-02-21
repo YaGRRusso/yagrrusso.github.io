@@ -22,6 +22,7 @@ import { Fragment, useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
+import { EducationCard } from "@/components/education-card";
 import { ExperienceCard } from "@/components/experience-card";
 import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
@@ -29,7 +30,6 @@ import { SkillCard } from "@/components/skill-card";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
 import { Avatar } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
@@ -225,9 +225,9 @@ export function ClientPage() {
                   description={proj.i18n[0]?.messages.description}
                   direction={index % 2 === 0 ? "left" : "right"}
                   images={proj.images}
-                  name={proj.i18n[0]?.messages.title}
                   skills={proj.skills ?? []}
                   slug={proj.slug}
+                  title={proj.i18n[0]?.messages.title}
                   urls={proj.urls ?? []}
                 />
               </AnimateOnScroll>
@@ -310,14 +310,12 @@ export function ClientPage() {
           {experiences.map((experience) => (
             <AnimateOnScroll key={experience.id} y={16}>
               <ExperienceCard
-                category={experience.category}
                 company={experience.company}
                 roles={experience.roles.map((role) => ({
                   title: role.i18n[0]?.messages.title ?? "",
                   description: role.i18n[0]?.messages.description ?? "",
                   ...role,
                 }))}
-                slug={experience.slug}
               />
             </AnimateOnScroll>
           ))}
@@ -336,64 +334,18 @@ export function ClientPage() {
               title={t("sections.education.title")}
             />
           </AnimateOnScroll>
-          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {educations.map((education) => (
               <AnimateOnScroll key={education.id} y={16}>
-                <div className="flex h-full flex-col gap-8 rounded border px-8 py-12">
-                  <div className="flex flex-col">
-                    <a
-                      className="flex flex-wrap items-center gap-4"
-                      href={education.url}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <Avatar.Root className="size-14">
-                        <Avatar.Image
-                          alt={education.school.title}
-                          src={education.school.image}
-                        />
-                        <Avatar.Fallback />
-                      </Avatar.Root>
-                      <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
-                        {education.school.title}
-                      </div>
-                      <div className="flex flex-wrap gap-2 py-2">
-                        <Badge variant="secondary">{education.category}</Badge>
-                        <Badge variant="secondary">{education.status}</Badge>
-                        {education.hours && (
-                          <Badge variant="secondary">
-                            {education.hours} hours
-                          </Badge>
-                        )}
-                        {education?.date && (
-                          <Badge variant="secondary">
-                            {education.date?.from?.toLocaleDateString()} -{" "}
-                            {education.date?.to?.toLocaleDateString()}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
-                        {education.i18n[0]?.messages.title}
-                      </div>
-                      <p className="text-muted-foreground">
-                        {education.i18n[0]?.messages.description}
-                      </p>
-                    </a>
-                    {education.skills && education.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-2 py-2">
-                        {education.skills.map((skill) => (
-                          <Badge
-                            className="uppercase"
-                            key={skill.id}
-                            variant="secondary"
-                          >
-                            {skill.title}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <EducationCard
+                  date={education.date}
+                  hours={education.hours}
+                  school={education.school}
+                  skills={education.skills}
+                  status={education.status}
+                  title={education.i18n[0]?.messages.title}
+                  url={education.url}
+                />
               </AnimateOnScroll>
             ))}
           </div>
