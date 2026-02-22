@@ -24,6 +24,21 @@
     "updatedAtDescription": "Deploy da versão mais recente.",
     "present": "Presente",
     "viewAll": "Ver Tudo",
+    "status": {
+      "completed": "Concluído",
+      "inProgress": "Em Progresso",
+      "paused": "Pausado"
+    },
+    "grade": {
+      "ELEMENTARY": "Ensino Fundamental",
+      "HIGH_SCHOOL": "Ensino Médio",
+      "TECHNICAL": "Técnico",
+      "TECHNOLOGIST": "Tecnólogo",
+      "BACHELOR": "Bacharelado",
+      "POSTGRADUATE": "Pós-graduação",
+      "DOCTORATE": "Doutorado",
+      "COURSE": "Curso"
+    },
     "categories": {
       "all": "Todos",
       "soft": "Habilidades Interpessoais",

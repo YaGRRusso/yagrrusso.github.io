@@ -283,7 +283,16 @@ type Education = {
     url: string;
     image: string;
   };
-  category: "ACADEMIC" | "COURSE";
+  category:
+    | "ELEMENTARY"
+    | "HIGH_SCHOOL"
+    | "TECHNICAL"
+    | "TECHNOLOGIST"
+    | "BACHELOR"
+    | "POSTGRADUATE"
+    | "MASTER"
+    | "DOCTORATE"
+    | "COURSE";
   status: "COMPLETED" | "IN_PROGRESS" | "PAUSED";
   url?: string;
   hours?: number;
@@ -316,7 +325,7 @@ export const educations: Education[] = [
       url: "https://www.google.com",
       image: "https://via.placeholder.com/150",
     },
-    category: "ACADEMIC",
+    category: "BACHELOR",
     status: "COMPLETED",
     url: "https://www.google.com",
     hours: 3600,
@@ -354,7 +363,7 @@ export const educations: Education[] = [
       url: "https://www.google.com",
       image: "https://via.placeholder.com/150",
     },
-    category: "ACADEMIC",
+    category: "HIGH_SCHOOL",
     status: "IN_PROGRESS",
     hours: 450,
     i18n: [
@@ -391,7 +400,7 @@ export const educations: Education[] = [
       url: "https://www.google.com",
       image: "https://via.placeholder.com/150",
     },
-    category: "ACADEMIC",
+    category: "POSTGRADUATE",
     status: "PAUSED",
     hours: 360,
     i18n: [

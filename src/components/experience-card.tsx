@@ -37,7 +37,10 @@ export function ExperienceCard({ className, company, roles, ...props }: Props) {
 
   return (
     <Accordion.Root
-      className={cn("flex flex-col gap-8 rounded border px-8 py-12", className)}
+      className={cn(
+        "flex flex-col gap-8 rounded border bg-alternative px-8 py-12",
+        className
+      )}
       defaultValue={["0"]}
       type="multiple"
       {...props}

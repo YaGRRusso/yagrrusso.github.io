@@ -100,6 +100,14 @@ export function ClientPage() {
               href="#get-in-touch"
               title={t("sections.getInTouch.title")}
             />
+            <TitleLink
+              href="#my-experience"
+              title={t("sections.experience.title")}
+            />
+            <TitleLink
+              href="#my-education"
+              title={t("sections.education.title")}
+            />
           </div>
         </AnimateOnScroll>
         <AnimateOnScroll
@@ -138,7 +146,7 @@ export function ClientPage() {
         </div>
       </Marquee>
       <Separator />
-      <div className="w-full bg-alternative">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
           <div className="flex gap-x-32 max-lg:flex-col">
             <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
@@ -235,7 +243,7 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <div className="w-full bg-alternative">
+      <div className="w-full">
         <Carousel.Root
           className="container relative flex w-full flex-col justify-center gap-8"
           opts={{

@@ -24,6 +24,21 @@
     "updatedAtDescription": "Latest version deployment.",
     "present": "Present",
     "viewAll": "View All",
+    "status": {
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "paused": "Paused"
+    },
+    "grade": {
+      "ELEMENTARY": "Elementary School",
+      "HIGH_SCHOOL": "High School",
+      "TECHNICAL": "Technical",
+      "TECHNOLOGIST": "Technologist",
+      "BACHELOR": "Bachelor's Degree",
+      "POSTGRADUATE": "Postgraduate",
+      "DOCTORATE": "Doctorate",
+      "COURSE": "Course"
+    },
     "categories": {
       "all": "All",
       "soft": "Soft Skills",

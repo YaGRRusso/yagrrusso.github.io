@@ -1,10 +1,34 @@
-import { ArrowUpRightIcon, CheckCircleIcon } from "@phosphor-icons/react";
+import {
+  ArrowUpRightIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  WarningCircleIcon,
+} from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { cn } from "@/lib/utils";
 import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+
+const variants = {
+  COMPLETED: {
+    color: "text-success",
+    label: "status.completed",
+    icon: <CheckCircleIcon />,
+  },
+  IN_PROGRESS: {
+    color: "text-warning",
+    label: "status.inProgress",
+    icon: <ClockIcon />,
+  },
+  PAUSED: {
+    color: "text-destructive",
+    label: "status.paused",
+    icon: <WarningCircleIcon />,
+  },
+} as const;
 
 interface Props extends ComponentProps<"a"> {
   title: string;
@@ -19,7 +43,7 @@ interface Props extends ComponentProps<"a"> {
     title: string;
     image: string;
   };
-  status: string;
+  status: "COMPLETED" | "IN_PROGRESS" | "PAUSED";
   hours?: number;
   date?: {
     from: Date;
@@ -43,7 +67,7 @@ export function EducationCard({
 
   return (
     <a
-      className="group/hover flex h-full flex-col gap-4 rounded border px-8 py-12"
+      className="group/hover flex h-full flex-col gap-4 rounded border bg-alternative px-8 py-12"
       href={url}
       rel="noopener noreferrer"
       target="_blank"
@@ -62,10 +86,14 @@ export function EducationCard({
       </div>
       <h3 className="font-semibold text-2xl">{title}</h3>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-semibold text-muted-foreground text-sm">
-        <div className="flex items-center gap-1 text-primary">
-          <CheckCircleIcon weight="bold" />
-          {status}
-        </div>
+        {variants && (
+          <div
+            className={cn("flex items-center gap-1", variants[status].color)}
+          >
+            {variants[status].icon}
+            {tCommon(variants[status].label)}
+          </div>
+        )}
         {hours && <div>{hours}h</div>}
         {date && (
           <div>
