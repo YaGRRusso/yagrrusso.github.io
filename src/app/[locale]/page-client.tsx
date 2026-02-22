@@ -45,10 +45,12 @@ import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindAllProjects } from "@/hooks/queries/projects";
 import { useFindAllSkills } from "@/hooks/queries/skills";
+import { useMessages } from "@/hooks/reactive/use-messages";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
 
 export function ClientPage() {
+  const getMessages = useMessages();
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
 
@@ -230,12 +232,12 @@ export function ClientPage() {
             ?.map((proj, index) => (
               <AnimateOnScroll key={proj.id} y={16}>
                 <ProjectCard
-                  description={proj.i18n[0]?.messages.description}
+                  description={getMessages(proj.i18n)?.description}
                   direction={index % 2 === 0 ? "left" : "right"}
                   images={proj.images}
                   skills={proj.skills ?? []}
                   slug={proj.slug}
-                  title={proj.i18n[0]?.messages.title}
+                  title={getMessages(proj.i18n).title}
                   urls={proj.urls ?? []}
                 />
               </AnimateOnScroll>
@@ -320,8 +322,8 @@ export function ClientPage() {
               <ExperienceCard
                 company={experience.company}
                 roles={experience.roles.map((role) => ({
-                  title: role.i18n[0]?.messages.title ?? "",
-                  description: role.i18n[0]?.messages.description ?? "",
+                  title: getMessages(role.i18n)?.title,
+                  description: getMessages(role.i18n)?.description,
                   ...role,
                 }))}
               />
@@ -351,7 +353,7 @@ export function ClientPage() {
                   school={education.school}
                   skills={education.skills}
                   status={education.status}
-                  title={education.i18n[0]?.messages.title}
+                  title={getMessages(education.i18n)?.title}
                   url={education.url}
                 />
               </AnimateOnScroll>
