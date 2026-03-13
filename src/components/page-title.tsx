@@ -6,11 +6,11 @@ import { Breadcrumb } from "./ui/breadcrumb";
 import { DropdownMenu } from "./ui/dropdown-menu";
 
 interface Props extends ComponentProps<"div"> {
-  title: string;
   path?: {
     label: string;
     href: string;
   }[];
+  title: string;
 }
 
 export function PageTitle({

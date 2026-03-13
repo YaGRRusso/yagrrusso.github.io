@@ -13,20 +13,20 @@ import {
 import { cn } from "@/lib/utils";
 
 interface TypingAnimationProps extends MotionProps {
-  children?: string;
-  words?: string[];
-  className?: string;
-  duration?: number;
-  typeSpeed?: number;
-  deleteSpeed?: number;
-  delay?: number;
-  pauseDelay?: number;
-  loop?: boolean;
   as?: ElementType;
-  startOnView?: boolean;
-  showCursor?: boolean;
   blinkCursor?: boolean;
+  children?: string;
+  className?: string;
   cursorStyle?: "line" | "block" | "underscore";
+  delay?: number;
+  deleteSpeed?: number;
+  duration?: number;
+  loop?: boolean;
+  pauseDelay?: number;
+  showCursor?: boolean;
+  startOnView?: boolean;
+  typeSpeed?: number;
+  words?: string[];
 }
 
 export function TypingAnimation({

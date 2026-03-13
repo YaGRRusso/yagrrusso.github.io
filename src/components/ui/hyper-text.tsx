@@ -8,22 +8,22 @@ import { cn } from "@/lib/utils";
 type CharacterSet = string[] | readonly string[];
 
 interface HyperTextProps extends MotionProps {
-  /** The text content to be animated */
-  content: string;
-  /** Optional className for styling */
-  className?: string;
-  /** Duration of the animation in milliseconds */
-  duration?: number;
-  /** Delay before animation starts in milliseconds */
-  delay?: number;
-  /** Component to render as - defaults to div */
-  as?: ElementType;
-  /** Whether to start animation when element comes into view */
-  startOnView?: boolean;
   /** Whether to trigger animation on hover */
   animateOnHover?: boolean;
+  /** Component to render as - defaults to div */
+  as?: ElementType;
   /** Custom character set for scramble effect. Defaults to uppercase alphabet */
   characterSet?: CharacterSet;
+  /** Optional className for styling */
+  className?: string;
+  /** The text content to be animated */
+  content: string;
+  /** Delay before animation starts in milliseconds */
+  delay?: number;
+  /** Duration of the animation in milliseconds */
+  duration?: number;
+  /** Whether to start animation when element comes into view */
+  startOnView?: boolean;
 }
 
 const DEFAULT_CHARACTER_SET = Object.freeze(

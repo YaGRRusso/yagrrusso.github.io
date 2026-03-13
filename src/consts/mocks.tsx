@@ -120,7 +120,8 @@ export const experiences: Experience[] = [
     company: {
       title: "Tech Solutions Corp",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=meudroz.com",
     },
     category: "FULL_TIME",
     roles: [
@@ -193,7 +194,8 @@ export const experiences: Experience[] = [
     company: {
       title: "Agile Startup",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=meudroz.com",
     },
     category: "FULL_TIME",
     roles: [
@@ -235,8 +237,9 @@ export const experiences: Experience[] = [
     slug: "freelance-projects",
     company: {
       title: "Freelance",
-      url: "https://github.com",
-      image: "https://via.placeholder.com/150",
+      url: "https://meudroz.com",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=meudroz.com",
     },
     category: "FREELANCE",
     roles: [
@@ -323,7 +326,8 @@ export const educations: Education[] = [
     school: {
       title: "University of Technology",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "BACHELOR",
     status: "COMPLETED",
@@ -361,7 +365,8 @@ export const educations: Education[] = [
     school: {
       title: "Business School of Innovation",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "HIGH_SCHOOL",
     status: "IN_PROGRESS",
@@ -398,7 +403,8 @@ export const educations: Education[] = [
     school: {
       title: "Tech Security Institute",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "POSTGRADUATE",
     status: "PAUSED",
@@ -434,7 +440,8 @@ export const educations: Education[] = [
     school: {
       title: "Online Coding Academy",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "COURSE",
     status: "COMPLETED",
@@ -472,7 +479,8 @@ export const educations: Education[] = [
     school: {
       title: "Cloud Masters",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "COURSE",
     status: "IN_PROGRESS",
@@ -508,7 +516,8 @@ export const educations: Education[] = [
     school: {
       title: "DevOps University",
       url: "https://www.google.com",
-      image: "https://via.placeholder.com/150",
+      image:
+        "https://s2.googleusercontent.com/s2/favicons?sz=64&domain=google.com",
     },
     category: "COURSE",
     status: "COMPLETED",

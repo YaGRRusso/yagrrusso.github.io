@@ -13,20 +13,20 @@ import { Button } from "./ui/button";
 import { Dialog } from "./ui/dialog";
 
 interface Props extends ComponentProps<"div"> {
-  direction?: "left" | "right";
-  slug: string;
-  title: string;
   description: string;
+  direction?: "left" | "right";
+  images?: string[] | null;
   skills?: {
     id: string;
     title: string;
     slug: string;
   }[];
+  slug: string;
+  title: string;
   urls?: {
     title: string;
     value: string;
   }[];
-  images?: string[] | null;
 }
 
 export function ProjectCard({

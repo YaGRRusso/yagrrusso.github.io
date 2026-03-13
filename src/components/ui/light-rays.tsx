@@ -12,12 +12,12 @@ import {
 import { cn } from "@/lib/utils";
 
 interface LightRaysProps extends HTMLAttributes<HTMLDivElement> {
-  ref?: Ref<HTMLDivElement>;
-  count?: number;
-  color?: string;
   blur?: number;
-  speed?: number;
+  color?: string;
+  count?: number;
   length?: string;
+  ref?: Ref<HTMLDivElement>;
+  speed?: number;
 }
 
 type LightRay = {

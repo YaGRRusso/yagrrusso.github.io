@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { NumberTicker } from "./ui/number-ticker";
 
 interface Props extends ComponentProps<"div"> {
-  value: number;
-  label: string;
   accent?: string;
+  label: string;
+  value: number;
 }
 
 export function Counter({ value, label, accent, className, ...props }: Props) {

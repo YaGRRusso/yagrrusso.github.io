@@ -2,9 +2,9 @@ import type { ComponentProps, ReactNode } from "react";
 import { Carousel } from "./ui/carousel";
 
 interface Props extends ComponentProps<typeof Carousel.Item> {
-  title: string;
   description: string;
   icon: ReactNode;
+  title: string;
 }
 
 export function SkillCard({ title, description, icon, ...props }: Props) {

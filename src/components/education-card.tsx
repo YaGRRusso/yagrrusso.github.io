@@ -31,24 +31,24 @@ const variants = {
 } as const;
 
 interface Props extends ComponentProps<"a"> {
-  title: string;
+  date?: {
+    from: Date;
+    to?: Date;
+  };
+  hours?: number;
+  school: {
+    title: string;
+    image: string;
+  };
   // description: string;
   skills?: {
     id: string;
     title: string;
     slug: string;
   }[];
-  url?: string;
-  school: {
-    title: string;
-    image: string;
-  };
   status: "COMPLETED" | "IN_PROGRESS" | "PAUSED";
-  hours?: number;
-  date?: {
-    from: Date;
-    to?: Date;
-  };
+  title: string;
+  url?: string;
 }
 
 export function EducationCard({
@@ -74,7 +74,7 @@ export function EducationCard({
       {...props}
     >
       <div className="flex justify-between">
-        <Avatar.Root className="size-14">
+        <Avatar.Root className="size-12">
           <Avatar.Image alt={school.title} src={school.image} />
           <Avatar.Fallback />
         </Avatar.Root>

@@ -19,15 +19,15 @@ import { cn } from "@/lib/utils";
  * @param {boolean} [glow=false] - Whether dots should have a glowing animation effect
  */
 interface DotPatternProps extends SVGProps<SVGSVGElement> {
-  width?: number;
-  height?: number;
-  x?: number;
-  y?: number;
+  className?: string;
+  cr?: number;
   cx?: number;
   cy?: number;
-  cr?: number;
-  className?: string;
   glow?: boolean;
+  height?: number;
+  width?: number;
+  x?: number;
+  y?: number;
   [key: string]: unknown;
 }
 

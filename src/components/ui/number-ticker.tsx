@@ -6,11 +6,11 @@ import { type ComponentPropsWithoutRef, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
-  value: number;
-  startValue?: number;
-  direction?: "up" | "down";
-  delay?: number;
   decimalPlaces?: number;
+  delay?: number;
+  direction?: "up" | "down";
+  startValue?: number;
+  value: number;
 }
 
 export function NumberTicker({

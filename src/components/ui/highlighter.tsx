@@ -15,15 +15,15 @@ type AnnotationAction =
   | "bracket";
 
 interface HighlighterProps {
-  children: ReactNode;
   action?: AnnotationAction;
-  color?: string;
-  strokeWidth?: number;
   animationDuration?: number;
-  iterations?: number;
-  padding?: number;
-  multiline?: boolean;
+  children: ReactNode;
+  color?: string;
   isView?: boolean;
+  iterations?: number;
+  multiline?: boolean;
+  padding?: number;
+  strokeWidth?: number;
 }
 
 export function Highlighter({

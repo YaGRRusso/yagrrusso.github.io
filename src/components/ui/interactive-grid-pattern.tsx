@@ -14,11 +14,11 @@ import { cn } from "@/lib/utils";
  * @param squaresClassName - The class name of the squares.
  */
 interface InteractiveGridPatternProps extends SVGProps<SVGSVGElement> {
-  width?: number;
+  className?: string;
   height?: number;
   squares?: [number, number]; // [horizontal, vertical]
-  className?: string;
   squaresClassName?: string;
+  width?: number;
 }
 
 /**

@@ -4,9 +4,9 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 interface Props extends ComponentProps<"div"> {
+  description: string;
   id: string;
   title: string;
-  description: string;
 }
 
 export function SectionTitle({

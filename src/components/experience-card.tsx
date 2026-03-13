@@ -52,8 +52,12 @@ export function ExperienceCard({ className, company, roles, ...props }: Props) {
           rel="noopener noreferrer"
           target="_blank"
         >
-          <Avatar.Root className="size-14">
-            <Avatar.Image alt={company.title} src={company.image} />
+          <Avatar.Root className="size-12">
+            <Avatar.Image
+              alt={company.title}
+              className="p-1"
+              src={company.image}
+            />
             <Avatar.Fallback />
           </Avatar.Root>
           <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">

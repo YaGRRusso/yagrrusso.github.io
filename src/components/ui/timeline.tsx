@@ -30,11 +30,11 @@ const useTimeline = () => {
 };
 
 interface TimelineProps extends HTMLAttributes<HTMLDivElement> {
-  defaultValue?: number;
   currentValue?: number;
-  value?: number;
+  defaultValue?: number;
   onValueChange?: (value: number) => void;
   orientation?: "horizontal" | "vertical";
+  value?: number;
 }
 
 function TimelineRoot({
@@ -129,8 +129,8 @@ function TimelineIndicator({
 }
 
 interface TimelineItemProps extends HTMLAttributes<HTMLDivElement> {
-  step: number;
   alternate?: boolean;
+  step: number;
 }
 
 function TimelineItem({

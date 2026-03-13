@@ -8,6 +8,10 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "correctness": {
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off"
+      },
       "style": {
         "useConsistentTypeDefinitions": "off",
         "noNonNullAssertion": "off",
