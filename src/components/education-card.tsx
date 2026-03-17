@@ -31,22 +31,24 @@ const variants = {
 } as const;
 
 interface Props extends ComponentProps<"a"> {
-  date?: {
-    from: Date;
-    to?: Date;
-  };
   hours?: number;
-  school: {
-    title: string;
-    image: string;
+  image?: string;
+  organization: {
+    name: string;
+    website?: string;
+    logo?: string;
   };
-  // description: string;
+  period?: {
+    from?: Date | null;
+    to?: Date | null;
+  };
   skills?: {
+    category: string;
     id: string;
-    title: string;
+    name: string;
     slug: string;
   }[];
-  status: "COMPLETED" | "IN_PROGRESS" | "PAUSED";
+  status: string;
   title: string;
   url?: string;
 }
@@ -54,13 +56,13 @@ interface Props extends ComponentProps<"a"> {
 export function EducationCard({
   className,
   title,
-  // description,
+  organization,
+  period,
   skills,
-  url,
-  school,
   status,
   hours,
-  date,
+  url,
+  image,
   ...props
 }: Props) {
   const tCommon = useTranslations("common");
@@ -68,17 +70,17 @@ export function EducationCard({
   return (
     <a
       className="group/hover flex h-full flex-col gap-4 rounded border bg-alternative px-8 py-12"
-      href={url}
+      href={url ?? image ?? organization.website}
       rel="noopener noreferrer"
       target="_blank"
       {...props}
     >
       <div className="flex justify-between">
         <Avatar.Root className="size-12">
-          <Avatar.Image alt={school.title} src={school.image} />
+          <Avatar.Image alt={organization.name} src={organization.logo} />
           <Avatar.Fallback />
         </Avatar.Root>
-        {url && (
+        {(url || image || organization.website) && (
           <Button size="icon" variant="ghost">
             <ArrowUpRightIcon />
           </Button>
@@ -88,28 +90,33 @@ export function EducationCard({
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-semibold text-muted-foreground text-sm">
         {variants && (
           <div
-            className={cn("flex items-center gap-1", variants[status].color)}
+            className={cn(
+              "flex items-center gap-1",
+              variants[status as keyof typeof variants]?.color
+            )}
           >
-            {variants[status].icon}
-            {tCommon(variants[status].label)}
+            {variants[status as keyof typeof variants]?.icon}
+            {tCommon(variants[status as keyof typeof variants]?.label)}
           </div>
         )}
         {hours && <div>{hours}h</div>}
-        {date && (
+        {period && (
           <div>
-            {dayjs(date.from).format("MM/YYYY")}
+            {dayjs(period.from).format("MM/YYYY")}
             {" - "}
-            {date.to ? dayjs(date.to).format("MM/YYYY") : tCommon("present")}
+            {period.to
+              ? dayjs(period.to).format("MM/YYYY")
+              : tCommon("present")}
           </div>
         )}
-        <div>@{school.title}</div>
+        <div>@{organization.name}</div>
       </div>
       {/* <p className="text-muted-foreground">{description}</p> */}
       {skills && skills.length > 0 && (
         <div className="scrollbar-hidden flex max-w-11/12 items-center gap-1 overflow-auto text-sm">
           {skills.map((skill) => (
             <Badge className="uppercase" key={skill.id} variant="secondary">
-              {skill.title}
+              {skill.name}
             </Badge>
           ))}
         </div>

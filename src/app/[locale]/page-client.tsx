@@ -40,8 +40,9 @@ import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { educations, experiences } from "@/consts/mocks";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
+import { useFindAllEducations } from "@/hooks/queries/educations";
+import { useFindAllExperiences } from "@/hooks/queries/experiences";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindAllProjects } from "@/hooks/queries/projects";
 import { useFindAllSkills } from "@/hooks/queries/skills";
@@ -56,6 +57,8 @@ export function ClientPage() {
 
   const findAllSkills = useFindAllSkills();
   const findAllProjects = useFindAllProjects();
+  const findAllExperiences = useFindAllExperiences();
+  const findAllEducations = useFindAllEducations();
   const getContributions = useGetContributions({ username: "yagrrusso" });
 
   const handleSendMail = useCallback(
@@ -133,7 +136,7 @@ export function ClientPage() {
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
-                  alt={skill.title}
+                  alt={skill.name}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
@@ -141,7 +144,7 @@ export function ClientPage() {
                 </Avatar.Fallback>
               </Avatar.Root>
               <span className="font-medium text-xs uppercase" key={skill.id}>
-                {skill.title}
+                {skill.name}
               </span>
             </Fragment>
           ))}
@@ -317,14 +320,15 @@ export function ClientPage() {
               title={t("sections.experience.title")}
             />
           </AnimateOnScroll>
-          {experiences.map((experience) => (
+          {findAllExperiences.data?.findAllExperiences.map((experience) => (
             <AnimateOnScroll key={experience.id} y={16}>
               <ExperienceCard
-                company={experience.company}
+                organization={experience.organization}
                 roles={experience.roles.map((role) => ({
                   title: getMessages(role.i18n)?.title,
                   description: getMessages(role.i18n)?.description,
-                  ...role,
+                  skills: role.skills ?? undefined,
+                  period: role.period ?? undefined,
                 }))}
               />
             </AnimateOnScroll>
@@ -345,16 +349,17 @@ export function ClientPage() {
             />
           </AnimateOnScroll>
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {educations.map((education) => (
+            {findAllEducations.data?.findAllEducations.map((education) => (
               <AnimateOnScroll key={education.id} y={16}>
                 <EducationCard
-                  date={education.date}
-                  hours={education.hours}
-                  school={education.school}
-                  skills={education.skills}
+                  hours={education.hours ?? undefined}
+                  image={education.image ?? undefined}
+                  organization={education.organization}
+                  period={education.period ?? undefined}
+                  skills={education.skills ?? undefined}
                   status={education.status}
                   title={getMessages(education.i18n)?.title}
-                  url={education.url}
+                  url={education.url ?? undefined}
                 />
               </AnimateOnScroll>
             ))}
@@ -368,7 +373,7 @@ export function ClientPage() {
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
-                  alt={skill.title}
+                  alt={skill.name}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
@@ -376,7 +381,7 @@ export function ClientPage() {
                 </Avatar.Fallback>
               </Avatar.Root>
               <span className="font-medium text-xs uppercase" key={skill.id}>
-                {skill.title}
+                {skill.name}
               </span>
             </Fragment>
           ))}

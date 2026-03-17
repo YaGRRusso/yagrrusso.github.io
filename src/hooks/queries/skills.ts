@@ -9,11 +9,10 @@ import { defineQuery } from "../factories/query";
 const findAllSkills = graphql(`
   query findAllSkills {
     findAllSkills {
-      id
       category
-      color
+      id
+      name
       slug
-      title
     }
   }
 `);

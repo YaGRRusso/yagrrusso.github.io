@@ -19,11 +19,10 @@ const findAllProjects = graphql(`
       }
       images
       skills {
-        id
         category
-        color
+        id
+        name
         slug
-        title
       }
       slug
       urls {

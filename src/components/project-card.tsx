@@ -18,7 +18,7 @@ interface Props extends ComponentProps<"div"> {
   images?: string[] | null;
   skills?: {
     id: string;
-    title: string;
+    name: string;
     slug: string;
   }[];
   slug: string;
@@ -72,7 +72,7 @@ export function ProjectCard({
                     key={skill.id}
                     variant="secondary"
                   >
-                    {skill.title}
+                    {skill.name}
                   </Badge>
                 ))}
               </div>

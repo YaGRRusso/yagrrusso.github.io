@@ -12,27 +12,33 @@ interface Props
     Extract<ComponentProps<typeof Accordion.Root>, { type: "multiple" }>,
     "type"
   > {
-  company: {
-    title: string;
-    image: string;
-    url: string;
+  organization: {
+    name: string;
+    website?: string;
+    logo?: string;
   };
   roles: {
     title: string;
     description: string;
-    date: {
-      from: Date;
-      to?: Date;
+    period?: {
+      from?: Date | null;
+      to?: Date | null;
     };
     skills?: {
+      category: string;
       id: string;
-      title: string;
+      name: string;
       slug: string;
     }[];
   }[];
 }
 
-export function ExperienceCard({ className, company, roles, ...props }: Props) {
+export function ExperienceCard({
+  className,
+  organization,
+  roles,
+  ...props
+}: Props) {
   const tCommon = useTranslations("common");
 
   return (
@@ -48,21 +54,21 @@ export function ExperienceCard({ className, company, roles, ...props }: Props) {
       <div className="flex flex-col">
         <a
           className="flex flex-wrap items-center gap-4"
-          href={company.url}
+          href={organization.website}
           rel="noopener noreferrer"
           target="_blank"
         >
           <Avatar.Root className="size-12">
             <Avatar.Image
-              alt={company.title}
+              alt={organization.name}
               className="p-1"
-              src={company.image}
+              src={organization.logo}
             />
             <Avatar.Fallback />
           </Avatar.Root>
           <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
-            {company.title}
-            {!roles.at(-1)?.date.to && (
+            {organization.name}
+            {!roles.at(-1)?.period?.to && (
               <div className="relative flex size-2">
                 <div className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                 <div className="inline-flex size-2 rounded-full bg-primary" />
@@ -83,10 +89,10 @@ export function ExperienceCard({ className, company, roles, ...props }: Props) {
                   <div className="flex flex-1 flex-col">
                     <div className="flex items-center gap-2">
                       <Timeline.Date className="font-semibold text-muted-foreground text-sm">
-                        {dayjs(role.date.from).format("MM/YYYY")}
+                        {dayjs(role.period?.from).format("MM/YYYY")}
                         {" - "}
-                        {role.date.to
-                          ? dayjs(role.date.to).format("MM/YYYY")
+                        {role.period?.to
+                          ? dayjs(role.period?.to).format("MM/YYYY")
                           : tCommon("present")}
                       </Timeline.Date>
                     </div>
@@ -108,7 +114,7 @@ export function ExperienceCard({ className, company, roles, ...props }: Props) {
                         key={skill.id}
                         variant="secondary"
                       >
-                        {skill.title}
+                        {skill.name}
                       </Badge>
                     ))}
                   </div>

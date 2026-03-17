@@ -11,14 +11,11 @@ const findOneUserById = graphql(`
     findOneUserById(id: $findOneUserByIdId) {
       id
       address
-      school
       title
-      updatedAt
       urls {
         title
         value
       }
-      work
       avatar
       birth
       email

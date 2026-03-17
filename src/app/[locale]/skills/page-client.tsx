@@ -2,7 +2,7 @@
 
 import { CircleNotchIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { type CSSProperties, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
@@ -30,8 +30,8 @@ export function ClientPage() {
     return new QueryHelper(findAllSkills.data.findAllSkills)
       .filter("SOFT", "category", "!==")
       .filter(category, "category")
-      .query(query, ["title"])
-      .sort("title")
+      .query(query, ["name"])
+      .sort("name")
       .exec();
   }, [findAllSkills.data, query, category]);
 
@@ -84,21 +84,16 @@ export function ClientPage() {
               <li id={skill.slug} key={skill.id}>
                 <AnimateOnScroll
                   className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-(--skill-color)"
-                  style={
-                    {
-                      "--skill-color": skill.color ?? "transparent",
-                    } as CSSProperties
-                  }
                   y={16}
                 >
                   <Avatar.Root>
                     <Avatar.Image
-                      alt={skill.title}
+                      alt={skill.name}
                       src={simpleIconsCdn(skill.slug)}
                     />
                     <Avatar.Fallback />
                   </Avatar.Root>
-                  <span>{skill.title}</span>
+                  <span>{skill.name}</span>
                   <span className="text-muted-foreground text-xs">
                     {skill.category}
                   </span>
