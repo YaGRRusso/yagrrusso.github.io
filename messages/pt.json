@@ -41,16 +41,8 @@
     },
     "categories": {
       "all": "Todos",
-      "soft": "Habilidades Interpessoais",
-      "language": "Linguagens de Programação",
-      "framework": "Frameworks & Bibliotecas",
-      "database": "Bancos de Dados",
-      "tool": "Ferramentas & IDEs",
-      "system": "Sistemas Operacionais",
-      "testing": "Testes & QA",
-      "pattern": "Padrões & Arquitetura",
-      "devops": "DevOps & Cloud",
-      "other": "Outros"
+      "hard": "Habilidades Técnicas",
+      "soft": "Habilidades Interpessoais"
     },
     "urls": {
       "github": "Github",

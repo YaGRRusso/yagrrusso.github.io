@@ -41,16 +41,8 @@
     },
     "categories": {
       "all": "All",
-      "soft": "Soft Skills",
-      "language": "Programming Languages",
-      "framework": "Frameworks & Libraries",
-      "database": "Databases",
-      "tool": "Tools & IDEs",
-      "system": "Operating Systems",
-      "testing": "Testing & QA",
-      "pattern": "Patterns & Architecture",
-      "devops": "DevOps & Cloud",
-      "other": "Other"
+      "hard": "Hard Skills",
+      "soft": "Soft Skills"
     },
     "urls": {
       "github": "Github",

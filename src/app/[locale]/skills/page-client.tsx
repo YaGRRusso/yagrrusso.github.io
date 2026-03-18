@@ -1,6 +1,11 @@
 "use client";
 
-import { CircleNotchIcon } from "@phosphor-icons/react";
+import {
+  BrainIcon,
+  CircleNotchIcon,
+  HeartIcon,
+  PackageIcon,
+} from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { QueryHelper } from "@/classes/query";
@@ -12,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Categories } from "@/consts/categories";
+import { SkillCategory } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
 
@@ -54,11 +59,18 @@ export function ClientPage() {
               <Select.Value placeholder="Category" />
             </Select.Trigger>
             <Select.Content>
-              {Object.values(Categories).map((cat) => (
-                <Select.Item key={cat.value} value={cat.value}>
-                  {cat.icon} {tCommon(cat.key as any)}
-                </Select.Item>
-              ))}
+              <Select.Item value="ALL">
+                <PackageIcon />
+                {tCommon("categories.all")}
+              </Select.Item>
+              <Select.Item value={SkillCategory.Hard}>
+                <BrainIcon />
+                {tCommon("categories.hard")}
+              </Select.Item>
+              <Select.Item value={SkillCategory.Soft}>
+                <HeartIcon />
+                {tCommon("categories.soft")}
+              </Select.Item>
             </Select.Content>
           </Select.Root>
         </div>
