@@ -1,14 +1,14 @@
 import { graphql } from "@/graphql";
 import type {
-  FindAllProjectsQuery,
-  FindAllProjectsQueryVariables,
+  FindManyProjectsQuery,
+  FindManyProjectsQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findAllProjects = graphql(`
-  query findAllProjects {
-    findAllProjects {
+const findManyProjects = graphql(`
+  query FindManyProjects($projectFilters: FilterProjectInput) {
+    findManyProjects(ProjectFilters: $projectFilters) {
       id
       i18n {
         locale
@@ -33,8 +33,11 @@ const findAllProjects = graphql(`
   }
 `);
 
-export const { prefetch: prefetchFindAllProjects, use: useFindAllProjects } =
-  defineQuery<FindAllProjectsQuery, FindAllProjectsQueryVariables>(
-    "findAllProjects",
-    async () => await execute(findAllProjects).then((data) => data.data!)
+export const { prefetch: prefetchFindManyProjects, use: useFindManyProjects } =
+  defineQuery<FindManyProjectsQuery, FindManyProjectsQueryVariables>(
+    "findManyProjects",
+    async (params: FindManyProjectsQueryVariables = {}) => {
+      // if (!params) throw new Error("insufficient parameters");
+      return await execute(findManyProjects, params).then((data) => data.data!);
+    }
   );

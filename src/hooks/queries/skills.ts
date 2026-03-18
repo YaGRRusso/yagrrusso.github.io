@@ -1,14 +1,14 @@
 import { graphql } from "@/graphql";
 import type {
-  FindAllSkillsQuery,
-  FindAllSkillsQueryVariables,
+  FindManySkillsQuery,
+  FindManySkillsQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findAllSkills = graphql(`
-  query findAllSkills {
-    findAllSkills {
+const findManySkills = graphql(`
+  query FindManySkills($skillFilters: FilterSkillInput) {
+    findManySkills(SkillFilters: $skillFilters) {
       category
       id
       name
@@ -17,8 +17,13 @@ const findAllSkills = graphql(`
   }
 `);
 
-export const { prefetch: prefetchFindAllSkills, use: useFindAllSkills } =
-  defineQuery<FindAllSkillsQuery, FindAllSkillsQueryVariables>(
-    "findAllSkills",
-    async () => await execute(findAllSkills).then((data) => data.data!)
+export const { prefetch: prefetchFindManySkills, use: useFindManySkills } =
+  defineQuery<FindManySkillsQuery, FindManySkillsQueryVariables>(
+    "findManySkills",
+    async (params?: FindManySkillsQueryVariables) => {
+      // if (!params) throw new Error("insufficient parameters");
+      return await execute(findManySkills, params ?? {}).then(
+        (data) => data.data!
+      );
+    }
   );

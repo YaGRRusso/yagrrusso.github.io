@@ -7,23 +7,24 @@ import {
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { EducationStatus } from "@/graphql/graphql";
 import { cn } from "@/lib/utils";
 import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 const variants = {
-  COMPLETED: {
+  [EducationStatus.Complete]: {
     color: "text-success",
     label: "status.completed",
     icon: <CheckCircleIcon />,
   },
-  IN_PROGRESS: {
+  [EducationStatus.InProgress]: {
     color: "text-warning",
     label: "status.inProgress",
     icon: <ClockIcon />,
   },
-  PAUSED: {
+  [EducationStatus.Incomplete]: {
     color: "text-destructive",
     label: "status.paused",
     icon: <WarningCircleIcon />,
@@ -48,7 +49,7 @@ interface Props extends ComponentProps<"a"> {
     name: string;
     slug: string;
   }[];
-  status: string;
+  status: EducationStatus;
   title: string;
   url?: string;
 }
@@ -90,13 +91,10 @@ export function EducationCard({
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-semibold text-muted-foreground text-sm">
         {variants && (
           <div
-            className={cn(
-              "flex items-center gap-1",
-              variants[status as keyof typeof variants]?.color
-            )}
+            className={cn("flex items-center gap-1", variants[status]?.color)}
           >
-            {variants[status as keyof typeof variants]?.icon}
-            {tCommon(variants[status as keyof typeof variants]?.label)}
+            {variants[status]?.icon}
+            {tCommon(variants[status]?.label)}
           </div>
         )}
         {hours && <div>{hours}h</div>}

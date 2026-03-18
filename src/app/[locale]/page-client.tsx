@@ -41,11 +41,11 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
-import { useFindAllEducations } from "@/hooks/queries/educations";
-import { useFindAllExperiences } from "@/hooks/queries/experiences";
+import { useFindManyEducations } from "@/hooks/queries/educations";
+import { useFindManyExperiences } from "@/hooks/queries/experiences";
 import { useGetContributions } from "@/hooks/queries/external";
-import { useFindAllProjects } from "@/hooks/queries/projects";
-import { useFindAllSkills } from "@/hooks/queries/skills";
+import { useFindManyProjects } from "@/hooks/queries/projects";
+import { useFindManySkills } from "@/hooks/queries/skills";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { Link } from "@/i18n/navigation";
 import { simpleIconsCdn } from "@/lib/cdn";
@@ -55,10 +55,10 @@ export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
 
-  const findAllSkills = useFindAllSkills();
-  const findAllProjects = useFindAllProjects();
-  const findAllExperiences = useFindAllExperiences();
-  const findAllEducations = useFindAllEducations();
+  const findManySkills = useFindManySkills();
+  const findManyProjects = useFindManyProjects();
+  const findManyExperiences = useFindManyExperiences();
+  const findManyEducations = useFindManyEducations();
   const getContributions = useGetContributions({ username: "yagrrusso" });
 
   const handleSendMail = useCallback(
@@ -132,7 +132,7 @@ export function ClientPage() {
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">
-          {findAllSkills.data?.findAllSkills?.map((skill) => (
+          {findManySkills.data?.findManySkills?.map((skill) => (
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
@@ -230,7 +230,7 @@ export function ClientPage() {
               </Link>
             </Button>
           </AnimateOnScroll>
-          {findAllProjects.data?.findAllProjects
+          {findManyProjects.data?.findManyProjects
             .slice(0, 3)
             ?.map((proj, index) => (
               <AnimateOnScroll key={proj.id} y={16}>
@@ -320,7 +320,7 @@ export function ClientPage() {
               title={t("sections.experience.title")}
             />
           </AnimateOnScroll>
-          {findAllExperiences.data?.findAllExperiences.map((experience) => (
+          {findManyExperiences.data?.findManyExperiences.map((experience) => (
             <AnimateOnScroll key={experience.id} y={16}>
               <ExperienceCard
                 organization={experience.organization}
@@ -349,7 +349,7 @@ export function ClientPage() {
             />
           </AnimateOnScroll>
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {findAllEducations.data?.findAllEducations.map((education) => (
+            {findManyEducations.data?.findManyEducations.map((education) => (
               <AnimateOnScroll key={education.id} y={16}>
                 <EducationCard
                   hours={education.hours ?? undefined}
@@ -369,7 +369,7 @@ export function ClientPage() {
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">
-          {findAllSkills.data?.findAllSkills?.map((skill) => (
+          {findManySkills.data?.findManySkills?.map((skill) => (
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image

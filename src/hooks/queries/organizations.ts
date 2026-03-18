@@ -1,14 +1,14 @@
 import { graphql } from "@/graphql";
 import type {
-  FindAllOrganizationsQuery,
-  FindAllOrganizationsQueryVariables,
+  FindManyOrganizationsQuery,
+  FindManyOrganizationsQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findAllOrganizations = graphql(`
-  query findAllOrganizations {
-    findAllOrganizations {
+const findManyOrganizations = graphql(`
+  query FindManyOrganizations($organizationFilters: FilterOrganizationInput) {
+    findManyOrganizations(OrganizationFilters: $organizationFilters) {
       category
       id
       logo
@@ -20,9 +20,17 @@ const findAllOrganizations = graphql(`
 `);
 
 export const {
-  prefetch: prefetchFindAllOrganizations,
-  use: useFindAllOrganizations,
-} = defineQuery<FindAllOrganizationsQuery, FindAllOrganizationsQueryVariables>(
-  "findAllOrganizations",
-  async () => await execute(findAllOrganizations).then((data) => data.data!)
+  prefetch: prefetchFindManyOrganizations,
+  use: useFindManyOrganizations,
+} = defineQuery<
+  FindManyOrganizationsQuery,
+  FindManyOrganizationsQueryVariables
+>(
+  "findManyOrganizations",
+  async (params: FindManyOrganizationsQueryVariables = {}) => {
+    // if (!params) throw new Error("insufficient parameters");
+    return await execute(findManyOrganizations, params).then(
+      (data) => data.data!
+    );
+  }
 );

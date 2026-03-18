@@ -3,16 +3,21 @@ schema {
   mutation: Mutation
 }
 
+type BatchEntity {
+  count: Int!
+}
+
 input CreateEducationInput {
-  category: String!
+  category: EducationCategory!
   hours: Int
   i18n: [CreateEducationTranslationInput!]!
   image: String
+  isFeatured: Boolean
   organization: String!
   period: DateRangeInput
   skills: [String!]
   slug: String!
-  status: String!
+  status: EducationStatus!
   url: String
 }
 
@@ -27,7 +32,8 @@ input CreateEducationTranslationInput {
 }
 
 input CreateExperienceInput {
-  category: String!
+  category: ExperienceCategory!
+  isFeatured: Boolean
   organization: String!
   roles: [CreateExperienceRoleInput!]!
   slug: String!
@@ -50,7 +56,8 @@ input CreateExperienceTranslationInput {
 }
 
 input CreateOrganizationInput {
-  category: String!
+  category: OrganizationCategory!
+  isFeatured: Boolean
   logo: String!
   name: String!
   slug: String!
@@ -60,6 +67,7 @@ input CreateOrganizationInput {
 input CreateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]!
   images: [String!]
+  isFeatured: Boolean
   skills: [String!]
   slug: String!
   urls: [UrlInput!]
@@ -76,7 +84,8 @@ input CreateProjectMessagesInputTranslationInput {
 }
 
 input CreateSkillInput {
-  category: String!
+  category: SkillCategory!
+  isFeatured: Boolean
   name: String!
   slug: String!
 }
@@ -109,18 +118,25 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Education {
-  category: String!
+enum EducationCategory {
+  COURSE
+  DEGREE
+  OTHER
+}
+
+type EducationEntity {
+  category: EducationCategory!
   createdAt: DateTime!
   hours: Int
   i18n: [EducationTranslationLocale!]!
   id: ID!
   image: String
-  organization: Organization!
+  isFeatured: Boolean!
+  organization: OrganizationEntity!
   period: DateRangeEntity
-  skills: [Skill!]
+  skills: [SkillEntity!]
   slug: String!
-  status: String!
+  status: EducationStatus!
   updatedAt: DateTime!
   url: String
 }
@@ -130,18 +146,32 @@ type EducationMessages {
   title: String!
 }
 
+enum EducationStatus {
+  COMPLETE
+  INCOMPLETE
+  IN_PROGRESS
+}
+
 type EducationTranslationLocale {
   locale: String!
   messages: EducationMessages!
 }
 
-type Experience {
-  category: String!
+enum ExperienceCategory {
+  FREELANCE
+  FULL_TIME
+  PART_TIME
+  VOLUNTEER
+}
+
+type ExperienceEntity {
+  category: ExperienceCategory!
   createdAt: DateTime!
   id: ID!
-  organization: Organization!
+  isFeatured: Boolean!
+  organization: OrganizationEntity!
   roles: [ExperienceRole!]!
-  skills: [Skill!]
+  skills: [SkillEntity!]
   slug: String!
   updatedAt: DateTime!
 }
@@ -154,7 +184,7 @@ type ExperienceMessages {
 type ExperienceRole {
   i18n: [ExperienceTranslationLocale!]!
   period: DateRangeEntity
-  skills: [Skill!]
+  skills: [SkillEntity!]
 }
 
 type ExperienceTranslationLocale {
@@ -162,32 +192,117 @@ type ExperienceTranslationLocale {
   messages: ExperienceMessages!
 }
 
-type Mutation {
-  createEducation(createEducationInput: [CreateEducationInput!]!): [Education!]!
-  createExperience(createExperienceInput: [CreateExperienceInput!]!): [Experience!]!
-  createOrganization(createOrganizationInput: [CreateOrganizationInput!]!): [Organization!]!
-  createProject(createProjectInput: [CreateProjectInput!]!): [Project!]!
-  createSkill(createSkillInput: [CreateSkillInput!]!): [Skill!]!
-  createUser(createUserInput: CreateUserInput!): User!
-  removeEducation(id: ID!): [Education!]!
-  removeExperience(id: ID!): [Experience!]!
-  removeOrganization(id: ID!): [Organization!]!
-  removeProject(id: ID!): [Project!]!
-  removeSkill(id: ID!): [Skill!]!
-  removeUser(id: ID!): User!
-  signIn(signInInput: SignInInput!): String!
-  updateEducation(updateEducationInput: UpdateEducationInput!): Education!
-  updateExperience(updateExperienceInput: UpdateExperienceInput!): Experience!
-  updateOrganization(updateOrganizationInput: UpdateOrganizationInput!): Organization!
-  updateProject(updateProjectInput: UpdateProjectInput!): Project!
-  updateSkill(updateSkillInput: UpdateSkillInput!): Skill!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+input FilterEducationInput {
+  category: EducationCategory
+  hours: Int
+  i18n: [CreateEducationTranslationInput!]
+  image: String
+  isFeatured: Boolean
+  organization: String
+  period: DateRangeInput
+  skills: [String!]
+  slug: String
+  status: EducationStatus
+  url: String
 }
 
-type Organization {
-  category: String!
+input FilterExperienceInput {
+  category: ExperienceCategory
+  isFeatured: Boolean
+  organization: String
+  roles: [CreateExperienceRoleInput!]
+  slug: String
+}
+
+input FilterOrganizationInput {
+  category: OrganizationCategory
+  isFeatured: Boolean
+  logo: String
+  name: String
+  slug: String
+  website: String
+}
+
+input FilterProjectInput {
+  i18n: [CreateProjectMessagesInputTranslationInput!]
+  images: [String!]
+  isFeatured: Boolean
+  skills: [String!]
+  slug: String
+  urls: [UrlInput!]
+}
+
+input FilterSkillInput {
+  category: SkillCategory
+  isFeatured: Boolean
+  name: String
+  slug: String
+}
+
+input FilterUserInput {
+  address: String
+  avatar: String
+  birth: String
+  email: String
+  name: String
+  nickname: String
+  password: String
+  phone: String
+  title: String
+  urls: [UrlInput!]
+}
+
+type Mutation {
+  createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
+  createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
+  createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): [OrganizationEntity!]!
+  createManyProjects(createProjectInputs: [CreateProjectInput!]!): [ProjectEntity!]!
+  createManySkills(createSkillInputs: [CreateSkillInput!]!): [SkillEntity!]!
+  createManyUsers(createUserInputs: [CreateUserInput!]!): [UserEntity!]!
+  createOneEducation(createEducationInput: CreateEducationInput!): EducationEntity!
+  createOneExperience(createExperienceInput: CreateExperienceInput!): ExperienceEntity!
+  createOneOrganization(createOrganizationInput: CreateOrganizationInput!): OrganizationEntity!
+  createOneProject(createProjectInput: CreateProjectInput!): ProjectEntity!
+  createOneSkill(createSkillInput: CreateSkillInput!): SkillEntity!
+  createOneUser(createUserInput: CreateUserInput!): UserEntity!
+  removeManyEducations(EducationIds: [ID!]!): BatchEntity!
+  removeManyExperiences(ExperienceIds: [ID!]!): BatchEntity!
+  removeManyOrganizations(OrganizationIds: [ID!]!): BatchEntity!
+  removeManyProjects(ProjectIds: [ID!]!): BatchEntity!
+  removeManySkills(SkillIds: [ID!]!): BatchEntity!
+  removeManyUsers(UserIds: [ID!]!): BatchEntity!
+  removeOneEducation(EducationId: ID!): EducationEntity!
+  removeOneExperience(ExperienceId: ID!): ExperienceEntity!
+  removeOneOrganization(OrganizationId: ID!): OrganizationEntity!
+  removeOneProject(ProjectId: ID!): ProjectEntity!
+  removeOneSkill(SkillId: ID!): SkillEntity!
+  removeOneUser(UserId: ID!): UserEntity!
+  signIn(signInInput: SignInInput!): String!
+  updateManyEducations(EducationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
+  updateManyExperiences(ExperienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
+  updateManyOrganizations(OrganizationIds: [ID!]!, updateOrganizationInput: UpdateOrganizationInput!): BatchEntity!
+  updateManyProjects(ProjectIds: [ID!]!, updateProjectInput: UpdateProjectInput!): BatchEntity!
+  updateManySkills(SkillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
+  updateManyUsers(UserIds: [ID!]!, updateUserInput: UpdateUserInput!): BatchEntity!
+  updateOneEducation(EducationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
+  updateOneExperience(ExperienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
+  updateOneOrganization(OrganizationId: ID!, updateOrganizationInput: UpdateOrganizationInput!): OrganizationEntity!
+  updateOneProject(ProjectId: ID!, updateProjectInput: UpdateProjectInput!): ProjectEntity!
+  updateOneSkill(SkillId: ID!, updateSkillInput: UpdateSkillInput!): SkillEntity!
+  updateOneUser(UserId: ID!, updateUserInput: UpdateUserInput!): UserEntity!
+}
+
+enum OrganizationCategory {
+  COMPANY
+  OTHER
+  SCHOOL
+}
+
+type OrganizationEntity {
+  category: OrganizationCategory!
   createdAt: DateTime!
   id: ID!
+  isFeatured: Boolean!
   logo: String!
   name: String!
   slug: String!
@@ -195,12 +310,18 @@ type Organization {
   website: String!
 }
 
-type Project {
+input PaginationInput {
+  limit: Int = 10
+  skip: Int = 0
+}
+
+type ProjectEntity {
   createdAt: DateTime!
   i18n: [ProjectMessagesTranslationEntity!]!
   id: ID!
   images: [String!]
-  skills: [Skill!]
+  isFeatured: Boolean!
+  skills: [SkillEntity!]
   slug: String!
   updatedAt: DateTime!
   urls: [UrlEntity!]
@@ -217,19 +338,31 @@ type ProjectMessagesTranslationEntity {
 }
 
 type Query {
-  findAllEducations: [Education!]!
-  findAllExperiences: [Experience!]!
-  findAllOrganizations: [Organization!]!
-  findAllProjects: [Project!]!
-  findAllSkills: [Skill!]!
-  findAllUsers: [User!]!
-  findOneEducationById(id: ID!): Education!
-  findOneExperienceById(id: ID!): Experience!
-  findOneOrganizationById(id: ID!): Organization!
-  findOneProjectById(id: ID!): Project!
-  findOneSkillById(id: ID!): Skill!
-  findOneUserById(id: ID!): User!
-  getMe: User!
+  findManyEducationById(EducationIds: [ID!]!): [EducationEntity!]!
+  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput): [EducationEntity!]!
+  findManyExperienceById(ExperienceIds: [ID!]!): [ExperienceEntity!]!
+  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput): [ExperienceEntity!]!
+  findManyOrganizationById(OrganizationIds: [ID!]!): [OrganizationEntity!]!
+  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput): [OrganizationEntity!]!
+  findManyProjectById(ProjectIds: [ID!]!): [ProjectEntity!]!
+  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput): [ProjectEntity!]!
+  findManySkillById(SkillIds: [ID!]!): [SkillEntity!]!
+  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput): [SkillEntity!]!
+  findManyUserById(UserIds: [ID!]!): [UserEntity!]!
+  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput): [UserEntity!]!
+  findOneEducation(EducationFilters: FilterEducationInput): EducationEntity!
+  findOneEducationById(EducationId: ID!): EducationEntity!
+  findOneExperience(ExperienceFilters: FilterExperienceInput): ExperienceEntity!
+  findOneExperienceById(ExperienceId: ID!): ExperienceEntity!
+  findOneOrganization(OrganizationFilters: FilterOrganizationInput): OrganizationEntity!
+  findOneOrganizationById(OrganizationId: ID!): OrganizationEntity!
+  findOneProject(ProjectFilters: FilterProjectInput): ProjectEntity!
+  findOneProjectById(ProjectId: ID!): ProjectEntity!
+  findOneSkill(SkillFilters: FilterSkillInput): SkillEntity!
+  findOneSkillById(SkillId: ID!): SkillEntity!
+  findOneUser(UserFilters: FilterUserInput): UserEntity!
+  findOneUserById(UserId: ID!): UserEntity!
+  getMe: UserEntity!
 }
 
 input SignInInput {
@@ -237,40 +370,46 @@ input SignInInput {
   password: String!
 }
 
-type Skill {
-  category: String!
+enum SkillCategory {
+  HARD
+  SOFT
+}
+
+type SkillEntity {
+  category: SkillCategory!
   createdAt: DateTime!
   id: ID!
+  isFeatured: Boolean!
   name: String!
   slug: String!
   updatedAt: DateTime!
 }
 
 input UpdateEducationInput {
-  category: String
+  category: EducationCategory
   hours: Int
   i18n: [CreateEducationTranslationInput!]
-  id: ID!
   image: String
+  isFeatured: Boolean
   organization: String
   period: DateRangeInput
   skills: [String!]
   slug: String
-  status: String
+  status: EducationStatus
   url: String
 }
 
 input UpdateExperienceInput {
-  category: String
-  id: ID!
+  category: ExperienceCategory
+  isFeatured: Boolean
   organization: String
   roles: [CreateExperienceRoleInput!]
   slug: String
 }
 
 input UpdateOrganizationInput {
-  category: String
-  id: ID!
+  category: OrganizationCategory
+  isFeatured: Boolean
   logo: String
   name: String
   slug: String
@@ -279,16 +418,16 @@ input UpdateOrganizationInput {
 
 input UpdateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]
-  id: ID!
   images: [String!]
+  isFeatured: Boolean
   skills: [String!]
   slug: String
   urls: [UrlInput!]
 }
 
 input UpdateSkillInput {
-  category: String
-  id: ID!
+  category: SkillCategory
+  isFeatured: Boolean
   name: String
   slug: String
 }
@@ -298,7 +437,6 @@ input UpdateUserInput {
   avatar: String
   birth: String
   email: String
-  id: ID!
   name: String
   nickname: String
   password: String
@@ -317,7 +455,7 @@ input UrlInput {
   value: String!
 }
 
-type User {
+type UserEntity {
   address: String
   avatar: String
   birth: String

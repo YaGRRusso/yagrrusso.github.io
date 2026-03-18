@@ -13,7 +13,7 @@ import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Categories } from "@/consts/categories";
-import { useFindAllSkills } from "@/hooks/queries/skills";
+import { useFindManySkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
 
 export function ClientPage() {
@@ -23,17 +23,17 @@ export function ClientPage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
 
-  const findAllSkills = useFindAllSkills();
+  const findManySkills = useFindManySkills();
 
   const filteredList = useMemo(() => {
-    if (!findAllSkills.data?.findAllSkills) return [];
-    return new QueryHelper(findAllSkills.data.findAllSkills)
+    if (!findManySkills.data?.findManySkills) return [];
+    return new QueryHelper(findManySkills.data.findManySkills)
       .filter("SOFT", "category", "!==")
       .filter(category, "category")
       .query(query, ["name"])
       .sort("name")
       .exec();
-  }, [findAllSkills.data, query, category]);
+  }, [findManySkills.data, query, category]);
 
   return (
     <div className="container flex flex-1 flex-col gap-4">
@@ -66,8 +66,8 @@ export function ClientPage() {
 
       <Request.Root
         isEmpty={!filteredList?.length}
-        isFetching={findAllSkills.isFetching}
-        isLoading={findAllSkills.isLoading}
+        isFetching={findManySkills.isFetching}
+        isLoading={findManySkills.isLoading}
       >
         <Request.Loading>
           <Skeleton className="h-64 w-full" />
@@ -103,10 +103,10 @@ export function ClientPage() {
           </ul>
         </Request.Content>
         <div className="inline-flex items-center gap-1 py-3 text-muted-foreground text-xs">
-          <time dateTime={new Date(findAllSkills.dataUpdatedAt).toISOString()}>
-            {findAllSkills.dataUpdatedAt &&
+          <time dateTime={new Date(findManySkills.dataUpdatedAt).toISOString()}>
+            {findManySkills.dataUpdatedAt &&
               tCommon("updatedAtTitle", {
-                date: new Date(findAllSkills.dataUpdatedAt).toLocaleString(),
+                date: new Date(findManySkills.dataUpdatedAt).toLocaleString(),
               })}
           </time>
           <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />

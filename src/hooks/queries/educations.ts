@@ -1,14 +1,14 @@
 import { graphql } from "@/graphql";
 import type {
-  FindAllEducationsQuery,
-  FindAllEducationsQueryVariables,
+  FindManyEducationsQuery,
+  FindManyEducationsQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findAllEducations = graphql(`
-  query findAllEducations {
-    findAllEducations {
+const findManyEducations = graphql(`
+  query FindManyEducations($educationFilters: FilterEducationInput) {
+    findManyEducations(EducationFilters: $educationFilters) {
       category
       url
       status
@@ -46,9 +46,12 @@ const findAllEducations = graphql(`
 `);
 
 export const {
-  prefetch: prefetchFindAllEducations,
-  use: useFindAllEducations,
-} = defineQuery<FindAllEducationsQuery, FindAllEducationsQueryVariables>(
-  "findAllEducations",
-  async () => await execute(findAllEducations).then((data) => data.data!)
+  prefetch: prefetchFindManyEducations,
+  use: useFindManyEducations,
+} = defineQuery<FindManyEducationsQuery, FindManyEducationsQueryVariables>(
+  "findManyEducations",
+  async (params: FindManyEducationsQueryVariables = {}) => {
+    // if (!params) throw new Error("insufficient parameters");
+    return await execute(findManyEducations, params).then((data) => data.data!);
+  }
 );

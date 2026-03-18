@@ -18,16 +18,22 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type BatchEntity = {
+  __typename?: 'BatchEntity';
+  count: Scalars['Int']['output'];
+};
+
 export type CreateEducationInput = {
-  category: Scalars['String']['input'];
+  category: EducationCategory;
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n: Array<CreateEducationTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization: Scalars['String']['input'];
   period?: InputMaybe<DateRangeInput>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
-  status: Scalars['String']['input'];
+  status: EducationStatus;
   url?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -42,7 +48,8 @@ export type CreateEducationTranslationInput = {
 };
 
 export type CreateExperienceInput = {
-  category: Scalars['String']['input'];
+  category: ExperienceCategory;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization: Scalars['String']['input'];
   roles: Array<CreateExperienceRoleInput>;
   slug: Scalars['String']['input'];
@@ -65,7 +72,8 @@ export type CreateExperienceTranslationInput = {
 };
 
 export type CreateOrganizationInput = {
-  category: Scalars['String']['input'];
+  category: OrganizationCategory;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   logo: Scalars['String']['input'];
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
@@ -75,6 +83,7 @@ export type CreateOrganizationInput = {
 export type CreateProjectInput = {
   i18n: Array<CreateProjectMessagesInputTranslationInput>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   urls?: InputMaybe<Array<UrlInput>>;
@@ -91,7 +100,8 @@ export type CreateProjectMessagesInputTranslationInput = {
 };
 
 export type CreateSkillInput = {
-  category: Scalars['String']['input'];
+  category: SkillCategory;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   name: Scalars['String']['input'];
   slug: Scalars['String']['input'];
 };
@@ -120,19 +130,26 @@ export type DateRangeInput = {
   to?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export type Education = {
-  __typename?: 'Education';
-  category: Scalars['String']['output'];
+export enum EducationCategory {
+  Course = 'COURSE',
+  Degree = 'DEGREE',
+  Other = 'OTHER'
+}
+
+export type EducationEntity = {
+  __typename?: 'EducationEntity';
+  category: EducationCategory;
   createdAt: Scalars['DateTime']['output'];
   hours?: Maybe<Scalars['Int']['output']>;
   i18n: Array<EducationTranslationLocale>;
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
-  organization: Organization;
+  isFeatured: Scalars['Boolean']['output'];
+  organization: OrganizationEntity;
   period?: Maybe<DateRangeEntity>;
-  skills?: Maybe<Array<Skill>>;
+  skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
-  status: Scalars['String']['output'];
+  status: EducationStatus;
   updatedAt: Scalars['DateTime']['output'];
   url?: Maybe<Scalars['String']['output']>;
 };
@@ -143,20 +160,34 @@ export type EducationMessages = {
   title: Scalars['String']['output'];
 };
 
+export enum EducationStatus {
+  Complete = 'COMPLETE',
+  Incomplete = 'INCOMPLETE',
+  InProgress = 'IN_PROGRESS'
+}
+
 export type EducationTranslationLocale = {
   __typename?: 'EducationTranslationLocale';
   locale: Scalars['String']['output'];
   messages: EducationMessages;
 };
 
-export type Experience = {
-  __typename?: 'Experience';
-  category: Scalars['String']['output'];
+export enum ExperienceCategory {
+  Freelance = 'FREELANCE',
+  FullTime = 'FULL_TIME',
+  PartTime = 'PART_TIME',
+  Volunteer = 'VOLUNTEER'
+}
+
+export type ExperienceEntity = {
+  __typename?: 'ExperienceEntity';
+  category: ExperienceCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  organization: Organization;
+  isFeatured: Scalars['Boolean']['output'];
+  organization: OrganizationEntity;
   roles: Array<ExperienceRole>;
-  skills?: Maybe<Array<Skill>>;
+  skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -171,7 +202,7 @@ export type ExperienceRole = {
   __typename?: 'ExperienceRole';
   i18n: Array<ExperienceTranslationLocale>;
   period?: Maybe<DateRangeEntity>;
-  skills?: Maybe<Array<Skill>>;
+  skills?: Maybe<Array<SkillEntity>>;
 };
 
 export type ExperienceTranslationLocale = {
@@ -180,87 +211,225 @@ export type ExperienceTranslationLocale = {
   messages: ExperienceMessages;
 };
 
+export type FilterEducationInput = {
+  category?: InputMaybe<EducationCategory>;
+  hours?: InputMaybe<Scalars['Int']['input']>;
+  i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  organization?: InputMaybe<Scalars['String']['input']>;
+  period?: InputMaybe<DateRangeInput>;
+  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EducationStatus>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FilterExperienceInput = {
+  category?: InputMaybe<ExperienceCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  organization?: InputMaybe<Scalars['String']['input']>;
+  roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FilterOrganizationInput = {
+  category?: InputMaybe<OrganizationCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  website?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FilterProjectInput = {
+  i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
+  images?: InputMaybe<Array<Scalars['String']['input']>>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  urls?: InputMaybe<Array<UrlInput>>;
+};
+
+export type FilterSkillInput = {
+  category?: InputMaybe<SkillCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FilterUserInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  avatar?: InputMaybe<Scalars['String']['input']>;
+  birth?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  nickname?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  urls?: InputMaybe<Array<UrlInput>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  createEducation: Array<Education>;
-  createExperience: Array<Experience>;
-  createOrganization: Array<Organization>;
-  createProject: Array<Project>;
-  createSkill: Array<Skill>;
-  createUser: User;
-  removeEducation: Array<Education>;
-  removeExperience: Array<Experience>;
-  removeOrganization: Array<Organization>;
-  removeProject: Array<Project>;
-  removeSkill: Array<Skill>;
-  removeUser: User;
+  createManyEducations: Array<EducationEntity>;
+  createManyExperiences: Array<ExperienceEntity>;
+  createManyOrganizations: Array<OrganizationEntity>;
+  createManyProjects: Array<ProjectEntity>;
+  createManySkills: Array<SkillEntity>;
+  createManyUsers: Array<UserEntity>;
+  createOneEducation: EducationEntity;
+  createOneExperience: ExperienceEntity;
+  createOneOrganization: OrganizationEntity;
+  createOneProject: ProjectEntity;
+  createOneSkill: SkillEntity;
+  createOneUser: UserEntity;
+  removeManyEducations: BatchEntity;
+  removeManyExperiences: BatchEntity;
+  removeManyOrganizations: BatchEntity;
+  removeManyProjects: BatchEntity;
+  removeManySkills: BatchEntity;
+  removeManyUsers: BatchEntity;
+  removeOneEducation: EducationEntity;
+  removeOneExperience: ExperienceEntity;
+  removeOneOrganization: OrganizationEntity;
+  removeOneProject: ProjectEntity;
+  removeOneSkill: SkillEntity;
+  removeOneUser: UserEntity;
   signIn: Scalars['String']['output'];
-  updateEducation: Education;
-  updateExperience: Experience;
-  updateOrganization: Organization;
-  updateProject: Project;
-  updateSkill: Skill;
-  updateUser: User;
+  updateManyEducations: BatchEntity;
+  updateManyExperiences: BatchEntity;
+  updateManyOrganizations: BatchEntity;
+  updateManyProjects: BatchEntity;
+  updateManySkills: BatchEntity;
+  updateManyUsers: BatchEntity;
+  updateOneEducation: EducationEntity;
+  updateOneExperience: ExperienceEntity;
+  updateOneOrganization: OrganizationEntity;
+  updateOneProject: ProjectEntity;
+  updateOneSkill: SkillEntity;
+  updateOneUser: UserEntity;
 };
 
 
-export type MutationCreateEducationArgs = {
-  createEducationInput: Array<CreateEducationInput>;
+export type MutationCreateManyEducationsArgs = {
+  createEducationInputs: Array<CreateEducationInput>;
 };
 
 
-export type MutationCreateExperienceArgs = {
-  createExperienceInput: Array<CreateExperienceInput>;
+export type MutationCreateManyExperiencesArgs = {
+  createExperienceInputs: Array<CreateExperienceInput>;
 };
 
 
-export type MutationCreateOrganizationArgs = {
-  createOrganizationInput: Array<CreateOrganizationInput>;
+export type MutationCreateManyOrganizationsArgs = {
+  createOrganizationInputs: Array<CreateOrganizationInput>;
 };
 
 
-export type MutationCreateProjectArgs = {
-  createProjectInput: Array<CreateProjectInput>;
+export type MutationCreateManyProjectsArgs = {
+  createProjectInputs: Array<CreateProjectInput>;
 };
 
 
-export type MutationCreateSkillArgs = {
-  createSkillInput: Array<CreateSkillInput>;
+export type MutationCreateManySkillsArgs = {
+  createSkillInputs: Array<CreateSkillInput>;
 };
 
 
-export type MutationCreateUserArgs = {
+export type MutationCreateManyUsersArgs = {
+  createUserInputs: Array<CreateUserInput>;
+};
+
+
+export type MutationCreateOneEducationArgs = {
+  createEducationInput: CreateEducationInput;
+};
+
+
+export type MutationCreateOneExperienceArgs = {
+  createExperienceInput: CreateExperienceInput;
+};
+
+
+export type MutationCreateOneOrganizationArgs = {
+  createOrganizationInput: CreateOrganizationInput;
+};
+
+
+export type MutationCreateOneProjectArgs = {
+  createProjectInput: CreateProjectInput;
+};
+
+
+export type MutationCreateOneSkillArgs = {
+  createSkillInput: CreateSkillInput;
+};
+
+
+export type MutationCreateOneUserArgs = {
   createUserInput: CreateUserInput;
 };
 
 
-export type MutationRemoveEducationArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManyEducationsArgs = {
+  EducationIds: Array<Scalars['ID']['input']>;
 };
 
 
-export type MutationRemoveExperienceArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManyExperiencesArgs = {
+  ExperienceIds: Array<Scalars['ID']['input']>;
 };
 
 
-export type MutationRemoveOrganizationArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManyOrganizationsArgs = {
+  OrganizationIds: Array<Scalars['ID']['input']>;
 };
 
 
-export type MutationRemoveProjectArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManyProjectsArgs = {
+  ProjectIds: Array<Scalars['ID']['input']>;
 };
 
 
-export type MutationRemoveSkillArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManySkillsArgs = {
+  SkillIds: Array<Scalars['ID']['input']>;
 };
 
 
-export type MutationRemoveUserArgs = {
-  id: Scalars['ID']['input'];
+export type MutationRemoveManyUsersArgs = {
+  UserIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationRemoveOneEducationArgs = {
+  EducationId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveOneExperienceArgs = {
+  ExperienceId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveOneOrganizationArgs = {
+  OrganizationId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveOneProjectArgs = {
+  ProjectId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveOneSkillArgs = {
+  SkillId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveOneUserArgs = {
+  UserId: Scalars['ID']['input'];
 };
 
 
@@ -269,40 +438,89 @@ export type MutationSignInArgs = {
 };
 
 
-export type MutationUpdateEducationArgs = {
+export type MutationUpdateManyEducationsArgs = {
+  EducationIds: Array<Scalars['ID']['input']>;
   updateEducationInput: UpdateEducationInput;
 };
 
 
-export type MutationUpdateExperienceArgs = {
+export type MutationUpdateManyExperiencesArgs = {
+  ExperienceIds: Array<Scalars['ID']['input']>;
   updateExperienceInput: UpdateExperienceInput;
 };
 
 
-export type MutationUpdateOrganizationArgs = {
+export type MutationUpdateManyOrganizationsArgs = {
+  OrganizationIds: Array<Scalars['ID']['input']>;
   updateOrganizationInput: UpdateOrganizationInput;
 };
 
 
-export type MutationUpdateProjectArgs = {
+export type MutationUpdateManyProjectsArgs = {
+  ProjectIds: Array<Scalars['ID']['input']>;
   updateProjectInput: UpdateProjectInput;
 };
 
 
-export type MutationUpdateSkillArgs = {
+export type MutationUpdateManySkillsArgs = {
+  SkillIds: Array<Scalars['ID']['input']>;
   updateSkillInput: UpdateSkillInput;
 };
 
 
-export type MutationUpdateUserArgs = {
+export type MutationUpdateManyUsersArgs = {
+  UserIds: Array<Scalars['ID']['input']>;
   updateUserInput: UpdateUserInput;
 };
 
-export type Organization = {
-  __typename?: 'Organization';
-  category: Scalars['String']['output'];
+
+export type MutationUpdateOneEducationArgs = {
+  EducationId: Scalars['ID']['input'];
+  updateEducationInput: UpdateEducationInput;
+};
+
+
+export type MutationUpdateOneExperienceArgs = {
+  ExperienceId: Scalars['ID']['input'];
+  updateExperienceInput: UpdateExperienceInput;
+};
+
+
+export type MutationUpdateOneOrganizationArgs = {
+  OrganizationId: Scalars['ID']['input'];
+  updateOrganizationInput: UpdateOrganizationInput;
+};
+
+
+export type MutationUpdateOneProjectArgs = {
+  ProjectId: Scalars['ID']['input'];
+  updateProjectInput: UpdateProjectInput;
+};
+
+
+export type MutationUpdateOneSkillArgs = {
+  SkillId: Scalars['ID']['input'];
+  updateSkillInput: UpdateSkillInput;
+};
+
+
+export type MutationUpdateOneUserArgs = {
+  UserId: Scalars['ID']['input'];
+  updateUserInput: UpdateUserInput;
+};
+
+export enum OrganizationCategory {
+  Company = 'COMPANY',
+  Other = 'OTHER',
+  School = 'SCHOOL'
+}
+
+export type OrganizationEntity = {
+  __typename?: 'OrganizationEntity';
+  category: OrganizationCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  isFeatured: Scalars['Boolean']['output'];
   logo: Scalars['String']['output'];
   name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
@@ -310,13 +528,19 @@ export type Organization = {
   website: Scalars['String']['output'];
 };
 
-export type Project = {
-  __typename?: 'Project';
+export type PaginationInput = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type ProjectEntity = {
+  __typename?: 'ProjectEntity';
   createdAt: Scalars['DateTime']['output'];
   i18n: Array<ProjectMessagesTranslationEntity>;
   id: Scalars['ID']['output'];
   images?: Maybe<Array<Scalars['String']['output']>>;
-  skills?: Maybe<Array<Skill>>;
+  isFeatured: Scalars['Boolean']['output'];
+  skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   urls?: Maybe<Array<UrlEntity>>;
@@ -336,49 +560,157 @@ export type ProjectMessagesTranslationEntity = {
 
 export type Query = {
   __typename?: 'Query';
-  findAllEducations: Array<Education>;
-  findAllExperiences: Array<Experience>;
-  findAllOrganizations: Array<Organization>;
-  findAllProjects: Array<Project>;
-  findAllSkills: Array<Skill>;
-  findAllUsers: Array<User>;
-  findOneEducationById: Education;
-  findOneExperienceById: Experience;
-  findOneOrganizationById: Organization;
-  findOneProjectById: Project;
-  findOneSkillById: Skill;
-  findOneUserById: User;
-  getMe: User;
+  findManyEducationById: Array<EducationEntity>;
+  findManyEducations: Array<EducationEntity>;
+  findManyExperienceById: Array<ExperienceEntity>;
+  findManyExperiences: Array<ExperienceEntity>;
+  findManyOrganizationById: Array<OrganizationEntity>;
+  findManyOrganizations: Array<OrganizationEntity>;
+  findManyProjectById: Array<ProjectEntity>;
+  findManyProjects: Array<ProjectEntity>;
+  findManySkillById: Array<SkillEntity>;
+  findManySkills: Array<SkillEntity>;
+  findManyUserById: Array<UserEntity>;
+  findManyUsers: Array<UserEntity>;
+  findOneEducation: EducationEntity;
+  findOneEducationById: EducationEntity;
+  findOneExperience: ExperienceEntity;
+  findOneExperienceById: ExperienceEntity;
+  findOneOrganization: OrganizationEntity;
+  findOneOrganizationById: OrganizationEntity;
+  findOneProject: ProjectEntity;
+  findOneProjectById: ProjectEntity;
+  findOneSkill: SkillEntity;
+  findOneSkillById: SkillEntity;
+  findOneUser: UserEntity;
+  findOneUserById: UserEntity;
+  getMe: UserEntity;
+};
+
+
+export type QueryFindManyEducationByIdArgs = {
+  EducationIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyEducationsArgs = {
+  EducationFilters?: InputMaybe<FilterEducationInput>;
+  EducationPagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindManyExperienceByIdArgs = {
+  ExperienceIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyExperiencesArgs = {
+  ExperienceFilters?: InputMaybe<FilterExperienceInput>;
+  ExperiencePagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindManyOrganizationByIdArgs = {
+  OrganizationIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyOrganizationsArgs = {
+  OrganizationFilters?: InputMaybe<FilterOrganizationInput>;
+  OrganizationPagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindManyProjectByIdArgs = {
+  ProjectIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyProjectsArgs = {
+  ProjectFilters?: InputMaybe<FilterProjectInput>;
+  ProjectPagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindManySkillByIdArgs = {
+  SkillIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManySkillsArgs = {
+  SkillFilters?: InputMaybe<FilterSkillInput>;
+  SkillPagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindManyUserByIdArgs = {
+  UserIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyUsersArgs = {
+  UserFilters?: InputMaybe<FilterUserInput>;
+  UserPagination?: InputMaybe<PaginationInput>;
+};
+
+
+export type QueryFindOneEducationArgs = {
+  EducationFilters?: InputMaybe<FilterEducationInput>;
 };
 
 
 export type QueryFindOneEducationByIdArgs = {
-  id: Scalars['ID']['input'];
+  EducationId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneExperienceArgs = {
+  ExperienceFilters?: InputMaybe<FilterExperienceInput>;
 };
 
 
 export type QueryFindOneExperienceByIdArgs = {
-  id: Scalars['ID']['input'];
+  ExperienceId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneOrganizationArgs = {
+  OrganizationFilters?: InputMaybe<FilterOrganizationInput>;
 };
 
 
 export type QueryFindOneOrganizationByIdArgs = {
-  id: Scalars['ID']['input'];
+  OrganizationId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneProjectArgs = {
+  ProjectFilters?: InputMaybe<FilterProjectInput>;
 };
 
 
 export type QueryFindOneProjectByIdArgs = {
-  id: Scalars['ID']['input'];
+  ProjectId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneSkillArgs = {
+  SkillFilters?: InputMaybe<FilterSkillInput>;
 };
 
 
 export type QueryFindOneSkillByIdArgs = {
-  id: Scalars['ID']['input'];
+  SkillId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneUserArgs = {
+  UserFilters?: InputMaybe<FilterUserInput>;
 };
 
 
 export type QueryFindOneUserByIdArgs = {
-  id: Scalars['ID']['input'];
+  UserId: Scalars['ID']['input'];
 };
 
 export type SignInInput = {
@@ -386,41 +718,47 @@ export type SignInInput = {
   password: Scalars['String']['input'];
 };
 
-export type Skill = {
-  __typename?: 'Skill';
-  category: Scalars['String']['output'];
+export enum SkillCategory {
+  Hard = 'HARD',
+  Soft = 'SOFT'
+}
+
+export type SkillEntity = {
+  __typename?: 'SkillEntity';
+  category: SkillCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
+  isFeatured: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UpdateEducationInput = {
-  category?: InputMaybe<Scalars['String']['input']>;
+  category?: InputMaybe<EducationCategory>;
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
-  id: Scalars['ID']['input'];
   image?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<EducationStatus>;
   url?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateExperienceInput = {
-  category?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
+  category?: InputMaybe<ExperienceCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateOrganizationInput = {
-  category?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
+  category?: InputMaybe<OrganizationCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -429,16 +767,16 @@ export type UpdateOrganizationInput = {
 
 export type UpdateProjectInput = {
   i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
-  id: Scalars['ID']['input'];
   images?: InputMaybe<Array<Scalars['String']['input']>>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
 export type UpdateSkillInput = {
-  category?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
+  category?: InputMaybe<SkillCategory>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
@@ -448,7 +786,6 @@ export type UpdateUserInput = {
   avatar?: InputMaybe<Scalars['String']['input']>;
   birth?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -468,8 +805,8 @@ export type UrlInput = {
   value: Scalars['String']['input'];
 };
 
-export type User = {
-  __typename?: 'User';
+export type UserEntity = {
+  __typename?: 'UserEntity';
   address?: Maybe<Scalars['String']['output']>;
   avatar?: Maybe<Scalars['String']['output']>;
   birth?: Maybe<Scalars['String']['output']>;
@@ -486,36 +823,46 @@ export type User = {
 };
 
 export type FindOneUserByIdQueryVariables = Exact<{
-  findOneUserByIdId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 }>;
 
 
-export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'User', id: string, address?: string | null, title?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: string, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null } };
+export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'UserEntity', id: string, address?: string | null, title?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: string, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null } };
 
-export type FindAllEducationsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type FindAllEducationsQuery = { __typename?: 'Query', findAllEducations: Array<{ __typename?: 'Education', category: string, url?: string | null, status: string, hours?: number | null, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization: { __typename?: 'Organization', category: string, id: string, logo: string, name: string, slug: string, website: string }, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'Skill', category: string, id: string, name: string, slug: string }> | null }> };
-
-export type FindAllExperiencesQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindManyEducationsQueryVariables = Exact<{
+  educationFilters?: InputMaybe<FilterEducationInput>;
+}>;
 
 
-export type FindAllExperiencesQuery = { __typename?: 'Query', findAllExperiences: Array<{ __typename?: 'Experience', category: string, id: string, slug: string, organization: { __typename?: 'Organization', category: string, id: string, logo: string, name: string, slug: string, website: string }, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'Skill', category: string, id: string, name: string, slug: string }> | null }>, skills?: Array<{ __typename?: 'Skill', category: string, id: string, name: string, slug: string }> | null }> };
+export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: Array<{ __typename?: 'EducationEntity', category: EducationCategory, url?: string | null, status: EducationStatus, hours?: number | null, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> };
 
-export type FindAllOrganizationsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type FindAllOrganizationsQuery = { __typename?: 'Query', findAllOrganizations: Array<{ __typename?: 'Organization', category: string, id: string, logo: string, name: string, slug: string, website: string }> };
-
-export type FindAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindManyExperiencesQueryVariables = Exact<{
+  experienceFilters?: InputMaybe<FilterExperienceInput>;
+}>;
 
 
-export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'Skill', category: string, id: string, name: string, slug: string }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> };
+export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug: string, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> };
 
-export type FindAllSkillsQueryVariables = Exact<{ [key: string]: never; }>;
+export type FindManyOrganizationsQueryVariables = Exact<{
+  organizationFilters?: InputMaybe<FilterOrganizationInput>;
+}>;
 
 
-export type FindAllSkillsQuery = { __typename?: 'Query', findAllSkills: Array<{ __typename?: 'Skill', category: string, id: string, name: string, slug: string }> };
+export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }> };
+
+export type FindManyProjectsQueryVariables = Exact<{
+  projectFilters?: InputMaybe<FilterProjectInput>;
+}>;
+
+
+export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> };
+
+export type FindManySkillsQueryVariables = Exact<{
+  skillFilters?: InputMaybe<FilterSkillInput>;
+}>;
+
+
+export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -537,8 +884,8 @@ export class TypedDocumentString<TResult, TVariables>
 }
 
 export const FindOneUserByIdDocument = new TypedDocumentString(`
-    query findOneUserById($findOneUserByIdId: ID!) {
-  findOneUserById(id: $findOneUserByIdId) {
+    query FindOneUserById($userId: ID!) {
+  findOneUserById(UserId: $userId) {
     id
     address
     title
@@ -556,9 +903,9 @@ export const FindOneUserByIdDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
-export const FindAllEducationsDocument = new TypedDocumentString(`
-    query findAllEducations {
-  findAllEducations {
+export const FindManyEducationsDocument = new TypedDocumentString(`
+    query FindManyEducations($educationFilters: FilterEducationInput) {
+  findManyEducations(EducationFilters: $educationFilters) {
     category
     url
     status
@@ -593,10 +940,10 @@ export const FindAllEducationsDocument = new TypedDocumentString(`
     slug
   }
 }
-    `) as unknown as TypedDocumentString<FindAllEducationsQuery, FindAllEducationsQueryVariables>;
-export const FindAllExperiencesDocument = new TypedDocumentString(`
-    query findAllExperiences {
-  findAllExperiences {
+    `) as unknown as TypedDocumentString<FindManyEducationsQuery, FindManyEducationsQueryVariables>;
+export const FindManyExperiencesDocument = new TypedDocumentString(`
+    query FindManyExperiences($experienceFilters: FilterExperienceInput) {
+  findManyExperiences(ExperienceFilters: $experienceFilters) {
     category
     id
     organization {
@@ -635,10 +982,10 @@ export const FindAllExperiencesDocument = new TypedDocumentString(`
     slug
   }
 }
-    `) as unknown as TypedDocumentString<FindAllExperiencesQuery, FindAllExperiencesQueryVariables>;
-export const FindAllOrganizationsDocument = new TypedDocumentString(`
-    query findAllOrganizations {
-  findAllOrganizations {
+    `) as unknown as TypedDocumentString<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>;
+export const FindManyOrganizationsDocument = new TypedDocumentString(`
+    query FindManyOrganizations($organizationFilters: FilterOrganizationInput) {
+  findManyOrganizations(OrganizationFilters: $organizationFilters) {
     category
     id
     logo
@@ -647,10 +994,10 @@ export const FindAllOrganizationsDocument = new TypedDocumentString(`
     website
   }
 }
-    `) as unknown as TypedDocumentString<FindAllOrganizationsQuery, FindAllOrganizationsQueryVariables>;
-export const FindAllProjectsDocument = new TypedDocumentString(`
-    query findAllProjects {
-  findAllProjects {
+    `) as unknown as TypedDocumentString<FindManyOrganizationsQuery, FindManyOrganizationsQueryVariables>;
+export const FindManyProjectsDocument = new TypedDocumentString(`
+    query FindManyProjects($projectFilters: FilterProjectInput) {
+  findManyProjects(ProjectFilters: $projectFilters) {
     id
     i18n {
       locale
@@ -673,14 +1020,14 @@ export const FindAllProjectsDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<FindAllProjectsQuery, FindAllProjectsQueryVariables>;
-export const FindAllSkillsDocument = new TypedDocumentString(`
-    query findAllSkills {
-  findAllSkills {
+    `) as unknown as TypedDocumentString<FindManyProjectsQuery, FindManyProjectsQueryVariables>;
+export const FindManySkillsDocument = new TypedDocumentString(`
+    query FindManySkills($skillFilters: FilterSkillInput) {
+  findManySkills(SkillFilters: $skillFilters) {
     category
     id
     name
     slug
   }
 }
-    `) as unknown as TypedDocumentString<FindAllSkillsQuery, FindAllSkillsQueryVariables>;
+    `) as unknown as TypedDocumentString<FindManySkillsQuery, FindManySkillsQueryVariables>;

@@ -1,14 +1,14 @@
 import { graphql } from "@/graphql";
 import type {
-  FindAllExperiencesQuery,
-  FindAllExperiencesQueryVariables,
+  FindManyExperiencesQuery,
+  FindManyExperiencesQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findAllExperiences = graphql(`
-  query findAllExperiences {
-    findAllExperiences {
+const findManyExperiences = graphql(`
+  query FindManyExperiences($experienceFilters: FilterExperienceInput) {
+    findManyExperiences(ExperienceFilters: $experienceFilters) {
       category
       id
       organization {
@@ -50,9 +50,14 @@ const findAllExperiences = graphql(`
 `);
 
 export const {
-  prefetch: prefetchFindAllExperiences,
-  use: useFindAllExperiences,
-} = defineQuery<FindAllExperiencesQuery, FindAllExperiencesQueryVariables>(
-  "findAllExperiences",
-  async () => await execute(findAllExperiences).then((data) => data.data!)
+  prefetch: prefetchFindManyExperiences,
+  use: useFindManyExperiences,
+} = defineQuery<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>(
+  "findManyExperiences",
+  async (params: FindManyExperiencesQueryVariables = {}) => {
+    // if (!params) throw new Error("insufficient parameters");
+    return await execute(findManyExperiences, params).then(
+      (data) => data.data!
+    );
+  }
 );
