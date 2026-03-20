@@ -12,9 +12,9 @@ input CreateEducationInput {
   hours: Int
   i18n: [CreateEducationTranslationInput!]!
   image: String
-  isFeatured: Boolean
   organization: String!
   period: DateRangeInput
+  relevance: Float
   skills: [String!]
   slug: String!
   status: EducationStatus!
@@ -33,8 +33,8 @@ input CreateEducationTranslationInput {
 
 input CreateExperienceInput {
   category: ExperienceCategory!
-  isFeatured: Boolean
   organization: String!
+  relevance: Float
   roles: [CreateExperienceRoleInput!]!
   slug: String!
 }
@@ -57,9 +57,9 @@ input CreateExperienceTranslationInput {
 
 input CreateOrganizationInput {
   category: OrganizationCategory!
-  isFeatured: Boolean
   logo: String!
   name: String!
+  relevance: Float
   slug: String!
   website: String!
 }
@@ -67,7 +67,7 @@ input CreateOrganizationInput {
 input CreateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]!
   images: [String!]
-  isFeatured: Boolean
+  relevance: Float
   skills: [String!]
   slug: String!
   urls: [UrlInput!]
@@ -85,8 +85,8 @@ input CreateProjectMessagesInputTranslationInput {
 
 input CreateSkillInput {
   category: SkillCategory!
-  isFeatured: Boolean
   name: String!
+  relevance: Float
   slug: String!
 }
 
@@ -131,9 +131,9 @@ type EducationEntity {
   i18n: [EducationTranslationLocale!]!
   id: ID!
   image: String
-  isFeatured: Boolean!
   organization: OrganizationEntity!
   period: DateRangeEntity
+  relevance: Float
   skills: [SkillEntity!]
   slug: String!
   status: EducationStatus!
@@ -168,8 +168,8 @@ type ExperienceEntity {
   category: ExperienceCategory!
   createdAt: DateTime!
   id: ID!
-  isFeatured: Boolean!
   organization: OrganizationEntity!
+  relevance: Float
   roles: [ExperienceRole!]!
   skills: [SkillEntity!]
   slug: String!
@@ -197,9 +197,9 @@ input FilterEducationInput {
   hours: Int
   i18n: [CreateEducationTranslationInput!]
   image: String
-  isFeatured: Boolean
   organization: String
   period: DateRangeInput
+  relevance: Float
   skills: [String!]
   slug: String
   status: EducationStatus
@@ -208,17 +208,17 @@ input FilterEducationInput {
 
 input FilterExperienceInput {
   category: ExperienceCategory
-  isFeatured: Boolean
   organization: String
+  relevance: Float
   roles: [CreateExperienceRoleInput!]
   slug: String
 }
 
 input FilterOrganizationInput {
   category: OrganizationCategory
-  isFeatured: Boolean
   logo: String
   name: String
+  relevance: Float
   slug: String
   website: String
 }
@@ -226,7 +226,7 @@ input FilterOrganizationInput {
 input FilterProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]
   images: [String!]
-  isFeatured: Boolean
+  relevance: Float
   skills: [String!]
   slug: String
   urls: [UrlInput!]
@@ -234,8 +234,8 @@ input FilterProjectInput {
 
 input FilterSkillInput {
   category: SkillCategory
-  isFeatured: Boolean
   name: String
+  relevance: Float
   slug: String
 }
 
@@ -302,17 +302,17 @@ type OrganizationEntity {
   category: OrganizationCategory!
   createdAt: DateTime!
   id: ID!
-  isFeatured: Boolean!
   logo: String!
   name: String!
+  relevance: Float
   slug: String!
   updatedAt: DateTime!
   website: String!
 }
 
 input PaginationInput {
-  limit: Int = 10
-  skip: Int = 0
+  limit: Int
+  skip: Int
 }
 
 type ProjectEntity {
@@ -320,7 +320,7 @@ type ProjectEntity {
   i18n: [ProjectMessagesTranslationEntity!]!
   id: ID!
   images: [String!]
-  isFeatured: Boolean!
+  relevance: Float
   skills: [SkillEntity!]
   slug: String!
   updatedAt: DateTime!
@@ -339,17 +339,17 @@ type ProjectMessagesTranslationEntity {
 
 type Query {
   findManyEducationById(EducationIds: [ID!]!): [EducationEntity!]!
-  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput): [EducationEntity!]!
+  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput, EducationSort: SortEducationInput): [EducationEntity!]!
   findManyExperienceById(ExperienceIds: [ID!]!): [ExperienceEntity!]!
-  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput): [ExperienceEntity!]!
+  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput, ExperienceSort: SortExperienceInput): [ExperienceEntity!]!
   findManyOrganizationById(OrganizationIds: [ID!]!): [OrganizationEntity!]!
-  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput): [OrganizationEntity!]!
+  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput, OrganizationSort: SortOrganizationInput): [OrganizationEntity!]!
   findManyProjectById(ProjectIds: [ID!]!): [ProjectEntity!]!
-  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput): [ProjectEntity!]!
+  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput, ProjectSort: SortProjectInput): [ProjectEntity!]!
   findManySkillById(SkillIds: [ID!]!): [SkillEntity!]!
-  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput): [SkillEntity!]!
+  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput, SkillSort: SortSkillInput): [SkillEntity!]!
   findManyUserById(UserIds: [ID!]!): [UserEntity!]!
-  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput): [UserEntity!]!
+  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput, UserSort: SortUserInput): [UserEntity!]!
   findOneEducation(EducationFilters: FilterEducationInput): EducationEntity!
   findOneEducationById(EducationId: ID!): EducationEntity!
   findOneExperience(ExperienceFilters: FilterExperienceInput): ExperienceEntity!
@@ -379,10 +379,53 @@ type SkillEntity {
   category: SkillCategory!
   createdAt: DateTime!
   id: ID!
-  isFeatured: Boolean!
   name: String!
+  relevance: Float
   slug: String!
   updatedAt: DateTime!
+}
+
+input SortEducationInput {
+  createdAt: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+enum SortEnum {
+  ASC
+  DESC
+}
+
+input SortExperienceInput {
+  createdAt: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+input SortOrganizationInput {
+  createdAt: SortEnum
+  name: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+input SortProjectInput {
+  createdAt: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+input SortSkillInput {
+  createdAt: SortEnum
+  name: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+input SortUserInput {
+  createdAt: SortEnum
+  name: SortEnum
+  updatedAt: SortEnum
 }
 
 input UpdateEducationInput {
@@ -390,9 +433,9 @@ input UpdateEducationInput {
   hours: Int
   i18n: [CreateEducationTranslationInput!]
   image: String
-  isFeatured: Boolean
   organization: String
   period: DateRangeInput
+  relevance: Float
   skills: [String!]
   slug: String
   status: EducationStatus
@@ -401,17 +444,17 @@ input UpdateEducationInput {
 
 input UpdateExperienceInput {
   category: ExperienceCategory
-  isFeatured: Boolean
   organization: String
+  relevance: Float
   roles: [CreateExperienceRoleInput!]
   slug: String
 }
 
 input UpdateOrganizationInput {
   category: OrganizationCategory
-  isFeatured: Boolean
   logo: String
   name: String
+  relevance: Float
   slug: String
   website: String
 }
@@ -419,7 +462,7 @@ input UpdateOrganizationInput {
 input UpdateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]
   images: [String!]
-  isFeatured: Boolean
+  relevance: Float
   skills: [String!]
   slug: String
   urls: [UrlInput!]
@@ -427,8 +470,8 @@ input UpdateProjectInput {
 
 input UpdateSkillInput {
   category: SkillCategory
-  isFeatured: Boolean
   name: String
+  relevance: Float
   slug: String
 }
 

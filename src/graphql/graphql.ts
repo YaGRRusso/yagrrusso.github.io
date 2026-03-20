@@ -28,9 +28,9 @@ export type CreateEducationInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n: Array<CreateEducationTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization: Scalars['String']['input'];
   period?: InputMaybe<DateRangeInput>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   status: EducationStatus;
@@ -49,8 +49,8 @@ export type CreateEducationTranslationInput = {
 
 export type CreateExperienceInput = {
   category: ExperienceCategory;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization: Scalars['String']['input'];
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   roles: Array<CreateExperienceRoleInput>;
   slug: Scalars['String']['input'];
 };
@@ -73,9 +73,9 @@ export type CreateExperienceTranslationInput = {
 
 export type CreateOrganizationInput = {
   category: OrganizationCategory;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   logo: Scalars['String']['input'];
   name: Scalars['String']['input'];
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
   website: Scalars['String']['input'];
 };
@@ -83,7 +83,7 @@ export type CreateOrganizationInput = {
 export type CreateProjectInput = {
   i18n: Array<CreateProjectMessagesInputTranslationInput>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   urls?: InputMaybe<Array<UrlInput>>;
@@ -101,8 +101,8 @@ export type CreateProjectMessagesInputTranslationInput = {
 
 export type CreateSkillInput = {
   category: SkillCategory;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   name: Scalars['String']['input'];
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
 };
 
@@ -144,9 +144,9 @@ export type EducationEntity = {
   i18n: Array<EducationTranslationLocale>;
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
-  isFeatured: Scalars['Boolean']['output'];
   organization: OrganizationEntity;
   period?: Maybe<DateRangeEntity>;
+  relevance?: Maybe<Scalars['Float']['output']>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   status: EducationStatus;
@@ -184,8 +184,8 @@ export type ExperienceEntity = {
   category: ExperienceCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  isFeatured: Scalars['Boolean']['output'];
   organization: OrganizationEntity;
+  relevance?: Maybe<Scalars['Float']['output']>;
   roles: Array<ExperienceRole>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
@@ -216,9 +216,9 @@ export type FilterEducationInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EducationStatus>;
@@ -227,17 +227,17 @@ export type FilterEducationInput = {
 
 export type FilterExperienceInput = {
   category?: InputMaybe<ExperienceCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FilterOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
 };
@@ -245,7 +245,7 @@ export type FilterOrganizationInput = {
 export type FilterProjectInput = {
   i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
@@ -253,8 +253,8 @@ export type FilterProjectInput = {
 
 export type FilterSkillInput = {
   category?: InputMaybe<SkillCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -520,9 +520,9 @@ export type OrganizationEntity = {
   category: OrganizationCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  isFeatured: Scalars['Boolean']['output'];
   logo: Scalars['String']['output'];
   name: Scalars['String']['output'];
+  relevance?: Maybe<Scalars['Float']['output']>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   website: Scalars['String']['output'];
@@ -539,7 +539,7 @@ export type ProjectEntity = {
   i18n: Array<ProjectMessagesTranslationEntity>;
   id: Scalars['ID']['output'];
   images?: Maybe<Array<Scalars['String']['output']>>;
-  isFeatured: Scalars['Boolean']['output'];
+  relevance?: Maybe<Scalars['Float']['output']>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -596,6 +596,7 @@ export type QueryFindManyEducationByIdArgs = {
 export type QueryFindManyEducationsArgs = {
   EducationFilters?: InputMaybe<FilterEducationInput>;
   EducationPagination?: InputMaybe<PaginationInput>;
+  EducationSort?: InputMaybe<SortEducationInput>;
 };
 
 
@@ -607,6 +608,7 @@ export type QueryFindManyExperienceByIdArgs = {
 export type QueryFindManyExperiencesArgs = {
   ExperienceFilters?: InputMaybe<FilterExperienceInput>;
   ExperiencePagination?: InputMaybe<PaginationInput>;
+  ExperienceSort?: InputMaybe<SortExperienceInput>;
 };
 
 
@@ -618,6 +620,7 @@ export type QueryFindManyOrganizationByIdArgs = {
 export type QueryFindManyOrganizationsArgs = {
   OrganizationFilters?: InputMaybe<FilterOrganizationInput>;
   OrganizationPagination?: InputMaybe<PaginationInput>;
+  OrganizationSort?: InputMaybe<SortOrganizationInput>;
 };
 
 
@@ -629,6 +632,7 @@ export type QueryFindManyProjectByIdArgs = {
 export type QueryFindManyProjectsArgs = {
   ProjectFilters?: InputMaybe<FilterProjectInput>;
   ProjectPagination?: InputMaybe<PaginationInput>;
+  ProjectSort?: InputMaybe<SortProjectInput>;
 };
 
 
@@ -640,6 +644,7 @@ export type QueryFindManySkillByIdArgs = {
 export type QueryFindManySkillsArgs = {
   SkillFilters?: InputMaybe<FilterSkillInput>;
   SkillPagination?: InputMaybe<PaginationInput>;
+  SkillSort?: InputMaybe<SortSkillInput>;
 };
 
 
@@ -651,6 +656,7 @@ export type QueryFindManyUserByIdArgs = {
 export type QueryFindManyUsersArgs = {
   UserFilters?: InputMaybe<FilterUserInput>;
   UserPagination?: InputMaybe<PaginationInput>;
+  UserSort?: InputMaybe<SortUserInput>;
 };
 
 
@@ -728,10 +734,53 @@ export type SkillEntity = {
   category: SkillCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  isFeatured: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
+  relevance?: Maybe<Scalars['Float']['output']>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type SortEducationInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export enum SortEnum {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
+
+export type SortExperienceInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type SortOrganizationInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  name?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type SortProjectInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type SortSkillInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  name?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type SortUserInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  name?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
 };
 
 export type UpdateEducationInput = {
@@ -739,9 +788,9 @@ export type UpdateEducationInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EducationStatus>;
@@ -750,17 +799,17 @@ export type UpdateEducationInput = {
 
 export type UpdateExperienceInput = {
   category?: InputMaybe<ExperienceCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
 };
@@ -768,7 +817,7 @@ export type UpdateOrganizationInput = {
 export type UpdateProjectInput = {
   i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
@@ -776,8 +825,8 @@ export type UpdateProjectInput = {
 
 export type UpdateSkillInput = {
   category?: InputMaybe<SkillCategory>;
-  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
