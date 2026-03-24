@@ -41,6 +41,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
+import { SortEnum } from "@/graphql/graphql";
 import { useFindManyEducations } from "@/hooks/queries/educations";
 import { useFindManyExperiences } from "@/hooks/queries/experiences";
 import { useGetContributions } from "@/hooks/queries/external";
@@ -55,11 +56,22 @@ export function ClientPage() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
 
-  const findManySkills = useFindManySkills();
-  const findManyProjects = useFindManyProjects();
-  const findManyExperiences = useFindManyExperiences();
-  const findManyEducations = useFindManyEducations();
   const getContributions = useGetContributions({ username: "yagrrusso" });
+  const findManySkills = useFindManySkills({
+    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+  });
+  const findManyProjects = useFindManyProjects({
+    projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    projectPagination: { limit: 3 },
+  });
+  const findManyExperiences = useFindManyExperiences({
+    experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    experiencePagination: { limit: 3 },
+  });
+  const findManyEducations = useFindManyEducations({
+    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    educationPagination: { limit: 6 },
+  });
 
   const handleSendMail = useCallback(
     (data: ContactSchema) => {

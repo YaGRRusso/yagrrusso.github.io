@@ -7,8 +7,8 @@ import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
 const findManyEducations = graphql(`
-  query FindManyEducations($educationFilters: FilterEducationInput) {
-    findManyEducations(EducationFilters: $educationFilters) {
+  query FindManyEducations($educationFilters: FilterEducationInput, $educationPagination: PaginationInput, $educationSort: SortEducationInput) {
+    findManyEducations(EducationFilters: $educationFilters, EducationPagination: $educationPagination, EducationSort: $educationSort) {
       category
       url
       status

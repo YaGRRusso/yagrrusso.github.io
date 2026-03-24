@@ -7,8 +7,8 @@ import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
 const findManyProjects = graphql(`
-  query FindManyProjects($projectFilters: FilterProjectInput) {
-    findManyProjects(ProjectFilters: $projectFilters) {
+  query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
+    findManyProjects(ProjectFilters: $projectFilters, ProjectPagination: $projectPagination, ProjectSort: $projectSort) {
       id
       i18n {
         locale

@@ -40,9 +40,17 @@
       "COURSE": "Curso"
     },
     "categories": {
-      "all": "Todos",
-      "hard": "Habilidades Técnicas",
-      "soft": "Habilidades Interpessoais"
+      "ALL": "Todos",
+      "BACKEND": "Backend",
+      "CONCEPTS": "Conceitos",
+      "DATA": "Dados",
+      "DESIGN": "Design",
+      "DEVOPS": "DevOps",
+      "FRONTEND": "Frontend",
+      "HARD": "Habilidades Técnicas",
+      "LANGUAGE": "Linguagens",
+      "QUALITY": "Qualidade",
+      "SOFT": "Habilidades Interpessoais"
     },
     "urls": {
       "github": "Github",

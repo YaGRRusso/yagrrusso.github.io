@@ -7,8 +7,8 @@ import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
 const findManyOrganizations = graphql(`
-  query FindManyOrganizations($organizationFilters: FilterOrganizationInput) {
-    findManyOrganizations(OrganizationFilters: $organizationFilters) {
+  query FindManyOrganizations($organizationFilters: FilterOrganizationInput, $organizationPagination: PaginationInput, $organizationSort: SortOrganizationInput) {
+    findManyOrganizations(OrganizationFilters: $organizationFilters, OrganizationPagination: $organizationPagination, OrganizationSort: $organizationSort) {
       category
       id
       logo

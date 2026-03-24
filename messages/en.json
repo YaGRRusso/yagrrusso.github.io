@@ -40,9 +40,17 @@
       "COURSE": "Course"
     },
     "categories": {
-      "all": "All",
-      "hard": "Hard Skills",
-      "soft": "Soft Skills"
+      "ALL": "All",
+      "BACKEND": "Backend",
+      "CONCEPTS": "Concepts",
+      "DATA": "Data",
+      "DESIGN": "Design",
+      "DEVOPS": "DevOps",
+      "FRONTEND": "Frontend",
+      "HARD": "Hard Skills",
+      "LANGUAGE": "Language",
+      "QUALITY": "Quality",
+      "SOFT": "Soft Skills"
     },
     "urls": {
       "github": "Github",

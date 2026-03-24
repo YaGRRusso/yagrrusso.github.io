@@ -7,8 +7,8 @@ import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
 const findManyExperiences = graphql(`
-  query FindManyExperiences($experienceFilters: FilterExperienceInput) {
-    findManyExperiences(ExperienceFilters: $experienceFilters) {
+  query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
+    findManyExperiences(ExperienceFilters: $experienceFilters, ExperiencePagination: $experiencePagination, ExperienceSort: $experienceSort) {
       category
       id
       organization {

@@ -725,7 +725,14 @@ export type SignInInput = {
 };
 
 export enum SkillCategory {
-  Hard = 'HARD',
+  Backend = 'BACKEND',
+  Concepts = 'CONCEPTS',
+  Data = 'DATA',
+  Design = 'DESIGN',
+  Devops = 'DEVOPS',
+  Frontend = 'FRONTEND',
+  Language = 'LANGUAGE',
+  Quality = 'QUALITY',
   Soft = 'SOFT'
 }
 
@@ -880,6 +887,8 @@ export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __
 
 export type FindManyEducationsQueryVariables = Exact<{
   educationFilters?: InputMaybe<FilterEducationInput>;
+  educationPagination?: InputMaybe<PaginationInput>;
+  educationSort?: InputMaybe<SortEducationInput>;
 }>;
 
 
@@ -887,6 +896,8 @@ export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations
 
 export type FindManyExperiencesQueryVariables = Exact<{
   experienceFilters?: InputMaybe<FilterExperienceInput>;
+  experiencePagination?: InputMaybe<PaginationInput>;
+  experienceSort?: InputMaybe<SortExperienceInput>;
 }>;
 
 
@@ -894,6 +905,8 @@ export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperienc
 
 export type FindManyOrganizationsQueryVariables = Exact<{
   organizationFilters?: InputMaybe<FilterOrganizationInput>;
+  organizationPagination?: InputMaybe<PaginationInput>;
+  organizationSort?: InputMaybe<SortOrganizationInput>;
 }>;
 
 
@@ -901,6 +914,8 @@ export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganiz
 
 export type FindManyProjectsQueryVariables = Exact<{
   projectFilters?: InputMaybe<FilterProjectInput>;
+  projectPagination?: InputMaybe<PaginationInput>;
+  projectSort?: InputMaybe<SortProjectInput>;
 }>;
 
 
@@ -908,6 +923,8 @@ export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: Ar
 
 export type FindManySkillsQueryVariables = Exact<{
   skillFilters?: InputMaybe<FilterSkillInput>;
+  skillPagination?: InputMaybe<PaginationInput>;
+  skillSort?: InputMaybe<SortSkillInput>;
 }>;
 
 
@@ -953,8 +970,12 @@ export const FindOneUserByIdDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
 export const FindManyEducationsDocument = new TypedDocumentString(`
-    query FindManyEducations($educationFilters: FilterEducationInput) {
-  findManyEducations(EducationFilters: $educationFilters) {
+    query FindManyEducations($educationFilters: FilterEducationInput, $educationPagination: PaginationInput, $educationSort: SortEducationInput) {
+  findManyEducations(
+    EducationFilters: $educationFilters
+    EducationPagination: $educationPagination
+    EducationSort: $educationSort
+  ) {
     category
     url
     status
@@ -991,8 +1012,12 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<FindManyEducationsQuery, FindManyEducationsQueryVariables>;
 export const FindManyExperiencesDocument = new TypedDocumentString(`
-    query FindManyExperiences($experienceFilters: FilterExperienceInput) {
-  findManyExperiences(ExperienceFilters: $experienceFilters) {
+    query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
+  findManyExperiences(
+    ExperienceFilters: $experienceFilters
+    ExperiencePagination: $experiencePagination
+    ExperienceSort: $experienceSort
+  ) {
     category
     id
     organization {
@@ -1033,8 +1058,12 @@ export const FindManyExperiencesDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>;
 export const FindManyOrganizationsDocument = new TypedDocumentString(`
-    query FindManyOrganizations($organizationFilters: FilterOrganizationInput) {
-  findManyOrganizations(OrganizationFilters: $organizationFilters) {
+    query FindManyOrganizations($organizationFilters: FilterOrganizationInput, $organizationPagination: PaginationInput, $organizationSort: SortOrganizationInput) {
+  findManyOrganizations(
+    OrganizationFilters: $organizationFilters
+    OrganizationPagination: $organizationPagination
+    OrganizationSort: $organizationSort
+  ) {
     category
     id
     logo
@@ -1045,8 +1074,12 @@ export const FindManyOrganizationsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<FindManyOrganizationsQuery, FindManyOrganizationsQueryVariables>;
 export const FindManyProjectsDocument = new TypedDocumentString(`
-    query FindManyProjects($projectFilters: FilterProjectInput) {
-  findManyProjects(ProjectFilters: $projectFilters) {
+    query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
+  findManyProjects(
+    ProjectFilters: $projectFilters
+    ProjectPagination: $projectPagination
+    ProjectSort: $projectSort
+  ) {
     id
     i18n {
       locale
@@ -1071,8 +1104,12 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<FindManyProjectsQuery, FindManyProjectsQueryVariables>;
 export const FindManySkillsDocument = new TypedDocumentString(`
-    query FindManySkills($skillFilters: FilterSkillInput) {
-  findManySkills(SkillFilters: $skillFilters) {
+    query FindManySkills($skillFilters: FilterSkillInput, $skillPagination: PaginationInput, $skillSort: SortSkillInput) {
+  findManySkills(
+    SkillFilters: $skillFilters
+    SkillPagination: $skillPagination
+    SkillSort: $skillSort
+  ) {
     category
     id
     name

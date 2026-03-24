@@ -1,6 +1,7 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { SortEnum } from "@/graphql/graphql";
 import { prefetchFindManyEducations } from "@/hooks/queries/educations";
 import { prefetchFindManyExperiences } from "@/hooks/queries/experiences";
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
@@ -33,10 +34,21 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindManySkills(queryClient);
-  await prefetchFindManyProjects(queryClient);
-  await prefetchFindManyExperiences(queryClient);
-  await prefetchFindManyEducations(queryClient);
+  await prefetchFindManySkills(queryClient, {
+    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+  });
+  await prefetchFindManyProjects(queryClient, {
+    projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    projectPagination: { limit: 3 },
+  });
+  await prefetchFindManyExperiences(queryClient, {
+    experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    experiencePagination: { limit: 3 },
+  });
+  await prefetchFindManyEducations(queryClient, {
+    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    educationPagination: { limit: 6 },
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

@@ -7,8 +7,8 @@ import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
 const findManySkills = graphql(`
-  query FindManySkills($skillFilters: FilterSkillInput) {
-    findManySkills(SkillFilters: $skillFilters) {
+  query FindManySkills($skillFilters: FilterSkillInput, $skillPagination: PaginationInput, $skillSort: SortSkillInput) {
+    findManySkills(SkillFilters: $skillFilters, SkillPagination: $skillPagination, SkillSort: $skillSort) {
       category
       id
       name

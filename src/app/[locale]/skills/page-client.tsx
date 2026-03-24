@@ -3,8 +3,15 @@
 import {
   BrainIcon,
   CircleNotchIcon,
+  CloudIcon,
+  CodeIcon,
+  DatabaseIcon,
+  DevicesIcon,
+  FlaskIcon,
   HeartIcon,
   PackageIcon,
+  RobotIcon,
+  RulerIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -17,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SkillCategory } from "@/graphql/graphql";
+import { SkillCategory, SortEnum } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
 
@@ -25,15 +32,28 @@ export function ClientPage() {
   const t = useTranslations("skillsPage");
   const tCommon = useTranslations("common");
 
+  const categoryIcons: Record<SkillCategory, React.ElementType> = {
+    [SkillCategory.Backend]: CodeIcon,
+    [SkillCategory.Concepts]: BrainIcon,
+    [SkillCategory.Data]: DatabaseIcon,
+    [SkillCategory.Design]: RulerIcon,
+    [SkillCategory.Devops]: CloudIcon,
+    [SkillCategory.Frontend]: DevicesIcon,
+    [SkillCategory.Language]: RobotIcon,
+    [SkillCategory.Quality]: FlaskIcon,
+    [SkillCategory.Soft]: HeartIcon,
+  };
+
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
 
-  const findManySkills = useFindManySkills();
+  const findManySkills = useFindManySkills({
+    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+  });
 
   const filteredList = useMemo(() => {
     if (!findManySkills.data?.findManySkills) return [];
     return new QueryHelper(findManySkills.data.findManySkills)
-      .filter("SOFT", "category", "!==")
       .filter(category, "category")
       .query(query, ["name"])
       .sort("name")
@@ -61,16 +81,18 @@ export function ClientPage() {
             <Select.Content>
               <Select.Item value="ALL">
                 <PackageIcon />
-                {tCommon("categories.all")}
+                {tCommon("categories.ALL")}
               </Select.Item>
-              <Select.Item value={SkillCategory.Hard}>
-                <BrainIcon />
-                {tCommon("categories.hard")}
-              </Select.Item>
-              <Select.Item value={SkillCategory.Soft}>
-                <HeartIcon />
-                {tCommon("categories.soft")}
-              </Select.Item>
+              {Object.values(SkillCategory).map((skillCategory) => {
+                const CategoryIcon = categoryIcons[skillCategory];
+
+                return (
+                  <Select.Item key={skillCategory} value={skillCategory}>
+                    <CategoryIcon />
+                    {tCommon(`categories.${skillCategory}`)}
+                  </Select.Item>
+                );
+              })}
             </Select.Content>
           </Select.Root>
         </div>
@@ -95,7 +117,7 @@ export function ClientPage() {
             {filteredList?.map((skill) => (
               <li id={skill.slug} key={skill.id}>
                 <AnimateOnScroll
-                  className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors hover:border-(--skill-color)"
+                  className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors"
                   y={16}
                 >
                   <Avatar.Root>
