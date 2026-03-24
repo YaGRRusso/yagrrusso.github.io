@@ -70,7 +70,7 @@ export function EducationCard({
 
   return (
     <a
-      className="group/hover flex h-full flex-col gap-4 rounded border bg-alternative px-8 py-12"
+      className="group/hover flex h-full flex-col justify-center gap-4 rounded border bg-alternative px-8 py-12"
       href={url ?? image ?? organization.website}
       rel="noopener noreferrer"
       target="_blank"
