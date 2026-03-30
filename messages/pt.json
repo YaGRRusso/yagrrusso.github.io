@@ -24,6 +24,7 @@
     "updatedAtDescription": "Deploy da versão mais recente.",
     "present": "Presente",
     "viewAll": "Ver Tudo",
+    "loadMore": "Carregar Mais",
     "status": {
       "completed": "Concluído",
       "inProgress": "Em Progresso",
