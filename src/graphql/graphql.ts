@@ -528,6 +528,42 @@ export type OrganizationEntity = {
   website: Scalars['String']['output'];
 };
 
+export type PaginatedEducationEntity = {
+  __typename?: 'PaginatedEducationEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<EducationEntity>;
+};
+
+export type PaginatedExperienceEntity = {
+  __typename?: 'PaginatedExperienceEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<ExperienceEntity>;
+};
+
+export type PaginatedOrganizationEntity = {
+  __typename?: 'PaginatedOrganizationEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<OrganizationEntity>;
+};
+
+export type PaginatedProjectEntity = {
+  __typename?: 'PaginatedProjectEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<ProjectEntity>;
+};
+
+export type PaginatedSkillEntity = {
+  __typename?: 'PaginatedSkillEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<SkillEntity>;
+};
+
+export type PaginatedUserEntity = {
+  __typename?: 'PaginatedUserEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<UserEntity>;
+};
+
 export type PaginationInput = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -561,17 +597,17 @@ export type ProjectMessagesTranslationEntity = {
 export type Query = {
   __typename?: 'Query';
   findManyEducationById: Array<EducationEntity>;
-  findManyEducations: Array<EducationEntity>;
+  findManyEducations: PaginatedEducationEntity;
   findManyExperienceById: Array<ExperienceEntity>;
-  findManyExperiences: Array<ExperienceEntity>;
+  findManyExperiences: PaginatedExperienceEntity;
   findManyOrganizationById: Array<OrganizationEntity>;
-  findManyOrganizations: Array<OrganizationEntity>;
+  findManyOrganizations: PaginatedOrganizationEntity;
   findManyProjectById: Array<ProjectEntity>;
-  findManyProjects: Array<ProjectEntity>;
+  findManyProjects: PaginatedProjectEntity;
   findManySkillById: Array<SkillEntity>;
-  findManySkills: Array<SkillEntity>;
+  findManySkills: PaginatedSkillEntity;
   findManyUserById: Array<UserEntity>;
-  findManyUsers: Array<UserEntity>;
+  findManyUsers: PaginatedUserEntity;
   findOneEducation: EducationEntity;
   findOneEducationById: EducationEntity;
   findOneExperience: ExperienceEntity;
@@ -892,7 +928,7 @@ export type FindManyEducationsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: Array<{ __typename?: 'EducationEntity', category: EducationCategory, url?: string | null, status: EducationStatus, hours?: number | null, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> };
+export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', found: number, nodes: Array<{ __typename?: 'EducationEntity', category: EducationCategory, url?: string | null, status: EducationStatus, hours?: number | null, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
 
 export type FindManyExperiencesQueryVariables = Exact<{
   experienceFilters?: InputMaybe<FilterExperienceInput>;
@@ -901,7 +937,7 @@ export type FindManyExperiencesQueryVariables = Exact<{
 }>;
 
 
-export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug: string, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> };
+export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: { __typename?: 'PaginatedExperienceEntity', found: number, nodes: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug: string, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
 
 export type FindManyOrganizationsQueryVariables = Exact<{
   organizationFilters?: InputMaybe<FilterOrganizationInput>;
@@ -910,7 +946,7 @@ export type FindManyOrganizationsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }> };
+export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: { __typename?: 'PaginatedOrganizationEntity', found: number, nodes: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }> } };
 
 export type FindManyProjectsQueryVariables = Exact<{
   projectFilters?: InputMaybe<FilterProjectInput>;
@@ -919,7 +955,7 @@ export type FindManyProjectsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> };
+export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: { __typename?: 'PaginatedProjectEntity', found: number, nodes: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> } };
 
 export type FindManySkillsQueryVariables = Exact<{
   skillFilters?: InputMaybe<FilterSkillInput>;
@@ -928,7 +964,7 @@ export type FindManySkillsQueryVariables = Exact<{
 }>;
 
 
-export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> };
+export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: { __typename?: 'PaginatedSkillEntity', found: number, nodes: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -976,65 +1012,28 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
     EducationPagination: $educationPagination
     EducationSort: $educationSort
   ) {
-    category
-    url
-    status
-    hours
-    i18n {
-      locale
-      messages {
-        description
-        title
-      }
-    }
-    id
-    image
-    organization {
+    found
+    nodes {
       category
-      id
-      logo
-      name
-      slug
-      website
-    }
-    period {
-      from
-      to
-    }
-    skills {
-      category
-      id
-      name
-      slug
-    }
-    slug
-  }
-}
-    `) as unknown as TypedDocumentString<FindManyEducationsQuery, FindManyEducationsQueryVariables>;
-export const FindManyExperiencesDocument = new TypedDocumentString(`
-    query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
-  findManyExperiences(
-    ExperienceFilters: $experienceFilters
-    ExperiencePagination: $experiencePagination
-    ExperienceSort: $experienceSort
-  ) {
-    category
-    id
-    organization {
-      category
-      id
-      logo
-      name
-      slug
-      website
-    }
-    roles {
+      url
+      status
+      hours
       i18n {
         locale
         messages {
           description
           title
         }
+      }
+      id
+      image
+      organization {
+        category
+        id
+        logo
+        name
+        slug
+        website
       }
       period {
         from
@@ -1046,14 +1045,57 @@ export const FindManyExperiencesDocument = new TypedDocumentString(`
         name
         slug
       }
-    }
-    skills {
-      category
-      id
-      name
       slug
     }
-    slug
+  }
+}
+    `) as unknown as TypedDocumentString<FindManyEducationsQuery, FindManyEducationsQueryVariables>;
+export const FindManyExperiencesDocument = new TypedDocumentString(`
+    query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
+  findManyExperiences(
+    ExperienceFilters: $experienceFilters
+    ExperiencePagination: $experiencePagination
+    ExperienceSort: $experienceSort
+  ) {
+    found
+    nodes {
+      category
+      id
+      organization {
+        category
+        id
+        logo
+        name
+        slug
+        website
+      }
+      roles {
+        i18n {
+          locale
+          messages {
+            description
+            title
+          }
+        }
+        period {
+          from
+          to
+        }
+        skills {
+          category
+          id
+          name
+          slug
+        }
+      }
+      skills {
+        category
+        id
+        name
+        slug
+      }
+      slug
+    }
   }
 }
     `) as unknown as TypedDocumentString<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>;
@@ -1064,12 +1106,15 @@ export const FindManyOrganizationsDocument = new TypedDocumentString(`
     OrganizationPagination: $organizationPagination
     OrganizationSort: $organizationSort
   ) {
-    category
-    id
-    logo
-    name
-    slug
-    website
+    found
+    nodes {
+      category
+      id
+      logo
+      name
+      slug
+      website
+    }
   }
 }
     `) as unknown as TypedDocumentString<FindManyOrganizationsQuery, FindManyOrganizationsQueryVariables>;
@@ -1080,25 +1125,28 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
     ProjectPagination: $projectPagination
     ProjectSort: $projectSort
   ) {
-    id
-    i18n {
-      locale
-      messages {
-        description
-        title
-      }
-    }
-    images
-    skills {
-      category
+    found
+    nodes {
       id
-      name
+      i18n {
+        locale
+        messages {
+          description
+          title
+        }
+      }
+      images
+      skills {
+        category
+        id
+        name
+        slug
+      }
       slug
-    }
-    slug
-    urls {
-      title
-      value
+      urls {
+        title
+        value
+      }
     }
   }
 }
@@ -1110,10 +1158,13 @@ export const FindManySkillsDocument = new TypedDocumentString(`
     SkillPagination: $skillPagination
     SkillSort: $skillSort
   ) {
-    category
-    id
-    name
-    slug
+    found
+    nodes {
+      category
+      id
+      name
+      slug
+    }
   }
 }
     `) as unknown as TypedDocumentString<FindManySkillsQuery, FindManySkillsQueryVariables>;

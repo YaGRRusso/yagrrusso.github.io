@@ -9,25 +9,28 @@ import { defineQuery } from "../factories/query";
 const findManyProjects = graphql(`
   query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
     findManyProjects(ProjectFilters: $projectFilters, ProjectPagination: $projectPagination, ProjectSort: $projectSort) {
-      id
-      i18n {
-        locale
-        messages {
-          description
-          title
-        }
-      }
-      images
-      skills {
-        category
+      found
+      nodes{ 
         id
-        name
+        i18n {
+          locale
+          messages {
+            description
+            title
+          }
+        }
+        images
+        skills {
+          category
+          id
+          name
+          slug
+        }
         slug
-      }
-      slug
-      urls {
-        title
-        value
+        urls {
+          title
+          value
+        }
       }
     }
   }

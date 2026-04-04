@@ -9,38 +9,41 @@ import { defineQuery } from "../factories/query";
 const findManyEducations = graphql(`
   query FindManyEducations($educationFilters: FilterEducationInput, $educationPagination: PaginationInput, $educationSort: SortEducationInput) {
     findManyEducations(EducationFilters: $educationFilters, EducationPagination: $educationPagination, EducationSort: $educationSort) {
-      category
-      url
-      status
-      hours
-      i18n {
-        locale
-        messages {
-          description
-          title
+      found
+      nodes {
+        category
+        url
+        status
+        hours
+        i18n {
+          locale
+          messages {
+            description
+            title
+            }
         }
-      }
-      id
-      image
-      organization {
-        category
         id
-        logo
-        name
+        image
+        organization {
+          category
+          id
+          logo
+          name
+          slug
+          website
+        }
+        period {
+          from
+          to
+        }
+        skills {
+          category
+          id
+          name
+          slug
+        }
         slug
-        website
       }
-      period {
-        from
-        to
-      }
-      skills {
-        category
-        id
-        name
-        slug
-      }
-      slug
     }
   }
 `);

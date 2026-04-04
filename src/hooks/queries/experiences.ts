@@ -9,27 +9,36 @@ import { defineQuery } from "../factories/query";
 const findManyExperiences = graphql(`
   query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
     findManyExperiences(ExperienceFilters: $experienceFilters, ExperiencePagination: $experiencePagination, ExperienceSort: $experienceSort) {
-      category
-      id
-      organization {
+      found
+      nodes {
         category
         id
-        logo
-        name
-        slug
-        website
-      }
-      roles {
-        i18n {
-          locale
-          messages {
-            description
-            title
-          }
+        organization {
+          category
+          id
+          logo
+          name
+          slug
+          website
         }
-        period {
-          from
-          to
+        roles {
+          i18n {
+            locale
+            messages {
+              description
+              title
+            }
+          }
+          period {
+            from
+            to
+          }
+          skills {
+            category
+            id
+            name
+            slug
+          }
         }
         skills {
           category
@@ -37,14 +46,8 @@ const findManyExperiences = graphql(`
           name
           slug
         }
-      }
-      skills {
-        category
-        id
-        name
         slug
       }
-      slug
     }
   }
 `);

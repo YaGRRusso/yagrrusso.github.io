@@ -310,6 +310,36 @@ type OrganizationEntity {
   website: String!
 }
 
+type PaginatedEducationEntity {
+  found: Float!
+  nodes: [EducationEntity!]!
+}
+
+type PaginatedExperienceEntity {
+  found: Float!
+  nodes: [ExperienceEntity!]!
+}
+
+type PaginatedOrganizationEntity {
+  found: Float!
+  nodes: [OrganizationEntity!]!
+}
+
+type PaginatedProjectEntity {
+  found: Float!
+  nodes: [ProjectEntity!]!
+}
+
+type PaginatedSkillEntity {
+  found: Float!
+  nodes: [SkillEntity!]!
+}
+
+type PaginatedUserEntity {
+  found: Float!
+  nodes: [UserEntity!]!
+}
+
 input PaginationInput {
   limit: Int
   skip: Int
@@ -339,17 +369,17 @@ type ProjectMessagesTranslationEntity {
 
 type Query {
   findManyEducationById(EducationIds: [ID!]!): [EducationEntity!]!
-  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput, EducationSort: SortEducationInput): [EducationEntity!]!
+  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput, EducationSort: SortEducationInput): PaginatedEducationEntity!
   findManyExperienceById(ExperienceIds: [ID!]!): [ExperienceEntity!]!
-  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput, ExperienceSort: SortExperienceInput): [ExperienceEntity!]!
+  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput, ExperienceSort: SortExperienceInput): PaginatedExperienceEntity!
   findManyOrganizationById(OrganizationIds: [ID!]!): [OrganizationEntity!]!
-  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput, OrganizationSort: SortOrganizationInput): [OrganizationEntity!]!
+  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput, OrganizationSort: SortOrganizationInput): PaginatedOrganizationEntity!
   findManyProjectById(ProjectIds: [ID!]!): [ProjectEntity!]!
-  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput, ProjectSort: SortProjectInput): [ProjectEntity!]!
+  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput, ProjectSort: SortProjectInput): PaginatedProjectEntity!
   findManySkillById(SkillIds: [ID!]!): [SkillEntity!]!
-  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput, SkillSort: SortSkillInput): [SkillEntity!]!
+  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput, SkillSort: SortSkillInput): PaginatedSkillEntity!
   findManyUserById(UserIds: [ID!]!): [UserEntity!]!
-  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput, UserSort: SortUserInput): [UserEntity!]!
+  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput, UserSort: SortUserInput): PaginatedUserEntity!
   findOneEducation(EducationFilters: FilterEducationInput): EducationEntity!
   findOneEducationById(EducationId: ID!): EducationEntity!
   findOneExperience(ExperienceFilters: FilterExperienceInput): ExperienceEntity!

@@ -144,7 +144,7 @@ export function ClientPage() {
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">
-          {findManySkills.data?.findManySkills?.map((skill) => (
+          {findManySkills.data?.findManySkills.nodes.map((skill) => (
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image
@@ -242,7 +242,7 @@ export function ClientPage() {
               </Link>
             </Button>
           </AnimateOnScroll>
-          {findManyProjects.data?.findManyProjects
+          {findManyProjects.data?.findManyProjects.nodes
             .slice(0, 3)
             ?.map((proj, index) => (
               <AnimateOnScroll key={proj.id} y={16}>
@@ -332,19 +332,21 @@ export function ClientPage() {
               title={t("sections.experience.title")}
             />
           </AnimateOnScroll>
-          {findManyExperiences.data?.findManyExperiences.map((experience) => (
-            <AnimateOnScroll key={experience.id} y={16}>
-              <ExperienceCard
-                organization={experience.organization}
-                roles={experience.roles.map((role) => ({
-                  title: getMessages(role.i18n)?.title,
-                  description: getMessages(role.i18n)?.description,
-                  skills: role.skills ?? undefined,
-                  period: role.period ?? undefined,
-                }))}
-              />
-            </AnimateOnScroll>
-          ))}
+          {findManyExperiences.data?.findManyExperiences.nodes.map(
+            (experience) => (
+              <AnimateOnScroll key={experience.id} y={16}>
+                <ExperienceCard
+                  organization={experience.organization}
+                  roles={experience.roles.map((role) => ({
+                    title: getMessages(role.i18n)?.title,
+                    description: getMessages(role.i18n)?.description,
+                    skills: role.skills ?? undefined,
+                    period: role.period ?? undefined,
+                  }))}
+                />
+              </AnimateOnScroll>
+            )
+          )}
         </div>
       </div>
       <Separator />
@@ -361,27 +363,29 @@ export function ClientPage() {
             />
           </AnimateOnScroll>
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {findManyEducations.data?.findManyEducations.map((education) => (
-              <AnimateOnScroll key={education.id} y={16}>
-                <EducationCard
-                  hours={education.hours ?? undefined}
-                  image={education.image ?? undefined}
-                  organization={education.organization}
-                  period={education.period ?? undefined}
-                  skills={education.skills ?? undefined}
-                  status={education.status}
-                  title={getMessages(education.i18n)?.title}
-                  url={education.url ?? undefined}
-                />
-              </AnimateOnScroll>
-            ))}
+            {findManyEducations.data?.findManyEducations.nodes.map(
+              (education) => (
+                <AnimateOnScroll key={education.id} y={16}>
+                  <EducationCard
+                    hours={education.hours ?? undefined}
+                    image={education.image ?? undefined}
+                    organization={education.organization}
+                    period={education.period ?? undefined}
+                    skills={education.skills ?? undefined}
+                    status={education.status}
+                    title={getMessages(education.i18n)?.title}
+                    url={education.url ?? undefined}
+                  />
+                </AnimateOnScroll>
+              )
+            )}
           </div>
         </div>
       </div>
       <Separator />
       <Marquee className="w-full" pauseOnHover>
         <div className="flex items-center gap-8 px-4 py-6 opacity-75">
-          {findManySkills.data?.findManySkills?.map((skill) => (
+          {findManySkills.data?.findManySkills.nodes.map((skill) => (
             <Fragment key={skill.id}>
               <Avatar.Root className="size-4 brightness-0 dark:invert">
                 <Avatar.Image

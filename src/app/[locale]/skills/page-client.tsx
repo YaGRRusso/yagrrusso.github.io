@@ -53,7 +53,7 @@ export function ClientPage() {
 
   const filteredList = useMemo(() => {
     if (!findManySkills.data?.findManySkills) return [];
-    return new QueryHelper(findManySkills.data.findManySkills)
+    return new QueryHelper(findManySkills.data.findManySkills.nodes)
       .filter(category, "category")
       .query(query, ["name"])
       .sort("name")

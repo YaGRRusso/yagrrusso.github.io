@@ -9,12 +9,15 @@ import { defineQuery } from "../factories/query";
 const findManyOrganizations = graphql(`
   query FindManyOrganizations($organizationFilters: FilterOrganizationInput, $organizationPagination: PaginationInput, $organizationSort: SortOrganizationInput) {
     findManyOrganizations(OrganizationFilters: $organizationFilters, OrganizationPagination: $organizationPagination, OrganizationSort: $organizationSort) {
-      category
-      id
-      logo
-      name
-      slug
-      website
+      found
+      nodes {
+        category
+        id
+        logo
+        name
+        slug
+        website
+      }
     }
   }
 `);

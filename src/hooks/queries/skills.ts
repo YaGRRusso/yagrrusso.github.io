@@ -9,10 +9,13 @@ import { defineInfiniteQuery, defineQuery } from "../factories/query";
 const findManySkills = graphql(`
   query FindManySkills($skillFilters: FilterSkillInput, $skillPagination: PaginationInput, $skillSort: SortSkillInput) {
     findManySkills(SkillFilters: $skillFilters, SkillPagination: $skillPagination, SkillSort: $skillSort) {
-      category
-      id
-      name
-      slug
+      found
+      nodes {
+        category
+        id
+        name
+        slug
+      }
     }
   }
 `);
@@ -45,7 +48,7 @@ export const {
     return {
       initialPageParam: 0,
       getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-        return lastPage.findManySkills.length === limit
+        return lastPage.findManySkills.nodes.length === limit
           ? lastPageParam + limit
           : undefined;
       },
