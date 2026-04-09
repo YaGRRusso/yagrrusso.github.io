@@ -39,6 +39,7 @@ export default async function Layout({ children, params }: Props) {
         jetbrainsMono.variable,
         spaceGrotesk.variable
       )}
+      data-scroll-behavior="smooth"
       lang={locale ?? routing.defaultLocale}
     >
       <Script

@@ -25,6 +25,7 @@
     "present": "Presente",
     "viewAll": "Ver Tudo",
     "loadMore": "Carregar Mais",
+    "page": "Página { current } de { total }",
     "status": {
       "completed": "Concluído",
       "inProgress": "Em Progresso",
