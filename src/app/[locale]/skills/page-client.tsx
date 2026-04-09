@@ -2,6 +2,8 @@
 
 import {
   BrainIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
   CircleNotchIcon,
   CloudIcon,
   CodeIcon,
@@ -14,19 +16,19 @@ import {
   RulerIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
-import { QueryHelper } from "@/classes/query";
+import { useState } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
 import { Alert } from "@/components/ui/alert";
 import { Avatar } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
+import { Pagination } from "@/components/ui/pagination";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SkillCategory, SortEnum } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { simpleIconsCdn } from "@/lib/cdn";
+import { getPagination } from "@/lib/pagination";
 
 export function ClientPage() {
   const t = useTranslations("skillsPage");
@@ -44,38 +46,46 @@ export function ClientPage() {
     [SkillCategory.Soft]: HeartIcon,
   };
 
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
+  // const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<SkillCategory | "ALL">("ALL");
+  const [page, setPage] = useState(1);
+
+  const limit = 50;
+  const skip = (page - 1) * limit;
 
   const findManySkills = useFindManySkills({
+    skillFilters: {
+      // name: query === "" ? undefined : query,
+      category: category === "ALL" ? undefined : category,
+    },
+    skillPagination: { limit, skip },
     skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   });
 
-  const filteredList = useMemo(() => {
-    if (!findManySkills.data?.findManySkills) return [];
-    return new QueryHelper(findManySkills.data.findManySkills.nodes)
-      .filter(category, "category")
-      .query(query, ["name"])
-      .sort("name")
-      .exec();
-  }, [findManySkills.data, query, category]);
+  const pagination = getPagination(
+    limit,
+    skip,
+    findManySkills.data?.findManySkills.found
+  );
 
   return (
     <div className="container flex flex-1 flex-col gap-4">
       <AnimateOnScroll y={16}>
         <PageTitle className="w-full" title={t("title")} />
-        <div className="flex w-full items-center gap-2">
-          <Input
+        <div className="flex w-full items-center justify-end gap-2">
+          {/* <Input
             className="flex-1"
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Query"
             value={query}
-          />
+          /> */}
           <Select.Root
-            onValueChange={(value) => setCategory(value === "ALL" ? "" : value)}
+            onValueChange={(value) =>
+              setCategory(value as SkillCategory | "ALL")
+            }
             value={category}
           >
-            <Select.Trigger className="max-w-52 flex-1">
+            <Select.Trigger className="max-w-64 flex-1">
               <Select.Value placeholder="Category" />
             </Select.Trigger>
             <Select.Content>
@@ -99,7 +109,7 @@ export function ClientPage() {
       </AnimateOnScroll>
 
       <Request.Root
-        isEmpty={!filteredList?.length}
+        isEmpty={findManySkills.data?.findManySkills.found === 0}
         isFetching={findManySkills.isFetching}
         isLoading={findManySkills.isLoading}
       >
@@ -114,7 +124,7 @@ export function ClientPage() {
         </Request.Empty>
         <Request.Content>
           <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {filteredList?.map((skill) => (
+            {findManySkills.data?.findManySkills.nodes.map((skill) => (
               <li id={skill.slug} key={skill.id}>
                 <AnimateOnScroll
                   className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors"
@@ -136,14 +146,46 @@ export function ClientPage() {
             ))}
           </ul>
         </Request.Content>
-        <div className="inline-flex items-center gap-1 py-3 text-muted-foreground text-xs">
-          <time dateTime={new Date(findManySkills.dataUpdatedAt).toISOString()}>
-            {findManySkills.dataUpdatedAt &&
-              tCommon("updatedAtTitle", {
-                date: new Date(findManySkills.dataUpdatedAt).toLocaleString(),
-              })}
-          </time>
-          <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />
+        <div className="flex flex-wrap items-center justify-center gap-x-4">
+          <div className="inline-flex flex-1 items-center gap-1 py-3 text-muted-foreground text-xs">
+            <time
+              dateTime={new Date(findManySkills.dataUpdatedAt).toISOString()}
+            >
+              {findManySkills.dataUpdatedAt &&
+                tCommon("updatedAtTitle", {
+                  date: new Date(findManySkills.dataUpdatedAt).toLocaleString(),
+                })}
+            </time>
+            <CircleNotchIcon className="animate-spin group-data-[fetching=false]:hidden" />
+          </div>
+          <Pagination.Root>
+            <Pagination.Content>
+              <Pagination.Item>
+                <Pagination.Button
+                  disabled={!pagination.hasPreviousPage}
+                  onClick={() => setPage(pagination.previousPage ?? 1)}
+                >
+                  <CaretLeftIcon />
+                </Pagination.Button>
+              </Pagination.Item>
+              <Pagination.Item>
+                <span>
+                  {tCommon("page", {
+                    current: pagination.currentPage,
+                    total: pagination.totalPages || 1,
+                  })}
+                </span>
+              </Pagination.Item>
+              <Pagination.Item>
+                <Pagination.Button
+                  disabled={!pagination.hasNextPage}
+                  onClick={() => setPage(pagination.nextPage ?? page)}
+                >
+                  <CaretRightIcon />
+                </Pagination.Button>
+              </Pagination.Item>
+            </Pagination.Content>
+          </Pagination.Root>
         </div>
       </Request.Root>
     </div>

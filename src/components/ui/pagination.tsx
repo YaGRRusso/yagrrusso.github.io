@@ -1,8 +1,3 @@
-import {
-  CaretLeftIcon,
-  CaretRightIcon,
-  DotsThreeIcon,
-} from "@phosphor-icons/react";
 import type * as React from "react";
 import { type Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,7 +6,10 @@ function PaginationRoot({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
       aria-label="pagination"
-      className={cn("mx-auto flex w-full justify-center", className)}
+      className={cn(
+        "flex justify-center text-muted-foreground text-xs",
+        className
+      )}
       data-slot="pagination"
       {...props}
     />
@@ -24,7 +22,7 @@ function PaginationContent({
 }: React.ComponentProps<"ul">) {
   return (
     <ul
-      className={cn("flex flex-row items-center gap-1", className)}
+      className={cn("flex flex-row items-center gap-2", className)}
       data-slot="pagination-content"
       {...props}
     />
@@ -43,7 +41,7 @@ type PaginationLinkProps = {
 function PaginationLink({
   className,
   isActive,
-  size = "icon",
+  size = "icon-sm",
   ...props
 }: PaginationLinkProps) {
   return (
@@ -63,47 +61,38 @@ function PaginationLink({
   );
 }
 
-function PaginationPrevious({
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) {
-  return (
-    <PaginationLink aria-label="previous" size="icon" {...props}>
-      <CaretLeftIcon />
-    </PaginationLink>
-  );
-}
+type PaginationButtonProps = {
+  isActive?: boolean;
+} & Pick<React.ComponentProps<typeof Button>, "size"> &
+  React.ComponentProps<"button">;
 
-function PaginationNext({
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) {
-  return (
-    <PaginationLink aria-label="next" size="icon" {...props}>
-      <CaretRightIcon />
-    </PaginationLink>
-  );
-}
-
-function PaginationEllipsis({
+function PaginationButton({
   className,
+  isActive,
+  size = "icon-sm",
   ...props
-}: React.ComponentProps<"span">) {
+}: PaginationButtonProps) {
   return (
-    <span
-      className={cn("flex size-8 items-center justify-center", className)}
-      data-slot="pagination-ellipsis"
+    <button
+      aria-current={isActive ? "page" : undefined}
+      className={cn(
+        buttonVariants({
+          variant: isActive ? "outline" : "ghost",
+          size,
+        }),
+        className
+      )}
+      data-active={isActive}
+      data-slot="pagination-link"
       {...props}
-    >
-      <DotsThreeIcon />
-    </span>
+    />
   );
 }
 
 export const Pagination = {
   Root: PaginationRoot,
   Content: PaginationContent,
-  Ellipsis: PaginationEllipsis,
   Item: PaginationItem,
   Link: PaginationLink,
-  Next: PaginationNext,
-  Previous: PaginationPrevious,
+  Button: PaginationButton,
 };

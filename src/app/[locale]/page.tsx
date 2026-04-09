@@ -35,6 +35,8 @@ export default async function Page({ params }: Props) {
 
   const queryClient = new QueryClient();
   await prefetchFindManySkills(queryClient, {
+    skillFilters: {},
+    skillPagination: { limit: 50, skip: 0 },
     skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   });
   await prefetchFindManyProjects(queryClient, {

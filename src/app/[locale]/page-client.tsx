@@ -58,6 +58,8 @@ export function ClientPage() {
 
   const getContributions = useGetContributions({ username: "yagrrusso" });
   const findManySkills = useFindManySkills({
+    skillFilters: {},
+    skillPagination: { limit: 50, skip: 0 },
     skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   });
   const findManyProjects = useFindManyProjects({
