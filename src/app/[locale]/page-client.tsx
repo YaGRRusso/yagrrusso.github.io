@@ -13,6 +13,7 @@ import {
   GithubLogoIcon,
   LinkedinLogoIcon,
   PhoneIcon,
+  ReadCvLogoIcon,
   WhatsappLogoIcon,
 } from "@phosphor-icons/react";
 import dayjs from "dayjs";
@@ -109,6 +110,14 @@ export function ClientPage() {
           </div>
           <p className="text-muted-foreground">{t("description")}</p>
           <div className="scrollbar-hidden flex items-center gap-2 overflow-auto md:flex-wrap">
+            <TitleLink
+              href="https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/curriculum.pdf"
+              icon={<ReadCvLogoIcon weight="bold" />}
+              rel="noopener noreferrer"
+              target="_blank"
+              title={t("openCv")}
+              variant="default"
+            />
             <TitleLink href="#about-me" title={t("sections.aboutMe.title")} />
             <TitleLink
               href="#my-portfolio"

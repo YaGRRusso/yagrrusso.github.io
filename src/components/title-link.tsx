@@ -1,17 +1,28 @@
 import { CaretRightIcon } from "@phosphor-icons/react";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "./ui/button";
 
-interface Props extends ComponentProps<typeof Link> {
+interface Props
+  extends ComponentProps<typeof Link>,
+    Pick<ComponentProps<typeof Button>, "size" | "variant"> {
+  icon?: ReactNode;
   title: string;
 }
 
-export function TitleLink({ children, className, title, ...props }: Props) {
+export function TitleLink({
+  children,
+  className,
+  title,
+  icon = <CaretRightIcon className="-mx-1" weight="bold" />,
+  size = "sm",
+  variant = "outline",
+  ...props
+}: Props) {
   return (
-    <Button asChild size="sm" variant="outline">
+    <Button asChild size={size} variant={variant}>
       <Link {...props}>
-        <CaretRightIcon className="-mx-1" weight="bold" />
+        {icon}
         {title}
       </Link>
     </Button>
