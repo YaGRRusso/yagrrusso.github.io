@@ -32,6 +32,7 @@ export type ConfettiRef = Api | null;
 
 const ConfettiContext = createContext<Api>({} as Api);
 
+// biome-ignore lint/suspicious/noReactForwardRef: auto generated
 const ConfettiComponent = forwardRef<ConfettiRef, Props>((props, ref) => {
   const {
     options,

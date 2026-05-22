@@ -1,6 +1,11 @@
 {
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/next",
+    "ultracite/biome/react",
+    "ultracite/biome/remix"
+  ],
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/core", "ultracite/next", "ultracite/react"],
   "files": {
     "includes": ["!!**/out", "!!**/.next", "!!**/node_modules", "!!**/graphql"]
   },

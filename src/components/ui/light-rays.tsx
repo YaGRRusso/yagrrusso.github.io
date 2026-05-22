@@ -64,31 +64,29 @@ const Ray = ({
   delay,
   duration,
   intensity,
-}: LightRay) => {
-  return (
-    <motion.div
-      animate={{
-        opacity: [0, intensity, 0],
-        rotate: [rotate - swing, rotate + swing, rotate - swing],
-      }}
-      className="pointer-events-none absolute -top-[12%] left-(--ray-left) h-(--light-rays-length) w-(--ray-width) origin-top -translate-x-1/2 rounded-full bg-linear-to-b from-[color-mix(in_srgb,var(--light-rays-color)_70%,transparent)] to-transparent opacity-0 mix-blend-screen blur-(--light-rays-blur)"
-      initial={{ rotate }}
-      style={
-        {
-          "--ray-left": `${left}%`,
-          "--ray-width": `${width}px`,
-        } as CSSProperties
-      }
-      transition={{
-        duration,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
-        delay,
-        repeatDelay: duration * 0.1,
-      }}
-    />
-  );
-};
+}: LightRay) => (
+  <motion.div
+    animate={{
+      opacity: [0, intensity, 0],
+      rotate: [rotate - swing, rotate + swing, rotate - swing],
+    }}
+    className="pointer-events-none absolute -top-[12%] left-(--ray-left) h-(--light-rays-length) w-(--ray-width) origin-top -translate-x-1/2 rounded-full bg-linear-to-b from-[color-mix(in_srgb,var(--light-rays-color)_70%,transparent)] to-transparent opacity-0 mix-blend-screen blur-(--light-rays-blur)"
+    initial={{ rotate }}
+    style={
+      {
+        "--ray-left": `${left}%`,
+        "--ray-width": `${width}px`,
+      } as CSSProperties
+    }
+    transition={{
+      duration,
+      repeat: Number.POSITIVE_INFINITY,
+      ease: "easeInOut",
+      delay,
+      repeatDelay: duration * 0.1,
+    }}
+  />
+);
 
 export function LightRays({
   className,

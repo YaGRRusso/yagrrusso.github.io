@@ -28,10 +28,9 @@ const getContributions = async ({
 export const useGetContributions = (
   data: GetContributionsQueryVariables,
   options?: QueryOptions<GetContributionsQuery>
-) => {
-  return useQuery({
+) =>
+  useQuery({
     queryKey: ["getContributions", data],
     queryFn: async () => await getContributions(data),
     ...options,
   });
-};

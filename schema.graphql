@@ -253,15 +253,29 @@ input FilterUserInput {
 }
 
 type Mutation {
-  createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
-  createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
-  createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): [OrganizationEntity!]!
-  createManyProjects(createProjectInputs: [CreateProjectInput!]!): [ProjectEntity!]!
+  createManyEducations(
+    createEducationInputs: [CreateEducationInput!]!
+  ): [EducationEntity!]!
+  createManyExperiences(
+    createExperienceInputs: [CreateExperienceInput!]!
+  ): [ExperienceEntity!]!
+  createManyOrganizations(
+    createOrganizationInputs: [CreateOrganizationInput!]!
+  ): [OrganizationEntity!]!
+  createManyProjects(
+    createProjectInputs: [CreateProjectInput!]!
+  ): [ProjectEntity!]!
   createManySkills(createSkillInputs: [CreateSkillInput!]!): [SkillEntity!]!
   createManyUsers(createUserInputs: [CreateUserInput!]!): [UserEntity!]!
-  createOneEducation(createEducationInput: CreateEducationInput!): EducationEntity!
-  createOneExperience(createExperienceInput: CreateExperienceInput!): ExperienceEntity!
-  createOneOrganization(createOrganizationInput: CreateOrganizationInput!): OrganizationEntity!
+  createOneEducation(
+    createEducationInput: CreateEducationInput!
+  ): EducationEntity!
+  createOneExperience(
+    createExperienceInput: CreateExperienceInput!
+  ): ExperienceEntity!
+  createOneOrganization(
+    createOrganizationInput: CreateOrganizationInput!
+  ): OrganizationEntity!
   createOneProject(createProjectInput: CreateProjectInput!): ProjectEntity!
   createOneSkill(createSkillInput: CreateSkillInput!): SkillEntity!
   createOneUser(createUserInput: CreateUserInput!): UserEntity!
@@ -278,17 +292,50 @@ type Mutation {
   removeOneSkill(SkillId: ID!): SkillEntity!
   removeOneUser(UserId: ID!): UserEntity!
   signIn(signInInput: SignInInput!): String!
-  updateManyEducations(EducationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
-  updateManyExperiences(ExperienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
-  updateManyOrganizations(OrganizationIds: [ID!]!, updateOrganizationInput: UpdateOrganizationInput!): BatchEntity!
-  updateManyProjects(ProjectIds: [ID!]!, updateProjectInput: UpdateProjectInput!): BatchEntity!
-  updateManySkills(SkillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
-  updateManyUsers(UserIds: [ID!]!, updateUserInput: UpdateUserInput!): BatchEntity!
-  updateOneEducation(EducationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
-  updateOneExperience(ExperienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
-  updateOneOrganization(OrganizationId: ID!, updateOrganizationInput: UpdateOrganizationInput!): OrganizationEntity!
-  updateOneProject(ProjectId: ID!, updateProjectInput: UpdateProjectInput!): ProjectEntity!
-  updateOneSkill(SkillId: ID!, updateSkillInput: UpdateSkillInput!): SkillEntity!
+  updateManyEducations(
+    EducationIds: [ID!]!
+    updateEducationInput: UpdateEducationInput!
+  ): BatchEntity!
+  updateManyExperiences(
+    ExperienceIds: [ID!]!
+    updateExperienceInput: UpdateExperienceInput!
+  ): BatchEntity!
+  updateManyOrganizations(
+    OrganizationIds: [ID!]!
+    updateOrganizationInput: UpdateOrganizationInput!
+  ): BatchEntity!
+  updateManyProjects(
+    ProjectIds: [ID!]!
+    updateProjectInput: UpdateProjectInput!
+  ): BatchEntity!
+  updateManySkills(
+    SkillIds: [ID!]!
+    updateSkillInput: UpdateSkillInput!
+  ): BatchEntity!
+  updateManyUsers(
+    UserIds: [ID!]!
+    updateUserInput: UpdateUserInput!
+  ): BatchEntity!
+  updateOneEducation(
+    EducationId: ID!
+    updateEducationInput: UpdateEducationInput!
+  ): EducationEntity!
+  updateOneExperience(
+    ExperienceId: ID!
+    updateExperienceInput: UpdateExperienceInput!
+  ): ExperienceEntity!
+  updateOneOrganization(
+    OrganizationId: ID!
+    updateOrganizationInput: UpdateOrganizationInput!
+  ): OrganizationEntity!
+  updateOneProject(
+    ProjectId: ID!
+    updateProjectInput: UpdateProjectInput!
+  ): ProjectEntity!
+  updateOneSkill(
+    SkillId: ID!
+    updateSkillInput: UpdateSkillInput!
+  ): SkillEntity!
   updateOneUser(UserId: ID!, updateUserInput: UpdateUserInput!): UserEntity!
 }
 
@@ -369,22 +416,48 @@ type ProjectMessagesTranslationEntity {
 
 type Query {
   findManyEducationById(EducationIds: [ID!]!): [EducationEntity!]!
-  findManyEducations(EducationFilters: FilterEducationInput, EducationPagination: PaginationInput, EducationSort: SortEducationInput): PaginatedEducationEntity!
+  findManyEducations(
+    EducationFilters: FilterEducationInput
+    EducationPagination: PaginationInput
+    EducationSort: SortEducationInput
+  ): PaginatedEducationEntity!
   findManyExperienceById(ExperienceIds: [ID!]!): [ExperienceEntity!]!
-  findManyExperiences(ExperienceFilters: FilterExperienceInput, ExperiencePagination: PaginationInput, ExperienceSort: SortExperienceInput): PaginatedExperienceEntity!
+  findManyExperiences(
+    ExperienceFilters: FilterExperienceInput
+    ExperiencePagination: PaginationInput
+    ExperienceSort: SortExperienceInput
+  ): PaginatedExperienceEntity!
   findManyOrganizationById(OrganizationIds: [ID!]!): [OrganizationEntity!]!
-  findManyOrganizations(OrganizationFilters: FilterOrganizationInput, OrganizationPagination: PaginationInput, OrganizationSort: SortOrganizationInput): PaginatedOrganizationEntity!
+  findManyOrganizations(
+    OrganizationFilters: FilterOrganizationInput
+    OrganizationPagination: PaginationInput
+    OrganizationSort: SortOrganizationInput
+  ): PaginatedOrganizationEntity!
   findManyProjectById(ProjectIds: [ID!]!): [ProjectEntity!]!
-  findManyProjects(ProjectFilters: FilterProjectInput, ProjectPagination: PaginationInput, ProjectSort: SortProjectInput): PaginatedProjectEntity!
+  findManyProjects(
+    ProjectFilters: FilterProjectInput
+    ProjectPagination: PaginationInput
+    ProjectSort: SortProjectInput
+  ): PaginatedProjectEntity!
   findManySkillById(SkillIds: [ID!]!): [SkillEntity!]!
-  findManySkills(SkillFilters: FilterSkillInput, SkillPagination: PaginationInput, SkillSort: SortSkillInput): PaginatedSkillEntity!
+  findManySkills(
+    SkillFilters: FilterSkillInput
+    SkillPagination: PaginationInput
+    SkillSort: SortSkillInput
+  ): PaginatedSkillEntity!
   findManyUserById(UserIds: [ID!]!): [UserEntity!]!
-  findManyUsers(UserFilters: FilterUserInput, UserPagination: PaginationInput, UserSort: SortUserInput): PaginatedUserEntity!
+  findManyUsers(
+    UserFilters: FilterUserInput
+    UserPagination: PaginationInput
+    UserSort: SortUserInput
+  ): PaginatedUserEntity!
   findOneEducation(EducationFilters: FilterEducationInput): EducationEntity!
   findOneEducationById(EducationId: ID!): EducationEntity!
   findOneExperience(ExperienceFilters: FilterExperienceInput): ExperienceEntity!
   findOneExperienceById(ExperienceId: ID!): ExperienceEntity!
-  findOneOrganization(OrganizationFilters: FilterOrganizationInput): OrganizationEntity!
+  findOneOrganization(
+    OrganizationFilters: FilterOrganizationInput
+  ): OrganizationEntity!
   findOneOrganizationById(OrganizationId: ID!): OrganizationEntity!
   findOneProject(ProjectFilters: FilterProjectInput): ProjectEntity!
   findOneProjectById(ProjectId: ID!): ProjectEntity!

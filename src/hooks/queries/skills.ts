@@ -47,11 +47,10 @@ export const {
     const limit = params?.skillPagination?.limit ?? 50;
     return {
       initialPageParam: 0,
-      getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-        return lastPage.findManySkills.nodes.length === limit
+      getNextPageParam: (lastPage, _allPages, lastPageParam) =>
+        lastPage.findManySkills.nodes.length === limit
           ? lastPageParam + limit
-          : undefined;
-      },
+          : undefined,
     };
   }
 );
