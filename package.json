@@ -71,15 +71,15 @@
   },
   "name": "yagrrusso",
   "scripts": {
+    "setup": "bash setup.sh",
+    "prepare": "husky || true",
     "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "serve": "serve -s out -l 4000",
-    "codegen": "graphql-codegen --config codegen.ts",
-    "back": "cd ../profile-info && npm run start:dev",
-    "prepare": "husky",
     "check": "ultracite check",
-    "fix": "ultracite fix"
+    "fix": "ultracite fix",
+    "back": "cd ../profile-info && npm run api:dev"
   },
   "version": "0.1.0",
   "private": true

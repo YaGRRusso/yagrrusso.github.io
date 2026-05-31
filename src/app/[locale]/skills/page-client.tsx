@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  BrainIcon,
   CaretLeftIcon,
   CaretRightIcon,
   CircleNotchIcon,
@@ -9,11 +8,8 @@ import {
   CodeIcon,
   DatabaseIcon,
   DevicesIcon,
-  FlaskIcon,
-  HeartIcon,
   PackageIcon,
   RobotIcon,
-  RulerIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -36,14 +32,10 @@ export function ClientPage() {
 
   const categoryIcons: Record<SkillCategory, React.ElementType> = {
     [SkillCategory.Backend]: CodeIcon,
-    [SkillCategory.Concepts]: BrainIcon,
     [SkillCategory.Data]: DatabaseIcon,
-    [SkillCategory.Design]: RulerIcon,
     [SkillCategory.Devops]: CloudIcon,
     [SkillCategory.Frontend]: DevicesIcon,
     [SkillCategory.Language]: RobotIcon,
-    [SkillCategory.Quality]: FlaskIcon,
-    [SkillCategory.Soft]: HeartIcon,
   };
 
   // const [query, setQuery] = useState("");

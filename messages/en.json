@@ -44,15 +44,11 @@
     "categories": {
       "ALL": "All",
       "BACKEND": "Backend",
-      "CONCEPTS": "Concepts",
       "DATA": "Data",
-      "DESIGN": "Design",
       "DEVOPS": "DevOps",
       "FRONTEND": "Frontend",
       "HARD": "Hard Skills",
-      "LANGUAGE": "Language",
-      "QUALITY": "Quality",
-      "SOFT": "Soft Skills"
+      "LANGUAGE": "Language"
     },
     "urls": {
       "github": "Github",

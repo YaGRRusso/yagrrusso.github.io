@@ -253,90 +253,43 @@ input FilterUserInput {
 }
 
 type Mutation {
-  createManyEducations(
-    createEducationInputs: [CreateEducationInput!]!
-  ): [EducationEntity!]!
-  createManyExperiences(
-    createExperienceInputs: [CreateExperienceInput!]!
-  ): [ExperienceEntity!]!
-  createManyOrganizations(
-    createOrganizationInputs: [CreateOrganizationInput!]!
-  ): [OrganizationEntity!]!
-  createManyProjects(
-    createProjectInputs: [CreateProjectInput!]!
-  ): [ProjectEntity!]!
+  createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
+  createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
+  createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): [OrganizationEntity!]!
+  createManyProjects(createProjectInputs: [CreateProjectInput!]!): [ProjectEntity!]!
   createManySkills(createSkillInputs: [CreateSkillInput!]!): [SkillEntity!]!
   createManyUsers(createUserInputs: [CreateUserInput!]!): [UserEntity!]!
-  createOneEducation(
-    createEducationInput: CreateEducationInput!
-  ): EducationEntity!
-  createOneExperience(
-    createExperienceInput: CreateExperienceInput!
-  ): ExperienceEntity!
-  createOneOrganization(
-    createOrganizationInput: CreateOrganizationInput!
-  ): OrganizationEntity!
+  createOneEducation(createEducationInput: CreateEducationInput!): EducationEntity!
+  createOneExperience(createExperienceInput: CreateExperienceInput!): ExperienceEntity!
+  createOneOrganization(createOrganizationInput: CreateOrganizationInput!): OrganizationEntity!
   createOneProject(createProjectInput: CreateProjectInput!): ProjectEntity!
   createOneSkill(createSkillInput: CreateSkillInput!): SkillEntity!
   createOneUser(createUserInput: CreateUserInput!): UserEntity!
-  removeManyEducations(EducationIds: [ID!]!): BatchEntity!
-  removeManyExperiences(ExperienceIds: [ID!]!): BatchEntity!
-  removeManyOrganizations(OrganizationIds: [ID!]!): BatchEntity!
-  removeManyProjects(ProjectIds: [ID!]!): BatchEntity!
-  removeManySkills(SkillIds: [ID!]!): BatchEntity!
-  removeManyUsers(UserIds: [ID!]!): BatchEntity!
-  removeOneEducation(EducationId: ID!): EducationEntity!
-  removeOneExperience(ExperienceId: ID!): ExperienceEntity!
-  removeOneOrganization(OrganizationId: ID!): OrganizationEntity!
-  removeOneProject(ProjectId: ID!): ProjectEntity!
-  removeOneSkill(SkillId: ID!): SkillEntity!
-  removeOneUser(UserId: ID!): UserEntity!
+  removeManyEducations(educationIds: [ID!]!): BatchEntity!
+  removeManyExperiences(experienceIds: [ID!]!): BatchEntity!
+  removeManyOrganizations(organizationIds: [ID!]!): BatchEntity!
+  removeManyProjects(projectIds: [ID!]!): BatchEntity!
+  removeManySkills(skillIds: [ID!]!): BatchEntity!
+  removeManyUsers(userIds: [ID!]!): BatchEntity!
+  removeOneEducation(educationId: ID!): EducationEntity!
+  removeOneExperience(experienceId: ID!): ExperienceEntity!
+  removeOneOrganization(organizationId: ID!): OrganizationEntity!
+  removeOneProject(projectId: ID!): ProjectEntity!
+  removeOneSkill(skillId: ID!): SkillEntity!
+  removeOneUser(userId: ID!): UserEntity!
   signIn(signInInput: SignInInput!): String!
-  updateManyEducations(
-    EducationIds: [ID!]!
-    updateEducationInput: UpdateEducationInput!
-  ): BatchEntity!
-  updateManyExperiences(
-    ExperienceIds: [ID!]!
-    updateExperienceInput: UpdateExperienceInput!
-  ): BatchEntity!
-  updateManyOrganizations(
-    OrganizationIds: [ID!]!
-    updateOrganizationInput: UpdateOrganizationInput!
-  ): BatchEntity!
-  updateManyProjects(
-    ProjectIds: [ID!]!
-    updateProjectInput: UpdateProjectInput!
-  ): BatchEntity!
-  updateManySkills(
-    SkillIds: [ID!]!
-    updateSkillInput: UpdateSkillInput!
-  ): BatchEntity!
-  updateManyUsers(
-    UserIds: [ID!]!
-    updateUserInput: UpdateUserInput!
-  ): BatchEntity!
-  updateOneEducation(
-    EducationId: ID!
-    updateEducationInput: UpdateEducationInput!
-  ): EducationEntity!
-  updateOneExperience(
-    ExperienceId: ID!
-    updateExperienceInput: UpdateExperienceInput!
-  ): ExperienceEntity!
-  updateOneOrganization(
-    OrganizationId: ID!
-    updateOrganizationInput: UpdateOrganizationInput!
-  ): OrganizationEntity!
-  updateOneProject(
-    ProjectId: ID!
-    updateProjectInput: UpdateProjectInput!
-  ): ProjectEntity!
-  updateOneSkill(
-    SkillId: ID!
-    updateSkillInput: UpdateSkillInput!
-  ): SkillEntity!
-  updateOneUser(UserId: ID!, updateUserInput: UpdateUserInput!): UserEntity!
+  updateManyEducations(educationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
+  updateManyExperiences(experienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
+  updateManyOrganizations(organizationIds: [ID!]!, updateOrganizationInput: UpdateOrganizationInput!): BatchEntity!
+  updateManyProjects(projectIds: [ID!]!, updateProjectInput: UpdateProjectInput!): BatchEntity!
+  updateManySkills(skillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
+  updateManyUsers(updateUserInput: UpdateUserInput!, userIds: [ID!]!): BatchEntity!
+  updateOneEducation(educationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
+  updateOneExperience(experienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
+  updateOneOrganization(organizationId: ID!, updateOrganizationInput: UpdateOrganizationInput!): OrganizationEntity!
+  updateOneProject(projectId: ID!, updateProjectInput: UpdateProjectInput!): ProjectEntity!
+  updateOneSkill(skillId: ID!, updateSkillInput: UpdateSkillInput!): SkillEntity!
+  updateOneUser(updateUserInput: UpdateUserInput!, userId: ID!): UserEntity!
 }
 
 enum OrganizationCategory {
@@ -415,56 +368,30 @@ type ProjectMessagesTranslationEntity {
 }
 
 type Query {
-  findManyEducationById(EducationIds: [ID!]!): [EducationEntity!]!
-  findManyEducations(
-    EducationFilters: FilterEducationInput
-    EducationPagination: PaginationInput
-    EducationSort: SortEducationInput
-  ): PaginatedEducationEntity!
-  findManyExperienceById(ExperienceIds: [ID!]!): [ExperienceEntity!]!
-  findManyExperiences(
-    ExperienceFilters: FilterExperienceInput
-    ExperiencePagination: PaginationInput
-    ExperienceSort: SortExperienceInput
-  ): PaginatedExperienceEntity!
-  findManyOrganizationById(OrganizationIds: [ID!]!): [OrganizationEntity!]!
-  findManyOrganizations(
-    OrganizationFilters: FilterOrganizationInput
-    OrganizationPagination: PaginationInput
-    OrganizationSort: SortOrganizationInput
-  ): PaginatedOrganizationEntity!
-  findManyProjectById(ProjectIds: [ID!]!): [ProjectEntity!]!
-  findManyProjects(
-    ProjectFilters: FilterProjectInput
-    ProjectPagination: PaginationInput
-    ProjectSort: SortProjectInput
-  ): PaginatedProjectEntity!
-  findManySkillById(SkillIds: [ID!]!): [SkillEntity!]!
-  findManySkills(
-    SkillFilters: FilterSkillInput
-    SkillPagination: PaginationInput
-    SkillSort: SortSkillInput
-  ): PaginatedSkillEntity!
-  findManyUserById(UserIds: [ID!]!): [UserEntity!]!
-  findManyUsers(
-    UserFilters: FilterUserInput
-    UserPagination: PaginationInput
-    UserSort: SortUserInput
-  ): PaginatedUserEntity!
-  findOneEducation(EducationFilters: FilterEducationInput): EducationEntity!
-  findOneEducationById(EducationId: ID!): EducationEntity!
-  findOneExperience(ExperienceFilters: FilterExperienceInput): ExperienceEntity!
-  findOneExperienceById(ExperienceId: ID!): ExperienceEntity!
-  findOneOrganization(
-    OrganizationFilters: FilterOrganizationInput
-  ): OrganizationEntity!
-  findOneOrganizationById(OrganizationId: ID!): OrganizationEntity!
-  findOneProject(ProjectFilters: FilterProjectInput): ProjectEntity!
-  findOneProjectById(ProjectId: ID!): ProjectEntity!
-  findOneSkill(SkillFilters: FilterSkillInput): SkillEntity!
-  findOneSkillById(SkillId: ID!): SkillEntity!
-  findOneUser(UserFilters: FilterUserInput): UserEntity!
-  findOneUserById(UserId: ID!): UserEntity!
+  findManyEducationById(educationIds: [ID!]!): [EducationEntity!]!
+  findManyEducations(educationFilters: FilterEducationInput, educationPagination: PaginationInput, educationSort: SortEducationInput): PaginatedEducationEntity!
+  findManyExperienceById(experienceIds: [ID!]!): [ExperienceEntity!]!
+  findManyExperiences(experienceFilters: FilterExperienceInput, experiencePagination: PaginationInput, experienceSort: SortExperienceInput): PaginatedExperienceEntity!
+  findManyOrganizationById(organizationIds: [ID!]!): [OrganizationEntity!]!
+  findManyOrganizations(organizationFilters: FilterOrganizationInput, organizationPagination: PaginationInput, organizationSort: SortOrganizationInput): PaginatedOrganizationEntity!
+  findManyProjectById(projectIds: [ID!]!): [ProjectEntity!]!
+  findManyProjects(projectFilters: FilterProjectInput, projectPagination: PaginationInput, projectSort: SortProjectInput): PaginatedProjectEntity!
+  findManySkillById(skillIds: [ID!]!): [SkillEntity!]!
+  findManySkills(skillFilters: FilterSkillInput, skillPagination: PaginationInput, skillSort: SortSkillInput): PaginatedSkillEntity!
+  findManyUserById(userIds: [ID!]!): [UserEntity!]!
+  findManyUsers(userFilters: FilterUserInput, userPagination: PaginationInput, userSort: SortUserInput): PaginatedUserEntity!
+  findOneEducation(educationFilters: FilterEducationInput): EducationEntity!
+  findOneEducationById(educationId: ID!): EducationEntity!
+  findOneExperience(experienceFilters: FilterExperienceInput): ExperienceEntity!
+  findOneExperienceById(experienceId: ID!): ExperienceEntity!
+  findOneOrganization(organizationFilters: FilterOrganizationInput): OrganizationEntity!
+  findOneOrganizationById(organizationId: ID!): OrganizationEntity!
+  findOneProject(projectFilters: FilterProjectInput): ProjectEntity!
+  findOneProjectById(projectId: ID!): ProjectEntity!
+  findOneSkill(skillFilters: FilterSkillInput): SkillEntity!
+  findOneSkillById(skillId: ID!): SkillEntity!
+  findOneUser(userFilters: FilterUserInput): UserEntity!
+  findOneUserById(userId: ID!): UserEntity!
   getMe: UserEntity!
 }
 
@@ -475,14 +402,10 @@ input SignInInput {
 
 enum SkillCategory {
   BACKEND
-  CONCEPTS
   DATA
-  DESIGN
   DEVOPS
   FRONTEND
   LANGUAGE
-  QUALITY
-  SOFT
 }
 
 type SkillEntity {
@@ -490,7 +413,7 @@ type SkillEntity {
   createdAt: DateTime!
   id: ID!
   name: String!
-  relevance: Float
+  relevance: Float!
   slug: String!
   updatedAt: DateTime!
 }

@@ -8,7 +8,7 @@ import { defineQuery } from "../factories/query";
 
 const findOneUserById = graphql(`
   query FindOneUserById($userId: ID!) {
-    findOneUserById(UserId: $userId) {
+    findOneUserById(userId: $userId) {
       id
       address
       title

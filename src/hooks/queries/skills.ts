@@ -8,7 +8,7 @@ import { defineInfiniteQuery, defineQuery } from "../factories/query";
 
 const findManySkills = graphql(`
   query FindManySkills($skillFilters: FilterSkillInput, $skillPagination: PaginationInput, $skillSort: SortSkillInput) {
-    findManySkills(SkillFilters: $skillFilters, SkillPagination: $skillPagination, SkillSort: $skillSort) {
+    findManySkills(skillFilters: $skillFilters, skillPagination: $skillPagination, skillSort: $skillSort) {
       found
       nodes {
         category
