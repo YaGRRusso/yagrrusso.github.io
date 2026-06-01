@@ -11,10 +11,9 @@ const findManyEducations = graphql(`
     findManyEducations(educationFilters: $educationFilters, educationPagination: $educationPagination, educationSort: $educationSort) {
       found
       nodes {
-        category
+        level
         url
         status
-        hours
         i18n {
           locale
           messages {

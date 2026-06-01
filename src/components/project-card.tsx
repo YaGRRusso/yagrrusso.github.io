@@ -79,20 +79,24 @@ export function ProjectCard({
             )}
           </div>
           <div className="flex items-center gap-2">
-            {urls?.map((url) => (
-              <Button
-                asChild
-                className="flex-1"
-                key={url.value}
-                size="sm"
-                variant="outline"
-              >
-                <a href={url.value} rel="noopener noreferrer" target="_blank">
-                  {Urls[url.title]?.icon ?? <ArrowUpRightIcon />}
-                  {tCommon(Urls[url.title]?.key as any)}
-                </a>
-              </Button>
-            ))}
+            {urls?.map((url) => {
+              const infos = Urls[url.title] ?? Urls.other;
+
+              return (
+                <Button
+                  asChild
+                  className="flex-1"
+                  key={url.title + url.value}
+                  size="sm"
+                  variant="outline"
+                >
+                  <a href={url.value} rel="noopener noreferrer" target="_blank">
+                    {infos?.icon ?? <ArrowUpRightIcon />}
+                    {tCommon(infos?.key as any)}
+                  </a>
+                </Button>
+              );
+            })}
           </div>
         </div>
       </div>

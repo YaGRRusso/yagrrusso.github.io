@@ -10,7 +10,7 @@ const findManyProjects = graphql(`
   query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
     findManyProjects(projectFilters: $projectFilters, projectPagination: $projectPagination, projectSort: $projectSort) {
       found
-      nodes{ 
+      nodes{
         id
         i18n {
           locale

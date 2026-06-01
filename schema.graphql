@@ -7,11 +7,64 @@ type BatchEntity {
   count: Int!
 }
 
-input CreateEducationInput {
-  category: EducationCategory!
+type CourseEntity {
+  createdAt: DateTime!
   hours: Int
+  i18n: [CourseTranslationLocale!]!
+  id: ID!
+  image: String
+  organization: OrganizationEntity!
+  relevance: Float!
+  skills: [SkillEntity!]
+  slug: String!
+  status: CourseStatus!
+  updatedAt: DateTime!
+  url: String
+}
+
+type CourseMessages {
+  description: String!
+  title: String!
+}
+
+enum CourseStatus {
+  COMPLETE
+  INCOMPLETE
+  IN_PROGRESS
+}
+
+type CourseTranslationLocale {
+  locale: String!
+  messages: CourseMessages!
+}
+
+input CreateCourseInput {
+  hours: Int
+  i18n: [CreateCourseTranslationInput!]!
+  image: String
+  organization: String!
+  period: DateRangeInput
+  relevance: Float
+  skills: [String!]
+  slug: String!
+  status: CourseStatus!
+  url: String
+}
+
+input CreateCourseMessagesInput {
+  description: String!
+  title: String!
+}
+
+input CreateCourseTranslationInput {
+  locale: String!
+  messages: CreateCourseMessagesInput!
+}
+
+input CreateEducationInput {
   i18n: [CreateEducationTranslationInput!]!
   image: String
+  level: EducationLevel!
   organization: String!
   period: DateRangeInput
   relevance: Float
@@ -118,27 +171,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-enum EducationCategory {
-  COURSE
-  DEGREE
-  OTHER
-}
-
 type EducationEntity {
-  category: EducationCategory!
   createdAt: DateTime!
-  hours: Int
   i18n: [EducationTranslationLocale!]!
   id: ID!
   image: String
+  level: EducationLevel!
   organization: OrganizationEntity!
   period: DateRangeEntity
-  relevance: Float
+  relevance: Float!
   skills: [SkillEntity!]
   slug: String!
   status: EducationStatus!
   updatedAt: DateTime!
   url: String
+}
+
+enum EducationLevel {
+  BACHELOR
+  DOCTORATE
+  HIGH_SCHOOL
+  MASTER
+  POSTGRAD
+  TECHNICAL
 }
 
 type EducationMessages {
@@ -169,7 +224,7 @@ type ExperienceEntity {
   createdAt: DateTime!
   id: ID!
   organization: OrganizationEntity!
-  relevance: Float
+  relevance: Float!
   roles: [ExperienceRole!]!
   skills: [SkillEntity!]
   slug: String!
@@ -192,11 +247,23 @@ type ExperienceTranslationLocale {
   messages: ExperienceMessages!
 }
 
-input FilterEducationInput {
-  category: EducationCategory
+input FilterCourseInput {
   hours: Int
+  i18n: [CreateCourseTranslationInput!]
+  image: String
+  organization: String
+  period: DateRangeInput
+  relevance: Float
+  skills: [String!]
+  slug: String
+  status: CourseStatus
+  url: String
+}
+
+input FilterEducationInput {
   i18n: [CreateEducationTranslationInput!]
   image: String
+  level: EducationLevel
   organization: String
   period: DateRangeInput
   relevance: Float
@@ -253,24 +320,28 @@ input FilterUserInput {
 }
 
 type Mutation {
+  createManyCourses(createCourseInputs: [CreateCourseInput!]!): [CourseEntity!]!
   createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
   createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
   createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): [OrganizationEntity!]!
   createManyProjects(createProjectInputs: [CreateProjectInput!]!): [ProjectEntity!]!
   createManySkills(createSkillInputs: [CreateSkillInput!]!): [SkillEntity!]!
   createManyUsers(createUserInputs: [CreateUserInput!]!): [UserEntity!]!
+  createOneCourse(createCourseInput: CreateCourseInput!): CourseEntity!
   createOneEducation(createEducationInput: CreateEducationInput!): EducationEntity!
   createOneExperience(createExperienceInput: CreateExperienceInput!): ExperienceEntity!
   createOneOrganization(createOrganizationInput: CreateOrganizationInput!): OrganizationEntity!
   createOneProject(createProjectInput: CreateProjectInput!): ProjectEntity!
   createOneSkill(createSkillInput: CreateSkillInput!): SkillEntity!
   createOneUser(createUserInput: CreateUserInput!): UserEntity!
+  removeManyCourses(courseIds: [ID!]!): BatchEntity!
   removeManyEducations(educationIds: [ID!]!): BatchEntity!
   removeManyExperiences(experienceIds: [ID!]!): BatchEntity!
   removeManyOrganizations(organizationIds: [ID!]!): BatchEntity!
   removeManyProjects(projectIds: [ID!]!): BatchEntity!
   removeManySkills(skillIds: [ID!]!): BatchEntity!
   removeManyUsers(userIds: [ID!]!): BatchEntity!
+  removeOneCourse(courseId: ID!): CourseEntity!
   removeOneEducation(educationId: ID!): EducationEntity!
   removeOneExperience(experienceId: ID!): ExperienceEntity!
   removeOneOrganization(organizationId: ID!): OrganizationEntity!
@@ -278,12 +349,14 @@ type Mutation {
   removeOneSkill(skillId: ID!): SkillEntity!
   removeOneUser(userId: ID!): UserEntity!
   signIn(signInInput: SignInInput!): String!
+  updateManyCourses(courseIds: [ID!]!, updateCourseInput: UpdateCourseInput!): BatchEntity!
   updateManyEducations(educationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
   updateManyExperiences(experienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
   updateManyOrganizations(organizationIds: [ID!]!, updateOrganizationInput: UpdateOrganizationInput!): BatchEntity!
   updateManyProjects(projectIds: [ID!]!, updateProjectInput: UpdateProjectInput!): BatchEntity!
   updateManySkills(skillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
   updateManyUsers(updateUserInput: UpdateUserInput!, userIds: [ID!]!): BatchEntity!
+  updateOneCourse(courseId: ID!, updateCourseInput: UpdateCourseInput!): CourseEntity!
   updateOneEducation(educationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
   updateOneExperience(experienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
   updateOneOrganization(organizationId: ID!, updateOrganizationInput: UpdateOrganizationInput!): OrganizationEntity!
@@ -304,10 +377,15 @@ type OrganizationEntity {
   id: ID!
   logo: String!
   name: String!
-  relevance: Float
+  relevance: Float!
   slug: String!
   updatedAt: DateTime!
   website: String!
+}
+
+type PaginatedCourseEntity {
+  found: Float!
+  nodes: [CourseEntity!]!
 }
 
 type PaginatedEducationEntity {
@@ -350,7 +428,7 @@ type ProjectEntity {
   i18n: [ProjectMessagesTranslationEntity!]!
   id: ID!
   images: [String!]
-  relevance: Float
+  relevance: Float!
   skills: [SkillEntity!]
   slug: String!
   updatedAt: DateTime!
@@ -368,6 +446,8 @@ type ProjectMessagesTranslationEntity {
 }
 
 type Query {
+  findManyCourseById(courseIds: [ID!]!): [CourseEntity!]!
+  findManyCourses(courseFilters: FilterCourseInput, coursePagination: PaginationInput, courseSort: SortCourseInput): PaginatedCourseEntity!
   findManyEducationById(educationIds: [ID!]!): [EducationEntity!]!
   findManyEducations(educationFilters: FilterEducationInput, educationPagination: PaginationInput, educationSort: SortEducationInput): PaginatedEducationEntity!
   findManyExperienceById(experienceIds: [ID!]!): [ExperienceEntity!]!
@@ -380,6 +460,8 @@ type Query {
   findManySkills(skillFilters: FilterSkillInput, skillPagination: PaginationInput, skillSort: SortSkillInput): PaginatedSkillEntity!
   findManyUserById(userIds: [ID!]!): [UserEntity!]!
   findManyUsers(userFilters: FilterUserInput, userPagination: PaginationInput, userSort: SortUserInput): PaginatedUserEntity!
+  findOneCourse(courseFilters: FilterCourseInput): CourseEntity!
+  findOneCourseById(courseId: ID!): CourseEntity!
   findOneEducation(educationFilters: FilterEducationInput): EducationEntity!
   findOneEducationById(educationId: ID!): EducationEntity!
   findOneExperience(experienceFilters: FilterExperienceInput): ExperienceEntity!
@@ -416,6 +498,12 @@ type SkillEntity {
   relevance: Float!
   slug: String!
   updatedAt: DateTime!
+}
+
+input SortCourseInput {
+  createdAt: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
 }
 
 input SortEducationInput {
@@ -461,11 +549,23 @@ input SortUserInput {
   updatedAt: SortEnum
 }
 
-input UpdateEducationInput {
-  category: EducationCategory
+input UpdateCourseInput {
   hours: Int
+  i18n: [CreateCourseTranslationInput!]
+  image: String
+  organization: String
+  period: DateRangeInput
+  relevance: Float
+  skills: [String!]
+  slug: String
+  status: CourseStatus
+  url: String
+}
+
+input UpdateEducationInput {
   i18n: [CreateEducationTranslationInput!]
   image: String
+  level: EducationLevel
   organization: String
   period: DateRangeInput
   relevance: Float
