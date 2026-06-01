@@ -41,6 +41,14 @@
       "DOCTORATE": "Doctorate",
       "COURSE": "Course"
     },
+    "level": {
+      "HIGH_SCHOOL": "High School",
+      "TECHNICAL": "Technical",
+      "BACHELOR": "Bachelor's Degree",
+      "POSTGRAD": "Postgraduate",
+      "MASTER": "Master's Degree",
+      "DOCTORATE": "Doctorate"
+    },
     "categories": {
       "ALL": "All",
       "BACKEND": "Backend",
@@ -138,6 +146,10 @@
       "experience": {
         "title": "Experience",
         "description": "My career history and roles"
+      },
+      "education": {
+        "title": "Education",
+        "description": "My academic background and degrees"
       },
       "course": {
         "title": "Courses",

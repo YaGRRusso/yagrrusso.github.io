@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { CourseCard } from "@/components/course-card";
+import { EducationCard } from "@/components/education-card";
 import { ExperienceCard } from "@/components/experience-card";
 import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
@@ -44,6 +45,7 @@ import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { SortEnum } from "@/graphql/graphql";
 import { useFindManyCourses } from "@/hooks/queries/courses";
+import { useFindManyEducations } from "@/hooks/queries/educations";
 import { useFindManyExperiences } from "@/hooks/queries/experiences";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindManyProjects } from "@/hooks/queries/projects";
@@ -70,6 +72,10 @@ export function ClientPage() {
   const findManyExperiences = useFindManyExperiences({
     experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
     experiencePagination: { limit: 3 },
+  });
+  const findManyEducations = useFindManyEducations({
+    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    educationPagination: { limit: 6 },
   });
   const findManyCourses = useFindManyCourses({
     courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
@@ -127,6 +133,10 @@ export function ClientPage() {
             <TitleLink
               href="#my-experience"
               title={t("sections.experience.title")}
+            />
+            <TitleLink
+              href="#my-education"
+              title={t("sections.education.title")}
             />
             <TitleLink href="#my-courses" title={t("sections.course.title")} />
             <TitleLink
@@ -355,6 +365,40 @@ export function ClientPage() {
               </AnimateOnScroll>
             )
           )}
+        </div>
+      </div>
+      <Separator />
+      <div className="w-full bg-background">
+        <div className="container relative flex w-full flex-col justify-center gap-8">
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.education.description")}
+              id="my-education"
+              title={t("sections.education.title")}
+            />
+          </AnimateOnScroll>
+          <div className="flex w-full flex-col gap-4">
+            {findManyEducations.data?.findManyEducations.nodes.map(
+              (education) => (
+                <AnimateOnScroll key={education.id} y={16}>
+                  <EducationCard
+                    description={getMessages(education.i18n)?.description}
+                    image={education.image ?? undefined}
+                    level={education.level}
+                    organization={education.organization}
+                    period={education.period ?? undefined}
+                    skills={education.skills ?? undefined}
+                    status={education.status}
+                    title={getMessages(education.i18n)?.title}
+                    url={education.url ?? undefined}
+                  />
+                </AnimateOnScroll>
+              )
+            )}
+          </div>
         </div>
       </div>
       <Separator />

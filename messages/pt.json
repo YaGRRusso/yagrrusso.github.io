@@ -41,6 +41,14 @@
       "DOCTORATE": "Doutorado",
       "COURSE": "Curso"
     },
+    "level": {
+      "HIGH_SCHOOL": "Ensino Médio",
+      "TECHNICAL": "Técnico",
+      "BACHELOR": "Bacharelado",
+      "POSTGRAD": "Pós-graduação",
+      "MASTER": "Mestrado",
+      "DOCTORATE": "Doutorado"
+    },
     "categories": {
       "ALL": "Todos",
       "BACKEND": "Backend",
@@ -138,6 +146,10 @@
       "experience": {
         "title": "Experiência",
         "description": "Meu histórico de carreira e cargos"
+      },
+      "education": {
+        "title": "Educação",
+        "description": "Minha formação acadêmica e diplomas"
       },
       "course": {
         "title": "Cursos",
