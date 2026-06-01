@@ -50,7 +50,7 @@ export default async function Page({ params }: Props) {
   });
   await prefetchFindManyEducations(queryClient, {
     educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    educationPagination: { limit: 6 },
+    educationPagination: { limit: 3 },
   });
   await prefetchFindManyCourses(queryClient, {
     courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },

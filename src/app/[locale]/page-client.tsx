@@ -75,7 +75,7 @@ export function ClientPage() {
   });
   const findManyEducations = useFindManyEducations({
     educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    educationPagination: { limit: 6 },
+    educationPagination: { limit: 3 },
   });
   const findManyCourses = useFindManyCourses({
     courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
