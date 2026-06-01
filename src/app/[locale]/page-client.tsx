@@ -23,7 +23,7 @@ import { Fragment, useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
-import { EducationCard } from "@/components/education-card";
+import { CourseCard } from "@/components/course-card";
 import { ExperienceCard } from "@/components/experience-card";
 import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
@@ -43,7 +43,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { SortEnum } from "@/graphql/graphql";
-import { useFindManyEducations } from "@/hooks/queries/educations";
+import { useFindManyCourses } from "@/hooks/queries/courses";
 import { useFindManyExperiences } from "@/hooks/queries/experiences";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useFindManyProjects } from "@/hooks/queries/projects";
@@ -71,9 +71,9 @@ export function ClientPage() {
     experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
     experiencePagination: { limit: 3 },
   });
-  const findManyEducations = useFindManyEducations({
-    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    educationPagination: { limit: 6 },
+  const findManyCourses = useFindManyCourses({
+    courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    coursePagination: { limit: 6 },
   });
 
   const handleSendMail = useCallback(
@@ -128,10 +128,7 @@ export function ClientPage() {
               href="#my-experience"
               title={t("sections.experience.title")}
             />
-            <TitleLink
-              href="#my-education"
-              title={t("sections.education.title")}
-            />
+            <TitleLink href="#my-courses" title={t("sections.course.title")} />
             <TitleLink
               href="#get-in-touch"
               title={t("sections.getInTouch.title")}
@@ -368,28 +365,25 @@ export function ClientPage() {
             y={16}
           >
             <SectionTitle
-              description={t("sections.education.description")}
-              id="my-education"
-              title={t("sections.education.title")}
+              description={t("sections.course.description")}
+              id="my-courses"
+              title={t("sections.course.title")}
             />
           </AnimateOnScroll>
           <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {findManyEducations.data?.findManyEducations.nodes.map(
-              (education) => (
-                <AnimateOnScroll key={education.id} y={16}>
-                  <EducationCard
-                    hours={education.hours ?? undefined}
-                    image={education.image ?? undefined}
-                    organization={education.organization}
-                    period={education.period ?? undefined}
-                    skills={education.skills ?? undefined}
-                    status={education.status}
-                    title={getMessages(education.i18n)?.title}
-                    url={education.url ?? undefined}
-                  />
-                </AnimateOnScroll>
-              )
-            )}
+            {findManyCourses.data?.findManyCourses.nodes.map((course) => (
+              <AnimateOnScroll key={course.id} y={16}>
+                <CourseCard
+                  hours={course.hours ?? undefined}
+                  image={course.image ?? undefined}
+                  organization={course.organization}
+                  skills={course.skills ?? undefined}
+                  status={course.status}
+                  title={getMessages(course.i18n)?.title}
+                  url={course.url ?? undefined}
+                />
+              </AnimateOnScroll>
+            ))}
           </div>
         </div>
       </div>

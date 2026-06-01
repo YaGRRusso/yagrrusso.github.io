@@ -2,7 +2,7 @@ import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { SortEnum } from "@/graphql/graphql";
-import { prefetchFindManyEducations } from "@/hooks/queries/educations";
+import { prefetchFindManyCourses } from "@/hooks/queries/courses";
 import { prefetchFindManyExperiences } from "@/hooks/queries/experiences";
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
 import { prefetchFindManySkills } from "@/hooks/queries/skills";
@@ -47,9 +47,9 @@ export default async function Page({ params }: Props) {
     experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
     experiencePagination: { limit: 3 },
   });
-  await prefetchFindManyEducations(queryClient, {
-    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    educationPagination: { limit: 6 },
+  await prefetchFindManyCourses(queryClient, {
+    courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+    coursePagination: { limit: 6 },
   });
 
   return (

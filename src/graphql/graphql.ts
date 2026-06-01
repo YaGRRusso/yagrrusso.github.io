@@ -1075,6 +1075,15 @@ export type FindOneUserByIdQueryVariables = Exact<{
 
 export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'UserEntity', id: string, address?: string | null, title?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: string, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null } };
 
+export type FindManyCoursesQueryVariables = Exact<{
+  courseFilters?: InputMaybe<FilterCourseInput>;
+  coursePagination?: InputMaybe<PaginationInput>;
+  courseSort?: InputMaybe<SortCourseInput>;
+}>;
+
+
+export type FindManyCoursesQuery = { __typename?: 'Query', findManyCourses: { __typename?: 'PaginatedCourseEntity', found: number, nodes: Array<{ __typename?: 'CourseEntity', hours?: number | null, relevance: number, createdAt: any, updatedAt: any, url?: string | null, status: CourseStatus, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'CourseTranslationLocale', locale: string, messages: { __typename?: 'CourseMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
+
 export type FindManyEducationsQueryVariables = Exact<{
   educationFilters?: InputMaybe<FilterEducationInput>;
   educationPagination?: InputMaybe<PaginationInput>;
@@ -1159,6 +1168,49 @@ export const FindOneUserByIdDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
+export const FindManyCoursesDocument = new TypedDocumentString(`
+    query FindManyCourses($courseFilters: FilterCourseInput, $coursePagination: PaginationInput, $courseSort: SortCourseInput) {
+  findManyCourses(
+    courseFilters: $courseFilters
+    coursePagination: $coursePagination
+    courseSort: $courseSort
+  ) {
+    found
+    nodes {
+      hours
+      relevance
+      createdAt
+      updatedAt
+      url
+      status
+      i18n {
+        locale
+        messages {
+          description
+          title
+        }
+      }
+      id
+      image
+      organization {
+        category
+        id
+        logo
+        name
+        slug
+        website
+      }
+      skills {
+        category
+        id
+        name
+        slug
+      }
+      slug
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<FindManyCoursesQuery, FindManyCoursesQueryVariables>;
 export const FindManyEducationsDocument = new TypedDocumentString(`
     query FindManyEducations($educationFilters: FilterEducationInput, $educationPagination: PaginationInput, $educationSort: SortEducationInput) {
   findManyEducations(

@@ -139,9 +139,9 @@
         "title": "Experience",
         "description": "My career history and roles"
       },
-      "education": {
-        "title": "Education",
-        "description": "Certifications, courses, and academic backgrounds"
+      "course": {
+        "title": "Courses",
+        "description": "Certifications and courses I've completed along the way"
       },
       "getInTouch": {
         "title": "Let's Talk",

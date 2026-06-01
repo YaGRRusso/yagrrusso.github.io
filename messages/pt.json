@@ -139,9 +139,9 @@
         "title": "Experiência",
         "description": "Meu histórico de carreira e cargos"
       },
-      "education": {
-        "title": "Educação",
-        "description": "Certificações, cursos e formações acadêmicas"
+      "course": {
+        "title": "Cursos",
+        "description": "Certificações e cursos que concluí ao longo do caminho"
       },
       "getInTouch": {
         "title": "Vamos Conversar",

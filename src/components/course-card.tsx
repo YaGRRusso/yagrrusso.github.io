@@ -4,27 +4,26 @@ import {
   ClockIcon,
   WarningCircleIcon,
 } from "@phosphor-icons/react";
-import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
-import { EducationStatus } from "@/graphql/graphql";
+import { CourseStatus } from "@/graphql/graphql";
 import { cn } from "@/lib/utils";
 import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 const variants = {
-  [EducationStatus.Complete]: {
+  [CourseStatus.Complete]: {
     color: "text-success",
     label: "status.completed",
     icon: <CheckCircleIcon />,
   },
-  [EducationStatus.InProgress]: {
+  [CourseStatus.InProgress]: {
     color: "text-warning",
     label: "status.inProgress",
     icon: <ClockIcon />,
   },
-  [EducationStatus.Incomplete]: {
+  [CourseStatus.Incomplete]: {
     color: "text-destructive",
     label: "status.paused",
     icon: <WarningCircleIcon />,
@@ -39,26 +38,21 @@ interface Props extends ComponentProps<"a"> {
     website?: string;
     logo?: string;
   };
-  period?: {
-    from?: Date | null;
-    to?: Date | null;
-  };
   skills?: {
     category: string;
     id: string;
     name: string;
     slug: string;
   }[];
-  status: EducationStatus;
+  status: CourseStatus;
   title: string;
   url?: string;
 }
 
-export function EducationCard({
+export function CourseCard({
   className,
   title,
   organization,
-  period,
   skills,
   status,
   hours,
@@ -98,15 +92,6 @@ export function EducationCard({
           </div>
         )}
         {hours && <div>{hours}h</div>}
-        {period && (
-          <div>
-            {dayjs(period.from).format("MM/YYYY")}
-            {" - "}
-            {period.to
-              ? dayjs(period.to).format("MM/YYYY")
-              : tCommon("present")}
-          </div>
-        )}
         <div>@{organization.name}</div>
       </div>
       {/* <p className="text-muted-foreground">{description}</p> */}
