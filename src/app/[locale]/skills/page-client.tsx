@@ -15,12 +15,13 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
-import { SkillAvatar } from "@/components/skill-avatar";
 import { Alert } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Pagination } from "@/components/ui/pagination";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getSlug } from "@/consts/slugs";
 import { SkillCategory } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { getPagination } from "@/lib/pagination";
@@ -57,14 +58,19 @@ export function ClientPage() {
     <div className="container flex flex-1 flex-col gap-4">
       <AnimateOnScroll y={16}>
         <PageTitle className="w-full" title={t("title")} />
-        <div className="flex w-full items-center justify-end gap-2">
+        <div className="flex w-full flex-col items-center justify-between gap-8 md:flex-row">
+          <span className="-mt-0.5 flex-1 text-muted-foreground text-xs md:max-w-xl">
+            A stack reflete o que eu estou utilizando atualmente em produção,
+            não uma regra. Estou sempre estudando algo novo e disposto a
+            aprender novas tecnologias quando necessário.
+          </span>
           <Select.Root
             onValueChange={(value) =>
               setCategory(value as SkillCategory | "ALL")
             }
             value={category}
           >
-            <Select.Trigger className="max-w-64 flex-1">
+            <Select.Trigger className="w-full flex-1 md:max-w-64">
               <Select.Value placeholder="Category" />
             </Select.Trigger>
             <Select.Content>
@@ -102,18 +108,18 @@ export function ClientPage() {
           </Alert.Root>
         </Request.Empty>
         <Request.Content>
-          <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {findManySkills.data?.findManySkills.nodes.map((skill) => (
               <li id={skill.slug} key={skill.id}>
                 <AnimateOnScroll
-                  className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors"
+                  className="relative flex flex-col items-center justify-center rounded border p-4 transition-colors"
                   y={16}
                 >
-                  <SkillAvatar name={skill.name} slug={skill.slug} />
+                  <div className="mb-2 text-3xl">
+                    {getSlug(skill.slug).icon}
+                  </div>
                   <span>{skill.name}</span>
-                  <span className="text-muted-foreground text-xs">
-                    {skill.category}
-                  </span>
+                  <Badge variant="outline">{skill.category}</Badge>
                 </AnimateOnScroll>
               </li>
             ))}

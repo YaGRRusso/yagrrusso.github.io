@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
 const alertVariants = cva(
-  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
+  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current",
   {
     variants: {
       variant: {
@@ -11,9 +11,15 @@ const alertVariants = cva(
         destructive:
           "bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current",
       },
+      size: {
+        sm: "px-3 py-2",
+        default: "px-4 py-3",
+        lg: "px-5 py-4",
+      },
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
     },
   }
 );
@@ -21,11 +27,12 @@ const alertVariants = cva(
 function AlertRoot({
   className,
   variant,
+  size,
   ...props
 }: ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
   return (
     <div
-      className={cn(alertVariants({ variant }), className)}
+      className={cn(alertVariants({ variant, size }), className)}
       data-slot="alert"
       role="alert"
       {...props}

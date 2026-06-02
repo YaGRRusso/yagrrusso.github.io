@@ -1,15 +1,11 @@
-import {
-  ArrowUpRightIcon,
-  FrameCornersIcon,
-  HashIcon,
-} from "@phosphor-icons/react";
+import { FrameCornersIcon, HashIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { SkillBadge } from "@/components/skill-badge";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
-import { Urls } from "@/consts/urls";
+import { getUrl } from "@/consts/urls";
 import { cn } from "@/lib/utils";
 
 interface Props extends ComponentProps<"div"> {
@@ -57,10 +53,10 @@ export function ProjectCard({
             direction === "left" ? "lg:pr-16" : "lg:pl-16"
           )}
         >
-          <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
+          <div className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
             <HashIcon weight="bold" />
             <span className="line-clamp-1">{slug}</span>
-          </strong>
+          </div>
           <div className="flex flex-col gap-2">
             <h3 className="font-semibold text-6xl max-md:text-5xl">{title}</h3>
             <p className="text-muted-foreground">{description}</p>
@@ -77,23 +73,19 @@ export function ProjectCard({
             )}
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            {urls?.map((url) => {
-              const infos = Urls[url.title] ?? Urls.other;
-
-              return (
-                <Button
-                  asChild
-                  key={url.title + url.value}
-                  size="sm"
-                  variant="outline"
-                >
-                  <a href={url.value} rel="noopener noreferrer" target="_blank">
-                    {infos?.icon ?? <ArrowUpRightIcon />}
-                    {tCommon(infos?.key as any)}
-                  </a>
-                </Button>
-              );
-            })}
+            {urls?.map((url) => (
+              <Button
+                asChild
+                key={url.title + url.value}
+                size="sm"
+                variant="outline"
+              >
+                <a href={url.value} rel="noopener noreferrer" target="_blank">
+                  {getUrl(url.title).icon}
+                  {tCommon(getUrl(url.title).key)}
+                </a>
+              </Button>
+            ))}
           </div>
         </div>
       </div>

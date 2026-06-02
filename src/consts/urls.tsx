@@ -9,10 +9,14 @@ import {
 } from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 
-export const Urls: Record<
-  string,
-  { value: string; key: string; icon: ReactNode }
-> = {
+type UrlType = { value: string; key: string; icon: ReactNode };
+
+export const URLS = {
+  other: {
+    value: "other",
+    key: "urls.other",
+    icon: <GlobeIcon />,
+  },
   github: {
     value: "github",
     key: "urls.github",
@@ -38,11 +42,6 @@ export const Urls: Record<
     key: "urls.phone",
     icon: <PhoneIcon />,
   },
-  other: {
-    value: "other",
-    key: "urls.other",
-    icon: <GlobeIcon />,
-  },
   website: {
     value: "website",
     key: "urls.website",
@@ -58,4 +57,11 @@ export const Urls: Record<
     key: "urls.demo",
     icon: <ArrowUpRightIcon />,
   },
-};
+} as const satisfies Record<string, UrlType>;
+
+export function getUrl(value: string) {
+  const url = URLS[value as keyof typeof URLS];
+  if (url) return url;
+
+  return URLS.other;
+}
