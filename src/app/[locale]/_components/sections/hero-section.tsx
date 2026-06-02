@@ -5,6 +5,9 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
+import { OrbitingCircles } from "@/components/ui/orbiting-circles";
+import { Tooltip } from "@/components/ui/tooltip";
+import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
 
 export function HeroSection() {
   const t = useTranslations("homePage");
@@ -67,6 +70,37 @@ export function HeroSection() {
         className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
         y={16}
       >
+        <div className="max-md:mask-b-from-65% max-md:mask-b-to-85% absolute inset-0 -top-[60%]">
+          <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
+            <OrbitingCircles
+              className="size-8 border border-foreground/5 bg-foreground/3 p-1 shadow-lg backdrop-blur-lg"
+              radius={200}
+            >
+              {SECONDARY_STACK.map((skill) => (
+                <Tooltip.Root key={skill.name}>
+                  <Tooltip.Trigger>{skill.icon}</Tooltip.Trigger>
+                  <Tooltip.Content>
+                    <p>{skill.name}</p>
+                  </Tooltip.Content>
+                </Tooltip.Root>
+              ))}
+            </OrbitingCircles>
+            <OrbitingCircles
+              className="size-8 border border-foreground/5 bg-foreground/3 p-1 shadow shadow-primary/20 backdrop-blur-lg"
+              radius={135}
+              reverse
+            >
+              {MAIN_STACK.map((skill) => (
+                <Tooltip.Root key={skill.name}>
+                  <Tooltip.Trigger>{skill.icon}</Tooltip.Trigger>
+                  <Tooltip.Content>
+                    <p>{skill.name}</p>
+                  </Tooltip.Content>
+                </Tooltip.Root>
+              ))}
+            </OrbitingCircles>
+          </div>
+        </div>
         <Image
           alt="sticker"
           className="max-md:mask-b-from-75% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"

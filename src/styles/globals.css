@@ -143,6 +143,18 @@
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   --animate-astronaut-float: astronaut-float 16s ease-in-out infinite;
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite;
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg))
+        translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg))
+        translateY(calc(var(--radius) * 1px))
+        rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
 }
 
 :root {
