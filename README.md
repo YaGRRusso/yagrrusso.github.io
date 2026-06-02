@@ -103,65 +103,6 @@ npm run build   # next build --turbopack → static export into out/
 npm run serve   # serve -s out -l 4000 → preview the export at http://localhost:4000
 ```
 
-Notes:
-
-- The build prefetches data from the GraphQL API. If the API is **not**
-  reachable, the build still succeeds (TanStack's `prefetchQuery` swallows the
-  error and the sections render empty) — so a clean build does not by itself
-  prove the data layer works, but it is enough to verify SEO.
-- SEO metadata does **not** depend on the API. It is produced by `generateSEO`
-  (`src/lib/seo.ts`) from the i18n messages and the OG images in `public/`, so
-  it is baked into the HTML at build time regardless of API availability.
-- The build reads `.env.production`. Codegen is **not** run by `build` (the
-  generated `src/graphql` is committed), so the build does not need the schema.
-
-## Verifying the build and SEO
-
-The export writes one HTML file per locale/route. After `npm run build`:
-
-```bash
-find out -maxdepth 2 -name '*.html'
-# out/en.html  out/pt.html  out/en/skills.html  out/pt/skills.html  ...
-```
-
-Each file's `<head>` carries the SEO metadata. Quick checks (run from the repo
-root after building):
-
-```bash
-# Title (translated per locale) and description
-grep -oE '<title[^>]*>[^<]+' out/en.html
-grep -oE '<meta name="description"[^>]*>' out/en.html
-
-# Canonical + per-locale hreflang alternates
-grep -E 'rel="(canonical|alternate)"' out/en.html
-
-# Open Graph + Twitter card
-grep -E 'property="og:|name="twitter:' out/en.html
-
-# <html lang> is set per locale
-grep -oE 'lang="[a-z]+"' out/pt.html | head -1
-```
-
-What a correct build looks like:
-
-- A non-empty, locale-specific `<title>` per page — e.g. `/en` →
-  "Full-stack Software Engineer", `/pt` → "Engenheiro de Software Full-stack",
-  `/en/skills` → "Skills", `/pt/skills` → "Habilidades".
-- `<link rel="canonical">` pointing at the page's own URL, plus
-  `<link rel="alternate" hreflang="…">` for **every** locale.
-- `og:title` / `og:description` / `og:url` / `og:image` (1200×630) and
-  `twitter:card=summary_large_image`.
-- `<html lang="en">` / `<html lang="pt">` on the respective pages.
-
-The `og:image` resolves to `public/images/og/<namespace>-<locale>.png` when that
-file exists, otherwise it falls back to `default-<locale>.png`. Today only the
-`default-*` images exist, so all pages use the fallback — drop in
-`homepage-<locale>.png` / `skillspage-<locale>.png` to give a page a custom card.
-
-For a richer look, paste a page URL into a preview tool (e.g. opengraph.xyz or
-the LinkedIn Post Inspector) after deploy, or just open `out/<locale>.html` and
-read the `<head>`.
-
 ## Automated SEO + content test
 
 `tests/seo.test.ts` (Vitest + cheerio) automates the checks above so a
@@ -175,27 +116,3 @@ npm run test   # vitest run — use npm run test:watch while iterating
 
 It is parameterized per route (`describe.each`), so each route × assertion is a
 separate pass/fail line. For each generated route it asserts:
-
-- **SEO `<head>`**: a non-empty `<title>`, a meta `description`, a `canonical`
-  matching the route's own URL, a `hreflang` alternate for every locale, the
-  four `og:*` tags, a `twitter:card`, and the correct `<html lang>`.
-- **Server-rendered content (the important part for a data-driven static site)**:
-  it fails if any page is stuck in a loading state (`data-state="loading"`) or if
-  an expected query (e.g. `findManySkills`) is **absent from the dehydrated React
-  Query state** embedded in the HTML. That absence is exactly what happens when
-  the build can't reach the GraphQL API — the prefetch is dropped and the body
-  ships as an empty shell. The test turns that silent failure into a hard error.
-  The skills route additionally asserts the grid rendered real `<li>` rows. (A
-  query that succeeded but returned 0 rows still passes — the check proves the
-  prefetch happened, not that the dataset is non-empty.)
-
-This is why it works: with the App Router static export, the client components
-are server-rendered at build time and read from the cache hydrated by each
-route's server `page.tsx`, so the real data (and the serialized query cache) is
-baked into the HTML — a crawler sees content, not a blank SPA. The test simply
-proves that contract held for this build.
-
-The step runs in CI (`.github/workflows/nextjs.yml`) right after the build and
-before the Pages upload, so a build that loses its SEO or its data **fails the
-job and never deploys**. If you ever need richer, JS-executing checks (layout,
-visual, interactions), Playwright would be the next step up.
