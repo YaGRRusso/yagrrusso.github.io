@@ -4,13 +4,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
-import { LayoutLoading } from "@/components/layout-loading";
-import { LayoutMenu } from "@/components/layout-menu";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { LayoutLoading } from "./_components/layout-loading";
+import { LayoutMenu } from "./_components/layout-menu";
 
 interface Props extends ComponentProps<"body"> {
   locale: Locale;

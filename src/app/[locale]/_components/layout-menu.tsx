@@ -6,13 +6,13 @@ import {
 } from "@phosphor-icons/react";
 import { type ComponentProps, Fragment, useCallback, useRef } from "react";
 import { flushSync } from "react-dom";
+import { Button } from "@/components/ui/button";
+import { Popover } from "@/components/ui/popover";
+import { Select } from "@/components/ui/select";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, locales } from "@/i18n/routing";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
-import { Button } from "./ui/button";
-import { Popover } from "./ui/popover";
-import { Select } from "./ui/select";
 
 interface Props extends ComponentProps<"div"> {
   locale: Locale;

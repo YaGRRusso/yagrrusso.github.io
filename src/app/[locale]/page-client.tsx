@@ -7,7 +7,6 @@ import {
   CodeIcon,
   DatabaseIcon,
   DevicesIcon,
-  DiamondIcon,
   EnvelopeIcon,
   FlaskIcon,
   GithubLogoIcon,
@@ -19,25 +18,19 @@ import {
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Fragment, useCallback } from "react";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
-import { CourseCard } from "@/components/course-card";
-import { EducationCard } from "@/components/education-card";
-import { ExperienceCard } from "@/components/experience-card";
-import { ProjectCard } from "@/components/project-card";
 import { SectionTitle } from "@/components/section-title";
 import { SkillCard } from "@/components/skill-card";
 import { SocialLink } from "@/components/social-links";
 import { TitleLink } from "@/components/title-link";
-import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
-import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
@@ -50,7 +43,11 @@ import { useFindManyProjects } from "@/hooks/queries/projects";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { Link } from "@/i18n/navigation";
-import { simpleIconsCdn } from "@/lib/cdn";
+import { CourseCard } from "./_components/course-card";
+import { EducationCard } from "./_components/education-card";
+import { ExperienceCard } from "./_components/experience-card";
+import { ProjectCard } from "./_components/project-card";
+import { SkillsMarquee } from "./_components/skills-marquee";
 
 export function ClientPage() {
   const getMessages = useMessages();
@@ -158,29 +155,7 @@ export function ClientPage() {
         </AnimateOnScroll>
       </div>
       <Separator />
-      <Marquee className="w-full" pauseOnHover>
-        <div className="flex items-center gap-8 p-4 opacity-75">
-          {findManySkills.data?.findManySkills.nodes.map((skill) => (
-            <Fragment key={skill.id}>
-              <Avatar.Root className="size-2.5">
-                <Avatar.Image
-                  alt={skill.name}
-                  src={simpleIconsCdn(skill.slug)}
-                />
-                <Avatar.Fallback className="bg-transparent">
-                  <DiamondIcon weight="fill" />
-                </Avatar.Fallback>
-              </Avatar.Root>
-              <span
-                className="text-[0.625rem] uppercase tracking-wide"
-                key={skill.id}
-              >
-                {skill.name}
-              </span>
-            </Fragment>
-          ))}
-        </div>
-      </Marquee>
+      <SkillsMarquee skills={findManySkills.data?.findManySkills.nodes ?? []} />
       <Separator />
       <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
@@ -405,29 +380,7 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <Marquee className="w-full" pauseOnHover>
-        <div className="flex items-center gap-8 p-4 opacity-75">
-          {findManySkills.data?.findManySkills.nodes.map((skill) => (
-            <Fragment key={skill.id}>
-              <Avatar.Root className="size-2.5">
-                <Avatar.Image
-                  alt={skill.name}
-                  src={simpleIconsCdn(skill.slug)}
-                />
-                <Avatar.Fallback className="bg-transparent">
-                  <DiamondIcon weight="fill" />
-                </Avatar.Fallback>
-              </Avatar.Root>
-              <span
-                className="text-[0.625rem] uppercase tracking-wide"
-                key={skill.id}
-              >
-                {skill.name}
-              </span>
-            </Fragment>
-          ))}
-        </div>
-      </Marquee>
+      <SkillsMarquee skills={findManySkills.data?.findManySkills.nodes ?? []} />
       <Separator />
       <div className="w-full">
         <div className="container relative flex w-full flex-col gap-8">

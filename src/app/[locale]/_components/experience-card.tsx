@@ -1,13 +1,11 @@
-import { PackageIcon } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
-import { simpleIconsCdn } from "@/lib/cdn";
+import { SkillBadge } from "@/components/skill-badge";
+import { Accordion } from "@/components/ui/accordion";
+import { Avatar } from "@/components/ui/avatar";
+import { Timeline } from "@/components/ui/timeline";
 import { cn } from "@/lib/utils";
-import { Accordion } from "./ui/accordion";
-import { Avatar } from "./ui/avatar";
-import { Badge } from "./ui/badge";
-import { Timeline } from "./ui/timeline";
 
 interface Props
   extends Omit<
@@ -104,18 +102,11 @@ export function ExperienceCard({
                 {role.skills && role.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">
                     {role.skills.map((skill) => (
-                      <Badge key={skill.id} variant="outline">
-                        <Avatar.Root className="size-2.5 rounded-xs">
-                          <Avatar.Image
-                            alt={skill.name}
-                            src={simpleIconsCdn(skill.slug)}
-                          />
-                          <Avatar.Fallback className="bg-transparent">
-                            <PackageIcon weight="fill" />
-                          </Avatar.Fallback>
-                        </Avatar.Root>
-                        {skill.name}
-                      </Badge>
+                      <SkillBadge
+                        key={skill.id}
+                        name={skill.name}
+                        slug={skill.slug}
+                      />
                     ))}
                   </div>
                 )}

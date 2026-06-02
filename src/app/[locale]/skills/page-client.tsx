@@ -15,15 +15,14 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
+import { SkillAvatar } from "@/components/skill-avatar";
 import { Alert } from "@/components/ui/alert";
-import { Avatar } from "@/components/ui/avatar";
 import { Pagination } from "@/components/ui/pagination";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SkillCategory, SortEnum } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
-import { simpleIconsCdn } from "@/lib/cdn";
 import { getPagination } from "@/lib/pagination";
 
 export function ClientPage() {
@@ -122,13 +121,7 @@ export function ClientPage() {
                   className="flex flex-col items-center justify-center gap-2 rounded border p-4 transition-colors"
                   y={16}
                 >
-                  <Avatar.Root>
-                    <Avatar.Image
-                      alt={skill.name}
-                      src={simpleIconsCdn(skill.slug)}
-                    />
-                    <Avatar.Fallback />
-                  </Avatar.Root>
+                  <SkillAvatar name={skill.name} slug={skill.slug} />
                   <span>{skill.name}</span>
                   <span className="text-muted-foreground text-xs">
                     {skill.category}

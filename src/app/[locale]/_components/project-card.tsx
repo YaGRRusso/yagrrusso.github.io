@@ -2,18 +2,15 @@ import {
   ArrowUpRightIcon,
   FrameCornersIcon,
   HashIcon,
-  PackageIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Avatar } from "radix-ui";
 import type { ComponentProps } from "react";
+import { SkillBadge } from "@/components/skill-badge";
+import { Button } from "@/components/ui/button";
+import { Dialog } from "@/components/ui/dialog";
 import { Urls } from "@/consts/urls";
-import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
-import { Dialog } from "./ui/dialog";
 
 interface Props extends ComponentProps<"div"> {
   description: string;
@@ -70,18 +67,11 @@ export function ProjectCard({
             {skills && skills.length > 0 && (
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
-                  <Badge key={skill.id} variant="outline">
-                    <Avatar.Root className="size-2.5 rounded-xs">
-                      <Avatar.Image
-                        alt={skill.name}
-                        src={simpleIconsCdn(skill.slug)}
-                      />
-                      <Avatar.Fallback className="bg-transparent">
-                        <PackageIcon weight="fill" />
-                      </Avatar.Fallback>
-                    </Avatar.Root>
-                    {skill.name}
-                  </Badge>
+                  <SkillBadge
+                    key={skill.id}
+                    name={skill.name}
+                    slug={skill.slug}
+                  />
                 ))}
               </div>
             )}
