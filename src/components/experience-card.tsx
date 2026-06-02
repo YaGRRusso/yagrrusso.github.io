@@ -1,6 +1,8 @@
+import { PackageIcon } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
 import { Accordion } from "./ui/accordion";
 import { Avatar } from "./ui/avatar";
@@ -43,10 +45,7 @@ export function ExperienceCard({
 
   return (
     <Accordion.Root
-      className={cn(
-        "flex flex-col gap-8 rounded border bg-alternative px-8 py-12",
-        className
-      )}
+      className={cn("flex flex-col gap-8 rounded border px-8 py-12", className)}
       defaultValue={["0"]}
       type="multiple"
       {...props}
@@ -59,11 +58,7 @@ export function ExperienceCard({
           target="_blank"
         >
           <Avatar.Root className="size-12">
-            <Avatar.Image
-              alt={organization.name}
-              className="p-1"
-              src={organization.logo}
-            />
+            <Avatar.Image alt={organization.name} src={organization.logo} />
             <Avatar.Fallback />
           </Avatar.Root>
           <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
@@ -88,7 +83,7 @@ export function ExperienceCard({
                 >
                   <div className="flex flex-1 flex-col">
                     <div className="flex items-center gap-2">
-                      <Timeline.Date className="font-semibold text-muted-foreground text-sm">
+                      <Timeline.Date className="text-muted-foreground text-sm">
                         {dayjs(role.period?.from).format("MM/YYYY")}
                         {" - "}
                         {role.period?.to
@@ -109,11 +104,16 @@ export function ExperienceCard({
                 {role.skills && role.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">
                     {role.skills.map((skill) => (
-                      <Badge
-                        className="uppercase"
-                        key={skill.id}
-                        variant="secondary"
-                      >
+                      <Badge key={skill.id} variant="outline">
+                        <Avatar.Root className="size-2.5 rounded-xs">
+                          <Avatar.Image
+                            alt={skill.name}
+                            src={simpleIconsCdn(skill.slug)}
+                          />
+                          <Avatar.Fallback className="bg-transparent">
+                            <PackageIcon weight="fill" />
+                          </Avatar.Fallback>
+                        </Avatar.Root>
                         {skill.name}
                       </Badge>
                     ))}

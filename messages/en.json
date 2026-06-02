@@ -26,6 +26,13 @@
     "viewAll": "View All",
     "loadMore": "Load More",
     "page": "Page { current } of { total }",
+    "time": {
+      "minutes": "{count, plural, =1 {one minute} other {# minutes}}",
+      "hours": "{count, plural, =1 {one hour} other {# hours}}",
+      "days": "{count, plural, =1 {one day} other {# days}}",
+      "months": "{count, plural, =1 {one month} other {# months}}",
+      "years": "{count, plural, =1 {one year} other {# years}}"
+    },
     "status": {
       "completed": "Completed",
       "inProgress": "In Progress",
@@ -102,7 +109,7 @@
     "description": "Hi, I'm Yago. This is my website, where I create simple things in super complicated ways just to prove I can. Explore my projects, check out my stack, and see what happens when I have free time and a text editor.",
     "viewAll": "View All",
     "yearsOfExperience": "Years of Experience",
-    "projectsCompleted": "Projects Delivered",
+    "projectsCompleted": "Projects Completed",
     "technologiesUsed": "Technologies",
     "clientsServed": "Clients/Companies",
     "openCv": "Open Curriculum",
@@ -110,8 +117,7 @@
       "aboutMe": {
         "title": "About Me",
         "description": "Writing colorful letters since { year }",
-        "message": "I'm Yago, I'm { age } and currently living in { address }. I specialize in turning coffee into code and, when I'm not messing with a dark-themed IDE, I also like <span>playing guitar;reading books;coding;playing video games;watching movies</span> and I'm definitely better at writing functions than biographies, so let's focus on technology.",
-        "experience": "It all started at { age }, when I realized those 'colorful letters' on a black screen did cool things. Since then, I've been on a self-taught journey through the infinite vacuum of software development. Over the years, I swapped generic YouTube tutorials for complex documentation, gaining real experience across the entire stack. I learn fast, break things occasionally, but always fix them leaving them better than they were before."
+        "message": "I'm { age } years old, living in { address }, and I'm a fullstack software engineer specializing in the TypeScript ecosystem. I have experience building entire platforms from scratch and highly scalable architectures, including monorepos, microservices, serverless APIs, and much more.<br></br>I've served as a technical reference in defining architectures, mentoring new developers, and strategic alignments with product and design for end-to-end deliveries. Versatile profile focused on solving problems with the best-fitting solution, allowing me to transition between other languages when the challenge demands."
       },
       "skills": {
         "title": "Skills",

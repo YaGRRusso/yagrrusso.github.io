@@ -26,6 +26,13 @@
     "viewAll": "Ver Tudo",
     "loadMore": "Carregar Mais",
     "page": "Página { current } de { total }",
+    "time": {
+      "minutes": "{count, plural, =1 {um minuto} other {# minutos}}",
+      "hours": "{count, plural, =1 {uma hora} other {# horas}}",
+      "days": "{count, plural, =1 {um dia} other {# dias}}",
+      "months": "{count, plural, =1 {um mês} other {# meses}}",
+      "years": "{count, plural, =1 {um ano} other {# anos}}"
+    },
     "status": {
       "completed": "Concluído",
       "inProgress": "Em Progresso",
@@ -102,7 +109,7 @@
     "description": "Oi, eu sou o Yago. Este é o meu site, onde eu crio coisas simples de formas super complicadas apenas para provar que eu consigo. Explore meus projetos, confira minha stack, e veja o que acontece quando tenho tempo livre e um editor de texto.",
     "viewAll": "Ver Tudo",
     "yearsOfExperience": "Anos de Experiência",
-    "projectsCompleted": "Projetos Entregues",
+    "projectsCompleted": "Projetos Completos",
     "technologiesUsed": "Tecnologias",
     "clientsServed": "Clientes/Empresas",
     "openCv": "Abrir Currículo",
@@ -110,8 +117,7 @@
       "aboutMe": {
         "title": "Sobre Mim",
         "description": "Escrevendo letrinhas coloridas desde { year }",
-        "message": "Sou o Yago, tenho { age } e atualmente moro em { address }. Sou especialista em transformar café em código e, quando não estou mexendo em uma IDE com tema escuro, também gosto de <span>tocar guitarra;ler livros;criar códigos;jogar videogames;assistir filmes</span> e definitivamente sou melhor escrevendo funções do que biografias, então vamos focar na tecnologia.",
-        "experience": "Tudo começou aos { age }, quando percebi que aquelas 'letrinhas coloridas' numa tela preta faziam coisas legais. Desde então, estou numa jornada autodidata pelo vácuo infinito do desenvolvimento de software. Ao longo dos anos, troquei tutoriais genéricos no Youtube por documentações complexas, ganhando experiência real em todo o stack. Aprendo rápido, quebro coisas ocasionalmente mas sempre conserto deixando melhor do que estava antes."
+        "message": "Tenho { age } anos, moro em { address } e sou engenheiro de software fullstack especializado no ecossistema TypeScript. Tenho experiência na construção de plataformas inteiras do zero e arquiteturas altamente escalaveis completas, incluindo monorepos, microsserviços, API serverless e muito mais.<br></br>Atuei como referencia tecnica na definição de arquiteturas, mentoria de novos desenvolvedores e alinhamentos estrategicos com produto e design para entregas end-to-end. Perfil versatil e focado em resolver problemas com a solução que melhor se encaixe, permitindo transitar entre outras linguagens quando o desafio exige."
       },
       "skills": {
         "title": "Habilidades",

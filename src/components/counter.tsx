@@ -15,7 +15,7 @@ export function Counter({ value, label, accent, className, ...props }: Props) {
         <NumberTicker className="text-7xl" value={value} />
         <span className="text-6xl text-primary">{accent}</span>
       </div>
-      <span className="max-w-32 font-bold text-xl">{label}</span>
+      <span className="max-w-32 text-lg text-muted-foreground">{label}</span>
     </div>
   );
 }

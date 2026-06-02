@@ -175,6 +175,30 @@ export type CreateUserInput = {
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
+export type DashboardCount = {
+  __typename?: 'DashboardCount';
+  label: Scalars['String']['output'];
+  value: Scalars['Int']['output'];
+};
+
+export type DashboardEntity = {
+  __typename?: 'DashboardEntity';
+  coursesByStatus: Array<DashboardCount>;
+  experiencesByCategory: Array<DashboardCount>;
+  skillsByCategory: Array<DashboardCount>;
+  totals: DashboardTotals;
+};
+
+export type DashboardTotals = {
+  __typename?: 'DashboardTotals';
+  courses: Scalars['Int']['output'];
+  educations: Scalars['Int']['output'];
+  experiences: Scalars['Int']['output'];
+  organizations: Scalars['Int']['output'];
+  projects: Scalars['Int']['output'];
+  skills: Scalars['Int']['output'];
+};
+
 export type DateRangeEntity = {
   __typename?: 'DateRangeEntity';
   from?: Maybe<Scalars['DateTime']['output']>;
@@ -710,6 +734,7 @@ export type ProjectMessagesTranslationEntity = {
 
 export type Query = {
   __typename?: 'Query';
+  dashboard: DashboardEntity;
   findManyCourseById: Array<CourseEntity>;
   findManyCourses: PaginatedCourseEntity;
   findManyEducationById: Array<EducationEntity>;

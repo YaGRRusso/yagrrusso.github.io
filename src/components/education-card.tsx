@@ -2,12 +2,16 @@ import {
   ArrowUpRightIcon,
   CheckCircleIcon,
   ClockIcon,
+  DotIcon,
+  MedalIcon,
+  PackageIcon,
   WarningCircleIcon,
 } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { type EducationLevel, EducationStatus } from "@/graphql/graphql";
+import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
 import { Avatar } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -73,7 +77,7 @@ export function EducationCard({
   return (
     <a
       className={cn(
-        "group/hover flex h-full flex-col justify-center gap-4 rounded border bg-alternative px-8 py-12",
+        "group/hover flex h-full flex-col justify-center gap-4 rounded border px-8 py-12",
         className
       )}
       href={url ?? image ?? organization.website}
@@ -93,21 +97,20 @@ export function EducationCard({
         )}
       </div>
       <div className="flex flex-col gap-1">
-        <Badge className="w-fit uppercase" variant="outline">
-          {tCommon(`level.${level}`)}
-        </Badge>
-        <h3 className="font-semibold text-2xl">{title}</h3>
+        <h3 className="font-semibold text-3xl">{title}</h3>
         <span className="text-muted-foreground">{description}</span>
       </div>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-semibold text-muted-foreground text-sm">
-        {variants && (
-          <div
-            className={cn("flex items-center gap-1", variants[status]?.color)}
-          >
-            {variants[status]?.icon}
-            {tCommon(variants[status]?.label)}
-          </div>
-        )}
+      <div className="flex items-center gap-2">
+        <Badge variant="secondary">
+          {variants[status]?.icon}
+          {tCommon(variants[status]?.label)}
+        </Badge>
+        <Badge variant="secondary">
+          <MedalIcon />
+          {tCommon(`level.${level}`)}
+        </Badge>
+      </div>
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground text-sm">
         {period && (
           <div>
             {dayjs(period.from).format("MM/YYYY")}
@@ -117,12 +120,23 @@ export function EducationCard({
               : tCommon("present")}
           </div>
         )}
+        <DotIcon />
         <div>@{organization.name}</div>
       </div>
+
       {skills && skills.length > 0 && (
-        <div className="scrollbar-hidden flex max-w-11/12 items-center gap-1 overflow-auto text-sm">
+        <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           {skills.map((skill) => (
-            <Badge className="uppercase" key={skill.id} variant="secondary">
+            <Badge key={skill.id} variant="outline">
+              <Avatar.Root className="size-2.5 rounded-xs">
+                <Avatar.Image
+                  alt={skill.name}
+                  src={simpleIconsCdn(skill.slug)}
+                />
+                <Avatar.Fallback className="bg-transparent">
+                  <PackageIcon weight="fill" />
+                </Avatar.Fallback>
+              </Avatar.Root>
               {skill.name}
             </Badge>
           ))}

@@ -2,11 +2,14 @@ import {
   ArrowUpRightIcon,
   FrameCornersIcon,
   HashIcon,
+  PackageIcon,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Avatar } from "radix-ui";
 import type { ComponentProps } from "react";
 import { Urls } from "@/consts/urls";
+import { simpleIconsCdn } from "@/lib/cdn";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -45,7 +48,7 @@ export function ProjectCard({
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded border bg-alternative max-lg:flex-col-reverse lg:h-128",
+        "flex items-center justify-center rounded border max-lg:flex-col-reverse lg:h-128",
         direction === "left" ? "flex-row" : "flex-row-reverse"
       )}
       {...props}
@@ -59,33 +62,37 @@ export function ProjectCard({
         >
           <strong className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
             <HashIcon weight="bold" />
-            <span>{slug}</span>
+            <span className="line-clamp-1">{slug}</span>
           </strong>
           <div className="flex flex-col gap-2">
             <h3 className="font-semibold text-6xl max-md:text-5xl">{title}</h3>
             <p className="text-muted-foreground">{description}</p>
             {skills && skills.length > 0 && (
-              <div className="scrollbar-hidden mt-2 flex max-w-11/12 items-center gap-1 overflow-auto text-sm">
+              <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
-                  <Badge
-                    className="uppercase"
-                    key={skill.id}
-                    variant="secondary"
-                  >
+                  <Badge key={skill.id} variant="outline">
+                    <Avatar.Root className="size-2.5 rounded-xs">
+                      <Avatar.Image
+                        alt={skill.name}
+                        src={simpleIconsCdn(skill.slug)}
+                      />
+                      <Avatar.Fallback className="bg-transparent">
+                        <PackageIcon weight="fill" />
+                      </Avatar.Fallback>
+                    </Avatar.Root>
                     {skill.name}
                   </Badge>
                 ))}
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {urls?.map((url) => {
               const infos = Urls[url.title] ?? Urls.other;
 
               return (
                 <Button
                   asChild
-                  className="flex-1"
                   key={url.title + url.value}
                   size="sm"
                   variant="outline"

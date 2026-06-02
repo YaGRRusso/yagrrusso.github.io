@@ -35,13 +35,11 @@ import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { Marquee } from "@/components/ui/marquee";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip } from "@/components/ui/tooltip";
-import { TypingAnimation } from "@/components/ui/typing-animation";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { SortEnum } from "@/graphql/graphql";
 import { useFindManyCourses } from "@/hooks/queries/courses";
@@ -115,7 +113,7 @@ export function ClientPage() {
             </Highlighter>
           </div>
           <p className="text-muted-foreground">{t("description")}</p>
-          <div className="scrollbar-hidden flex items-center gap-2 overflow-auto md:flex-wrap">
+          <div className="flex flex-wrap items-center gap-2">
             <TitleLink
               href="https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/curriculum.pdf"
               icon={<ReadCvLogoIcon weight="bold" />}
@@ -152,28 +150,31 @@ export function ClientPage() {
           <Image
             alt="sticker"
             className="max-md:mask-b-from-75% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
-            height={512}
+            height={460}
             priority={true}
             src="/images/sticker.png"
-            width={512}
+            width={460}
           />
         </AnimateOnScroll>
       </div>
       <Separator />
       <Marquee className="w-full" pauseOnHover>
-        <div className="flex items-center gap-8 px-4 py-6 opacity-75">
+        <div className="flex items-center gap-8 p-4 opacity-75">
           {findManySkills.data?.findManySkills.nodes.map((skill) => (
             <Fragment key={skill.id}>
-              <Avatar.Root className="size-4 brightness-0 dark:invert">
+              <Avatar.Root className="size-2.5">
                 <Avatar.Image
                   alt={skill.name}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
-                  <DiamondIcon className="size-4" weight="fill" />
+                  <DiamondIcon weight="fill" />
                 </Avatar.Fallback>
               </Avatar.Root>
-              <span className="font-medium text-xs uppercase" key={skill.id}>
+              <span
+                className="text-[0.625rem] uppercase tracking-wide"
+                key={skill.id}
+              >
                 {skill.name}
               </span>
             </Fragment>
@@ -183,63 +184,35 @@ export function ClientPage() {
       <Separator />
       <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
-          <div className="flex gap-x-32 max-lg:flex-col">
-            <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={-16}>
-              <SectionTitle
-                description={t("sections.aboutMe.description", {
-                  year: 2020,
-                })}
-                id="about-me"
-                title={t("sections.aboutMe.title")}
+          <AnimateOnScroll className="flex flex-1 flex-col gap-4" y={16}>
+            <SectionTitle
+              description={t("sections.aboutMe.description", {
+                year: 2020,
+              })}
+              id="about-me"
+              title={t("sections.aboutMe.title")}
+            />
+            <p className="text-muted-foreground">
+              {t.rich("sections.aboutMe.message", {
+                age: dayjs().diff("2001-11-30", "year", false),
+                address: "Gravataí, RS, Brazil",
+                br: () => <br />,
+              })}
+            </p>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Counter
+                accent="+"
+                label={t("yearsOfExperience")}
+                value={dayjs().diff("2020-01-01", "year", false)}
               />
-              <p className="text-muted-foreground">
-                {t.rich("sections.aboutMe.message", {
-                  age: dayjs().diff("2001-11-30", "year", false),
-                  address: "Rio Grande do Sul, Brazil",
-                  span: (chunks) => {
-                    const text = Array.isArray(chunks) ? chunks[0] : chunks;
-                    const words =
-                      typeof text === "string" ? text.split(";") : [];
-                    return (
-                      <TypingAnimation
-                        deleteSpeed={30}
-                        loop
-                        pauseDelay={1600}
-                        startOnView
-                        typeSpeed={80}
-                        words={words}
-                      />
-                    );
-                  },
-                })}
-              </p>
-            </AnimateOnScroll>
-            <AnimateOnScroll className="flex flex-1 flex-col gap-4" x={16}>
-              <p className="text-muted-foreground">
-                {t("sections.aboutMe.experience", { age: 18 })}
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-8">
-                <Counter
-                  accent="+"
-                  className="flex-1"
-                  label={t("yearsOfExperience")}
-                  value={dayjs().diff("2020-01-01", "year", false)}
-                />
-                <Counter
-                  accent="+"
-                  className="flex-1"
-                  label={t("projectsCompleted")}
-                  value={32}
-                />
-              </div>
-            </AnimateOnScroll>
-          </div>
+              <Counter accent="+" label={t("projectsCompleted")} value={32} />
+            </div>
+          </AnimateOnScroll>
         </div>
       </div>
       <Separator />
-      <div className="w-full bg-background">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
-          <DotPattern className="mask-[radial-gradient(48rem_circle_at_center,white,transparent)] -z-10 opacity-50" />
           <AnimateOnScroll
             className="flex flex-1 flex-wrap justify-between gap-8"
             y={16}
@@ -338,7 +311,7 @@ export function ClientPage() {
         </Carousel.Root>
       </div>
       <Separator />
-      <div className="w-full bg-background">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
           <AnimateOnScroll
             className="flex flex-1 flex-wrap justify-between gap-8"
@@ -368,7 +341,7 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <div className="w-full bg-background">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
           <AnimateOnScroll
             className="flex flex-1 flex-wrap justify-between gap-8"
@@ -402,7 +375,7 @@ export function ClientPage() {
         </div>
       </div>
       <Separator />
-      <div className="w-full bg-background">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col justify-center gap-8">
           <AnimateOnScroll
             className="flex flex-1 flex-wrap justify-between gap-8"
@@ -433,19 +406,22 @@ export function ClientPage() {
       </div>
       <Separator />
       <Marquee className="w-full" pauseOnHover>
-        <div className="flex items-center gap-8 px-4 py-6 opacity-75">
+        <div className="flex items-center gap-8 p-4 opacity-75">
           {findManySkills.data?.findManySkills.nodes.map((skill) => (
             <Fragment key={skill.id}>
-              <Avatar.Root className="size-4 brightness-0 dark:invert">
+              <Avatar.Root className="size-2.5">
                 <Avatar.Image
                   alt={skill.name}
                   src={simpleIconsCdn(skill.slug)}
                 />
                 <Avatar.Fallback className="bg-transparent">
-                  <DiamondIcon className="size-4" weight="fill" />
+                  <DiamondIcon weight="fill" />
                 </Avatar.Fallback>
               </Avatar.Root>
-              <span className="font-medium text-xs uppercase" key={skill.id}>
+              <span
+                className="text-[0.625rem] uppercase tracking-wide"
+                key={skill.id}
+              >
                 {skill.name}
               </span>
             </Fragment>
@@ -453,7 +429,7 @@ export function ClientPage() {
         </div>
       </Marquee>
       <Separator />
-      <div className="w-full bg-background">
+      <div className="w-full">
         <div className="container relative flex w-full flex-col gap-8">
           <div className="flex gap-x-32 gap-y-8 max-lg:flex-col">
             <AnimateOnScroll

@@ -156,6 +156,27 @@ input CreateUserInput {
   urls: [UrlInput!]
 }
 
+type DashboardCount {
+  label: String!
+  value: Int!
+}
+
+type DashboardEntity {
+  coursesByStatus: [DashboardCount!]!
+  experiencesByCategory: [DashboardCount!]!
+  skillsByCategory: [DashboardCount!]!
+  totals: DashboardTotals!
+}
+
+type DashboardTotals {
+  courses: Int!
+  educations: Int!
+  experiences: Int!
+  organizations: Int!
+  projects: Int!
+  skills: Int!
+}
+
 type DateRangeEntity {
   from: DateTime
   to: DateTime
@@ -446,6 +467,7 @@ type ProjectMessagesTranslationEntity {
 }
 
 type Query {
+  dashboard: DashboardEntity!
   findManyCourseById(courseIds: [ID!]!): [CourseEntity!]!
   findManyCourses(courseFilters: FilterCourseInput, coursePagination: PaginationInput, courseSort: SortCourseInput): PaginatedCourseEntity!
   findManyEducationById(educationIds: [ID!]!): [EducationEntity!]!
