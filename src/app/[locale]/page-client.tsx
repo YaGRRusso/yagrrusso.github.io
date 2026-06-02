@@ -7,6 +7,7 @@ import { CoursesSection } from "./_components/sections/courses-section";
 import { EducationSection } from "./_components/sections/education-section";
 import { ExperienceSection } from "./_components/sections/experience-section";
 import { HeroSection } from "./_components/sections/hero-section";
+import { NetworkSection } from "./_components/sections/network-section";
 import { PortfolioSection } from "./_components/sections/portfolio-section";
 import { SkillsMarqueeSection } from "./_components/sections/skills-marquee-section";
 import { SkillsSection } from "./_components/sections/skills-section";
@@ -29,6 +30,8 @@ export function ClientPage() {
       <EducationSection />
       <Separator />
       <CoursesSection />
+      <Separator />
+      <NetworkSection />
       <Separator />
       <SkillsMarqueeSection />
       <Separator />

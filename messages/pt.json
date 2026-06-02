@@ -161,6 +161,10 @@
         "title": "Cursos",
         "description": "Certificações e cursos que concluí ao longo do caminho"
       },
+      "network": {
+        "title": "Parceiros e Contatos",
+        "description": "Pessoas com quem já trabalhei ou tenho contato e recomendo"
+      },
       "getInTouch": {
         "title": "Vamos Conversar",
         "description": "Fique à vontade para entrar em contato",

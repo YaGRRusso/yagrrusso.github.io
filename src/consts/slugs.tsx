@@ -4,17 +4,17 @@ import type { ReactNode } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { simpleIconsCdn } from "@/lib/cdn";
 
-interface SlugType {
+export type SlugType = {
   icon: ReactNode;
-}
+};
 
 export const SLUGS = {
-  other: { icon: <PackageIcon className="size-[1em]" /> },
+  other: { icon: <PackageIcon /> },
   javascript: { icon: <SiJavascript className="size-[1em]" color="default" /> },
   vite: { icon: <SiVite className="size-[1em]" color="default" /> },
 } as const satisfies Record<string, SlugType>;
 
-export function getSlug(value: string) {
+export function getSlug(value: keyof typeof SLUGS | (string & {})) {
   const slug = SLUGS[value as keyof typeof SLUGS];
   if (slug) return slug;
 

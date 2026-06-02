@@ -9,10 +9,10 @@ import {
 import { useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { SectionTitle } from "@/components/section-title";
-import { SkillCard } from "@/components/skill-card";
 import { Button } from "@/components/ui/button";
 import { Carousel } from "@/components/ui/carousel";
 import { Link } from "@/i18n/navigation";
+import { SkillCard } from "../skill-card";
 
 export function SkillsSection() {
   const t = useTranslations("homePage");

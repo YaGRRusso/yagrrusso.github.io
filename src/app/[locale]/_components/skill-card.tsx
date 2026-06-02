@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { Carousel } from "./ui/carousel";
+import { Carousel } from "../../../components/ui/carousel";
 
 interface Props extends ComponentProps<typeof Carousel.Item> {
   description: string;

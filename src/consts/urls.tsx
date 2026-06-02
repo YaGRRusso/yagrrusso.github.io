@@ -9,7 +9,7 @@ import {
 } from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 
-type UrlType = { value: string; key: string; icon: ReactNode };
+export type UrlType = { value: string; key: string; icon: ReactNode };
 
 export const URLS = {
   other: {
@@ -59,7 +59,7 @@ export const URLS = {
   },
 } as const satisfies Record<string, UrlType>;
 
-export function getUrl(value: string) {
+export function getUrl(value: keyof typeof URLS | (string & {})) {
   const url = URLS[value as keyof typeof URLS];
   if (url) return url;
 

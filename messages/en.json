@@ -161,6 +161,10 @@
         "title": "Courses",
         "description": "Certifications and courses I've completed along the way"
       },
+      "network": {
+        "title": "Partners and Contacts",
+        "description": "People I've worked with or have contact with and recommend"
+      },
       "getInTouch": {
         "title": "Let's Talk",
         "description": "Feel free to reach out",
