@@ -1,12 +1,12 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { SortEnum } from "@/graphql/graphql";
 import { prefetchFindManySkills } from "@/hooks/queries/skills";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
+import { SKILL_SKILLS_VARS } from "./queries";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -31,11 +31,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindManySkills(queryClient, {
-    skillFilters: {},
-    skillPagination: { limit: 50, skip: 0 },
-    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-  });
+  await prefetchFindManySkills(queryClient, SKILL_SKILLS_VARS);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

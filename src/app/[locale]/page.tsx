@@ -1,7 +1,6 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { SortEnum } from "@/graphql/graphql";
 import { prefetchFindManyCourses } from "@/hooks/queries/courses";
 import { prefetchFindManyEducations } from "@/hooks/queries/educations";
 import { prefetchFindManyExperiences } from "@/hooks/queries/experiences";
@@ -11,6 +10,13 @@ import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
+import {
+  HOME_COURSES_VARS,
+  HOME_EDUCATIONS_VARS,
+  HOME_EXPERIENCES_VARS,
+  HOME_PROJECTS_VARS,
+  HOME_SKILLS_VARS,
+} from "./queries";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -35,27 +41,11 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindManySkills(queryClient, {
-    skillFilters: {},
-    skillPagination: { limit: 50, skip: 0 },
-    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-  });
-  await prefetchFindManyProjects(queryClient, {
-    projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    projectPagination: { limit: 3 },
-  });
-  await prefetchFindManyExperiences(queryClient, {
-    experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    experiencePagination: { limit: 3 },
-  });
-  await prefetchFindManyEducations(queryClient, {
-    educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    educationPagination: { limit: 3 },
-  });
-  await prefetchFindManyCourses(queryClient, {
-    courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-    coursePagination: { limit: 6 },
-  });
+  await prefetchFindManySkills(queryClient, HOME_SKILLS_VARS);
+  await prefetchFindManyProjects(queryClient, HOME_PROJECTS_VARS);
+  await prefetchFindManyExperiences(queryClient, HOME_EXPERIENCES_VARS);
+  await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
+  await prefetchFindManyCourses(queryClient, HOME_COURSES_VARS);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

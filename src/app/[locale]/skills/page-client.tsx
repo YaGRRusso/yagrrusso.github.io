@@ -21,9 +21,10 @@ import { Pagination } from "@/components/ui/pagination";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SkillCategory, SortEnum } from "@/graphql/graphql";
+import { SkillCategory } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { getPagination } from "@/lib/pagination";
+import { SKILL_SKILLS_VARS } from "./queries";
 
 export function ClientPage() {
   const t = useTranslations("skillsPage");
@@ -44,14 +45,7 @@ export function ClientPage() {
   const limit = 50;
   const skip = (page - 1) * limit;
 
-  const findManySkills = useFindManySkills({
-    skillFilters: {
-      // name: query === "" ? undefined : query,
-      category: category === "ALL" ? undefined : category,
-    },
-    skillPagination: { limit, skip },
-    skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-  });
+  const findManySkills = useFindManySkills(SKILL_SKILLS_VARS);
 
   const pagination = getPagination(
     limit,
@@ -64,12 +58,6 @@ export function ClientPage() {
       <AnimateOnScroll y={16}>
         <PageTitle className="w-full" title={t("title")} />
         <div className="flex w-full items-center justify-end gap-2">
-          {/* <Input
-            className="flex-1"
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Query"
-            value={query}
-          /> */}
           <Select.Root
             onValueChange={(value) =>
               setCategory(value as SkillCategory | "ALL")
