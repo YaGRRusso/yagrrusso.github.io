@@ -44,6 +44,9 @@ jobs:
           NEXT_PUBLIC_API_TOKEN: ${{ secrets.API_TOKEN }}
           NEXT_PUBLIC_API_URL: ${{ secrets.API_URL }}
 
+      - name: Run Tests
+        run: npm run test
+
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
         with:

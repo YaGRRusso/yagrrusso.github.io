@@ -139,7 +139,7 @@ Adding a UI primitive:
 - Architecture style: layered by responsibility (app routes, hooks as the data layer, lib as utilities, components as the view). No domain/clean-architecture folders.
 - Naming: files and folders are kebab-case (for example `layout-client.tsx`, `use-messages.ts`). React components are PascalCase. Query hooks follow `prefetchFindManyX` / `useFindManyX`.
 - Commits: Husky `pre-commit` runs `npx lint-staged`, which runs `npx ultracite fix` on staged JS/TS/JSON/CSS/MD files. No commit-message convention is enforced.
-- Testing: none in this repo.
+- Testing: Vitest. Run the suite with `npm run test` (`vitest run`) or `npm run test:watch`. The only suite so far is `tests/seo.test.ts` (a post-build SEO/content smoke test that needs a prior `npm run build`). No component/unit tests yet; add new tests under `tests/`.
 
 ## Directory map
 
@@ -183,6 +183,7 @@ names during the build step in `nextjs.yml`.
 - `npm run serve`: `serve -s out -l 4000`, serves the exported `out/` locally on port 4000.
 - `npm run check`: `ultracite check`, lint/format verification.
 - `npm run fix`: `ultracite fix`, auto-fix and format.
+- `npm run test`: `vitest run`, runs the whole Vitest suite once. `npm run test:watch` (`vitest`) runs it in watch mode. The current suite is `tests/seo.test.ts`, a post-build smoke test (Vitest + cheerio) — run it AFTER `npm run build`, since it parses the emitted HTML in `out/`. Parameterized per route with `describe.each`, it asserts each exported route has full SEO `<head>` (title, description, canonical, per-locale hreflang, og:*, twitter, html lang) AND that the data was server-rendered — it fails if a page is `data-state="loading"` or if an expected query is absent from the dehydrated React Query state in the HTML (the signature of "API was down at build time → empty shell"). CI runs `npm run test` between build and the Pages upload. Add more tests under `tests/`; they all run with `npm run test` (note any future suite that needs `out/` requires a prior build).
 - `npm run setup`: `bash setup.sh`, installs base tooling.
 - `npm run back`: `cd ../profile-info && npm run api:dev`, starts the sibling GraphQL API this site reads from.
 - `npm run prepare`: `husky || true`, installs git hooks.
@@ -190,6 +191,7 @@ names during the build step in `nextjs.yml`.
 ## Gotchas & notes
 
 - The site is a STATIC export deployed to GitHub Pages. `npm start` exists but is not the production path; the CI builds `out/` and uploads it as a Pages artifact.
+- SEO/content is NOT a client-only SPA render: the App Router static export server-renders the client components at build time, reading the cache hydrated by each route's server `page.tsx` prefetch, so the real data AND the serialized React Query state are baked into the static HTML (crawlers see content, not a loading shell). The hard dependency is that the GraphQL API must be reachable at build time — if it is down, the failed prefetch is dropped from the dehydrated state and the body ships empty. `tests/seo.test.ts` (run via `npm run test` in CI) exists specifically to catch that.
 - `dehydrate` deliberately invalidates queries before dehydrating so the client refetches live data. Do not "optimize" this away: the build-time snapshot would otherwise go stale.
 - `npm run dev` will fail or stall in codegen if the GraphQL API is not running and reachable at `NEXT_PUBLIC_API_URL`. Start the API first (`npm run back`, which expects a sibling `profile-info` repo).
 - `.env.development` is gitignored (only `*.example` is committed). Copy `.env.example` to `.env.development` locally.
