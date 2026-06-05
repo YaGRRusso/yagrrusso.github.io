@@ -26,6 +26,8 @@
     "viewAll": "View All",
     "loadMore": "Load More",
     "page": "Page { current } of { total }",
+    "showMore": "Show more",
+    "showLess": "Show less",
     "time": {
       "minutes": "{count, plural, =1 {one minute} other {# minutes}}",
       "hours": "{count, plural, =1 {one hour} other {# hours}}",

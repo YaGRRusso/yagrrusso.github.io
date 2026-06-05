@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { ExpandCharacters } from "@/components/expand-characters";
 import { SkillBadge } from "@/components/skill-badge";
 import { Accordion } from "@/components/ui/accordion";
 import { Avatar } from "@/components/ui/avatar";
@@ -97,7 +98,9 @@ export function ExperienceCard({
               </Timeline.Header>
               <Timeline.Content className="flex flex-col">
                 <Accordion.Content className="py-2 text-muted-foreground">
-                  {role.description}
+                  <ExpandCharacters text={role.description}>
+                    {role.description}
+                  </ExpandCharacters>
                 </Accordion.Content>
                 {role.skills && role.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">

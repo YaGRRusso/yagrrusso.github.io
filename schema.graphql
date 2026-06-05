@@ -3,8 +3,28 @@ schema {
   mutation: Mutation
 }
 
+input AtsSummarizeInput {
+  details: [DetailInput!]
+  raw: String!
+  skills: [String!]!
+  type: ResourceType!
+}
+
 type BatchEntity {
   count: Int!
+}
+
+enum ChatFinishReason {
+  CONTENT_FILTER
+  ERROR
+  LENGTH
+  STOP
+  TOOL_CALLS
+}
+
+type ChoiceEntity {
+  finishReason: ChatFinishReason
+  message: MessageEntity!
 }
 
 type CourseEntity {
@@ -192,6 +212,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DetailInput {
+  key: String!
+  value: [String!]!
+}
+
 type EducationEntity {
   createdAt: DateTime!
   i18n: [EducationTranslationLocale!]!
@@ -340,7 +365,20 @@ input FilterUserInput {
   urls: [UrlInput!]
 }
 
+type GenericIaEntity {
+  messages: [ChoiceEntity!]!
+  usage: UsageEntity
+}
+
+type MessageEntity {
+  content: String!
+  reasoning: String
+  refusal: String
+  role: OpenRouterRole!
+}
+
 type Mutation {
+  atsSummarize(atsSummarizeInput: AtsSummarizeInput!): GenericIaEntity!
   createManyCourses(createCourseInputs: [CreateCourseInput!]!): [CourseEntity!]!
   createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
   createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
@@ -370,6 +408,7 @@ type Mutation {
   removeOneSkill(skillId: ID!): SkillEntity!
   removeOneUser(userId: ID!): UserEntity!
   signIn(signInInput: SignInInput!): String!
+  translate(translateInput: TranslateInput!): GenericIaEntity!
   updateManyCourses(courseIds: [ID!]!, updateCourseInput: UpdateCourseInput!): BatchEntity!
   updateManyEducations(educationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
   updateManyExperiences(experienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
@@ -384,6 +423,14 @@ type Mutation {
   updateOneProject(projectId: ID!, updateProjectInput: UpdateProjectInput!): ProjectEntity!
   updateOneSkill(skillId: ID!, updateSkillInput: UpdateSkillInput!): SkillEntity!
   updateOneUser(updateUserInput: UpdateUserInput!, userId: ID!): UserEntity!
+}
+
+enum OpenRouterRole {
+  ASSISTANT
+  DEVELOPER
+  SYSTEM
+  TOOL
+  USER
 }
 
 enum OrganizationCategory {
@@ -499,6 +546,13 @@ type Query {
   getMe: UserEntity!
 }
 
+enum ResourceType {
+  COURSE
+  EDUCATION
+  EXPERIENCE
+  PROJECT
+}
+
 input SignInInput {
   email: String!
   password: String!
@@ -569,6 +623,12 @@ input SortUserInput {
   createdAt: SortEnum
   name: SortEnum
   updatedAt: SortEnum
+}
+
+input TranslateInput {
+  raw: String!
+  sourceLanguage: String
+  targetLanguage: String!
 }
 
 input UpdateCourseInput {
@@ -651,6 +711,13 @@ type UrlEntity {
 input UrlInput {
   title: String!
   value: String!
+}
+
+type UsageEntity {
+  completionTokens: Float
+  cost: Float
+  promptTokens: Float
+  totalTokens: Float
 }
 
 type UserEntity {

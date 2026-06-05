@@ -2,6 +2,7 @@ import { ArrowUpRightIcon, DotIcon, MedalIcon } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { ExpandCharacters } from "@/components/expand-characters";
 import { SkillBadge } from "@/components/skill-badge";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -73,7 +74,12 @@ export function EducationCard({
       </div>
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold text-3xl">{title}</h3>
-        <span className="text-muted-foreground">{description}</span>
+        <ExpandCharacters
+          className="text-muted-foreground"
+          text={description ?? ""}
+        >
+          {description}
+        </ExpandCharacters>
       </div>
       <div className="flex items-center gap-2">
         <StatusBadge status={status} />

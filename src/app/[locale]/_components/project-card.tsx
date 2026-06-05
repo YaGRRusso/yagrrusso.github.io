@@ -1,7 +1,8 @@
 import { FrameCornersIcon, HashIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ComponentProps } from "react";
+import { type ComponentProps, useState } from "react";
+import { ExpandCharacters } from "@/components/expand-characters";
 import { SkillBadge } from "@/components/skill-badge";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
@@ -37,6 +38,7 @@ export function ProjectCard({
   ...props
 }: Props) {
   const tCommon = useTranslations("common");
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
@@ -46,7 +48,7 @@ export function ProjectCard({
       )}
       {...props}
     >
-      <div className="h-full w-full min-w-0 flex-1">
+      <div className="h-full w-full min-w-0 flex-3">
         <div
           className={cn(
             "flex h-full flex-col justify-between gap-6 p-8 max-md:p-6",
@@ -58,8 +60,17 @@ export function ProjectCard({
             <span className="line-clamp-1">{slug}</span>
           </div>
           <div className="flex flex-col gap-2">
-            <h3 className="font-semibold text-6xl max-md:text-5xl">{title}</h3>
-            <p className="text-muted-foreground">{description}</p>
+            <h3 className="line-clamp-2 font-semibold text-6xl max-md:text-5xl">
+              {title}
+            </h3>
+            <ExpandCharacters
+              className="text-muted-foreground"
+              length={128}
+              onResize={(isExpanded) => setIsOpen(isExpanded)}
+              text={description}
+            >
+              {description}
+            </ExpandCharacters>
             {skills && skills.length > 0 && (
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
@@ -89,15 +100,12 @@ export function ProjectCard({
           </div>
         </div>
       </div>
-      <Dialog.Root>
-        <div className="group relative h-full w-full min-w-0 flex-1">
+      <Dialog.Root onOpenChange={setIsOpen} open={isOpen}>
+        <div className="group relative h-full w-full min-w-0 flex-2">
           <Image
             alt={slug}
             className={cn(
-              "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-top max-lg:max-h-96",
-              direction === "left"
-                ? "lg:mask-l-from-75% lg:mask-l-to-100%"
-                : "lg:mask-r-from-75% lg:mask-r-to-100%"
+              "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-top max-lg:max-h-96"
             )}
             height={720}
             src={images?.[0] ?? "https://picsum.photos/1280/720"}
@@ -110,7 +118,11 @@ export function ProjectCard({
         <Dialog.Content>
           <Dialog.Header>
             <Dialog.Title>{title}</Dialog.Title>
-            <Dialog.Description>{description}</Dialog.Description>
+            <Dialog.Description asChild>
+              <ExpandCharacters length={128} text={description}>
+                {description}
+              </ExpandCharacters>
+            </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>
             <Image

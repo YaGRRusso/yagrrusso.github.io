@@ -18,9 +18,30 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AtsSummarizeInput = {
+  details?: InputMaybe<Array<DetailInput>>;
+  raw: Scalars['String']['input'];
+  skills: Array<Scalars['String']['input']>;
+  type: ResourceType;
+};
+
 export type BatchEntity = {
   __typename?: 'BatchEntity';
   count: Scalars['Int']['output'];
+};
+
+export enum ChatFinishReason {
+  ContentFilter = 'CONTENT_FILTER',
+  Error = 'ERROR',
+  Length = 'LENGTH',
+  Stop = 'STOP',
+  ToolCalls = 'TOOL_CALLS'
+}
+
+export type ChoiceEntity = {
+  __typename?: 'ChoiceEntity';
+  finishReason?: Maybe<ChatFinishReason>;
+  message: MessageEntity;
 };
 
 export type CourseEntity = {
@@ -210,6 +231,11 @@ export type DateRangeInput = {
   to?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type DetailInput = {
+  key: Scalars['String']['input'];
+  value: Array<Scalars['String']['input']>;
+};
+
 export type EducationEntity = {
   __typename?: 'EducationEntity';
   createdAt: Scalars['DateTime']['output'];
@@ -365,8 +391,23 @@ export type FilterUserInput = {
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
+export type GenericIaEntity = {
+  __typename?: 'GenericIaEntity';
+  messages: Array<ChoiceEntity>;
+  usage?: Maybe<UsageEntity>;
+};
+
+export type MessageEntity = {
+  __typename?: 'MessageEntity';
+  content: Scalars['String']['output'];
+  reasoning?: Maybe<Scalars['String']['output']>;
+  refusal?: Maybe<Scalars['String']['output']>;
+  role: OpenRouterRole;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  atsSummarize: GenericIaEntity;
   createManyCourses: Array<CourseEntity>;
   createManyEducations: Array<EducationEntity>;
   createManyExperiences: Array<ExperienceEntity>;
@@ -396,6 +437,7 @@ export type Mutation = {
   removeOneSkill: SkillEntity;
   removeOneUser: UserEntity;
   signIn: Scalars['String']['output'];
+  translate: GenericIaEntity;
   updateManyCourses: BatchEntity;
   updateManyEducations: BatchEntity;
   updateManyExperiences: BatchEntity;
@@ -410,6 +452,11 @@ export type Mutation = {
   updateOneProject: ProjectEntity;
   updateOneSkill: SkillEntity;
   updateOneUser: UserEntity;
+};
+
+
+export type MutationAtsSummarizeArgs = {
+  atsSummarizeInput: AtsSummarizeInput;
 };
 
 
@@ -558,6 +605,11 @@ export type MutationSignInArgs = {
 };
 
 
+export type MutationTranslateArgs = {
+  translateInput: TranslateInput;
+};
+
+
 export type MutationUpdateManyCoursesArgs = {
   courseIds: Array<Scalars['ID']['input']>;
   updateCourseInput: UpdateCourseInput;
@@ -640,6 +692,14 @@ export type MutationUpdateOneUserArgs = {
   updateUserInput: UpdateUserInput;
   userId: Scalars['ID']['input'];
 };
+
+export enum OpenRouterRole {
+  Assistant = 'ASSISTANT',
+  Developer = 'DEVELOPER',
+  System = 'SYSTEM',
+  Tool = 'TOOL',
+  User = 'USER'
+}
 
 export enum OrganizationCategory {
   Company = 'COMPANY',
@@ -920,6 +980,13 @@ export type QueryFindOneUserByIdArgs = {
   userId: Scalars['ID']['input'];
 };
 
+export enum ResourceType {
+  Course = 'COURSE',
+  Education = 'EDUCATION',
+  Experience = 'EXPERIENCE',
+  Project = 'PROJECT'
+}
+
 export type SignInInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -991,6 +1058,12 @@ export type SortUserInput = {
   createdAt?: InputMaybe<SortEnum>;
   name?: InputMaybe<SortEnum>;
   updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type TranslateInput = {
+  raw: Scalars['String']['input'];
+  sourceLanguage?: InputMaybe<Scalars['String']['input']>;
+  targetLanguage: Scalars['String']['input'];
 };
 
 export type UpdateCourseInput = {
@@ -1074,6 +1147,14 @@ export type UrlEntity = {
 export type UrlInput = {
   title: Scalars['String']['input'];
   value: Scalars['String']['input'];
+};
+
+export type UsageEntity = {
+  __typename?: 'UsageEntity';
+  completionTokens?: Maybe<Scalars['Float']['output']>;
+  cost?: Maybe<Scalars['Float']['output']>;
+  promptTokens?: Maybe<Scalars['Float']['output']>;
+  totalTokens?: Maybe<Scalars['Float']['output']>;
 };
 
 export type UserEntity = {
