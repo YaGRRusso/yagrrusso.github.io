@@ -18,6 +18,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type AiEntity = {
+  __typename?: 'AiEntity';
+  messages: Array<ChoiceEntity>;
+  usage?: Maybe<UsageEntity>;
+};
+
 export type AtsSummarizeInput = {
   details?: InputMaybe<Array<DetailInput>>;
   raw: Scalars['String']['input'];
@@ -36,6 +42,14 @@ export enum ChatFinishReason {
   Length = 'LENGTH',
   Stop = 'STOP',
   ToolCalls = 'TOOL_CALLS'
+}
+
+export enum ChatRole {
+  Assistant = 'ASSISTANT',
+  Developer = 'DEVELOPER',
+  System = 'SYSTEM',
+  Tool = 'TOOL',
+  User = 'USER'
 }
 
 export type ChoiceEntity = {
@@ -150,11 +164,21 @@ export type CreateExperienceTranslationInput = {
 
 export type CreateOrganizationInput = {
   category: OrganizationCategory;
+  i18n: Array<CreateOrganizationTranslationInput>;
   logo: Scalars['String']['input'];
   name: Scalars['String']['input'];
   relevance?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
   website: Scalars['String']['input'];
+};
+
+export type CreateOrganizationMessagesInput = {
+  description: Scalars['String']['input'];
+};
+
+export type CreateOrganizationTranslationInput = {
+  locale: Scalars['String']['input'];
+  messages: CreateOrganizationMessagesInput;
 };
 
 export type CreateProjectInput = {
@@ -192,6 +216,7 @@ export type CreateUserInput = {
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<UserRole>;
   title?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
@@ -355,6 +380,7 @@ export type FilterExperienceInput = {
 
 export type FilterOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
+  i18n?: InputMaybe<Array<CreateOrganizationTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
@@ -387,14 +413,9 @@ export type FilterUserInput = {
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<UserRole>;
   title?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
-};
-
-export type GenericIaEntity = {
-  __typename?: 'GenericIaEntity';
-  messages: Array<ChoiceEntity>;
-  usage?: Maybe<UsageEntity>;
 };
 
 export type MessageEntity = {
@@ -402,12 +423,12 @@ export type MessageEntity = {
   content: Scalars['String']['output'];
   reasoning?: Maybe<Scalars['String']['output']>;
   refusal?: Maybe<Scalars['String']['output']>;
-  role: OpenRouterRole;
+  role: ChatRole;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  atsSummarize: GenericIaEntity;
+  atsSummarize: AiEntity;
   createManyCourses: Array<CourseEntity>;
   createManyEducations: Array<EducationEntity>;
   createManyExperiences: Array<ExperienceEntity>;
@@ -437,7 +458,8 @@ export type Mutation = {
   removeOneSkill: SkillEntity;
   removeOneUser: UserEntity;
   signIn: Scalars['String']['output'];
-  translate: GenericIaEntity;
+  summarize: AiEntity;
+  translate: AiEntity;
   updateManyCourses: BatchEntity;
   updateManyEducations: BatchEntity;
   updateManyExperiences: BatchEntity;
@@ -605,6 +627,11 @@ export type MutationSignInArgs = {
 };
 
 
+export type MutationSummarizeArgs = {
+  summarizeInput: SummarizeInput;
+};
+
+
 export type MutationTranslateArgs = {
   translateInput: TranslateInput;
 };
@@ -693,14 +720,6 @@ export type MutationUpdateOneUserArgs = {
   userId: Scalars['ID']['input'];
 };
 
-export enum OpenRouterRole {
-  Assistant = 'ASSISTANT',
-  Developer = 'DEVELOPER',
-  System = 'SYSTEM',
-  Tool = 'TOOL',
-  User = 'USER'
-}
-
 export enum OrganizationCategory {
   Company = 'COMPANY',
   Other = 'OTHER',
@@ -711,6 +730,7 @@ export type OrganizationEntity = {
   __typename?: 'OrganizationEntity';
   category: OrganizationCategory;
   createdAt: Scalars['DateTime']['output'];
+  i18n: Array<OrganizationTranslationLocale>;
   id: Scalars['ID']['output'];
   logo: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -718,6 +738,17 @@ export type OrganizationEntity = {
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
   website: Scalars['String']['output'];
+};
+
+export type OrganizationMessages = {
+  __typename?: 'OrganizationMessages';
+  description: Scalars['String']['output'];
+};
+
+export type OrganizationTranslationLocale = {
+  __typename?: 'OrganizationTranslationLocale';
+  locale: Scalars['String']['output'];
+  messages: OrganizationMessages;
 };
 
 export type PaginatedCourseEntity = {
@@ -984,6 +1015,7 @@ export enum ResourceType {
   Course = 'COURSE',
   Education = 'EDUCATION',
   Experience = 'EXPERIENCE',
+  Organization = 'ORGANIZATION',
   Project = 'PROJECT'
 }
 
@@ -1060,6 +1092,12 @@ export type SortUserInput = {
   updatedAt?: InputMaybe<SortEnum>;
 };
 
+export type SummarizeInput = {
+  details?: InputMaybe<Array<DetailInput>>;
+  raw: Scalars['String']['input'];
+  type: ResourceType;
+};
+
 export type TranslateInput = {
   raw: Scalars['String']['input'];
   sourceLanguage?: InputMaybe<Scalars['String']['input']>;
@@ -1102,6 +1140,7 @@ export type UpdateExperienceInput = {
 
 export type UpdateOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
+  i18n?: InputMaybe<Array<CreateOrganizationTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
@@ -1134,6 +1173,7 @@ export type UpdateUserInput = {
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<UserRole>;
   title?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
@@ -1168,18 +1208,23 @@ export type UserEntity = {
   name: Scalars['String']['output'];
   nickname: Scalars['String']['output'];
   phone?: Maybe<Scalars['String']['output']>;
-  role: Scalars['String']['output'];
+  role: UserRole;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
   urls?: Maybe<Array<UrlEntity>>;
 };
+
+export enum UserRole {
+  Admin = 'ADMIN',
+  User = 'USER'
+}
 
 export type FindOneUserByIdQueryVariables = Exact<{
   userId: Scalars['ID']['input'];
 }>;
 
 
-export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'UserEntity', id: string, address?: string | null, title?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: string, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null } };
+export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'UserEntity', id: string, address?: string | null, title?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: UserRole, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null } };
 
 export type FindManyCoursesQueryVariables = Exact<{
   courseFilters?: InputMaybe<FilterCourseInput>;

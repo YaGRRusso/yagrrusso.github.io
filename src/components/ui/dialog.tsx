@@ -57,7 +57,7 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 flex max-h-[90vh] w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] flex-col rounded-lg border bg-background shadow-lg outline-none duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in xl:max-w-6xl",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 flex max-h-[90vh] w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] flex-col overflow-auto rounded-lg border bg-background shadow-lg outline-none duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in xl:max-w-6xl",
           className
         )}
         data-slot="dialog-content"
@@ -94,7 +94,7 @@ function DialogHeader({ className, ...props }: ComponentProps<"div">) {
 function DialogBody({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex-1 overflow-auto rounded-b-lg", className)}
+      className={cn("overflow-auto rounded-b-lg", className)}
       data-slot="dialog-body"
       {...props}
     />

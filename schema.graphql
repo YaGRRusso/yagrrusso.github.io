@@ -3,6 +3,11 @@ schema {
   mutation: Mutation
 }
 
+type AiEntity {
+  messages: [ChoiceEntity!]!
+  usage: UsageEntity
+}
+
 input AtsSummarizeInput {
   details: [DetailInput!]
   raw: String!
@@ -20,6 +25,14 @@ enum ChatFinishReason {
   LENGTH
   STOP
   TOOL_CALLS
+}
+
+enum ChatRole {
+  ASSISTANT
+  DEVELOPER
+  SYSTEM
+  TOOL
+  USER
 }
 
 type ChoiceEntity {
@@ -130,11 +143,21 @@ input CreateExperienceTranslationInput {
 
 input CreateOrganizationInput {
   category: OrganizationCategory!
+  i18n: [CreateOrganizationTranslationInput!]!
   logo: String!
   name: String!
   relevance: Float
   slug: String!
   website: String!
+}
+
+input CreateOrganizationMessagesInput {
+  description: String!
+}
+
+input CreateOrganizationTranslationInput {
+  locale: String!
+  messages: CreateOrganizationMessagesInput!
 }
 
 input CreateProjectInput {
@@ -172,6 +195,7 @@ input CreateUserInput {
   nickname: String!
   password: String!
   phone: String
+  role: UserRole
   title: String
   urls: [UrlInput!]
 }
@@ -329,6 +353,7 @@ input FilterExperienceInput {
 
 input FilterOrganizationInput {
   category: OrganizationCategory
+  i18n: [CreateOrganizationTranslationInput!]
   logo: String
   name: String
   relevance: Float
@@ -361,24 +386,20 @@ input FilterUserInput {
   nickname: String
   password: String
   phone: String
+  role: UserRole
   title: String
   urls: [UrlInput!]
-}
-
-type GenericIaEntity {
-  messages: [ChoiceEntity!]!
-  usage: UsageEntity
 }
 
 type MessageEntity {
   content: String!
   reasoning: String
   refusal: String
-  role: OpenRouterRole!
+  role: ChatRole!
 }
 
 type Mutation {
-  atsSummarize(atsSummarizeInput: AtsSummarizeInput!): GenericIaEntity!
+  atsSummarize(atsSummarizeInput: AtsSummarizeInput!): AiEntity!
   createManyCourses(createCourseInputs: [CreateCourseInput!]!): [CourseEntity!]!
   createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
   createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
@@ -408,7 +429,8 @@ type Mutation {
   removeOneSkill(skillId: ID!): SkillEntity!
   removeOneUser(userId: ID!): UserEntity!
   signIn(signInInput: SignInInput!): String!
-  translate(translateInput: TranslateInput!): GenericIaEntity!
+  summarize(summarizeInput: SummarizeInput!): AiEntity!
+  translate(translateInput: TranslateInput!): AiEntity!
   updateManyCourses(courseIds: [ID!]!, updateCourseInput: UpdateCourseInput!): BatchEntity!
   updateManyEducations(educationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
   updateManyExperiences(experienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
@@ -425,14 +447,6 @@ type Mutation {
   updateOneUser(updateUserInput: UpdateUserInput!, userId: ID!): UserEntity!
 }
 
-enum OpenRouterRole {
-  ASSISTANT
-  DEVELOPER
-  SYSTEM
-  TOOL
-  USER
-}
-
 enum OrganizationCategory {
   COMPANY
   OTHER
@@ -442,6 +456,7 @@ enum OrganizationCategory {
 type OrganizationEntity {
   category: OrganizationCategory!
   createdAt: DateTime!
+  i18n: [OrganizationTranslationLocale!]!
   id: ID!
   logo: String!
   name: String!
@@ -449,6 +464,15 @@ type OrganizationEntity {
   slug: String!
   updatedAt: DateTime!
   website: String!
+}
+
+type OrganizationMessages {
+  description: String!
+}
+
+type OrganizationTranslationLocale {
+  locale: String!
+  messages: OrganizationMessages!
 }
 
 type PaginatedCourseEntity {
@@ -550,6 +574,7 @@ enum ResourceType {
   COURSE
   EDUCATION
   EXPERIENCE
+  ORGANIZATION
   PROJECT
 }
 
@@ -625,6 +650,12 @@ input SortUserInput {
   updatedAt: SortEnum
 }
 
+input SummarizeInput {
+  details: [DetailInput!]
+  raw: String!
+  type: ResourceType!
+}
+
 input TranslateInput {
   raw: String!
   sourceLanguage: String
@@ -667,6 +698,7 @@ input UpdateExperienceInput {
 
 input UpdateOrganizationInput {
   category: OrganizationCategory
+  i18n: [CreateOrganizationTranslationInput!]
   logo: String
   name: String
   relevance: Float
@@ -699,6 +731,7 @@ input UpdateUserInput {
   nickname: String
   password: String
   phone: String
+  role: UserRole
   title: String
   urls: [UrlInput!]
 }
@@ -730,8 +763,13 @@ type UserEntity {
   name: String!
   nickname: String!
   phone: String
-  role: String!
+  role: UserRole!
   title: String
   updatedAt: DateTime!
   urls: [UrlEntity!]
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }

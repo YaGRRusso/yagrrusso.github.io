@@ -46,6 +46,12 @@ export function NetworkSection() {
               urls={getNetwork("andre94cavalcante")?.urls}
             />
             <NetworkCard
+              avatar={getNetwork("aeciobrumel")?.avatar}
+              name={getNetwork("aeciobrumel")?.name}
+              role={getNetwork("aeciobrumel")?.role}
+              urls={getNetwork("aeciobrumel")?.urls}
+            />
+            <NetworkCard
               avatar={getNetwork("gabrielh-silvestre")?.avatar}
               name={getNetwork("gabrielh-silvestre")?.name}
               role={getNetwork("gabrielh-silvestre")?.role}

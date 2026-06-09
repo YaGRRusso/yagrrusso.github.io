@@ -12,6 +12,16 @@ export const NETWORKS = {
     role: "Software Engineer",
     urls: [{ title: "github", value: "https://github.com/yagrrusso" }],
   },
+  aeciobrumel: {
+    avatar: "https://github.com/aeciobrumel.png?size=128",
+    name: "Aecio Brumel",
+    role: "Software Engineer",
+    urls: [
+      { title: "github", value: "https://github.com/aeciobrumel" },
+      { title: "linkedin", value: "https://www.linkedin.com/in/aeciobrumel/" },
+      { title: "website", value: "https://brumel.dev/" },
+    ],
+  },
   ftarganski: {
     avatar: "https://github.com/ftarganski.png?size=128",
     name: "Francis Targanski",

@@ -119,7 +119,7 @@ export function ProjectCard({
           <Dialog.Header>
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description asChild>
-              <ExpandCharacters length={128} text={description}>
+              <ExpandCharacters length={768} text={description}>
                 {description}
               </ExpandCharacters>
             </Dialog.Description>
