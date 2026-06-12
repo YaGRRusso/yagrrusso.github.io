@@ -49,6 +49,16 @@ src/
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```
 
+## AI context
+
+This repo ships machine-readable documentation for AI coding assistants (`AGENTS.md`
+and the `agents/` folder). You do not need to maintain it by hand: those files
+describe how the project works and instruct assistants to update the context
+in-session when they learn something worth keeping. If you use Cursor, thin routers
+in `.cursor/rules/` (local, gitignored) point the IDE at these files; other tools
+use their own local adapter the same way. Start from `AGENTS.md` if you want an
+overview.
+
 ## Requirements
 
 - Node.js 20

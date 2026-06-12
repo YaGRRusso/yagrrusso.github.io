@@ -41,5 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# AI / agent tooling (generated or local)
+# IDE adapters (local; not shared — each dev/tool keeps their own)
 .cursor/

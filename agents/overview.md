@@ -12,9 +12,11 @@ already makes plain, and do not duplicate content across files.
 
 **Where to update:**
 
-- Repo-wide → `agents/overview.md`, then run `npm run sync:cursor-rules`
-- Human onboarding → `README.md` (when setup/run changes)
+- Repo-wide → `agents/overview.md`
+- Human onboarding → `README.md` (when setup/run changes; keep the brief AI context
+  section accurate)
 - `AGENTS.md` → only when agent files are added or renamed
+- Local IDE adapter (Cursor: `.cursor/rules/*.mdc`, gitignored) → when router paths or globs change
 
 Keep edits small and section-local. Update `agents/overview.md` and `README.md`
 when setup, run, or extension changes. Agent files go deeper; README stays concise.
@@ -105,8 +107,7 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
   Magic UI and Kibo UI registries for animated components.
 - **Zustand**: theme preference only (`src/stores/theme.ts`).
 - **TanStack Form + Zod + validator**: contact form in `src/forms/contact.tsx`.
-- **Biome + Ultracite**: `biome.jsonc`. Pre-commit runs lint-staged with double
-  `ultracite fix`.
+- **Biome + Ultracite**: `biome.jsonc`. Pre-commit runs lint-staged (Ultracite on staged files).
 - **Vitest + cheerio**: `tests/seo.test.ts`, post-build smoke test on `out/`.
 
 ## Module / directory breakdown
@@ -114,7 +115,11 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 ### `scripts/`
 
 - `setup.sh`: idempotent Ubuntu/WSL bootstrap for Node 20 and npm 11.
-- `sync-cursor-rules.sh`: generates `.cursor/rules/*.mdc` from `agents/` (local only).
+
+### `.cursor/rules/` (local, gitignored)
+
+Optional thin Cursor routers (`overview.mdc` with `alwaysApply`) that instruct the
+IDE to read `AGENTS.md` and `agents/overview.md`. Not shared in git.
 
 ### `src/app/[locale]/`
 
@@ -205,8 +210,8 @@ Entity-specific cards stay in `_components/`. Generic reusables go in
   appropriate for static export (unoptimized images are required here).
 - Testing: Vitest defaults. Assertions inside `it()` / `test()`; no `.only` or
   `.skip` in committed code. SEO test requires prior `npm run build`.
-- Commits: Husky `pre-commit` runs `npx lint-staged` (double `ultracite fix`).
-  Older stash-based formatter block in `.husky/pre-commit` is commented out.
+- Commits: Husky `pre-commit` runs `npx lint-staged` (Ultracite). Older stash-based
+  formatter block in `.husky/pre-commit` is commented out.
 - Code artifacts (names, comments, files) are written in English.
 
 ## Directory map
@@ -219,8 +224,7 @@ Entity-specific cards stay in `_components/`. Generic reusables go in
 ├── components.json             # shadcn/ui CLI config.
 ├── schema.graphql              # Generated schema snapshot for graphqlsp.
 ├── scripts/
-│   ├── setup.sh                # Ubuntu/WSL bootstrap (Node 20, npm 11).
-│   └── sync-cursor-rules.sh    # Mirror agents/ to .cursor/rules/ (local).
+│   └── setup.sh                # Ubuntu/WSL bootstrap (Node 20, npm 11).
 ├── messages/                   # en.json, pt.json translations.
 ├── public/images/og/           # Per-page Open Graph images.
 ├── src/                        # Application source (see README tree).
@@ -245,7 +249,6 @@ secrets `API_URL` and `API_TOKEN` mapped during build.
 ## Scripts / commands
 
 - `npm run setup`: runs `bash scripts/setup.sh`.
-- `npm run sync:cursor-rules`: mirrors `agents/` to `.cursor/rules/` (local, gitignored).
 - `npm run dev`: GraphQL codegen watch + `next dev --turbopack`.
 - `npm run build`: `next build --turbopack`, static export to `out/`.
 - `npm run serve`: serves `out/` on port 4000 for local preview.
@@ -271,7 +274,8 @@ Workflow: `npm run build` then `npm run test`.
 
 ## Gotchas & notes
 
-- `.cursor/` is gitignored. Edit `agents/*.md` only; run `npm run sync:cursor-rules` after changes.
+- Edit `agents/*.md` for all context changes. `.cursor/` is gitignored: Cursor users
+  maintain thin local routers; other devs do the same for their IDE if needed.
 - API must be reachable at build time. CI wakes the hosted API; locally run
   `npm run back` before building or when codegen needs a fresh schema.
 - Codegen reads `.env.development`. Ensure `NEXT_PUBLIC_API_URL` points to a

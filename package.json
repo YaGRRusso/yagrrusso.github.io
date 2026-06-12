@@ -67,15 +67,12 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
-      "npx ultracite fix",
       "npx ultracite fix"
     ]
   },
   "name": "yagrrusso",
   "scripts": {
     "setup": "bash scripts/setup.sh",
-    "sync:cursor-rules": "bash scripts/sync-cursor-rules.sh",
-    "postinstall": "npm run sync:cursor-rules",
     "prepare": "husky || true",
     "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
     "build": "next build --turbopack",
