@@ -1,0 +1,5 @@
+rules:
+  - source: overview.md
+    target: overview.mdc
+    description: "Portfolio overview, architecture, scripts, and conventions"
+    alwaysApply: true

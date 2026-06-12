@@ -41,5 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# IA generated files
-.claude
+# AI / agent tooling (generated or local)
+.cursor/

@@ -3,7 +3,7 @@
 # Each tool: install if missing, then print its version. Safe to re-run.
 set -euo pipefail
 
-NODE_MAJOR=22
+NODE_MAJOR=20
 NPM_MAJOR=11
 export NVM_DIR="$HOME/.nvm"
 

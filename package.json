@@ -73,7 +73,9 @@
   },
   "name": "yagrrusso",
   "scripts": {
-    "setup": "bash setup.sh",
+    "setup": "bash scripts/setup.sh",
+    "sync:cursor-rules": "bash scripts/sync-cursor-rules.sh",
+    "postinstall": "npm run sync:cursor-rules",
     "prepare": "husky || true",
     "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
     "build": "next build --turbopack",

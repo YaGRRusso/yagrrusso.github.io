@@ -1,72 +1,65 @@
 # yagrrusso
 
-Personal portfolio site for Yago Russo, a software engineer. It is a statically
-exported Next.js app served from GitHub Pages, localized in English and
-Portuguese, that renders skills, projects, experience, and education pulled from
-a separate GraphQL API at build time.
+Personal portfolio site for Yago Russo. A statically exported Next.js app deployed
+to GitHub Pages, localized in English and Portuguese, that renders profile content
+(skills, projects, experience, education, courses) fetched from a GraphQL API at
+build time.
 
 ## Tech stack
 
-Core technologies the site is built on. One line each.
-
-- **Next.js 16 (App Router)**: `src/app`, the framework. Configured for static export (`output: "export"` in `next.config.ts`) so the whole site builds to `out/`.
-- **React 19**: every component under `src/components` and the page clients in `src/app/[locale]`.
-- **TypeScript (strict)**: the entire `src` tree. Path alias `@/*` maps to `src/*`.
-- **next-intl**: `src/i18n` plus `messages/en.json` and `messages/pt.json`, drives the `[locale]` route segment, translations, and per-locale SEO metadata.
-- **TanStack Query**: `src/hooks`, fetches and caches data. Pages prefetch on the server and hydrate on the client via `HydrationBoundary`.
-- **GraphQL Code Generator (client preset)**: `codegen.ts` and `src/graphql`, generates typed GraphQL documents from the API schema into `src/graphql`.
-- **Tailwind CSS v4**: `src/styles/globals.css` and `postcss.config.mjs`, all styling. Utilities merged through `cn` in `src/lib/utils.ts`.
-- **Radix UI + shadcn/ui**: `src/components/ui`, the primitive component layer (new-york style, Phosphor icon set).
-- **Zustand**: `src/stores/theme.ts`, persists the light/dark/system theme preference to localStorage.
-- **TanStack Form + Zod + validator**: `src/forms`, the contact form and its validation schema.
-- **Biome + Ultracite**: `biome.jsonc`, linting and formatting.
-- **Vitest + cheerio**: `tests/`, the test suite (`npm run test`); currently the post-build SEO/content smoke test.
+- **Next.js 16 (App Router, static export)**: `src/app`, `next.config.ts`. Builds to `out/` via `output: "export"`.
+- **React 19**: components under `src/components` and client pages in `src/app/[locale]`.
+- **TypeScript (strict)**: entire `src/` tree. Path alias `@/*` maps to `src/*`.
+- **next-intl**: `src/i18n`, `messages/en.json`, `messages/pt.json`. Drives the `[locale]` routes and SEO metadata.
+- **TanStack Query**: `src/hooks`. Server prefetch + client hydration via `HydrationBoundary`.
+- **GraphQL Code Generator (client preset)**: `codegen.ts`, `src/graphql/`. Typed operations from the API schema.
+- **Tailwind CSS v4**: `src/styles/globals.css`. Utilities merged through `cn()` in `src/lib/utils.ts`.
+- **Radix UI + shadcn/ui**: `src/components/ui` (new-york style, Phosphor icons).
+- **Biome + Ultracite**: `biome.jsonc`, lint and format via `npm run fix` / `npm run check`.
 
 ## Project structure
 
 ```
 src/
-├── app/                      # Next.js App Router.
+├── app/
 │   ├── layout.tsx            # Root layout: favicon metadata only.
-│   ├── page.tsx              # Root entry, delegates to the localized tree.
+│   ├── page.tsx              # Client redirect to /en or /pt by browser language.
 │   └── [locale]/             # Locale-scoped routes (en, pt).
-│       ├── layout.tsx        # Sets the request locale, fonts, intl provider, analytics.
-│       ├── layout-client.tsx # Client shell: header, footer, query client, theme provider.
-│       ├── page.tsx          # Home: server-prefetches skills/projects/experience/education.
-│       ├── page-client.tsx   # Home composition root: orders the section components.
-│       ├── queries.ts        # Home prefetch contract (HOME_*_VARS), shared with page.tsx.
-│       ├── _components/      # Route-local: entity cards, status badge, site chrome, sections/.
-│       └── skills/           # Skills route (server prefetch + client page).
-├── components/               # Dumb, domain-agnostic reusable components (counter, skill-badge, etc.).
-│   └── ui/                   # Radix/shadcn primitives and animated UI pieces.
+│       ├── layout.tsx        # Server layout: fonts, intl provider, analytics.
+│       ├── layout-client.tsx # Client shell: header, footer, QueryClient, theme.
+│       ├── page.tsx          # Home: server prefetch for all home queries.
+│       ├── page-client.tsx   # Home section composition root.
+│       ├── queries.ts        # HOME_*_VARS prefetch constants.
+│       ├── _components/      # Route-local cards, chrome, sections/.
+│       └── skills/           # Skills listing route.
+├── components/               # Domain-agnostic reusable components.
+│   └── ui/                   # shadcn/Radix/Magic UI primitives.
 ├── hooks/
-│   ├── factories/            # defineQuery/defineInfiniteQuery and the GraphQL execute helper.
-│   ├── queries/              # One file per domain entity (skills, projects, etc.).
-│   └── reactive/             # Small client hooks (useMessages, useDebounce).
-├── graphql/                  # Generated typed documents (do not edit by hand).
-├── forms/                    # Contact form + shared form types.
-├── i18n/                     # next-intl routing, request config, navigation helpers.
-├── lib/                      # SEO, dehydrate, CDN URLs, pagination, cn, tc.
-├── classes/query.ts          # In-memory filter/search/sort helper over arrays.
-├── stores/theme.ts           # Zustand theme-preference store.
-├── contexts/theme.tsx        # ThemeProvider applying the preference to the DOM.
-├── consts/urls.tsx           # URL kind to icon mapping.
+│   ├── factories/            # defineQuery, defineInfiniteQuery, execute.
+│   ├── queries/              # One GraphQL module per entity.
+│   └── reactive/             # useDebounce, useMessages.
+├── graphql/                  # Generated (do not edit).
+├── forms/                    # Contact form + Zod schema.
+├── i18n/                     # next-intl routing, request, navigation.
+├── lib/                      # SEO, dehydrate, cdn, pagination, utils.
+├── classes/query.ts          # Client-side array filter/sort helper.
+├── stores/theme.ts           # Zustand theme preference.
+├── contexts/theme.tsx        # DOM theme application.
+├── consts/                   # Static icon/slug/network mappings.
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```
 
 ## Requirements
 
-Tools to install on your machine.
-
 - Node.js 20
-- npm
+- npm >= 11
 
 ## Getting started
 
-1. Install tooling (Node, npm, git, curl):
+1. Install tooling (idempotent, installs only what is missing):
 
 ```bash
-bash setup.sh
+bash scripts/setup.sh
 ```
 
 2. Install dependencies:
@@ -75,44 +68,31 @@ bash setup.sh
 npm install
 ```
 
-3. Create the local env file from the example and set your API URL and token:
+3. Create the local env file:
 
 ```bash
 cp .env.example .env.development
 ```
 
-4. Start the GraphQL API the site reads from (lives in the sibling `profile-info` repo):
+4. Start the GraphQL API (sibling `profile-info` repo):
 
 ```bash
 npm run back
 ```
 
-5. Run the dev server (also runs GraphQL codegen in watch mode):
+5. Run the dev server (GraphQL codegen in watch mode plus Next.js):
 
 ```bash
 npm run dev
 ```
 
-## Building for production
-
-The site is a **static export**: `next build` writes a fully static `out/`
-directory that GitHub Pages serves as-is (no Node server at runtime).
+## Build and test
 
 ```bash
-npm run build   # next build --turbopack → static export into out/
-npm run serve   # serve -s out -l 4000 → preview the export at http://localhost:4000
+npm run build    # static export to out/
+npm run serve    # preview out/ on port 4000
+npm run test     # Vitest (requires a prior build for the SEO smoke test)
 ```
 
-## Automated SEO + content test
-
-`tests/seo.test.ts` (Vitest + cheerio) automates the checks above so a
-regression can't reach production. It parses the emitted HTML, so run it
-**after a build**:
-
-```bash
-npm run build
-npm run test   # vitest run — use npm run test:watch while iterating
-```
-
-It is parameterized per route (`describe.each`), so each route × assertion is a
-separate pass/fail line. For each generated route it asserts:
+CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API,
+builds with secrets, runs tests, and deploys `out/` to GitHub Pages.
