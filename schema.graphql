@@ -73,7 +73,7 @@ type CourseTranslationLocale {
 
 input CreateCourseInput {
   hours: Int
-  i18n: [CreateCourseTranslationInput!]!
+  i18n: [CreateCourseMessagesInputTranslationInput!]!
   image: String
   organization: String!
   period: DateRangeInput
@@ -89,13 +89,13 @@ input CreateCourseMessagesInput {
   title: String!
 }
 
-input CreateCourseTranslationInput {
+input CreateCourseMessagesInputTranslationInput {
   locale: String!
   messages: CreateCourseMessagesInput!
 }
 
 input CreateEducationInput {
-  i18n: [CreateEducationTranslationInput!]!
+  i18n: [CreateEducationMessagesInputTranslationInput!]!
   image: String
   level: EducationLevel!
   organization: String!
@@ -112,7 +112,7 @@ input CreateEducationMessagesInput {
   title: String!
 }
 
-input CreateEducationTranslationInput {
+input CreateEducationMessagesInputTranslationInput {
   locale: String!
   messages: CreateEducationMessagesInput!
 }
@@ -130,20 +130,20 @@ input CreateExperienceMessagesInput {
   title: String!
 }
 
-input CreateExperienceRoleInput {
-  i18n: [CreateExperienceTranslationInput!]!
-  period: DateRangeInput
-  skills: [String!]
-}
-
-input CreateExperienceTranslationInput {
+input CreateExperienceMessagesInputTranslationInput {
   locale: String!
   messages: CreateExperienceMessagesInput!
 }
 
+input CreateExperienceRoleInput {
+  i18n: [CreateExperienceMessagesInputTranslationInput!]!
+  period: DateRangeInput
+  skills: [String!]
+}
+
 input CreateOrganizationInput {
   category: OrganizationCategory!
-  i18n: [CreateOrganizationTranslationInput!]!
+  i18n: [CreateOrganizationMessagesInputTranslationInput!]!
   logo: String!
   name: String!
   relevance: Float
@@ -155,7 +155,7 @@ input CreateOrganizationMessagesInput {
   description: String!
 }
 
-input CreateOrganizationTranslationInput {
+input CreateOrganizationMessagesInputTranslationInput {
   locale: String!
   messages: CreateOrganizationMessagesInput!
 }
@@ -200,6 +200,21 @@ input CreateUserInput {
   urls: [UrlInput!]
 }
 
+type DashboardActivityItem {
+  label: String!
+  type: DashboardActivityType!
+  updatedAt: DateTime!
+}
+
+enum DashboardActivityType {
+  COURSE
+  EDUCATION
+  EXPERIENCE
+  ORGANIZATION
+  PROJECT
+  SKILL
+}
+
 type DashboardCount {
   label: String!
   value: Int!
@@ -208,6 +223,7 @@ type DashboardCount {
 type DashboardEntity {
   coursesByStatus: [DashboardCount!]!
   experiencesByCategory: [DashboardCount!]!
+  recentActivity: [DashboardActivityItem!]!
   skillsByCategory: [DashboardCount!]!
   totals: DashboardTotals!
 }
@@ -319,7 +335,7 @@ type ExperienceTranslationLocale {
 
 input FilterCourseInput {
   hours: Int
-  i18n: [CreateCourseTranslationInput!]
+  i18n: [CreateCourseMessagesInputTranslationInput!]
   image: String
   organization: String
   period: DateRangeInput
@@ -331,7 +347,7 @@ input FilterCourseInput {
 }
 
 input FilterEducationInput {
-  i18n: [CreateEducationTranslationInput!]
+  i18n: [CreateEducationMessagesInputTranslationInput!]
   image: String
   level: EducationLevel
   organization: String
@@ -353,7 +369,7 @@ input FilterExperienceInput {
 
 input FilterOrganizationInput {
   category: OrganizationCategory
-  i18n: [CreateOrganizationTranslationInput!]
+  i18n: [CreateOrganizationMessagesInputTranslationInput!]
   logo: String
   name: String
   relevance: Float
@@ -438,6 +454,7 @@ type Mutation {
   updateManyProjects(projectIds: [ID!]!, updateProjectInput: UpdateProjectInput!): BatchEntity!
   updateManySkills(skillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
   updateManyUsers(updateUserInput: UpdateUserInput!, userIds: [ID!]!): BatchEntity!
+  updateMe(updateMeInput: UpdateMeInput!): UserEntity!
   updateOneCourse(courseId: ID!, updateCourseInput: UpdateCourseInput!): CourseEntity!
   updateOneEducation(educationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
   updateOneExperience(experienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
@@ -664,7 +681,7 @@ input TranslateInput {
 
 input UpdateCourseInput {
   hours: Int
-  i18n: [CreateCourseTranslationInput!]
+  i18n: [CreateCourseMessagesInputTranslationInput!]
   image: String
   organization: String
   period: DateRangeInput
@@ -676,7 +693,7 @@ input UpdateCourseInput {
 }
 
 input UpdateEducationInput {
-  i18n: [CreateEducationTranslationInput!]
+  i18n: [CreateEducationMessagesInputTranslationInput!]
   image: String
   level: EducationLevel
   organization: String
@@ -696,9 +713,22 @@ input UpdateExperienceInput {
   slug: String
 }
 
+input UpdateMeInput {
+  address: String
+  avatar: String
+  birth: String
+  email: String
+  name: String
+  nickname: String
+  password: String
+  phone: String
+  title: String
+  urls: [UrlInput!]
+}
+
 input UpdateOrganizationInput {
   category: OrganizationCategory
-  i18n: [CreateOrganizationTranslationInput!]
+  i18n: [CreateOrganizationMessagesInputTranslationInput!]
   logo: String
   name: String
   relevance: Float

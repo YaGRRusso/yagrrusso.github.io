@@ -40,9 +40,6 @@
       },
       "performance": {
         "noNamespaceImport": "off"
-      },
-      "nursery": {
-        "noLeakedRender": "off"
       }
     },
     "domains": {

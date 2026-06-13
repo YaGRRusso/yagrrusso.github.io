@@ -94,7 +94,7 @@ export type CourseTranslationLocale = {
 
 export type CreateCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
-  i18n: Array<CreateCourseTranslationInput>;
+  i18n: Array<CreateCourseMessagesInputTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
   organization: Scalars['String']['input'];
   period?: InputMaybe<DateRangeInput>;
@@ -110,13 +110,13 @@ export type CreateCourseMessagesInput = {
   title: Scalars['String']['input'];
 };
 
-export type CreateCourseTranslationInput = {
+export type CreateCourseMessagesInputTranslationInput = {
   locale: Scalars['String']['input'];
   messages: CreateCourseMessagesInput;
 };
 
 export type CreateEducationInput = {
-  i18n: Array<CreateEducationTranslationInput>;
+  i18n: Array<CreateEducationMessagesInputTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
   level: EducationLevel;
   organization: Scalars['String']['input'];
@@ -133,7 +133,7 @@ export type CreateEducationMessagesInput = {
   title: Scalars['String']['input'];
 };
 
-export type CreateEducationTranslationInput = {
+export type CreateEducationMessagesInputTranslationInput = {
   locale: Scalars['String']['input'];
   messages: CreateEducationMessagesInput;
 };
@@ -151,20 +151,20 @@ export type CreateExperienceMessagesInput = {
   title: Scalars['String']['input'];
 };
 
-export type CreateExperienceRoleInput = {
-  i18n: Array<CreateExperienceTranslationInput>;
-  period?: InputMaybe<DateRangeInput>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type CreateExperienceTranslationInput = {
+export type CreateExperienceMessagesInputTranslationInput = {
   locale: Scalars['String']['input'];
   messages: CreateExperienceMessagesInput;
 };
 
+export type CreateExperienceRoleInput = {
+  i18n: Array<CreateExperienceMessagesInputTranslationInput>;
+  period?: InputMaybe<DateRangeInput>;
+  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
 export type CreateOrganizationInput = {
   category: OrganizationCategory;
-  i18n: Array<CreateOrganizationTranslationInput>;
+  i18n: Array<CreateOrganizationMessagesInputTranslationInput>;
   logo: Scalars['String']['input'];
   name: Scalars['String']['input'];
   relevance?: InputMaybe<Scalars['Float']['input']>;
@@ -176,7 +176,7 @@ export type CreateOrganizationMessagesInput = {
   description: Scalars['String']['input'];
 };
 
-export type CreateOrganizationTranslationInput = {
+export type CreateOrganizationMessagesInputTranslationInput = {
   locale: Scalars['String']['input'];
   messages: CreateOrganizationMessagesInput;
 };
@@ -221,6 +221,22 @@ export type CreateUserInput = {
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
+export type DashboardActivityItem = {
+  __typename?: 'DashboardActivityItem';
+  label: Scalars['String']['output'];
+  type: DashboardActivityType;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export enum DashboardActivityType {
+  Course = 'COURSE',
+  Education = 'EDUCATION',
+  Experience = 'EXPERIENCE',
+  Organization = 'ORGANIZATION',
+  Project = 'PROJECT',
+  Skill = 'SKILL'
+}
+
 export type DashboardCount = {
   __typename?: 'DashboardCount';
   label: Scalars['String']['output'];
@@ -231,6 +247,7 @@ export type DashboardEntity = {
   __typename?: 'DashboardEntity';
   coursesByStatus: Array<DashboardCount>;
   experiencesByCategory: Array<DashboardCount>;
+  recentActivity: Array<DashboardActivityItem>;
   skillsByCategory: Array<DashboardCount>;
   totals: DashboardTotals;
 };
@@ -346,7 +363,7 @@ export type ExperienceTranslationLocale = {
 
 export type FilterCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
-  i18n?: InputMaybe<Array<CreateCourseTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateCourseMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
@@ -358,7 +375,7 @@ export type FilterCourseInput = {
 };
 
 export type FilterEducationInput = {
-  i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateEducationMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<EducationLevel>;
   organization?: InputMaybe<Scalars['String']['input']>;
@@ -380,7 +397,7 @@ export type FilterExperienceInput = {
 
 export type FilterOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
-  i18n?: InputMaybe<Array<CreateOrganizationTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateOrganizationMessagesInputTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
@@ -467,6 +484,7 @@ export type Mutation = {
   updateManyProjects: BatchEntity;
   updateManySkills: BatchEntity;
   updateManyUsers: BatchEntity;
+  updateMe: UserEntity;
   updateOneCourse: CourseEntity;
   updateOneEducation: EducationEntity;
   updateOneExperience: ExperienceEntity;
@@ -676,6 +694,11 @@ export type MutationUpdateManySkillsArgs = {
 export type MutationUpdateManyUsersArgs = {
   updateUserInput: UpdateUserInput;
   userIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationUpdateMeArgs = {
+  updateMeInput: UpdateMeInput;
 };
 
 
@@ -1106,7 +1129,7 @@ export type TranslateInput = {
 
 export type UpdateCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
-  i18n?: InputMaybe<Array<CreateCourseTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateCourseMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   organization?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
@@ -1118,7 +1141,7 @@ export type UpdateCourseInput = {
 };
 
 export type UpdateEducationInput = {
-  i18n?: InputMaybe<Array<CreateEducationTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateEducationMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<EducationLevel>;
   organization?: InputMaybe<Scalars['String']['input']>;
@@ -1138,9 +1161,22 @@ export type UpdateExperienceInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdateMeInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  avatar?: InputMaybe<Scalars['String']['input']>;
+  birth?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  nickname?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  urls?: InputMaybe<Array<UrlInput>>;
+};
+
 export type UpdateOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
-  i18n?: InputMaybe<Array<CreateOrganizationTranslationInput>>;
+  i18n?: InputMaybe<Array<CreateOrganizationMessagesInputTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;

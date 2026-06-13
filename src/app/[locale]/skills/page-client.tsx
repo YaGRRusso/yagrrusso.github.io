@@ -112,7 +112,7 @@ export function ClientPage() {
             {findManySkills.data?.findManySkills.nodes.map((skill) => (
               <li id={skill.slug} key={skill.id}>
                 <AnimateOnScroll
-                  className="relative flex flex-col items-center justify-center rounded border p-4 transition-colors"
+                  className="relative flex h-full flex-col items-center justify-center rounded border p-4 text-center transition-colors"
                   y={16}
                 >
                   <div className="mb-2 text-3xl">

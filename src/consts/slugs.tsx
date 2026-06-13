@@ -1,5 +1,12 @@
-import { SiJavascript, SiVite } from "@icons-pack/react-simple-icons";
-import { PackageIcon } from "@phosphor-icons/react";
+import { SiGraphql } from "@icons-pack/react-simple-icons";
+import {
+  CloudIcon,
+  DatabaseIcon,
+  ListMagnifyingGlassIcon,
+  PackageIcon,
+  PawPrintIcon,
+} from "@phosphor-icons/react";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { simpleIconsCdn } from "@/lib/cdn";
@@ -10,8 +17,111 @@ export type SlugType = {
 
 export const SLUGS = {
   other: { icon: <PackageIcon /> },
-  javascript: { icon: <SiJavascript className="size-[1em]" color="default" /> },
-  vite: { icon: <SiVite className="size-[1em]" color="default" /> },
+  codegen: { icon: <SiGraphql /> },
+  typesense: { icon: <DatabaseIcon /> },
+  nuqs: { icon: <ListMagnifyingGlassIcon /> },
+  zustand: { icon: <PawPrintIcon /> },
+  aws: { icon: <CloudIcon /> },
+  lightsail: {
+    icon: (
+      <Image
+        alt="Lightsail"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonLightsail.svg"
+        width={30}
+      />
+    ),
+  },
+  ec2: {
+    icon: (
+      <Image
+        alt="EC2"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonEC2.svg"
+        width={30}
+      />
+    ),
+  },
+  s3: {
+    icon: (
+      <Image
+        alt="S3"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonS3onOutposts.svg"
+        width={30}
+      />
+    ),
+  },
+  lambda: {
+    icon: (
+      <Image
+        alt="Lambda"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AWSLambda.svg"
+        width={30}
+      />
+    ),
+  },
+  dynamodb: {
+    icon: (
+      <Image
+        alt="DynamoDB"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonDynamoDB.svg"
+        width={30}
+      />
+    ),
+  },
+  rds: {
+    icon: (
+      <Image
+        alt="RDS"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonRDS.svg"
+        width={30}
+      />
+    ),
+  },
+  route53: {
+    icon: (
+      <Image
+        alt="Route 53"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonRoute53.svg"
+        width={30}
+      />
+    ),
+  },
+  cloudfront: {
+    icon: (
+      <Image
+        alt="CloudFront"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonCloudFront.svg"
+        width={30}
+      />
+    ),
+  },
+  cloudwatch: {
+    icon: (
+      <Image
+        alt="CloudWatch"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonCloudWatch.svg"
+        width={30}
+      />
+    ),
+  },
+  cloudformation: {
+    icon: (
+      <Image
+        alt="CloudFormation"
+        height={30}
+        src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AWSCloudFormation.svg"
+        width={30}
+      />
+    ),
+  },
 } as const satisfies Record<string, SlugType>;
 
 export function getSlug(value: keyof typeof SLUGS | (string & {})) {
