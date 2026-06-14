@@ -3,9 +3,12 @@ import { useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { SectionTitle } from "@/components/section-title";
+import { useFindOneUserById } from "@/hooks/queries/auth";
+import { PROFILE_USER_VARS } from "../../queries";
 
 export function AboutSection() {
   const t = useTranslations("homePage");
+  const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
 
   return (
     <div className="w-full">
@@ -20,8 +23,12 @@ export function AboutSection() {
           />
           <p className="text-muted-foreground">
             {t.rich("sections.aboutMe.message", {
-              age: dayjs().diff("2001-11-30", "year", false),
-              address: "Gravataí, RS, Brazil",
+              age: dayjs().diff(
+                findOneUserById.data?.findOneUserById.birth,
+                "year",
+                false
+              ),
+              address: findOneUserById.data?.findOneUserById?.address ?? "",
               br: () => <br />,
             })}
           </p>

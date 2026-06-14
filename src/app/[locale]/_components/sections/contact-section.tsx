@@ -15,11 +15,14 @@ import { SocialLink } from "@/components/social-links";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Tooltip } from "@/components/ui/tooltip";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
+import { useFindOneUserById } from "@/hooks/queries/auth";
 import { useGetContributions } from "@/hooks/queries/external";
+import { PROFILE_USER_VARS } from "../../queries";
 
 export function ContactSection() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
+  const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
 
   const getContributions = useGetContributions({ username: "yagrrusso" });
 
@@ -51,13 +54,16 @@ export function ContactSection() {
                   className="rounded-lg"
                   height={96}
                   priority={true}
-                  src="/images/portrait.jpg"
+                  src={
+                    findOneUserById.data?.findOneUserById?.avatar ??
+                    "/images/portrait.jpg"
+                  }
                   width={96}
                 />
                 <div className="flex flex-col gap-2">
                   <strong className="text-4xl">Yago Russo</strong>
                   <span className="text-muted-foreground">
-                    Software Engineer
+                    {findOneUserById.data?.findOneUserById?.title}
                   </span>
                 </div>
               </div>
@@ -95,7 +101,15 @@ export function ContactSection() {
         </div>
         {getContributions.data && (
           <AnimateOnScroll y={16}>
-            <ContributionGraph.Root data={getContributions.data.contributions}>
+            <ContributionGraph.Root
+              data={getContributions.data.contributions}
+              labels={{
+                legend: {
+                  less: t("sections.getInTouch.contributionGraph.less"),
+                  more: t("sections.getInTouch.contributionGraph.more"),
+                },
+              }}
+            >
               <ContributionGraph.Calendar>
                 {({ activity, dayIndex, weekIndex }) => (
                   <Tooltip.Root>
@@ -108,13 +122,24 @@ export function ContactSection() {
                     </Tooltip.Trigger>
                     <Tooltip.Content>
                       <p className="font-semibold">{activity.date}</p>
-                      <p>{activity.count} contributions</p>
+                      <p>
+                        {tCommons("contributions", { count: activity.count })}
+                      </p>
                     </Tooltip.Content>
                   </Tooltip.Root>
                 )}
               </ContributionGraph.Calendar>
               <ContributionGraph.Footer>
-                <ContributionGraph.TotalCount />
+                <ContributionGraph.TotalCount>
+                  {({ totalCount, year }) => (
+                    <div className="text-muted-foreground">
+                      {t("sections.getInTouch.contributionGraph.totalCount", {
+                        count: totalCount,
+                        year,
+                      })}
+                    </div>
+                  )}
+                </ContributionGraph.TotalCount>
                 <ContributionGraph.Legend />
               </ContributionGraph.Footer>
             </ContributionGraph.Root>

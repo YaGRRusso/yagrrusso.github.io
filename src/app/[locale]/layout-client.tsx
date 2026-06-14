@@ -1,9 +1,14 @@
 "use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  type DehydratedState,
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
@@ -13,6 +18,8 @@ import { LayoutLoading } from "./_components/layout-loading";
 import { LayoutMenu } from "./_components/layout-menu";
 
 interface Props extends ComponentProps<"body"> {
+  children: ReactNode;
+  dehydratedState: DehydratedState;
   locale: Locale;
 }
 
@@ -31,7 +38,12 @@ const queryClient = new QueryClient({
   },
 });
 
-export function ClientLayout({ locale, children, ...rest }: Props) {
+export function ClientLayout({
+  locale,
+  dehydratedState,
+  children,
+  ...rest
+}: Props) {
   const t = useTranslations("layout");
 
   return (
@@ -65,9 +77,11 @@ export function ClientLayout({ locale, children, ...rest }: Props) {
         <ScrollProgress />
       </header>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <main className="flex flex-1 flex-col">{children}</main>
-        </ThemeProvider>
+        <HydrationBoundary state={dehydratedState}>
+          <ThemeProvider>
+            <main className="flex flex-1 flex-col">{children}</main>
+          </ThemeProvider>
+        </HydrationBoundary>
       </QueryClientProvider>
       <footer className="border-t">
         <div className="container flex items-center justify-between gap-2 py-2 text-center text-muted-foreground text-xs max-sm:flex-col">

@@ -60,9 +60,7 @@ export function ClientPage() {
         <PageTitle className="w-full" title={t("title")} />
         <div className="flex w-full flex-col items-center justify-between gap-8 md:flex-row">
           <span className="-mt-0.5 flex-1 text-muted-foreground text-xs md:max-w-xl">
-            A stack reflete o que eu estou utilizando atualmente em produção,
-            não uma regra. Estou sempre estudando algo novo e disposto a
-            aprender novas tecnologias quando necessário.
+            {t("stackNote")}
           </span>
           <Select.Root
             onValueChange={(value) =>
@@ -71,7 +69,7 @@ export function ClientPage() {
             value={category}
           >
             <Select.Trigger className="w-full flex-1 md:max-w-64">
-              <Select.Value placeholder="Category" />
+              <Select.Value placeholder={tCommon("category")} />
             </Select.Trigger>
             <Select.Content>
               <Select.Item value="ALL">

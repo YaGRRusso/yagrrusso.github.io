@@ -1,4 +1,5 @@
 import { HouseIcon } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 import { type ComponentProps, Fragment } from "react";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,8 @@ export function PageTitle({
   path,
   ...props
 }: Props) {
+  const t = useTranslations("common");
+
   return (
     <div className={cn("flex flex-col gap-2 pb-4", className)} {...props}>
       <Breadcrumb.Root>
@@ -27,7 +30,7 @@ export function PageTitle({
           <Breadcrumb.Item>
             <Breadcrumb.Link href="/">
               <HouseIcon className="mb-0.5" weight="bold" />
-              <span className="max-sm:hidden">Home</span>
+              <span className="max-sm:hidden">{t("home")}</span>
             </Breadcrumb.Link>
           </Breadcrumb.Item>
           {path && (
@@ -37,7 +40,7 @@ export function PageTitle({
                 <DropdownMenu.Root>
                   <DropdownMenu.Trigger className="hover:text-foreground">
                     <Breadcrumb.Ellipsis />
-                    <span className="sr-only">Menu</span>
+                    <span className="sr-only">{t("menu")}</span>
                   </DropdownMenu.Trigger>
                   <DropdownMenu.Content align="start">
                     {path.map((item) => (

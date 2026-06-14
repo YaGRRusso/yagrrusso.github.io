@@ -1,4 +1,4 @@
-import { type QueryOptions, useQuery } from "@tanstack/react-query";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 
 type GetContributionsQuery = {
   contributions: {
@@ -27,7 +27,7 @@ const getContributions = async ({
 
 export const useGetContributions = (
   data: GetContributionsQueryVariables,
-  options?: QueryOptions<GetContributionsQuery>
+  options?: Omit<UseQueryOptions<GetContributionsQuery>, "queryKey" | "queryFn">
 ) =>
   useQuery({
     queryKey: ["getContributions", data],

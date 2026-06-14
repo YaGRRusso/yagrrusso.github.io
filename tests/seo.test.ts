@@ -12,6 +12,7 @@ const LOCALES = ["en", "pt"] as const;
 const OG_PROPS = ["og:title", "og:description", "og:url", "og:image"] as const;
 
 const HOME_QUERIES = [
+  "findOneUserById",
   "findManySkills",
   "findManyProjects",
   "findManyExperiences",
@@ -44,14 +45,14 @@ const ROUTES: Route[] = [
     file: "en/skills.html",
     locale: "en",
     url: `${BASE_URL}/en/skills`,
-    expectQueries: ["findManySkills"],
+    expectQueries: ["findOneUserById", "findManySkills"],
     expectListItems: true,
   },
   {
     file: "pt/skills.html",
     locale: "pt",
     url: `${BASE_URL}/pt/skills`,
-    expectQueries: ["findManySkills"],
+    expectQueries: ["findOneUserById", "findManySkills"],
     expectListItems: true,
   },
 ];

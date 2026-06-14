@@ -4,8 +4,21 @@ import {
   type FindManyExperiencesQueryVariables,
   type FindManyProjectsQueryVariables,
   type FindManySkillsQueryVariables,
+  type FindOneUserByIdQueryVariables,
   SortEnum,
 } from "@/graphql/graphql";
+
+export function getProfileUserId() {
+  const userId = process.env.NEXT_PUBLIC_USER_ID;
+  if (!userId) {
+    throw new Error("Missing NEXT_PUBLIC_USER_ID environment variable");
+  }
+  return userId;
+}
+
+export const PROFILE_USER_VARS: FindOneUserByIdQueryVariables = {
+  userId: getProfileUserId(),
+};
 
 export const HOME_SKILLS_VARS: FindManySkillsQueryVariables = {
   skillFilters: {},

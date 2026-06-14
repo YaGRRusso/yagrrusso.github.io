@@ -28,6 +28,11 @@
     "page": "Página { current } de { total }",
     "showMore": "Mostrar mais",
     "showLess": "Mostrar menos",
+    "home": "Início",
+    "menu": "Menu",
+    "language": "Idioma",
+    "category": "Categoria",
+    "contributions": "{count, plural, =0 {Nenhuma contribuição} =1 {1 contribuição} other {# contribuições}}",
     "time": {
       "minutes": "{count, plural, =1 {um minuto} other {# minutos}}",
       "hours": "{count, plural, =1 {uma hora} other {# horas}}",
@@ -170,12 +175,18 @@
       "getInTouch": {
         "title": "Vamos Conversar",
         "description": "Fique à vontade para entrar em contato",
-        "message": "Tem uma ideia de projeto? Ou só quer discutir qual framework JS é o melhor? Mande um alô. Estou sempre aberto a novas oportunidades."
+        "message": "Tem uma ideia de projeto? Ou só quer discutir qual framework JS é o melhor? Mande um alô. Estou sempre aberto a novas oportunidades.",
+        "contributionGraph": {
+          "totalCount": "{count} contribuições em {year}",
+          "less": "Menos",
+          "more": "Mais"
+        }
       }
     }
   },
   "skillsPage": {
     "title": "Habilidades",
-    "description": "Meu arsenal de linguagens e ferramentas"
+    "description": "Meu arsenal de linguagens e ferramentas",
+    "stackNote": "A stack reflete o que eu estou utilizando atualmente em produção, não uma regra. Estou sempre estudando algo novo e disposto a aprender novas tecnologias quando necessário."
   }
 }

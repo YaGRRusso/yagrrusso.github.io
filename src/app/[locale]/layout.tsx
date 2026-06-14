@@ -1,10 +1,14 @@
+import { QueryClient } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
+import { prefetchFindOneUserById } from "@/hooks/queries/auth";
 import { routing } from "@/i18n/routing";
+import { dehydrate } from "@/lib/dehydrate";
 import { ClientLayout } from "./layout-client";
+import { PROFILE_USER_VARS } from "./queries";
 import "@/styles/globals.css";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -32,6 +36,9 @@ export default async function Layout({ children, params }: Props) {
     notFound();
   }
 
+  const queryClient = new QueryClient();
+  await prefetchFindOneUserById(queryClient, PROFILE_USER_VARS);
+
   return (
     <html
       className={cn(
@@ -48,7 +55,9 @@ export default async function Layout({ children, params }: Props) {
         src="https://cloud.umami.is/script.js"
       />
       <NextIntlClientProvider>
-        <ClientLayout locale={locale}>{children}</ClientLayout>
+        <ClientLayout dehydratedState={dehydrate(queryClient)} locale={locale}>
+          {children}
+        </ClientLayout>
       </NextIntlClientProvider>
     </html>
   );

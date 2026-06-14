@@ -28,6 +28,11 @@
     "page": "Page { current } of { total }",
     "showMore": "Show more",
     "showLess": "Show less",
+    "home": "Home",
+    "menu": "Menu",
+    "language": "Language",
+    "category": "Category",
+    "contributions": "{count, plural, =0 {No contributions} =1 {1 contribution} other {# contributions}}",
     "time": {
       "minutes": "{count, plural, =1 {one minute} other {# minutes}}",
       "hours": "{count, plural, =1 {one hour} other {# hours}}",
@@ -170,12 +175,18 @@
       "getInTouch": {
         "title": "Let's Talk",
         "description": "Feel free to reach out",
-        "message": "Have a project idea? Or just want to discuss which JS framework is best? Say hello. I'm always open to new opportunities."
+        "message": "Have a project idea? Or just want to discuss which JS framework is best? Say hello. I'm always open to new opportunities.",
+        "contributionGraph": {
+          "totalCount": "{count} contributions in {year}",
+          "less": "Less",
+          "more": "More"
+        }
       }
     }
   },
   "skillsPage": {
     "title": "Skills",
-    "description": "My arsenal of languages and tools"
+    "description": "My arsenal of languages and tools",
+    "stackNote": "This stack reflects what I'm currently using in production, not a rule. I'm always learning something new and willing to pick up new technologies when the challenge calls for it."
   }
 }

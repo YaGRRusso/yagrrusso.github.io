@@ -51,7 +51,7 @@ export async function generateSEO({
       ),
     },
     openGraph: {
-      siteName: "Yago Russo",
+      siteName: title,
       type: "website",
       title,
       description,

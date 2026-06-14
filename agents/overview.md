@@ -168,6 +168,10 @@ One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
 2. Run codegen (`npm run dev` watches, or `graphql-codegen --config codegen.ts`).
 3. Wrap with `defineQuery` or `defineInfiniteQuery`, export `prefetch*` and `use*`.
 4. Prefetch in the route's `page.tsx`; consume via `use*` in client components.
+5. Keep the hook result as the query name (e.g. `findOneUserById`). Read payload
+   via `findOneUserById.data?.findOneUserById` — do not alias `data` into a
+   shorter variable (`user`, `projects`, etc.). Pages with many queries need
+   `isLoading`, `isFetching`, `refetch`, etc. on each hook without name clashes.
 
 ### Adding a localized page
 
@@ -240,6 +244,9 @@ runtime).
   `codegen.ts`, and CI. Declared in `.env.example`.
 - `NEXT_PUBLIC_API_TOKEN` (required): Bearer token for the API. Read by
   `execute.ts` and CI. Declared in `.env.example`.
+- `NEXT_PUBLIC_USER_ID` (required): Profile owner ID for `findOneUserById`.
+  Prefetched in the locale layout. Declared in `.env.example`. CI maps
+  `secrets.USER_ID`.
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
   in the footer "updated at" line.
 

@@ -4,6 +4,7 @@ import {
   MoonIcon,
   SunIcon,
 } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 import { type ComponentProps, Fragment, useCallback, useRef } from "react";
 import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,7 @@ export function LayoutMenu({ locale, ...props }: Props) {
 }
 
 export function LayoutMenuControls({ locale }: { locale: Locale }) {
+  const t = useTranslations("common");
   const pathname = usePathname();
   const { theme: preferredTheme, setTheme: setPreferredTheme } =
     usePreferencesStore();
@@ -95,7 +97,7 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         value={locale}
       >
         <Select.Trigger aria-label="language" className="flex-1">
-          <Select.Value placeholder="Language" />
+          <Select.Value placeholder={t("language")} />
         </Select.Trigger>
         <Select.Content>
           <Select.Group>
