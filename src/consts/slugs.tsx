@@ -26,6 +26,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="Lightsail"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonLightsail.svg"
         width={30}
@@ -36,6 +37,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="EC2"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonEC2.svg"
         width={30}
@@ -46,6 +48,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="S3"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonS3onOutposts.svg"
         width={30}
@@ -56,6 +59,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="Lambda"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AWSLambda.svg"
         width={30}
@@ -66,6 +70,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="DynamoDB"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonDynamoDB.svg"
         width={30}
@@ -76,6 +81,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="RDS"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonRDS.svg"
         width={30}
@@ -86,6 +92,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="Route 53"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonRoute53.svg"
         width={30}
@@ -96,6 +103,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="CloudFront"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonCloudFront.svg"
         width={30}
@@ -106,6 +114,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="CloudWatch"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AmazonCloudWatch.svg"
         width={30}
@@ -116,6 +125,7 @@ export const SLUGS = {
     icon: (
       <Image
         alt="CloudFormation"
+        className="size-[1em]"
         height={30}
         src="https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service/AWSCloudFormation.svg"
         width={30}
