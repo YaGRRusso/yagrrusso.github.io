@@ -191,13 +191,23 @@ input CreateUserInput {
   avatar: String
   birth: String
   email: String!
+  i18n: [CreateUserMessagesInputTranslationInput!]
   name: String!
   nickname: String!
   password: String!
   phone: String
   role: UserRole
-  title: String
   urls: [UrlInput!]
+}
+
+input CreateUserMessagesInput {
+  description: String
+  title: String
+}
+
+input CreateUserMessagesInputTranslationInput {
+  locale: String!
+  messages: CreateUserMessagesInput!
 }
 
 type DashboardActivityItem {
@@ -398,12 +408,12 @@ input FilterUserInput {
   avatar: String
   birth: String
   email: String
+  i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
   nickname: String
   password: String
   phone: String
   role: UserRole
-  title: String
   urls: [UrlInput!]
 }
 
@@ -593,6 +603,7 @@ enum ResourceType {
   EXPERIENCE
   ORGANIZATION
   PROJECT
+  USER
 }
 
 input SignInInput {
@@ -718,11 +729,11 @@ input UpdateMeInput {
   avatar: String
   birth: String
   email: String
+  i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
   nickname: String
   password: String
   phone: String
-  title: String
   urls: [UrlInput!]
 }
 
@@ -757,12 +768,12 @@ input UpdateUserInput {
   avatar: String
   birth: String
   email: String
+  i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
   nickname: String
   password: String
   phone: String
   role: UserRole
-  title: String
   urls: [UrlInput!]
 }
 
@@ -789,17 +800,27 @@ type UserEntity {
   birth: String
   createdAt: DateTime!
   email: String!
+  i18n: [UserTranslationLocale!]
   id: ID!
   name: String!
   nickname: String!
   phone: String
   role: UserRole!
-  title: String
   updatedAt: DateTime!
   urls: [UrlEntity!]
+}
+
+type UserMessages {
+  description: String
+  title: String
 }
 
 enum UserRole {
   ADMIN
   USER
+}
+
+type UserTranslationLocale {
+  locale: String!
+  messages: UserMessages!
 }

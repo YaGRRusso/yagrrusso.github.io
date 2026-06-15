@@ -374,7 +374,7 @@ const ContributionGraphCalendar = ({
   return (
     <div
       className={cn(
-        "scrollbar-hidden max-w-full overflow-x-auto overflow-y-hidden",
+        "scrollbar-thin max-w-full overflow-x-auto overflow-y-hidden",
         className
       )}
       {...props}

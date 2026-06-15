@@ -11,10 +11,16 @@ const findOneUserById = graphql(`
     findOneUserById(userId: $userId) {
       id
       address
-      title
       urls {
         title
         value
+      }
+      i18n {
+        locale
+        messages {
+          title
+          description
+        }
       }
       avatar
       birth

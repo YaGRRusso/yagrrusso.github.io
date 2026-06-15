@@ -5,25 +5,26 @@ import {
   PhoneIcon,
   WhatsappLogoIcon,
 } from "@phosphor-icons/react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { SectionTitle } from "@/components/section-title";
 import { SocialLink } from "@/components/social-links";
+import { Avatar } from "@/components/ui/avatar";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Tooltip } from "@/components/ui/tooltip";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
 import { useFindOneUserById } from "@/hooks/queries/auth";
 import { useGetContributions } from "@/hooks/queries/external";
+import { useMessages } from "@/hooks/reactive/use-messages";
 import { PROFILE_USER_VARS } from "../../queries";
 
 export function ContactSection() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
   const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
-
+  const getMessages = useMessages();
   const getContributions = useGetContributions({ username: "yagrrusso" });
 
   const handleSendMail = useCallback(
@@ -49,21 +50,19 @@ export function ContactSection() {
             />
             <div className="flex flex-col gap-4">
               <div className="flex gap-6 max-sm:flex-col">
-                <Image
-                  alt="portrait"
-                  className="rounded-lg"
-                  height={96}
-                  priority={true}
-                  src={
-                    findOneUserById.data?.findOneUserById?.avatar ??
-                    "/images/portrait.jpg"
-                  }
-                  width={96}
-                />
+                <Avatar.Root className="size-20">
+                  <Avatar.Image
+                    src={findOneUserById.data?.findOneUserById?.avatar ?? ""}
+                  />
+                  <Avatar.Fallback>
+                    {findOneUserById.data?.findOneUserById?.name?.charAt(0)}
+                  </Avatar.Fallback>
+                </Avatar.Root>
                 <div className="flex flex-col gap-2">
                   <strong className="text-4xl">Yago Russo</strong>
                   <span className="text-muted-foreground">
-                    {findOneUserById.data?.findOneUserById?.title}
+                    {getMessages(findOneUserById.data?.findOneUserById?.i18n)
+                      ?.title ?? t("title")}
                   </span>
                 </div>
               </div>

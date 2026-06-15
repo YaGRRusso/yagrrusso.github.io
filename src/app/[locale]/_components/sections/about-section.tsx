@@ -4,11 +4,16 @@ import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { SectionTitle } from "@/components/section-title";
 import { useFindOneUserById } from "@/hooks/queries/auth";
+import { useMessages } from "@/hooks/reactive/use-messages";
+import { parseApiDate } from "@/lib/parse-api-date";
 import { PROFILE_USER_VARS } from "../../queries";
 
 export function AboutSection() {
   const t = useTranslations("homePage");
   const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
+  const getMessages = useMessages();
+
+  const birthDate = parseApiDate(findOneUserById.data?.findOneUserById?.birth);
 
   return (
     <div className="w-full">
@@ -22,15 +27,13 @@ export function AboutSection() {
             title={t("sections.aboutMe.title")}
           />
           <p className="text-muted-foreground">
-            {t.rich("sections.aboutMe.message", {
-              age: dayjs().diff(
-                findOneUserById.data?.findOneUserById.birth,
-                "year",
-                false
-              ),
-              address: findOneUserById.data?.findOneUserById?.address ?? "",
-              br: () => <br />,
-            })}
+            {getMessages(findOneUserById.data?.findOneUserById?.i18n)
+              ?.description ??
+              t.rich("sections.aboutMe.message", {
+                age: birthDate ? dayjs().diff(birthDate, "year", false) : 0,
+                address: findOneUserById.data?.findOneUserById?.address ?? "",
+                br: () => <br />,
+              })}
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Counter
