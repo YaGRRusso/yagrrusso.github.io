@@ -45,7 +45,7 @@ export function HeroSection() {
         <p className="text-muted-foreground">{t("description")}</p>
         <div className="flex flex-wrap items-center gap-2">
           <TitleLink
-            href={`https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/curriculum-${locale}.pdf`}
+            href={`https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/resume-${locale}.pdf`}
             icon={<ReadCvLogoIcon weight="bold" />}
             rel="noopener noreferrer"
             target="_blank"
