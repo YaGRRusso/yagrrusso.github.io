@@ -26,6 +26,7 @@ export function ContactSection() {
   const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
   const getMessages = useMessages();
   const getContributions = useGetContributions({ username: "yagrrusso" });
+  const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
 
   const handleSendMail = useCallback(
     (data: ContactSchema) => {
@@ -61,8 +62,7 @@ export function ContactSection() {
                 <div className="flex flex-col gap-2">
                   <strong className="text-4xl">Yago Russo</strong>
                   <span className="text-muted-foreground">
-                    {getMessages(findOneUserById.data?.findOneUserById?.i18n)
-                      ?.title ?? t("title")}
+                    {getMessages(messages)?.title}
                   </span>
                 </div>
               </div>

@@ -16,6 +16,7 @@ export function HeroSection() {
   const t = useTranslations("homePage");
   const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
   const getMessages = useMessages();
+  const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
 
   return (
     <div className="container relative flex min-h-[92vh] w-full items-center gap-8 max-md:flex-col-reverse">
@@ -36,8 +37,7 @@ export function HeroSection() {
           </div>
           <Highlighter action="underline" padding={4}>
             <h1 className="font-semibold text-6xl max-md:text-5xl">
-              {getMessages(findOneUserById.data?.findOneUserById?.i18n)
-                ?.title ?? t("title")}
+              {getMessages(messages)?.title}
             </h1>
           </Highlighter>
         </div>

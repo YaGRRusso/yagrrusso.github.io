@@ -47,7 +47,7 @@ export function PortfolioSection() {
                 images={proj.images}
                 skills={proj.skills ?? []}
                 slug={proj.slug}
-                title={getMessages(proj.i18n).title}
+                title={getMessages(proj.i18n)?.title}
                 urls={proj.urls ?? []}
               />
             </AnimateOnScroll>
