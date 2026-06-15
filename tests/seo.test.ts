@@ -63,9 +63,10 @@ if (!existsSync(OUT_DIR)) {
   );
 }
 
-/** React Query embeds `<key>":{"found":N` (quotes escaped) in the flight stream. */
+/** React Query embeds dehydrated query payloads (quotes escaped) in the flight stream. */
 function hasDehydratedQuery(html: string, key: string) {
-  return html.includes(`${key}\\":{\\"found\\":`);
+  const field = key.startsWith("findOne") ? "id" : "found";
+  return html.includes(`${key}\\":{\\"${field}\\":`);
 }
 
 describe.each(ROUTES)("$file", (route) => {

@@ -1,10 +1,12 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import { prefetchFindOneUserById } from "@/hooks/queries/auth";
 import { prefetchFindManySkills } from "@/hooks/queries/skills";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
+import { PROFILE_USER_VARS } from "../queries";
 import { ClientPage } from "./page-client";
 import { SKILL_SKILLS_VARS } from "./queries";
 
@@ -31,6 +33,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
+  await prefetchFindOneUserById(queryClient, PROFILE_USER_VARS);
   await prefetchFindManySkills(queryClient, SKILL_SKILLS_VARS);
 
   return (
