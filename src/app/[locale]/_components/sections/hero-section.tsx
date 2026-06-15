@@ -1,6 +1,6 @@
 import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
@@ -17,6 +17,7 @@ export function HeroSection() {
   const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
   const getMessages = useMessages();
   const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
+  const locale = useLocale();
 
   return (
     <div className="container relative flex min-h-[92vh] w-full items-center gap-8 max-md:flex-col-reverse">
@@ -44,7 +45,7 @@ export function HeroSection() {
         <p className="text-muted-foreground">{t("description")}</p>
         <div className="flex flex-wrap items-center gap-2">
           <TitleLink
-            href="https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/curriculum.pdf"
+            href={`https://cdn.jsdelivr.net/gh/YaGRRusso/public-assets@main/documents/curriculum-${locale}.pdf`}
             icon={<ReadCvLogoIcon weight="bold" />}
             rel="noopener noreferrer"
             target="_blank"
