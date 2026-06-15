@@ -10,7 +10,7 @@ interface Props extends ComponentProps<typeof Badge> {
 export function SkillBadge({ name, slug, ...props }: Props) {
   return (
     <Badge variant="outline" {...props}>
-      {getSlug(slug).icon}
+      <div className="text-[0.625rem]">{getSlug(slug).icon}</div>
       {name}
     </Badge>
   );

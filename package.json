@@ -42,7 +42,7 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@0no-co/graphqlsp": "^1.17.1",
+    "@0no-co/graphqlsp": "^1.17.2",
     "@biomejs/biome": "^2.5.0",
     "@graphql-codegen/cli": "^6.3.1",
     "@graphql-codegen/schema-ast": "^5.0.2",
@@ -82,7 +82,7 @@
     "fix": "ultracite fix",
     "test": "vitest run",
     "test:watch": "vitest",
-    "back": "cd ../profile-info && npm run api:dev"
+    "back": "cd ../profile-info && npm run dev"
   },
   "version": "0.1.0",
   "private": true
