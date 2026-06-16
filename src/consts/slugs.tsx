@@ -1,7 +1,7 @@
-import { SiGraphql } from "@icons-pack/react-simple-icons";
 import {
   CloudIcon,
   DatabaseIcon,
+  GraphIcon,
   ListMagnifyingGlassIcon,
   PackageIcon,
   PawPrintIcon,
@@ -17,7 +17,7 @@ export type SlugType = {
 
 export const SLUGS = {
   other: { icon: <PackageIcon /> },
-  codegen: { icon: <SiGraphql /> },
+  codegen: { icon: <GraphIcon /> },
   typesense: { icon: <DatabaseIcon /> },
   nuqs: { icon: <ListMagnifyingGlassIcon /> },
   zustand: { icon: <PawPrintIcon /> },
