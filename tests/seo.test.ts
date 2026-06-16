@@ -30,28 +30,28 @@ type Route = {
 
 const ROUTES: Route[] = [
   {
-    file: "en.html",
+    file: "en/index.html",
     locale: "en",
     url: `${BASE_URL}/en/`,
     expectQueries: HOME_QUERIES,
   },
   {
-    file: "pt.html",
+    file: "pt/index.html",
     locale: "pt",
     url: `${BASE_URL}/pt/`,
     expectQueries: HOME_QUERIES,
   },
   {
-    file: "en/skills.html",
+    file: "en/skills/index.html",
     locale: "en",
-    url: `${BASE_URL}/en/skills`,
+    url: `${BASE_URL}/en/skills/`,
     expectQueries: ["findOneUserById", "findManySkills"],
     expectListItems: true,
   },
   {
-    file: "pt/skills.html",
+    file: "pt/skills/index.html",
     locale: "pt",
-    url: `${BASE_URL}/pt/skills`,
+    url: `${BASE_URL}/pt/skills/`,
     expectQueries: ["findOneUserById", "findManySkills"],
     expectListItems: true,
   },
