@@ -6,7 +6,7 @@ import { type Locale, routing } from "@/i18n/routing";
 const { locales, defaultLocale } = routing;
 
 export default function RootPage() {
-  const fallbackHref = `/${defaultLocale}`;
+  const fallbackHref = `/${defaultLocale}/`;
 
   useEffect(() => {
     const browserLocale = navigator.language.split("-")[0] as Locale;
@@ -14,7 +14,7 @@ export default function RootPage() {
       ? browserLocale
       : defaultLocale;
 
-    return () => window.location.replace(`/${locale}`);
+    return () => window.location.replace(`/${locale}/`);
   }, []);
 
   return (
