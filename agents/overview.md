@@ -59,7 +59,9 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 
 ### Routing and i18n
 
-- Root `src/app/page.tsx` redirects to `/en` or `/pt` from `navigator.language`.
+- Root `src/app/page.tsx` redirects to `/{locale}/` via meta refresh and
+  `window.location.replace` (static-export safe). Preview the site at `/en/` or
+  `/pt/`; `/` only redirects.
 - All pages live under `src/app/[locale]/`. `generateStaticParams` emits both
   locales for static export.
 - `src/i18n/routing.ts` defines locales and the `Namespace` type (message keys
@@ -76,7 +78,9 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - `src/app/[locale]/layout.tsx`: server layout. Fonts (JetBrains Mono, Space
   Grotesk), Umami analytics, `NextIntlClientProvider`, `ClientLayout`.
 - `src/app/[locale]/layout-client.tsx`: client shell with header, footer, scroll
-  progress, toast (`sonner`), module-level `QueryClientProvider`, `ThemeProvider`.
+  progress, toast (`sonner`), `QueryClientProvider` (via `getQueryClient()` in
+  `src/lib/get-query-client.ts` — one client per SSR request, singleton in the
+  browser), `ThemeProvider`.
 
 ### Theme
 
@@ -258,7 +262,8 @@ secrets `API_URL` and `API_TOKEN` mapped during build.
 - `npm run setup`: runs `bash scripts/setup.sh`.
 - `npm run dev`: GraphQL codegen watch + `next dev --turbopack`.
 - `npm run build`: `next build --turbopack`, static export to `out/`.
-- `npm run serve`: serves `out/` on port 4000 for local preview.
+- `npm run serve`: serves `out/` on port 4000 (no SPA fallback — static HTML
+  per route).
 - `npm run back`: `cd ../profile-info && npm run api:dev`.
 - `npm run check` / `npm run fix`: Ultracite check/fix.
 - `npm run test`: `vitest run` (requires prior build for SEO test).

@@ -77,7 +77,7 @@
     "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "serve": "serve -s out -l 4000",
+    "serve": "serve out -l 4000",
     "check": "ultracite check",
     "fix": "ultracite fix",
     "test": "vitest run",

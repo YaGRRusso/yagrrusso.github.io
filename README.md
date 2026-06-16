@@ -23,7 +23,7 @@ build time.
 src/
 ├── app/
 │   ├── layout.tsx            # Root layout: favicon metadata only.
-│   ├── page.tsx              # Client redirect to /en or /pt by browser language.
+│   ├── page.tsx              # Root redirect to /en/ or /pt/ (static-export safe).
 │   └── [locale]/             # Locale-scoped routes (en, pt).
 │       ├── layout.tsx        # Server layout: fonts, intl provider, analytics.
 │       ├── layout-client.tsx # Client shell: header, footer, QueryClient, theme.

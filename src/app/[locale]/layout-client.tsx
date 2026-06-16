@@ -3,17 +3,17 @@
 import {
   type DehydratedState,
   HydrationBoundary,
-  QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import type { ComponentProps, ReactNode } from "react";
+import { type ComponentProps, type ReactNode, useState } from "react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { getQueryClient } from "@/lib/get-query-client";
 import { LayoutLoading } from "./_components/layout-loading";
 import { LayoutMenu } from "./_components/layout-menu";
 
@@ -23,27 +23,13 @@ interface Props extends ComponentProps<"body"> {
   locale: Locale;
 }
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      staleTime: 600_000, // 10 minutes
-      retryDelay: 30_000, // 30 seconds
-      retry: 5,
-    },
-    mutations: {
-      retryDelay: 30_000, // 30 seconds
-      retry: 5,
-    },
-  },
-});
-
 export function ClientLayout({
   locale,
   dehydratedState,
   children,
   ...rest
 }: Props) {
+  const [queryClient] = useState(() => getQueryClient());
   const t = useTranslations("layout");
 
   return (
