@@ -1,3 +1,7 @@
+export function paginationInput(page: number, limit: number) {
+  return { limit, skip: (page - 1) * limit };
+}
+
 export function getPagination(
   limit: number,
   skip = 0,

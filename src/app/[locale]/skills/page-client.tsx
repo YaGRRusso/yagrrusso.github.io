@@ -25,7 +25,7 @@ import { getSlug } from "@/consts/slugs";
 import { SkillCategory } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { getPagination } from "@/lib/pagination";
-import { SKILL_SKILLS_VARS } from "./queries";
+import { getSkillSkillsVars } from "./queries";
 
 export function ClientPage() {
   const t = useTranslations("skillsPage");
@@ -40,13 +40,14 @@ export function ClientPage() {
   };
 
   // const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<SkillCategory | "ALL">("ALL");
+  const [category, setCategory] = useState<SkillCategory | undefined>();
   const [page, setPage] = useState(1);
 
-  const limit = 50;
-  const skip = (page - 1) * limit;
+  const queryVars = getSkillSkillsVars(category, page);
+  const findManySkills = useFindManySkills(queryVars);
 
-  const findManySkills = useFindManySkills(SKILL_SKILLS_VARS);
+  const limit = queryVars.skillPagination?.limit ?? 50;
+  const skip = queryVars.skillPagination?.skip ?? 0;
 
   const pagination = getPagination(
     limit,
@@ -63,16 +64,17 @@ export function ClientPage() {
             {t("stackNote")}
           </span>
           <Select.Root
-            onValueChange={(value) =>
-              setCategory(value as SkillCategory | "ALL")
-            }
-            value={category}
+            onValueChange={(value) => {
+              setCategory(value ? (value as SkillCategory) : undefined);
+              setPage(1);
+            }}
+            value={category ?? ""}
           >
             <Select.Trigger className="w-full flex-1 md:max-w-64">
               <Select.Value placeholder={tCommon("category")} />
             </Select.Trigger>
             <Select.Content>
-              <Select.Item value="ALL">
+              <Select.Item value="">
                 <PackageIcon />
                 {tCommon("categories.ALL")}
               </Select.Item>

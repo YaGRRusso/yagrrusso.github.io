@@ -158,7 +158,7 @@ One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
 - `dehydrate.ts`: prefetch invalidation wrapper.
 - `seo.ts`: metadata from i18n namespaces.
 - `cdn.ts`: Simple Icons and Google favicon URL builders.
-- `pagination.ts`, `tc.ts`, `utils.ts` (`cn()`).
+- `pagination.ts` (`paginationInput`, `getPagination`), `query-vars.ts` (`filterInput` — omits `undefined`, `null`, `""`), `tc.ts`, `utils.ts` (`cn()`).
 
 ## The patterns to follow when extending
 
