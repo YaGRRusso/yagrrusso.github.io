@@ -4,5 +4,16 @@
 @import "./tailwind/animations.css";
 @import "./tailwind/configs.css";
 @import "./tailwind/utilities.css";
+
 @import "./theme/index.css";
 @import "./base.css";
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground;
+  }
+}

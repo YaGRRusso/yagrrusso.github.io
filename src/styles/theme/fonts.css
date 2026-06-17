@@ -1,8 +1,10 @@
+/* Loaded last — overrides tweakcn --font-* exports. Do not edit when swapping fonts. */
 :root,
-.dark {
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-  --font-serif: ui-serif, Georgia, serif;
+.dark,
+.theme-alternative {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
 }
 
 @theme inline {

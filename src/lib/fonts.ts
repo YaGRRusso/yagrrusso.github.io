@@ -1,13 +1,23 @@
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 
-export const jetbrainsMono = JetBrains_Mono({
+/** Swap fonts here — no CSS changes needed. Applied on `<html>` via `fontVariables`. */
+const fontSans = Inter({
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-sans",
 });
 
-export const spaceGrotesk = Space_Grotesk({
+const fontSerif = Source_Serif_4({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-serif",
 });
 
-export const fontVariables = [jetbrainsMono.variable, spaceGrotesk.variable];
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
+export const fontVariables = [
+  fontSans.variable,
+  fontSerif.variable,
+  fontMono.variable,
+];

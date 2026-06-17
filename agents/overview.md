@@ -110,9 +110,10 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
   `tailwind/configs.css` (official shadcn token bridge), `tailwind/animations.css`,
   `tailwind/utilities.css`, `theme/` (palette values + per-theme bridges), `base.css`.
   tweakcn exports → `theme/default.css`. Status tokens → `theme/status.css`. Fonts →
-  `theme/fonts.css` + `src/lib/fonts.ts`. Extra palettes → `theme/index.css`.
+  `src/lib/fonts.ts` (swap families); `theme/fonts.css` locks `--font-*` last.
+  Extra palettes → `theme/index.css`.
 - **shadcn/ui (new-york) + Radix UI**: `src/components/ui/`, `components.json`.
-  Use Tailwind `font-sans` / `font-mono` (wired to tweakcn `--font-*` vars).
+  Use Tailwind `font-sans` / `font-mono` / `font-serif`.
   Magic UI and Kibo UI registries for animated components.
 - **Zustand**: theme preference only (`src/stores/theme.ts`).
 - **TanStack Form + Zod + validator**: contact form in `src/forms/contact.tsx`.
