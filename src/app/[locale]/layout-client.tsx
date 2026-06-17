@@ -44,16 +44,9 @@ export function ClientLayout({
           <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image
               alt="Logo"
-              className="block size-6 dark:hidden"
+              className="logo-adaptive size-6"
               height={24}
               src="/favicon-black.svg"
-              width={24}
-            />
-            <Image
-              alt="Logo"
-              className="hidden size-6 dark:block"
-              height={24}
-              src="/favicon-white.svg"
               width={24}
             />
             <h2 className="font-semibold text-2xl tracking-wide">Yago Russo</h2>

@@ -53,7 +53,7 @@ export function EducationCard({
   return (
     <a
       className={cn(
-        "group/hover flex h-full flex-col justify-center gap-4 rounded border px-8 py-12",
+        "group/hover flex h-full flex-col justify-center gap-4 rounded border bg-card px-8 py-12 text-card-foreground",
         className
       )}
       href={url ?? image ?? organization.website}

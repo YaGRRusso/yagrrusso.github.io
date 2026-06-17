@@ -13,3 +13,7 @@
   mix-blend-mode: normal;
   animation: none;
 }
+
+.dark .logo-adaptive {
+  filter: invert(1);
+}

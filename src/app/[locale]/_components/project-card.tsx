@@ -43,7 +43,7 @@ export function ProjectCard({
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded border max-lg:flex-col-reverse lg:h-128",
+        "flex items-center justify-center rounded border bg-card text-card-foreground max-lg:flex-col-reverse lg:h-128",
         direction === "left" ? "flex-row" : "flex-row-reverse"
       )}
       {...props}

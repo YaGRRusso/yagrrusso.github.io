@@ -17,7 +17,7 @@ export function NetworkCard({ avatar, urls, name, role, ...props }: Props) {
       className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
       {...props}
     >
-      <div className="flex h-full flex-col items-center justify-center gap-4 rounded border px-8 py-12">
+      <div className="flex h-full flex-col items-center justify-center gap-4 rounded border bg-card px-8 py-12 text-card-foreground">
         <Avatar.Root className="size-20">
           <Avatar.Image alt={name} src={avatar} />
           <Avatar.Fallback>{name.charAt(0)}</Avatar.Fallback>
