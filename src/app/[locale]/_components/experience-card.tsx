@@ -45,7 +45,7 @@ export function ExperienceCard({
   return (
     <Accordion.Root
       className={cn(
-        "flex flex-col gap-8 rounded border bg-card px-8 py-12 text-card-foreground",
+        "flex flex-col gap-8 rounded border bg-card/15 px-8 py-12 text-card-foreground",
         className
       )}
       defaultValue={["0"]}
