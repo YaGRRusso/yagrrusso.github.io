@@ -42,6 +42,11 @@ export default async function Layout({ children, params }: Props) {
         defer
         src="https://cloud.umami.is/script.js"
       />
+      <Script
+        async
+        crossOrigin="anonymous"
+        src="https://tweakcn.com/live-preview.min.js"
+      />
       <NextIntlClientProvider>
         <ClientLayout dehydratedState={dehydrate(queryClient)} locale={locale}>
           {children}
