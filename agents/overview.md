@@ -106,13 +106,11 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - **GraphQL Code Generator (client preset)**: `codegen.ts`, `src/graphql/`. Do not
   edit generated files. Biome excludes `src/graphql/`.
 - **@0no-co/graphqlsp**: TypeScript plugin, schema at `./schema.graphql`.
-- **Tailwind CSS v4**: `src/styles/globals.css`, `postcss.config.mjs`. tweakcn exports
-  go in `src/styles/themes/default.css` (between `TWEAKCN START/END`). Register extra
-  themes in `src/styles/themes/index.css`. Custom tokens (`destructive`, `success`,
-  `info`, `warning`) live in `src/styles/theme-extensions.css` and load after theme
-  files, so tweakcn paste can include them — extensions always win. Font loading is via
-  `src/lib/fonts.ts`; `src/styles/theme-fonts.css` maps those vars to `--font-sans`
-  / `--font-mono`.
+- **Tailwind CSS v4**: `src/styles/globals.css` (entry), `postcss.config.mjs`. Structure:
+  `tailwind/configs.css` (official shadcn token bridge), `tailwind/animations.css`,
+  `tailwind/utilities.css`, `theme/` (palette values + per-theme bridges), `base.css`.
+  tweakcn exports → `theme/default.css`. Status tokens → `theme/status.css`. Fonts →
+  `theme/fonts.css` + `src/lib/fonts.ts`. Extra palettes → `theme/index.css`.
 - **shadcn/ui (new-york) + Radix UI**: `src/components/ui/`, `components.json`.
   Use Tailwind `font-sans` / `font-mono` (wired to tweakcn `--font-*` vars).
   Magic UI and Kibo UI registries for animated components.
