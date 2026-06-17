@@ -55,7 +55,7 @@ export function ProjectCard({
             direction === "left" ? "lg:pr-16" : "lg:pl-16"
           )}
         >
-          <div className="flex items-center font-jetbrains-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
+          <div className="flex items-center font-mono text-primary text-sm uppercase tracking-wide max-lg:-mb-4">
             <HashIcon weight="bold" />
             <span className="line-clamp-1">{slug}</span>
           </div>

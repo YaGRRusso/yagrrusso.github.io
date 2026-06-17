@@ -29,7 +29,7 @@ export function HeroSection() {
         y={16}
       >
         <div className="flex flex-col gap-2 tracking-wide">
-          <div className="-ml-5 flex items-center gap-1 font-jetbrains-mono font-medium text-primary uppercase">
+          <div className="-ml-5 flex items-center gap-1 font-medium font-mono text-primary uppercase">
             <CaretRightIcon
               className="mb-0.5 animate-caret-blink"
               weight="bold"

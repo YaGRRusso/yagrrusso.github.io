@@ -34,7 +34,7 @@ export function ClientLayout({
 
   return (
     <body
-      className="flex min-h-screen flex-col bg-background font-space-grotesk text-foreground"
+      className="flex min-h-screen flex-col bg-background text-foreground"
       {...rest}
     >
       <LayoutLoading />

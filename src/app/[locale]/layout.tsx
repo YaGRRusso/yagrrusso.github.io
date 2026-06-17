@@ -7,20 +7,11 @@ import type { ReactNode } from "react";
 import { prefetchFindOneUserById } from "@/hooks/queries/auth";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
+import { fontVariables } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import { ClientLayout } from "./layout-client";
 import { PROFILE_USER_VARS } from "./queries";
 import "@/styles/globals.css";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import { cn } from "@/lib/utils";
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-});
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-});
 
 type Props = {
   children: ReactNode;
@@ -41,11 +32,7 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <html
-      className={cn(
-        "dark scroll-smooth",
-        jetbrainsMono.variable,
-        spaceGrotesk.variable
-      )}
+      className={cn("dark scroll-smooth", ...fontVariables)}
       data-scroll-behavior="smooth"
       lang={locale ?? routing.defaultLocale}
     >

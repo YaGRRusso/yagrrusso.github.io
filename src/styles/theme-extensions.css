@@ -1,0 +1,21 @@
+:root {
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: oklch(0.627 0.194 149.214);
+  --success-foreground: oklch(0.985 0 0);
+  --info: oklch(0.546 0.215 262.881);
+  --info-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.666 0.157 58.318);
+  --warning-foreground: oklch(0.985 0 0);
+}
+
+.dark {
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: oklch(0.723 0.219 149.579);
+  --success-foreground: oklch(0.985 0 0);
+  --info: oklch(0.707 0.165 254.624);
+  --info-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.828 0.189 84.429);
+  --warning-foreground: oklch(0.279 0.077 45.635);
+}

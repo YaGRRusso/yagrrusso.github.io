@@ -1,0 +1,6 @@
+:root,
+.dark {
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-serif: ui-serif, Georgia, serif;
+}

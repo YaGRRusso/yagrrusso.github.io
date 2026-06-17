@@ -12,7 +12,7 @@ function BreadcrumbList({ className, ...props }: ComponentProps<"ol">) {
   return (
     <ol
       className={cn(
-        "wrap-reak-words flex flex-wrap items-center gap-1.5 font-jetbrains-mono font-medium text-muted-foreground tracking-wide sm:gap-2.5",
+        "wrap-reak-words flex flex-wrap items-center gap-1.5 font-medium font-mono text-muted-foreground tracking-wide sm:gap-2.5",
         className
       )}
       data-slot="breadcrumb-list"

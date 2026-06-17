@@ -23,7 +23,7 @@ export function SectionTitle({
       {...props}
     >
       <Link
-        className="group -ml-5 flex scroll-mt-[12vh] items-center gap-1 font-jetbrains-mono font-medium text-primary uppercase"
+        className="group -ml-5 flex scroll-mt-[12vh] items-center gap-1 font-medium font-mono text-primary uppercase"
         href={`#${id}`}
         id={id}
       >
