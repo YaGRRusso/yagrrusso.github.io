@@ -63,8 +63,6 @@
     0 2px 8px 0px hsl(212.3027 48.1595% 5.2976% / 0.08),
     0 8px 10px -1px hsl(212.3027 48.1595% 5.2976% / 0.08);
   --shadow-2xl: 0 2px 8px 0px hsl(212.3027 48.1595% 5.2976% / 0.2);
-  --tracking-normal: -0.01em;
-  --spacing: 0.25rem;
 }
 
 .theme-original.dark {

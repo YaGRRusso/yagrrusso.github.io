@@ -1,19 +1,18 @@
-import { Inter, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
+import { JetBrains_Mono, Merriweather, Space_Grotesk } from "next/font/google";
 
-/** Swap fonts here — no CSS changes needed. Applied on `<html>` via `fontVariables`. */
-const fontSans = Inter({
+const fontSans = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-family-sans",
 });
 
-const fontSerif = Source_Serif_4({
+const fontSerif = Merriweather({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-family-serif",
 });
 
 const fontMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-family-mono",
 });
 
 export const fontVariables = [
