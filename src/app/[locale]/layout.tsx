@@ -32,7 +32,7 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <html
-      className={cn("theme-alternative dark scroll-smooth", ...fontVariables)}
+      className={cn("theme-original dark scroll-smooth", ...fontVariables)}
       data-scroll-behavior="smooth"
       lang={locale ?? routing.defaultLocale}
     >

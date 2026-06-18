@@ -41,7 +41,7 @@ export function CourseCard({
 
   return (
     <a
-      className="group/hover flex h-full flex-col justify-center gap-4 rounded border bg-card/15 px-8 py-12 text-card-foreground"
+      className="group/hover flex h-full flex-col justify-center gap-4 rounded border bg-card/40 px-8 py-12 text-card-foreground"
       href={url ?? image ?? organization.website}
       rel="noopener noreferrer"
       target="_blank"

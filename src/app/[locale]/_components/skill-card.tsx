@@ -10,7 +10,7 @@ interface Props extends ComponentProps<typeof Carousel.Item> {
 export function SkillCard({ title, description, icon, ...props }: Props) {
   return (
     <Carousel.Item className="basis-full sm:basis-1/2 lg:basis-1/3" {...props}>
-      <div className="flex h-full flex-col justify-center gap-4 rounded border bg-card/15 px-8 py-12 text-card-foreground">
+      <div className="flex h-full flex-col justify-center gap-4 rounded border bg-card/40 px-8 py-12 text-card-foreground">
         <div className="flex size-14 items-center justify-center rounded bg-primary text-primary-foreground">
           {icon}
         </div>
