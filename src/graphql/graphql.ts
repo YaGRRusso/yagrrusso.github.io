@@ -24,6 +24,22 @@ export type AiEntity = {
   usage?: Maybe<UsageEntity>;
 };
 
+export type ApiTokenEntity = {
+  __typename?: 'ApiTokenEntity';
+  createdAt: Scalars['DateTime']['output'];
+  expiresAt?: Maybe<Scalars['DateTime']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  ownerId: Scalars['String']['output'];
+  permissions: Array<ApiTokenPermission>;
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export enum ApiTokenPermission {
+  Mutate = 'MUTATE',
+  Query = 'QUERY'
+}
+
 export type AtsSummarizeInput = {
   details?: InputMaybe<Array<DetailInput>>;
   raw: Scalars['String']['input'];
@@ -33,8 +49,14 @@ export type AtsSummarizeInput = {
 
 export type BatchEntity = {
   __typename?: 'BatchEntity';
-  count: Scalars['Int']['output'];
+  failed: Scalars['Int']['output'];
+  succeeded: Scalars['Int']['output'];
 };
+
+export enum CatalogPartition {
+  Global = 'GLOBAL',
+  Local = 'LOCAL'
+}
 
 export enum ChatFinishReason {
   ContentFilter = 'CONTENT_FILTER',
@@ -65,8 +87,12 @@ export type CourseEntity = {
   i18n: Array<CourseTranslationLocale>;
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
-  organization: OrganizationEntity;
+  organization?: Maybe<OrganizationEntity>;
+  organizationId?: Maybe<Scalars['ID']['output']>;
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
   relevance: Scalars['Float']['output'];
+  skillIds?: Maybe<Array<Scalars['ID']['output']>>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   status: CourseStatus;
@@ -92,14 +118,19 @@ export type CourseTranslationLocale = {
   messages: CourseMessages;
 };
 
+export type CreateApiTokenInput = {
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  name: Scalars['String']['input'];
+  permissions: Array<ApiTokenPermission>;
+};
+
 export type CreateCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n: Array<CreateCourseMessagesInputTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
-  organization: Scalars['String']['input'];
-  period?: InputMaybe<DateRangeInput>;
+  organizationId: Scalars['String']['input'];
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   status: CourseStatus;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -119,10 +150,10 @@ export type CreateEducationInput = {
   i18n: Array<CreateEducationMessagesInputTranslationInput>;
   image?: InputMaybe<Scalars['String']['input']>;
   level: EducationLevel;
-  organization: Scalars['String']['input'];
+  organizationId: Scalars['String']['input'];
   period?: InputMaybe<DateRangeInput>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   status: EducationStatus;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -140,7 +171,7 @@ export type CreateEducationMessagesInputTranslationInput = {
 
 export type CreateExperienceInput = {
   category: ExperienceCategory;
-  organization: Scalars['String']['input'];
+  organizationId: Scalars['String']['input'];
   relevance?: InputMaybe<Scalars['Float']['input']>;
   roles: Array<CreateExperienceRoleInput>;
   slug: Scalars['String']['input'];
@@ -159,17 +190,16 @@ export type CreateExperienceMessagesInputTranslationInput = {
 export type CreateExperienceRoleInput = {
   i18n: Array<CreateExperienceMessagesInputTranslationInput>;
   period?: InputMaybe<DateRangeInput>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type CreateOrganizationInput = {
   category: OrganizationCategory;
   i18n: Array<CreateOrganizationMessagesInputTranslationInput>;
-  logo: Scalars['String']['input'];
+  logo?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
-  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug: Scalars['String']['input'];
-  website: Scalars['String']['input'];
+  website?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CreateOrganizationMessagesInput = {
@@ -185,7 +215,7 @@ export type CreateProjectInput = {
   i18n: Array<CreateProjectMessagesInputTranslationInput>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug: Scalars['String']['input'];
   urls?: InputMaybe<Array<UrlInput>>;
 };
@@ -201,10 +231,18 @@ export type CreateProjectMessagesInputTranslationInput = {
 };
 
 export type CreateSkillInput = {
-  category: SkillCategory;
-  name: Scalars['String']['input'];
-  relevance?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  i18n: Array<CreateSkillMessagesInputTranslationInput>;
   slug: Scalars['String']['input'];
+};
+
+export type CreateSkillMessagesInput = {
+  title: Scalars['String']['input'];
+};
+
+export type CreateSkillMessagesInputTranslationInput = {
+  locale: Scalars['String']['input'];
+  messages: CreateSkillMessagesInput;
 };
 
 export type CreateUserInput = {
@@ -218,6 +256,7 @@ export type CreateUserInput = {
   password: Scalars['String']['input'];
   phone?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<UserRole>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
@@ -258,7 +297,6 @@ export type DashboardEntity = {
   coursesByStatus: Array<DashboardCount>;
   experiencesByCategory: Array<DashboardCount>;
   recentActivity: Array<DashboardActivityItem>;
-  skillsByCategory: Array<DashboardCount>;
   totals: DashboardTotals;
 };
 
@@ -295,9 +333,13 @@ export type EducationEntity = {
   id: Scalars['ID']['output'];
   image?: Maybe<Scalars['String']['output']>;
   level: EducationLevel;
-  organization: OrganizationEntity;
+  organization?: Maybe<OrganizationEntity>;
+  organizationId?: Maybe<Scalars['ID']['output']>;
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
   period?: Maybe<DateRangeEntity>;
   relevance: Scalars['Float']['output'];
+  skillIds?: Maybe<Array<Scalars['ID']['output']>>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   status: EducationStatus;
@@ -344,7 +386,10 @@ export type ExperienceEntity = {
   category: ExperienceCategory;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
-  organization: OrganizationEntity;
+  organization?: Maybe<OrganizationEntity>;
+  organizationId?: Maybe<Scalars['ID']['output']>;
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
   relevance: Scalars['Float']['output'];
   roles: Array<ExperienceRole>;
   skills?: Maybe<Array<SkillEntity>>;
@@ -362,6 +407,7 @@ export type ExperienceRole = {
   __typename?: 'ExperienceRole';
   i18n: Array<ExperienceTranslationLocale>;
   period?: Maybe<DateRangeEntity>;
+  skillIds?: Maybe<Array<Scalars['ID']['output']>>;
   skills?: Maybe<Array<SkillEntity>>;
 };
 
@@ -371,14 +417,19 @@ export type ExperienceTranslationLocale = {
   messages: ExperienceMessages;
 };
 
+export type FilterApiTokenInput = {
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  permissions?: InputMaybe<Array<ApiTokenPermission>>;
+};
+
 export type FilterCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n?: InputMaybe<Array<CreateCourseMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
-  organization?: InputMaybe<Scalars['String']['input']>;
-  period?: InputMaybe<DateRangeInput>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<CourseStatus>;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -388,10 +439,10 @@ export type FilterEducationInput = {
   i18n?: InputMaybe<Array<CreateEducationMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<EducationLevel>;
-  organization?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EducationStatus>;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -399,7 +450,7 @@ export type FilterEducationInput = {
 
 export type FilterExperienceInput = {
   category?: InputMaybe<ExperienceCategory>;
-  organization?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
   roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -407,10 +458,12 @@ export type FilterExperienceInput = {
 
 export type FilterOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
+  disabled?: InputMaybe<Scalars['Boolean']['input']>;
   i18n?: InputMaybe<Array<CreateOrganizationMessagesInputTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  relevance?: InputMaybe<Scalars['Float']['input']>;
+  ownerId?: InputMaybe<Scalars['String']['input']>;
+  partition?: InputMaybe<CatalogPartition>;
   slug?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
 };
@@ -419,15 +472,16 @@ export type FilterProjectInput = {
   i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
 export type FilterSkillInput = {
-  category?: InputMaybe<SkillCategory>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  relevance?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  disabled?: InputMaybe<Scalars['Boolean']['input']>;
+  ownerId?: InputMaybe<Scalars['String']['input']>;
+  partition?: InputMaybe<CatalogPartition>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -439,7 +493,6 @@ export type FilterUserInput = {
   i18n?: InputMaybe<Array<CreateUserMessagesInputTranslationInput>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nickname?: InputMaybe<Scalars['String']['input']>;
-  password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<UserRole>;
   urls?: InputMaybe<Array<UrlInput>>;
@@ -456,13 +509,14 @@ export type MessageEntity = {
 export type Mutation = {
   __typename?: 'Mutation';
   atsSummarize: AiEntity;
-  createManyCourses: Array<CourseEntity>;
-  createManyEducations: Array<EducationEntity>;
-  createManyExperiences: Array<ExperienceEntity>;
-  createManyOrganizations: Array<OrganizationEntity>;
-  createManyProjects: Array<ProjectEntity>;
-  createManySkills: Array<SkillEntity>;
-  createManyUsers: Array<UserEntity>;
+  createManyCourses: BatchEntity;
+  createManyEducations: BatchEntity;
+  createManyExperiences: BatchEntity;
+  createManyOrganizations: BatchEntity;
+  createManyProjects: BatchEntity;
+  createManySkills: BatchEntity;
+  createManyUsers: BatchEntity;
+  createOneApiToken: NewApiTokenEntity;
   createOneCourse: CourseEntity;
   createOneEducation: EducationEntity;
   createOneExperience: ExperienceEntity;
@@ -470,6 +524,15 @@ export type Mutation = {
   createOneProject: ProjectEntity;
   createOneSkill: SkillEntity;
   createOneUser: UserEntity;
+  disableManyOrganizations: BatchEntity;
+  disableManySkills: BatchEntity;
+  disableOneOrganization: OrganizationEntity;
+  disableOneSkill: SkillEntity;
+  enableManyOrganizations: BatchEntity;
+  enableManySkills: BatchEntity;
+  enableOneOrganization: OrganizationEntity;
+  enableOneSkill: SkillEntity;
+  removeManyApiTokens: BatchEntity;
   removeManyCourses: BatchEntity;
   removeManyEducations: BatchEntity;
   removeManyExperiences: BatchEntity;
@@ -477,6 +540,7 @@ export type Mutation = {
   removeManyProjects: BatchEntity;
   removeManySkills: BatchEntity;
   removeManyUsers: BatchEntity;
+  removeOneApiToken: ApiTokenEntity;
   removeOneCourse: CourseEntity;
   removeOneEducation: EducationEntity;
   removeOneExperience: ExperienceEntity;
@@ -487,6 +551,7 @@ export type Mutation = {
   signIn: Scalars['String']['output'];
   summarize: AiEntity;
   translate: AiEntity;
+  updateManyApiTokens: BatchEntity;
   updateManyCourses: BatchEntity;
   updateManyEducations: BatchEntity;
   updateManyExperiences: BatchEntity;
@@ -495,6 +560,7 @@ export type Mutation = {
   updateManySkills: BatchEntity;
   updateManyUsers: BatchEntity;
   updateMe: UserEntity;
+  updateOneApiToken: ApiTokenEntity;
   updateOneCourse: CourseEntity;
   updateOneEducation: EducationEntity;
   updateOneExperience: ExperienceEntity;
@@ -545,6 +611,11 @@ export type MutationCreateManyUsersArgs = {
 };
 
 
+export type MutationCreateOneApiTokenArgs = {
+  createApiTokenInput: CreateApiTokenInput;
+};
+
+
 export type MutationCreateOneCourseArgs = {
   createCourseInput: CreateCourseInput;
 };
@@ -580,6 +651,51 @@ export type MutationCreateOneUserArgs = {
 };
 
 
+export type MutationDisableManyOrganizationsArgs = {
+  organizationIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationDisableManySkillsArgs = {
+  skillIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationDisableOneOrganizationArgs = {
+  organizationId: Scalars['ID']['input'];
+};
+
+
+export type MutationDisableOneSkillArgs = {
+  skillId: Scalars['ID']['input'];
+};
+
+
+export type MutationEnableManyOrganizationsArgs = {
+  organizationIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationEnableManySkillsArgs = {
+  skillIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationEnableOneOrganizationArgs = {
+  organizationId: Scalars['ID']['input'];
+};
+
+
+export type MutationEnableOneSkillArgs = {
+  skillId: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveManyApiTokensArgs = {
+  apiTokenIds: Array<Scalars['ID']['input']>;
+};
+
+
 export type MutationRemoveManyCoursesArgs = {
   courseIds: Array<Scalars['ID']['input']>;
 };
@@ -612,6 +728,11 @@ export type MutationRemoveManySkillsArgs = {
 
 export type MutationRemoveManyUsersArgs = {
   userIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type MutationRemoveOneApiTokenArgs = {
+  apiTokenId: Scalars['ID']['input'];
 };
 
 
@@ -665,6 +786,12 @@ export type MutationTranslateArgs = {
 };
 
 
+export type MutationUpdateManyApiTokensArgs = {
+  apiTokenIds: Array<Scalars['ID']['input']>;
+  updateApiTokenInput: UpdateApiTokenInput;
+};
+
+
 export type MutationUpdateManyCoursesArgs = {
   courseIds: Array<Scalars['ID']['input']>;
   updateCourseInput: UpdateCourseInput;
@@ -712,6 +839,12 @@ export type MutationUpdateMeArgs = {
 };
 
 
+export type MutationUpdateOneApiTokenArgs = {
+  apiTokenId: Scalars['ID']['input'];
+  updateApiTokenInput: UpdateApiTokenInput;
+};
+
+
 export type MutationUpdateOneCourseArgs = {
   courseId: Scalars['ID']['input'];
   updateCourseInput: UpdateCourseInput;
@@ -753,6 +886,12 @@ export type MutationUpdateOneUserArgs = {
   userId: Scalars['ID']['input'];
 };
 
+export type NewApiTokenEntity = {
+  __typename?: 'NewApiTokenEntity';
+  apiToken: ApiTokenEntity;
+  token: Scalars['String']['output'];
+};
+
 export enum OrganizationCategory {
   Company = 'COMPANY',
   Other = 'OTHER',
@@ -763,14 +902,17 @@ export type OrganizationEntity = {
   __typename?: 'OrganizationEntity';
   category: OrganizationCategory;
   createdAt: Scalars['DateTime']['output'];
+  disabled: Scalars['Boolean']['output'];
   i18n: Array<OrganizationTranslationLocale>;
   id: Scalars['ID']['output'];
-  logo: Scalars['String']['output'];
+  logo?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  relevance: Scalars['Float']['output'];
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
+  partition: CatalogPartition;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
-  website: Scalars['String']['output'];
+  website?: Maybe<Scalars['String']['output']>;
 };
 
 export type OrganizationMessages = {
@@ -782,6 +924,12 @@ export type OrganizationTranslationLocale = {
   __typename?: 'OrganizationTranslationLocale';
   locale: Scalars['String']['output'];
   messages: OrganizationMessages;
+};
+
+export type PaginatedApiTokenEntity = {
+  __typename?: 'PaginatedApiTokenEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<ApiTokenEntity>;
 };
 
 export type PaginatedCourseEntity = {
@@ -837,7 +985,10 @@ export type ProjectEntity = {
   i18n: Array<ProjectMessagesTranslationEntity>;
   id: Scalars['ID']['output'];
   images?: Maybe<Array<Scalars['String']['output']>>;
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
   relevance: Scalars['Float']['output'];
+  skillIds?: Maybe<Array<Scalars['ID']['output']>>;
   skills?: Maybe<Array<SkillEntity>>;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
@@ -859,6 +1010,10 @@ export type ProjectMessagesTranslationEntity = {
 export type Query = {
   __typename?: 'Query';
   dashboard: DashboardEntity;
+  findManyActiveOrganizations: PaginatedOrganizationEntity;
+  findManyActiveSkills: PaginatedSkillEntity;
+  findManyApiTokenById: Array<ApiTokenEntity>;
+  findManyApiTokens: PaginatedApiTokenEntity;
   findManyCourseById: Array<CourseEntity>;
   findManyCourses: PaginatedCourseEntity;
   findManyEducationById: Array<EducationEntity>;
@@ -873,6 +1028,10 @@ export type Query = {
   findManySkills: PaginatedSkillEntity;
   findManyUserById: Array<UserEntity>;
   findManyUsers: PaginatedUserEntity;
+  findOneActiveOrganization: OrganizationEntity;
+  findOneActiveSkill: SkillEntity;
+  findOneApiToken: ApiTokenEntity;
+  findOneApiTokenById: ApiTokenEntity;
   findOneCourse: CourseEntity;
   findOneCourseById: CourseEntity;
   findOneEducation: EducationEntity;
@@ -888,6 +1047,32 @@ export type Query = {
   findOneUser: UserEntity;
   findOneUserById: UserEntity;
   getMe: UserEntity;
+};
+
+
+export type QueryFindManyActiveOrganizationsArgs = {
+  organizationFilters?: InputMaybe<FilterOrganizationInput>;
+  organizationPagination?: InputMaybe<PaginationInput>;
+  organizationSort?: InputMaybe<SortOrganizationInput>;
+};
+
+
+export type QueryFindManyActiveSkillsArgs = {
+  skillFilters?: InputMaybe<FilterSkillInput>;
+  skillPagination?: InputMaybe<PaginationInput>;
+  skillSort?: InputMaybe<SortSkillInput>;
+};
+
+
+export type QueryFindManyApiTokenByIdArgs = {
+  apiTokenIds: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryFindManyApiTokensArgs = {
+  apiTokenFilters?: InputMaybe<FilterApiTokenInput>;
+  apiTokenPagination?: InputMaybe<PaginationInput>;
+  apiTokenSort?: InputMaybe<SortApiTokenInput>;
 };
 
 
@@ -975,6 +1160,26 @@ export type QueryFindManyUsersArgs = {
 };
 
 
+export type QueryFindOneActiveOrganizationArgs = {
+  organizationFilters?: InputMaybe<FilterOrganizationInput>;
+};
+
+
+export type QueryFindOneActiveSkillArgs = {
+  skillFilters?: InputMaybe<FilterSkillInput>;
+};
+
+
+export type QueryFindOneApiTokenArgs = {
+  apiTokenFilters?: InputMaybe<FilterApiTokenInput>;
+};
+
+
+export type QueryFindOneApiTokenByIdArgs = {
+  apiTokenId: Scalars['ID']['input'];
+};
+
+
 export type QueryFindOneCourseArgs = {
   courseFilters?: InputMaybe<FilterCourseInput>;
 };
@@ -1058,23 +1263,36 @@ export type SignInInput = {
   password: Scalars['String']['input'];
 };
 
-export enum SkillCategory {
-  Backend = 'BACKEND',
-  Data = 'DATA',
-  Devops = 'DEVOPS',
-  Frontend = 'FRONTEND',
-  Language = 'LANGUAGE'
-}
-
 export type SkillEntity = {
   __typename?: 'SkillEntity';
-  category: SkillCategory;
+  category?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
+  disabled: Scalars['Boolean']['output'];
+  i18n: Array<SkillTranslationLocale>;
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  relevance: Scalars['Float']['output'];
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
+  partition: CatalogPartition;
   slug: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
+};
+
+export type SkillMessages = {
+  __typename?: 'SkillMessages';
+  title: Scalars['String']['output'];
+};
+
+export type SkillTranslationLocale = {
+  __typename?: 'SkillTranslationLocale';
+  locale: Scalars['String']['output'];
+  messages: SkillMessages;
+};
+
+export type SortApiTokenInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  expiresAt?: InputMaybe<SortEnum>;
+  name?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
 };
 
 export type SortCourseInput = {
@@ -1103,7 +1321,6 @@ export type SortExperienceInput = {
 export type SortOrganizationInput = {
   createdAt?: InputMaybe<SortEnum>;
   name?: InputMaybe<SortEnum>;
-  relevance?: InputMaybe<SortEnum>;
   updatedAt?: InputMaybe<SortEnum>;
 };
 
@@ -1115,8 +1332,7 @@ export type SortProjectInput = {
 
 export type SortSkillInput = {
   createdAt?: InputMaybe<SortEnum>;
-  name?: InputMaybe<SortEnum>;
-  relevance?: InputMaybe<SortEnum>;
+  slug?: InputMaybe<SortEnum>;
   updatedAt?: InputMaybe<SortEnum>;
 };
 
@@ -1138,14 +1354,19 @@ export type TranslateInput = {
   targetLanguage: Scalars['String']['input'];
 };
 
+export type UpdateApiTokenInput = {
+  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  permissions?: InputMaybe<Array<ApiTokenPermission>>;
+};
+
 export type UpdateCourseInput = {
   hours?: InputMaybe<Scalars['Int']['input']>;
   i18n?: InputMaybe<Array<CreateCourseMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
-  organization?: InputMaybe<Scalars['String']['input']>;
-  period?: InputMaybe<DateRangeInput>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<CourseStatus>;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -1155,10 +1376,10 @@ export type UpdateEducationInput = {
   i18n?: InputMaybe<Array<CreateEducationMessagesInputTranslationInput>>;
   image?: InputMaybe<Scalars['String']['input']>;
   level?: InputMaybe<EducationLevel>;
-  organization?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   period?: InputMaybe<DateRangeInput>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<EducationStatus>;
   url?: InputMaybe<Scalars['String']['input']>;
@@ -1166,7 +1387,7 @@ export type UpdateEducationInput = {
 
 export type UpdateExperienceInput = {
   category?: InputMaybe<ExperienceCategory>;
-  organization?: InputMaybe<Scalars['String']['input']>;
+  organizationId?: InputMaybe<Scalars['String']['input']>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
   roles?: InputMaybe<Array<CreateExperienceRoleInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -1182,15 +1403,16 @@ export type UpdateMeInput = {
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
 export type UpdateOrganizationInput = {
   category?: InputMaybe<OrganizationCategory>;
+  disabled?: InputMaybe<Scalars['Boolean']['input']>;
   i18n?: InputMaybe<Array<CreateOrganizationMessagesInputTranslationInput>>;
   logo?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
-  relevance?: InputMaybe<Scalars['Float']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   website?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1199,15 +1421,15 @@ export type UpdateProjectInput = {
   i18n?: InputMaybe<Array<CreateProjectMessagesInputTranslationInput>>;
   images?: InputMaybe<Array<Scalars['String']['input']>>;
   relevance?: InputMaybe<Scalars['Float']['input']>;
-  skills?: InputMaybe<Array<Scalars['String']['input']>>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   slug?: InputMaybe<Scalars['String']['input']>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
 export type UpdateSkillInput = {
-  category?: InputMaybe<SkillCategory>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  relevance?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  disabled?: InputMaybe<Scalars['Boolean']['input']>;
+  i18n?: InputMaybe<Array<CreateSkillMessagesInputTranslationInput>>;
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1222,6 +1444,7 @@ export type UpdateUserInput = {
   password?: InputMaybe<Scalars['String']['input']>;
   phone?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<UserRole>;
+  skillIds?: InputMaybe<Array<Scalars['String']['input']>>;
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
@@ -1257,6 +1480,8 @@ export type UserEntity = {
   nickname: Scalars['String']['output'];
   phone?: Maybe<Scalars['String']['output']>;
   role: UserRole;
+  skillIds?: Maybe<Array<Scalars['ID']['output']>>;
+  skills?: Maybe<Array<SkillEntity>>;
   updatedAt: Scalars['DateTime']['output'];
   urls?: Maybe<Array<UrlEntity>>;
 };
@@ -1268,7 +1493,7 @@ export type UserMessages = {
 };
 
 export enum UserRole {
-  Admin = 'ADMIN',
+  SuperAdmin = 'SUPER_ADMIN',
   User = 'USER'
 }
 
@@ -1278,12 +1503,10 @@ export type UserTranslationLocale = {
   messages: UserMessages;
 };
 
-export type FindOneUserByIdQueryVariables = Exact<{
-  userId: Scalars['ID']['input'];
-}>;
+export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindOneUserByIdQuery = { __typename?: 'Query', findOneUserById: { __typename?: 'UserEntity', id: string, address?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: UserRole, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null } };
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'UserEntity', id: string, address?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: UserRole, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null } };
 
 export type FindManyCoursesQueryVariables = Exact<{
   courseFilters?: InputMaybe<FilterCourseInput>;
@@ -1292,7 +1515,7 @@ export type FindManyCoursesQueryVariables = Exact<{
 }>;
 
 
-export type FindManyCoursesQuery = { __typename?: 'Query', findManyCourses: { __typename?: 'PaginatedCourseEntity', found: number, nodes: Array<{ __typename?: 'CourseEntity', hours?: number | null, relevance: number, createdAt: any, updatedAt: any, url?: string | null, status: CourseStatus, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'CourseTranslationLocale', locale: string, messages: { __typename?: 'CourseMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
+export type FindManyCoursesQuery = { __typename?: 'Query', findManyCourses: { __typename?: 'PaginatedCourseEntity', found: number, nodes: Array<{ __typename?: 'CourseEntity', hours?: number | null, relevance: number, createdAt: any, updatedAt: any, url?: string | null, status: CourseStatus, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'CourseTranslationLocale', locale: string, messages: { __typename?: 'CourseMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug: string, website?: string | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
 export type FindManyEducationsQueryVariables = Exact<{
   educationFilters?: InputMaybe<FilterEducationInput>;
@@ -1301,7 +1524,7 @@ export type FindManyEducationsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', found: number, nodes: Array<{ __typename?: 'EducationEntity', level: EducationLevel, url?: string | null, status: EducationStatus, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
+export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', found: number, nodes: Array<{ __typename?: 'EducationEntity', level: EducationLevel, url?: string | null, status: EducationStatus, id: string, image?: string | null, slug: string, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug: string, website?: string | null } | null, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
 export type FindManyExperiencesQueryVariables = Exact<{
   experienceFilters?: InputMaybe<FilterExperienceInput>;
@@ -1310,7 +1533,7 @@ export type FindManyExperiencesQueryVariables = Exact<{
 }>;
 
 
-export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: { __typename?: 'PaginatedExperienceEntity', found: number, nodes: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug: string, organization: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null }> } };
+export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: { __typename?: 'PaginatedExperienceEntity', found: number, nodes: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug: string, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug: string, website?: string | null } | null, roles: Array<{ __typename?: 'ExperienceRole', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }>, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
 export type FindManyOrganizationsQueryVariables = Exact<{
   organizationFilters?: InputMaybe<FilterOrganizationInput>;
@@ -1319,7 +1542,7 @@ export type FindManyOrganizationsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: { __typename?: 'PaginatedOrganizationEntity', found: number, nodes: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo: string, name: string, slug: string, website: string }> } };
+export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: { __typename?: 'PaginatedOrganizationEntity', found: number, nodes: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug: string, website?: string | null }> } };
 
 export type FindManyProjectsQueryVariables = Exact<{
   projectFilters?: InputMaybe<FilterProjectInput>;
@@ -1328,7 +1551,7 @@ export type FindManyProjectsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: { __typename?: 'PaginatedProjectEntity', found: number, nodes: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> } };
+export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: { __typename?: 'PaginatedProjectEntity', found: number, nodes: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug: string, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> } };
 
 export type FindManySkillsQueryVariables = Exact<{
   skillFilters?: InputMaybe<FilterSkillInput>;
@@ -1337,7 +1560,7 @@ export type FindManySkillsQueryVariables = Exact<{
 }>;
 
 
-export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: { __typename?: 'PaginatedSkillEntity', found: number, nodes: Array<{ __typename?: 'SkillEntity', category: SkillCategory, id: string, name: string, slug: string }> } };
+export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: { __typename?: 'PaginatedSkillEntity', found: number, nodes: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug: string, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -1358,9 +1581,9 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
-export const FindOneUserByIdDocument = new TypedDocumentString(`
-    query FindOneUserById($userId: ID!) {
-  findOneUserById(userId: $userId) {
+export const GetMeDocument = new TypedDocumentString(`
+    query GetMe {
+  getMe {
     id
     address
     urls {
@@ -1383,7 +1606,7 @@ export const FindOneUserByIdDocument = new TypedDocumentString(`
     role
   }
 }
-    `) as unknown as TypedDocumentString<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>;
+    `) as unknown as TypedDocumentString<GetMeQuery, GetMeQueryVariables>;
 export const FindManyCoursesDocument = new TypedDocumentString(`
     query FindManyCourses($courseFilters: FilterCourseInput, $coursePagination: PaginationInput, $courseSort: SortCourseInput) {
   findManyCourses(
@@ -1419,8 +1642,13 @@ export const FindManyCoursesDocument = new TypedDocumentString(`
       skills {
         category
         id
-        name
         slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
       }
       slug
     }
@@ -1463,8 +1691,13 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
       skills {
         category
         id
-        name
         slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
       }
       slug
     }
@@ -1505,15 +1738,25 @@ export const FindManyExperiencesDocument = new TypedDocumentString(`
         skills {
           category
           id
-          name
           slug
+          i18n {
+            locale
+            messages {
+              title
+            }
+          }
         }
       }
       skills {
         category
         id
-        name
         slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
       }
       slug
     }
@@ -1560,8 +1803,13 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
       skills {
         category
         id
-        name
         slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
       }
       slug
       urls {
@@ -1583,8 +1831,13 @@ export const FindManySkillsDocument = new TypedDocumentString(`
     nodes {
       category
       id
-      name
       slug
+      i18n {
+        locale
+        messages {
+          title
+        }
+      }
     }
   }
 }

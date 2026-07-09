@@ -8,6 +8,21 @@ type AiEntity {
   usage: UsageEntity
 }
 
+type ApiTokenEntity {
+  createdAt: DateTime!
+  expiresAt: DateTime
+  id: ID!
+  name: String!
+  ownerId: String!
+  permissions: [ApiTokenPermission!]!
+  updatedAt: DateTime!
+}
+
+enum ApiTokenPermission {
+  MUTATE
+  QUERY
+}
+
 input AtsSummarizeInput {
   details: [DetailInput!]
   raw: String!
@@ -16,7 +31,13 @@ input AtsSummarizeInput {
 }
 
 type BatchEntity {
-  count: Int!
+  failed: Int!
+  succeeded: Int!
+}
+
+enum CatalogPartition {
+  GLOBAL
+  LOCAL
 }
 
 enum ChatFinishReason {
@@ -46,8 +67,12 @@ type CourseEntity {
   i18n: [CourseTranslationLocale!]!
   id: ID!
   image: String
-  organization: OrganizationEntity!
+  organization: OrganizationEntity
+  organizationId: ID
+  owner: UserEntity!
+  ownerId: ID!
   relevance: Float!
+  skillIds: [ID!]
   skills: [SkillEntity!]
   slug: String!
   status: CourseStatus!
@@ -71,14 +96,19 @@ type CourseTranslationLocale {
   messages: CourseMessages!
 }
 
+input CreateApiTokenInput {
+  expiresAt: DateTime
+  name: String!
+  permissions: [ApiTokenPermission!]!
+}
+
 input CreateCourseInput {
   hours: Int
   i18n: [CreateCourseMessagesInputTranslationInput!]!
   image: String
-  organization: String!
-  period: DateRangeInput
+  organizationId: String!
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String!
   status: CourseStatus!
   url: String
@@ -98,10 +128,10 @@ input CreateEducationInput {
   i18n: [CreateEducationMessagesInputTranslationInput!]!
   image: String
   level: EducationLevel!
-  organization: String!
+  organizationId: String!
   period: DateRangeInput
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String!
   status: EducationStatus!
   url: String
@@ -119,7 +149,7 @@ input CreateEducationMessagesInputTranslationInput {
 
 input CreateExperienceInput {
   category: ExperienceCategory!
-  organization: String!
+  organizationId: String!
   relevance: Float
   roles: [CreateExperienceRoleInput!]!
   slug: String!
@@ -138,17 +168,16 @@ input CreateExperienceMessagesInputTranslationInput {
 input CreateExperienceRoleInput {
   i18n: [CreateExperienceMessagesInputTranslationInput!]!
   period: DateRangeInput
-  skills: [String!]
+  skillIds: [String!]
 }
 
 input CreateOrganizationInput {
   category: OrganizationCategory!
   i18n: [CreateOrganizationMessagesInputTranslationInput!]!
-  logo: String!
+  logo: String
   name: String!
-  relevance: Float
   slug: String!
-  website: String!
+  website: String
 }
 
 input CreateOrganizationMessagesInput {
@@ -164,7 +193,7 @@ input CreateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]!
   images: [String!]
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String!
   urls: [UrlInput!]
 }
@@ -180,10 +209,18 @@ input CreateProjectMessagesInputTranslationInput {
 }
 
 input CreateSkillInput {
-  category: SkillCategory!
-  name: String!
-  relevance: Float
+  category: String
+  i18n: [CreateSkillMessagesInputTranslationInput!]!
   slug: String!
+}
+
+input CreateSkillMessagesInput {
+  title: String!
+}
+
+input CreateSkillMessagesInputTranslationInput {
+  locale: String!
+  messages: CreateSkillMessagesInput!
 }
 
 input CreateUserInput {
@@ -197,6 +234,7 @@ input CreateUserInput {
   password: String!
   phone: String
   role: UserRole
+  skillIds: [String!]
   urls: [UrlInput!]
 }
 
@@ -234,7 +272,6 @@ type DashboardEntity {
   coursesByStatus: [DashboardCount!]!
   experiencesByCategory: [DashboardCount!]!
   recentActivity: [DashboardActivityItem!]!
-  skillsByCategory: [DashboardCount!]!
   totals: DashboardTotals!
 }
 
@@ -273,9 +310,13 @@ type EducationEntity {
   id: ID!
   image: String
   level: EducationLevel!
-  organization: OrganizationEntity!
+  organization: OrganizationEntity
+  organizationId: ID
+  owner: UserEntity!
+  ownerId: ID!
   period: DateRangeEntity
   relevance: Float!
+  skillIds: [ID!]
   skills: [SkillEntity!]
   slug: String!
   status: EducationStatus!
@@ -319,7 +360,10 @@ type ExperienceEntity {
   category: ExperienceCategory!
   createdAt: DateTime!
   id: ID!
-  organization: OrganizationEntity!
+  organization: OrganizationEntity
+  organizationId: ID
+  owner: UserEntity!
+  ownerId: ID!
   relevance: Float!
   roles: [ExperienceRole!]!
   skills: [SkillEntity!]
@@ -335,6 +379,7 @@ type ExperienceMessages {
 type ExperienceRole {
   i18n: [ExperienceTranslationLocale!]!
   period: DateRangeEntity
+  skillIds: [ID!]
   skills: [SkillEntity!]
 }
 
@@ -343,14 +388,19 @@ type ExperienceTranslationLocale {
   messages: ExperienceMessages!
 }
 
+input FilterApiTokenInput {
+  expiresAt: DateTime
+  name: String
+  permissions: [ApiTokenPermission!]
+}
+
 input FilterCourseInput {
   hours: Int
   i18n: [CreateCourseMessagesInputTranslationInput!]
   image: String
-  organization: String
-  period: DateRangeInput
+  organizationId: String
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   status: CourseStatus
   url: String
@@ -360,10 +410,10 @@ input FilterEducationInput {
   i18n: [CreateEducationMessagesInputTranslationInput!]
   image: String
   level: EducationLevel
-  organization: String
+  organizationId: String
   period: DateRangeInput
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   status: EducationStatus
   url: String
@@ -371,7 +421,7 @@ input FilterEducationInput {
 
 input FilterExperienceInput {
   category: ExperienceCategory
-  organization: String
+  organizationId: String
   relevance: Float
   roles: [CreateExperienceRoleInput!]
   slug: String
@@ -379,10 +429,12 @@ input FilterExperienceInput {
 
 input FilterOrganizationInput {
   category: OrganizationCategory
+  disabled: Boolean
   i18n: [CreateOrganizationMessagesInputTranslationInput!]
   logo: String
   name: String
-  relevance: Float
+  ownerId: String
+  partition: CatalogPartition
   slug: String
   website: String
 }
@@ -391,15 +443,16 @@ input FilterProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]
   images: [String!]
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   urls: [UrlInput!]
 }
 
 input FilterSkillInput {
-  category: SkillCategory
-  name: String
-  relevance: Float
+  category: String
+  disabled: Boolean
+  ownerId: String
+  partition: CatalogPartition
   slug: String
 }
 
@@ -411,7 +464,6 @@ input FilterUserInput {
   i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
   nickname: String
-  password: String
   phone: String
   role: UserRole
   urls: [UrlInput!]
@@ -426,13 +478,14 @@ type MessageEntity {
 
 type Mutation {
   atsSummarize(atsSummarizeInput: AtsSummarizeInput!): AiEntity!
-  createManyCourses(createCourseInputs: [CreateCourseInput!]!): [CourseEntity!]!
-  createManyEducations(createEducationInputs: [CreateEducationInput!]!): [EducationEntity!]!
-  createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): [ExperienceEntity!]!
-  createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): [OrganizationEntity!]!
-  createManyProjects(createProjectInputs: [CreateProjectInput!]!): [ProjectEntity!]!
-  createManySkills(createSkillInputs: [CreateSkillInput!]!): [SkillEntity!]!
-  createManyUsers(createUserInputs: [CreateUserInput!]!): [UserEntity!]!
+  createManyCourses(createCourseInputs: [CreateCourseInput!]!): BatchEntity!
+  createManyEducations(createEducationInputs: [CreateEducationInput!]!): BatchEntity!
+  createManyExperiences(createExperienceInputs: [CreateExperienceInput!]!): BatchEntity!
+  createManyOrganizations(createOrganizationInputs: [CreateOrganizationInput!]!): BatchEntity!
+  createManyProjects(createProjectInputs: [CreateProjectInput!]!): BatchEntity!
+  createManySkills(createSkillInputs: [CreateSkillInput!]!): BatchEntity!
+  createManyUsers(createUserInputs: [CreateUserInput!]!): BatchEntity!
+  createOneApiToken(createApiTokenInput: CreateApiTokenInput!): NewApiTokenEntity!
   createOneCourse(createCourseInput: CreateCourseInput!): CourseEntity!
   createOneEducation(createEducationInput: CreateEducationInput!): EducationEntity!
   createOneExperience(createExperienceInput: CreateExperienceInput!): ExperienceEntity!
@@ -440,6 +493,15 @@ type Mutation {
   createOneProject(createProjectInput: CreateProjectInput!): ProjectEntity!
   createOneSkill(createSkillInput: CreateSkillInput!): SkillEntity!
   createOneUser(createUserInput: CreateUserInput!): UserEntity!
+  disableManyOrganizations(organizationIds: [ID!]!): BatchEntity!
+  disableManySkills(skillIds: [ID!]!): BatchEntity!
+  disableOneOrganization(organizationId: ID!): OrganizationEntity!
+  disableOneSkill(skillId: ID!): SkillEntity!
+  enableManyOrganizations(organizationIds: [ID!]!): BatchEntity!
+  enableManySkills(skillIds: [ID!]!): BatchEntity!
+  enableOneOrganization(organizationId: ID!): OrganizationEntity!
+  enableOneSkill(skillId: ID!): SkillEntity!
+  removeManyApiTokens(apiTokenIds: [ID!]!): BatchEntity!
   removeManyCourses(courseIds: [ID!]!): BatchEntity!
   removeManyEducations(educationIds: [ID!]!): BatchEntity!
   removeManyExperiences(experienceIds: [ID!]!): BatchEntity!
@@ -447,6 +509,7 @@ type Mutation {
   removeManyProjects(projectIds: [ID!]!): BatchEntity!
   removeManySkills(skillIds: [ID!]!): BatchEntity!
   removeManyUsers(userIds: [ID!]!): BatchEntity!
+  removeOneApiToken(apiTokenId: ID!): ApiTokenEntity!
   removeOneCourse(courseId: ID!): CourseEntity!
   removeOneEducation(educationId: ID!): EducationEntity!
   removeOneExperience(experienceId: ID!): ExperienceEntity!
@@ -457,6 +520,7 @@ type Mutation {
   signIn(signInInput: SignInInput!): String!
   summarize(summarizeInput: SummarizeInput!): AiEntity!
   translate(translateInput: TranslateInput!): AiEntity!
+  updateManyApiTokens(apiTokenIds: [ID!]!, updateApiTokenInput: UpdateApiTokenInput!): BatchEntity!
   updateManyCourses(courseIds: [ID!]!, updateCourseInput: UpdateCourseInput!): BatchEntity!
   updateManyEducations(educationIds: [ID!]!, updateEducationInput: UpdateEducationInput!): BatchEntity!
   updateManyExperiences(experienceIds: [ID!]!, updateExperienceInput: UpdateExperienceInput!): BatchEntity!
@@ -465,6 +529,7 @@ type Mutation {
   updateManySkills(skillIds: [ID!]!, updateSkillInput: UpdateSkillInput!): BatchEntity!
   updateManyUsers(updateUserInput: UpdateUserInput!, userIds: [ID!]!): BatchEntity!
   updateMe(updateMeInput: UpdateMeInput!): UserEntity!
+  updateOneApiToken(apiTokenId: ID!, updateApiTokenInput: UpdateApiTokenInput!): ApiTokenEntity!
   updateOneCourse(courseId: ID!, updateCourseInput: UpdateCourseInput!): CourseEntity!
   updateOneEducation(educationId: ID!, updateEducationInput: UpdateEducationInput!): EducationEntity!
   updateOneExperience(experienceId: ID!, updateExperienceInput: UpdateExperienceInput!): ExperienceEntity!
@@ -472,6 +537,11 @@ type Mutation {
   updateOneProject(projectId: ID!, updateProjectInput: UpdateProjectInput!): ProjectEntity!
   updateOneSkill(skillId: ID!, updateSkillInput: UpdateSkillInput!): SkillEntity!
   updateOneUser(updateUserInput: UpdateUserInput!, userId: ID!): UserEntity!
+}
+
+type NewApiTokenEntity {
+  apiToken: ApiTokenEntity!
+  token: String!
 }
 
 enum OrganizationCategory {
@@ -483,14 +553,17 @@ enum OrganizationCategory {
 type OrganizationEntity {
   category: OrganizationCategory!
   createdAt: DateTime!
+  disabled: Boolean!
   i18n: [OrganizationTranslationLocale!]!
   id: ID!
-  logo: String!
+  logo: String
   name: String!
-  relevance: Float!
+  owner: UserEntity!
+  ownerId: ID!
+  partition: CatalogPartition!
   slug: String!
   updatedAt: DateTime!
-  website: String!
+  website: String
 }
 
 type OrganizationMessages {
@@ -500,6 +573,11 @@ type OrganizationMessages {
 type OrganizationTranslationLocale {
   locale: String!
   messages: OrganizationMessages!
+}
+
+type PaginatedApiTokenEntity {
+  found: Float!
+  nodes: [ApiTokenEntity!]!
 }
 
 type PaginatedCourseEntity {
@@ -547,7 +625,10 @@ type ProjectEntity {
   i18n: [ProjectMessagesTranslationEntity!]!
   id: ID!
   images: [String!]
+  owner: UserEntity!
+  ownerId: ID!
   relevance: Float!
+  skillIds: [ID!]
   skills: [SkillEntity!]
   slug: String!
   updatedAt: DateTime!
@@ -566,6 +647,10 @@ type ProjectMessagesTranslationEntity {
 
 type Query {
   dashboard: DashboardEntity!
+  findManyActiveOrganizations(organizationFilters: FilterOrganizationInput, organizationPagination: PaginationInput, organizationSort: SortOrganizationInput): PaginatedOrganizationEntity!
+  findManyActiveSkills(skillFilters: FilterSkillInput, skillPagination: PaginationInput, skillSort: SortSkillInput): PaginatedSkillEntity!
+  findManyApiTokenById(apiTokenIds: [ID!]!): [ApiTokenEntity!]!
+  findManyApiTokens(apiTokenFilters: FilterApiTokenInput, apiTokenPagination: PaginationInput, apiTokenSort: SortApiTokenInput): PaginatedApiTokenEntity!
   findManyCourseById(courseIds: [ID!]!): [CourseEntity!]!
   findManyCourses(courseFilters: FilterCourseInput, coursePagination: PaginationInput, courseSort: SortCourseInput): PaginatedCourseEntity!
   findManyEducationById(educationIds: [ID!]!): [EducationEntity!]!
@@ -580,6 +665,10 @@ type Query {
   findManySkills(skillFilters: FilterSkillInput, skillPagination: PaginationInput, skillSort: SortSkillInput): PaginatedSkillEntity!
   findManyUserById(userIds: [ID!]!): [UserEntity!]!
   findManyUsers(userFilters: FilterUserInput, userPagination: PaginationInput, userSort: SortUserInput): PaginatedUserEntity!
+  findOneActiveOrganization(organizationFilters: FilterOrganizationInput): OrganizationEntity!
+  findOneActiveSkill(skillFilters: FilterSkillInput): SkillEntity!
+  findOneApiToken(apiTokenFilters: FilterApiTokenInput): ApiTokenEntity!
+  findOneApiTokenById(apiTokenId: ID!): ApiTokenEntity!
   findOneCourse(courseFilters: FilterCourseInput): CourseEntity!
   findOneCourseById(courseId: ID!): CourseEntity!
   findOneEducation(educationFilters: FilterEducationInput): EducationEntity!
@@ -611,22 +700,33 @@ input SignInInput {
   password: String!
 }
 
-enum SkillCategory {
-  BACKEND
-  DATA
-  DEVOPS
-  FRONTEND
-  LANGUAGE
-}
-
 type SkillEntity {
-  category: SkillCategory!
+  category: String
   createdAt: DateTime!
+  disabled: Boolean!
+  i18n: [SkillTranslationLocale!]!
   id: ID!
-  name: String!
-  relevance: Float!
+  owner: UserEntity!
+  ownerId: ID!
+  partition: CatalogPartition!
   slug: String!
   updatedAt: DateTime!
+}
+
+type SkillMessages {
+  title: String!
+}
+
+type SkillTranslationLocale {
+  locale: String!
+  messages: SkillMessages!
+}
+
+input SortApiTokenInput {
+  createdAt: SortEnum
+  expiresAt: SortEnum
+  name: SortEnum
+  updatedAt: SortEnum
 }
 
 input SortCourseInput {
@@ -655,7 +755,6 @@ input SortExperienceInput {
 input SortOrganizationInput {
   createdAt: SortEnum
   name: SortEnum
-  relevance: SortEnum
   updatedAt: SortEnum
 }
 
@@ -667,8 +766,7 @@ input SortProjectInput {
 
 input SortSkillInput {
   createdAt: SortEnum
-  name: SortEnum
-  relevance: SortEnum
+  slug: SortEnum
   updatedAt: SortEnum
 }
 
@@ -690,14 +788,19 @@ input TranslateInput {
   targetLanguage: String!
 }
 
+input UpdateApiTokenInput {
+  expiresAt: DateTime
+  name: String
+  permissions: [ApiTokenPermission!]
+}
+
 input UpdateCourseInput {
   hours: Int
   i18n: [CreateCourseMessagesInputTranslationInput!]
   image: String
-  organization: String
-  period: DateRangeInput
+  organizationId: String
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   status: CourseStatus
   url: String
@@ -707,10 +810,10 @@ input UpdateEducationInput {
   i18n: [CreateEducationMessagesInputTranslationInput!]
   image: String
   level: EducationLevel
-  organization: String
+  organizationId: String
   period: DateRangeInput
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   status: EducationStatus
   url: String
@@ -718,7 +821,7 @@ input UpdateEducationInput {
 
 input UpdateExperienceInput {
   category: ExperienceCategory
-  organization: String
+  organizationId: String
   relevance: Float
   roles: [CreateExperienceRoleInput!]
   slug: String
@@ -734,15 +837,16 @@ input UpdateMeInput {
   nickname: String
   password: String
   phone: String
+  skillIds: [String!]
   urls: [UrlInput!]
 }
 
 input UpdateOrganizationInput {
   category: OrganizationCategory
+  disabled: Boolean
   i18n: [CreateOrganizationMessagesInputTranslationInput!]
   logo: String
   name: String
-  relevance: Float
   slug: String
   website: String
 }
@@ -751,15 +855,15 @@ input UpdateProjectInput {
   i18n: [CreateProjectMessagesInputTranslationInput!]
   images: [String!]
   relevance: Float
-  skills: [String!]
+  skillIds: [String!]
   slug: String
   urls: [UrlInput!]
 }
 
 input UpdateSkillInput {
-  category: SkillCategory
-  name: String
-  relevance: Float
+  category: String
+  disabled: Boolean
+  i18n: [CreateSkillMessagesInputTranslationInput!]
   slug: String
 }
 
@@ -774,6 +878,7 @@ input UpdateUserInput {
   password: String
   phone: String
   role: UserRole
+  skillIds: [String!]
   urls: [UrlInput!]
 }
 
@@ -806,6 +911,8 @@ type UserEntity {
   nickname: String!
   phone: String
   role: UserRole!
+  skillIds: [ID!]
+  skills: [SkillEntity!]
   updatedAt: DateTime!
   urls: [UrlEntity!]
 }
@@ -816,7 +923,7 @@ type UserMessages {
 }
 
 enum UserRole {
-  ADMIN
+  SUPER_ADMIN
   USER
 }
 

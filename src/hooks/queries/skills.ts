@@ -13,8 +13,13 @@ const findManySkills = graphql(`
       nodes {
         category
         id
-        name
         slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
       }
     }
   }

@@ -78,11 +78,15 @@ bash scripts/setup.sh
 npm install
 ```
 
-3. Create the local env file:
+3. Create the local env file and set credentials:
 
 ```bash
 cp .env.example .env.development
 ```
+
+Set `NEXT_PUBLIC_API_KEY` to a dev token (`pi_<id>_<secret>`). After seeding
+`profile-info`, tokens are printed to the console. The profile owner is resolved
+via the `getMe` query (no separate user ID env var).
 
 4. Start the GraphQL API (sibling `profile-info` repo):
 
@@ -104,5 +108,6 @@ npm run serve    # preview out/ on port 4000
 npm run test     # Vitest (requires a prior build for the SEO smoke test)
 ```
 
-CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API,
-builds with secrets, runs tests, and deploys `out/` to GitHub Pages.
+CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API with
+`X-Api-Key`, builds with secrets (`API_URL`, `API_KEY`), runs tests, and deploys
+`out/` to GitHub Pages.

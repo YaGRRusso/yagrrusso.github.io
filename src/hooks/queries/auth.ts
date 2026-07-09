@@ -1,14 +1,11 @@
 import { graphql } from "@/graphql/gql";
-import type {
-  FindOneUserByIdQuery,
-  FindOneUserByIdQueryVariables,
-} from "@/graphql/graphql";
+import type { GetMeQuery } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findOneUserById = graphql(`
-  query FindOneUserById($userId: ID!) {
-    findOneUserById(userId: $userId) {
+const getMe = graphql(`
+  query GetMe {
+    getMe {
       id
       address
       urls {
@@ -33,11 +30,8 @@ const findOneUserById = graphql(`
   }
 `);
 
-export const { prefetch: prefetchFindOneUserById, use: useFindOneUserById } =
-  defineQuery<FindOneUserByIdQuery, FindOneUserByIdQueryVariables>(
-    "findOneUserById",
-    async (params?: FindOneUserByIdQueryVariables) => {
-      if (!params) throw new Error("insufficient parameters");
-      return await execute(findOneUserById, params).then((data) => data.data!);
-    }
+export const { prefetch: prefetchGetMe, use: useGetMe } =
+  defineQuery<GetMeQuery>(
+    "getMe",
+    async () => await execute(getMe).then((data) => data.data!)
   );

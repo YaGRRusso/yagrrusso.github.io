@@ -23,6 +23,7 @@ jobs:
           curl --retry 5 --retry-delay 30 \
             -X POST ${{ secrets.API_URL }} \
             -H "Content-Type: application/json" \
+            -H "X-Api-Key: ${{ secrets.API_KEY }}" \
             -d '{"query":"{ __typename }"}' \
             -s -o /dev/null || exit 1
 
@@ -41,9 +42,8 @@ jobs:
       - name: Build Next.js site
         run: npm run build
         env:
-          NEXT_PUBLIC_API_TOKEN: ${{ secrets.API_TOKEN }}
+          NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
           NEXT_PUBLIC_API_URL: ${{ secrets.API_URL }}
-          NEXT_PUBLIC_USER_ID: ${{ secrets.USER_ID }}
 
       - name: Run tests
         run: npm run test

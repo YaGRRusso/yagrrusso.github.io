@@ -40,14 +40,15 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 
 ### Build-time data flow
 
-1. **Codegen** (`codegen.ts`): reads schema from `NEXT_PUBLIC_API_URL` (via
-   `.env.development`) and generates typed documents into `src/graphql/`. Also
-   writes `schema.graphql` for the `@0no-co/graphqlsp` TypeScript plugin.
+1. **Codegen** (`codegen.ts`): introspects schema from `NEXT_PUBLIC_API_URL` (via
+   `.env.development`) with `X-Api-Key` header and generates typed documents into
+   `src/graphql/`. Also writes `schema.graphql` for the `@0no-co/graphqlsp`
+   TypeScript plugin.
 2. **Query modules** (`src/hooks/queries/*.ts`): GraphQL operations with the
    `graphql()` tag, wrapped by `defineQuery` or `defineInfiniteQuery` from
    `src/hooks/factories/query.ts`, exporting `prefetch*` and `use*` pairs.
 3. **Execute** (`src/hooks/factories/execute.ts`): POSTs to `NEXT_PUBLIC_API_URL`
-   with Bearer token from `NEXT_PUBLIC_API_TOKEN`.
+   with `X-Api-Key` header from `NEXT_PUBLIC_API_KEY`.
 4. **Server pages** (`src/app/[locale]/**/page.tsx`): create a `QueryClient`, call
    prefetch functions, wrap the client page in `HydrationBoundary` with state from
    `dehydrate()` in `src/lib/dehydrate.ts`.
@@ -155,7 +156,7 @@ Examples: `counter`, `skill-badge`, `section-title`, `social-links`.
 ### `src/hooks/factories/`
 
 - `query.ts`: `defineQuery` and `defineInfiniteQuery` factories.
-- `execute.ts`: typed GraphQL fetch wrapper.
+- `execute.ts`: typed GraphQL fetch wrapper (`X-Api-Key` auth).
 
 ### `src/hooks/queries/`
 
@@ -178,10 +179,10 @@ One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
 2. Run codegen (`npm run dev` watches, or `graphql-codegen --config codegen.ts`).
 3. Wrap with `defineQuery` or `defineInfiniteQuery`, export `prefetch*` and `use*`.
 4. Prefetch in the route's `page.tsx`; consume via `use*` in client components.
-5. Keep the hook result as the query name (e.g. `findOneUserById`). Read payload
-   via `findOneUserById.data?.findOneUserById` — do not alias `data` into a
-   shorter variable (`user`, `projects`, etc.). Pages with many queries need
-   `isLoading`, `isFetching`, `refetch`, etc. on each hook without name clashes.
+5. Keep the hook result as the query name (e.g. `getMe`). Read payload via
+   `getMe.data?.getMe` — do not alias `data` into a shorter variable (`user`,
+   `projects`, etc.). Pages with many queries need `isLoading`, `isFetching`,
+   `refetch`, etc. on each hook without name clashes.
 
 ### Adding a localized page
 
@@ -252,16 +253,18 @@ runtime).
 
 - `NEXT_PUBLIC_API_URL` (required): GraphQL endpoint. Read by `execute.ts`,
   `codegen.ts`, and CI. Declared in `.env.example`.
-- `NEXT_PUBLIC_API_TOKEN` (required): Bearer token for the API. Read by
-  `execute.ts` and CI. Declared in `.env.example`.
-- `NEXT_PUBLIC_USER_ID` (required): Profile owner ID for `findOneUserById`.
-  Prefetched in the locale layout. Declared in `.env.example`. CI maps
-  `secrets.USER_ID`.
+- `NEXT_PUBLIC_API_KEY` (required): API token for the GraphQL API. Sent as
+  `X-Api-Key: pi_<id>_<secret>`. Read by `execute.ts`, `codegen.ts`, and CI.
+  Requires `QUERY` permission for read-only portfolio queries. Declared in
+  `.env.example`. After `npm run seed` in `profile-info`, tokens are printed to
+  the console. Profile owner is resolved at build time via the `getMe` query
+  (authenticated as the token owner).
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
   in the footer "updated at" line.
 
-Local: `.env.development` (copy from `.env.example`). Production: GitHub Actions
-secrets `API_URL` and `API_TOKEN` mapped during build.
+Local: `.env.development` (copy from `.env.example`). Production build reads
+`.env.production` or CI env. CI secrets: `API_URL`, `API_KEY`.
+Rename GitHub secret `API_TOKEN` → `API_KEY` with a `pi_…` token value.
 
 ## Scripts / commands
 
@@ -296,8 +299,15 @@ Workflow: `npm run build` then `npm run test`.
   maintain thin local routers; other devs do the same for their IDE if needed.
 - API must be reachable at build time. CI wakes the hosted API; locally run
   `npm run back` before building or when codegen needs a fresh schema.
-- Codegen reads `.env.development`. Ensure `NEXT_PUBLIC_API_URL` points to a
-  live schema.
+- Codegen reads `.env.development` and sends `X-Api-Key` during introspection.
+  Ensure `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_API_KEY` point to a live API.
+- Read queries require an API token with `QUERY` permission. Session-only
+  operations (`dashboard`, AI mutations, API token management) reject API tokens.
+  `getMe` works with API tokens and returns the token owner profile.
+- `SkillEntity` no longer has `name` or `relevance`. Use `i18n { locale messages
+  { title } }` and resolve with `useMessages()`. `category` is a free-form
+  `String` (no `SkillCategory` enum). `SortSkillInput` accepts only `createdAt`,
+  `slug`, `updatedAt`.
 - Do not edit `src/graphql/`. Regenerate after query changes.
 - `dehydrate()` invalidates on purpose. Client refetches after hydration.
 - `npm run back` assumes `profile-info` is a sibling directory. Hardcoded in

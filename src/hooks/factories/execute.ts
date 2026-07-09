@@ -9,12 +9,16 @@ export async function execute<TResult, TVariables>(
     throw new Error("Missing NEXT_PUBLIC_API_URL environment variable");
   }
 
+  if (!process.env.NEXT_PUBLIC_API_KEY) {
+    throw new Error("Missing NEXT_PUBLIC_API_KEY environment variable");
+  }
+
   const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/graphql-response+json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+      "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY,
     },
     body: JSON.stringify({
       query: query.toString(),
