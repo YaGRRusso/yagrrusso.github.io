@@ -1,25 +1,25 @@
+"use client";
+
 import { useTranslations } from "next-intl";
-import { type ComponentProps, useMemo, useState } from "react";
+import { type ComponentProps, useLayoutEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-const MAX_LINES = {
+const LINE_CLAMP = {
   1: "line-clamp-1",
   2: "line-clamp-2",
   3: "line-clamp-3",
   4: "line-clamp-4",
   5: "line-clamp-5",
   6: "line-clamp-6",
-};
+} as const;
 
-interface Props extends ComponentProps<"p"> {
-  maxLength?: number;
-  maxLines?: keyof typeof MAX_LINES;
-  onResize?: (data: boolean) => void;
+interface Props extends Omit<ComponentProps<"div">, "children"> {
+  maxLines?: keyof typeof LINE_CLAMP;
+  onResize?: (expanded: boolean) => void;
   text: string;
 }
 
 export function ExpandCharacters({
-  maxLength = 512,
   maxLines = 3,
   text,
   onResize,
@@ -27,30 +27,37 @@ export function ExpandCharacters({
   ...props
 }: Props) {
   const tCommon = useTranslations("common");
-
+  const ref = useRef<HTMLSpanElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
-  const isActive = text.length > maxLength;
+  const [isOverflowing, setIsOverflowing] = useState(false);
 
-  const content = useMemo(() => {
-    if (isExpanded || !isActive) return text;
-
-    let truncated = text.slice(0, maxLength);
-
-    const lastSpace = truncated.lastIndexOf(" ");
-    if (lastSpace > 0) {
-      truncated = truncated.slice(0, lastSpace);
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element || isExpanded) {
+      return;
     }
 
-    return `${truncated}...`;
-  }, [isExpanded, maxLength, text, isActive]);
+    const update = () => {
+      setIsOverflowing(element.scrollHeight > element.clientHeight);
+    };
+
+    update();
+
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [isExpanded]);
+
+  const showToggle = isOverflowing || isExpanded;
 
   return (
     <div className={cn("inline", className)} {...props}>
-      <span className={cn(!isExpanded && MAX_LINES[maxLines])}>
-        {content}
-        {isActive && " "}
+      <span className={cn(!isExpanded && LINE_CLAMP[maxLines])} ref={ref}>
+        {text}
+        {showToggle && " "}
       </span>
-      {isActive && (
+      {showToggle && (
         <button
           className="cursor-pointer text-primary text-sm underline-offset-1 hover:underline"
           onClick={(ev) => {

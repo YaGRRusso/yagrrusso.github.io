@@ -93,9 +93,7 @@ export function ExperienceCard({
               </Timeline.Header>
               <Timeline.Content className="flex flex-col">
                 <Accordion.Content className="py-2 text-muted-foreground">
-                  <ExpandCharacters text={role.description}>
-                    {role.description}
-                  </ExpandCharacters>
+                  <ExpandCharacters text={role.description} />
                 </Accordion.Content>
                 {role.skills && role.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">

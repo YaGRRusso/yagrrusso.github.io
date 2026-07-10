@@ -63,9 +63,7 @@ export function ProjectCard({
               className="text-muted-foreground"
               onResize={(isExpanded) => setIsOpen(isExpanded)}
               text={description}
-            >
-              {description}
-            </ExpandCharacters>
+            />
             {skills && skills.length > 0 && (
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
@@ -114,9 +112,7 @@ export function ProjectCard({
           <Dialog.Header>
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description asChild>
-              <ExpandCharacters text={description}>
-                {description}
-              </ExpandCharacters>
+              <ExpandCharacters text={description} />
             </Dialog.Description>
           </Dialog.Header>
           <Dialog.Body>

@@ -60,9 +60,7 @@ export function CourseCard({
       <ExpandCharacters
         className="text-muted-foreground"
         text={description ?? ""}
-      >
-        {description}
-      </ExpandCharacters>
+      />
       <div className="flex items-center gap-2">
         <StatusBadge status={status} />
       </div>
