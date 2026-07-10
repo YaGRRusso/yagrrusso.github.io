@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge } from "@/components/skill-badge";
+import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Accordion } from "@/components/ui/accordion";
 import { Avatar } from "@/components/ui/avatar";
 import { Timeline } from "@/components/ui/timeline";
@@ -25,12 +25,7 @@ interface Props
       from?: Date | null;
       to?: Date | null;
     };
-    skills?: {
-      category?: string | null;
-      id: string;
-      slug: string;
-      i18n: { locale: string; messages: { title: string } }[];
-    }[];
+    skills?: SkillItem[];
   }[];
 }
 
@@ -112,9 +107,9 @@ export function ExperienceCard({
                   <div className="flex flex-wrap gap-2 py-2">
                     {role.skills.map((skill) => (
                       <SkillBadge
-                        i18n={skill.i18n}
                         key={skill.id}
                         slug={skill.slug}
+                        title={skill.title}
                       />
                     ))}
                   </div>

@@ -34,7 +34,11 @@ export function CoursesSection() {
                   hours={course.hours ?? undefined}
                   image={course.image ?? undefined}
                   organization={course.organization!}
-                  skills={course.skills ?? undefined}
+                  skills={course.skills?.map((skill) => ({
+                    id: skill.id,
+                    slug: skill.slug,
+                    title: getMessages(skill.i18n)?.title ?? skill.slug,
+                  }))}
                   status={course.status}
                   title={getMessages(course.i18n)?.title ?? ""}
                   url={course.url ?? undefined}

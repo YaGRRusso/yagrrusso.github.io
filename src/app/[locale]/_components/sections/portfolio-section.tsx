@@ -45,7 +45,11 @@ export function PortfolioSection() {
                 description={getMessages(proj.i18n)?.description}
                 direction={index % 2 === 0 ? "left" : "right"}
                 images={proj.images}
-                skills={proj.skills ?? []}
+                skills={proj.skills?.map((skill) => ({
+                  id: skill.id,
+                  slug: skill.slug,
+                  title: getMessages(skill.i18n)?.title ?? skill.slug,
+                }))}
                 slug={proj.slug}
                 title={getMessages(proj.i18n)?.title}
                 urls={proj.urls ?? []}

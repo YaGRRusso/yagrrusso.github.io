@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { type ComponentProps, useState } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge } from "@/components/skill-badge";
+import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { getUrl } from "@/consts/urls";
@@ -13,11 +13,7 @@ interface Props extends ComponentProps<"div"> {
   description: string;
   direction?: "left" | "right";
   images?: string[] | null;
-  skills?: {
-    id: string;
-    slug: string;
-    i18n: { locale: string; messages: { title: string } }[];
-  }[];
+  skills?: SkillItem[];
   slug: string;
   title: string;
   urls?: {
@@ -75,9 +71,9 @@ export function ProjectCard({
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
                   <SkillBadge
-                    i18n={skill.i18n}
                     key={skill.id}
                     slug={skill.slug}
+                    title={skill.title}
                   />
                 ))}
               </div>

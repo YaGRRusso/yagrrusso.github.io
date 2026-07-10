@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge } from "@/components/skill-badge";
+import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,12 +24,7 @@ interface Props extends ComponentProps<"a"> {
     from?: Date | null;
     to?: Date | null;
   };
-  skills?: {
-    category?: string | null;
-    id: string;
-    slug: string;
-    i18n: { locale: string; messages: { title: string } }[];
-  }[];
+  skills?: SkillItem[];
   status: EducationStatus;
   title: string;
   url?: string;
@@ -107,7 +102,7 @@ export function EducationCard({
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           {skills.map((skill) => (
-            <SkillBadge i18n={skill.i18n} key={skill.id} slug={skill.slug} />
+            <SkillBadge key={skill.id} slug={skill.slug} title={skill.title} />
           ))}
         </div>
       )}

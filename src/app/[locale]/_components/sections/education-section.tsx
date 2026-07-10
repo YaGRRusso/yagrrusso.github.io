@@ -35,7 +35,11 @@ export function EducationSection() {
                   level={education.level}
                   organization={education.organization!}
                   period={education.period ?? undefined}
-                  skills={education.skills ?? undefined}
+                  skills={education.skills?.map((skill) => ({
+                    id: skill.id,
+                    slug: skill.slug,
+                    title: getMessages(skill.i18n)?.title ?? skill.slug,
+                  }))}
                   status={education.status}
                   title={getMessages(education.i18n)?.title ?? ""}
                   url={education.url ?? undefined}

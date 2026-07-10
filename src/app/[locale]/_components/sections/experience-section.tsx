@@ -33,7 +33,11 @@ export function ExperienceSection() {
                 roles={experience.roles.map((role) => ({
                   title: getMessages(role.i18n)?.title ?? "",
                   description: getMessages(role.i18n)?.description ?? "",
-                  skills: role.skills ?? undefined,
+                  skills: role.skills?.map((skill) => ({
+                    id: skill.id,
+                    slug: skill.slug,
+                    title: getMessages(skill.i18n)?.title ?? skill.slug,
+                  })),
                   period: role.period ?? undefined,
                 }))}
               />
