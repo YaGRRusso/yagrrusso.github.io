@@ -19,63 +19,67 @@ export function SkillsSection() {
 
   return (
     <div className="w-full">
-      <Carousel.Root
-        className="container relative flex w-full flex-col justify-center gap-8"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
+      <div className="container relative flex w-full flex-col justify-center gap-8">
+        <Carousel.Root
+          className="flex flex-col justify-center gap-8"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
         >
-          <SectionTitle
-            description={t("sections.skills.description")}
-            id="my-skills"
-            title={t("sections.skills.title")}
-          />
-          <div className="flex h-fit items-center gap-4">
-            <Button asChild variant="outline">
-              <Link href="/skills">
-                {t("viewAll")}
-                <ArrowUpRightIcon weight="bold" />
-              </Link>
-            </Button>
-            <Carousel.Previous />
-            <Carousel.Next />
-          </div>
-        </AnimateOnScroll>
+          <AnimateOnScroll
+            className="flex flex-1 flex-wrap justify-between gap-8"
+            y={16}
+          >
+            <SectionTitle
+              description={t("sections.skills.description")}
+              id="my-skills"
+              title={t("sections.skills.title")}
+            />
+            <div className="flex h-fit items-center gap-2">
+              <Carousel.Previous />
+              <Carousel.Next />
+            </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll y={16}>
+            <Carousel.Content>
+              <SkillCard
+                description={t("sections.skills.cards.frontend.description")}
+                icon={<DevicesIcon className="size-10" />}
+                title={t("sections.skills.cards.frontend.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.backend.description")}
+                icon={<CodeIcon className="size-10" />}
+                title={t("sections.skills.cards.backend.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.devops.description")}
+                icon={<CloudIcon className="size-10" />}
+                title={t("sections.skills.cards.devops.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.database.description")}
+                icon={<DatabaseIcon className="size-10" />}
+                title={t("sections.skills.cards.database.title")}
+              />
+              <SkillCard
+                description={t("sections.skills.cards.quality.description")}
+                icon={<FlaskIcon className="size-10" />}
+                title={t("sections.skills.cards.quality.title")}
+              />
+            </Carousel.Content>
+          </AnimateOnScroll>
+        </Carousel.Root>
         <AnimateOnScroll y={16}>
-          <Carousel.Content>
-            <SkillCard
-              description={t("sections.skills.cards.frontend.description")}
-              icon={<DevicesIcon className="size-10" />}
-              title={t("sections.skills.cards.frontend.title")}
-            />
-            <SkillCard
-              description={t("sections.skills.cards.backend.description")}
-              icon={<CodeIcon className="size-10" />}
-              title={t("sections.skills.cards.backend.title")}
-            />
-            <SkillCard
-              description={t("sections.skills.cards.devops.description")}
-              icon={<CloudIcon className="size-10" />}
-              title={t("sections.skills.cards.devops.title")}
-            />
-            <SkillCard
-              description={t("sections.skills.cards.database.description")}
-              icon={<DatabaseIcon className="size-10" />}
-              title={t("sections.skills.cards.database.title")}
-            />
-            <SkillCard
-              description={t("sections.skills.cards.quality.description")}
-              icon={<FlaskIcon className="size-10" />}
-              title={t("sections.skills.cards.quality.title")}
-            />
-          </Carousel.Content>
+          <Button asChild className="w-full py-8" size="lg" variant="outline">
+            <Link href="/skills">
+              {t("viewAll")}
+              <ArrowUpRightIcon weight="bold" />
+            </Link>
+          </Button>
         </AnimateOnScroll>
-      </Carousel.Root>
+      </div>
     </div>
   );
 }

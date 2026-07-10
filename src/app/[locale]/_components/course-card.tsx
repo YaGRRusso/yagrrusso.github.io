@@ -1,6 +1,7 @@
 import { ArrowUpRightIcon, DotIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { ExpandCharacters } from "@/components/expand-characters";
 import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -56,6 +57,12 @@ export function CourseCard({
         )}
       </div>
       <h3 className="line-clamp-2 font-semibold text-3xl">{title}</h3>
+      <ExpandCharacters
+        className="text-muted-foreground"
+        text={description ?? ""}
+      >
+        {description}
+      </ExpandCharacters>
       <div className="flex items-center gap-2">
         <StatusBadge status={status} />
       </div>
@@ -64,7 +71,6 @@ export function CourseCard({
         <DotIcon />
         <div>@{organization.name}</div>
       </div>
-      <p className="text-muted-foreground">{description}</p>
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           {skills.map((skill) => (

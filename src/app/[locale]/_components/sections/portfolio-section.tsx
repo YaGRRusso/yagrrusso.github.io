@@ -26,16 +26,6 @@ export function PortfolioSection() {
             id="my-portfolio"
             title={t("sections.portfolio.title")}
           />
-          <Button asChild variant="outline">
-            <Link
-              href="https://github.com/YaGRRusso?tab=repositories"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {t("viewAll")}
-              <ArrowUpRightIcon weight="bold" />
-            </Link>
-          </Button>
         </AnimateOnScroll>
         {findManyProjects.data?.findManyProjects.nodes
           .slice(0, 3)
@@ -56,6 +46,18 @@ export function PortfolioSection() {
               />
             </AnimateOnScroll>
           ))}
+        <AnimateOnScroll y={16}>
+          <Button asChild className="w-full py-8" size="lg" variant="outline">
+            <Link
+              href="https://github.com/YaGRRusso?tab=repositories"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {t("viewAll")}
+              <ArrowUpRightIcon weight="bold" />
+            </Link>
+          </Button>
+        </AnimateOnScroll>
       </div>
     </div>
   );

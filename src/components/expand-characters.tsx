@@ -2,14 +2,25 @@ import { useTranslations } from "next-intl";
 import { type ComponentProps, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
+const MAX_LINES = {
+  1: "line-clamp-1",
+  2: "line-clamp-2",
+  3: "line-clamp-3",
+  4: "line-clamp-4",
+  5: "line-clamp-5",
+  6: "line-clamp-6",
+};
+
 interface Props extends ComponentProps<"p"> {
-  length?: number;
+  maxLength?: number;
+  maxLines?: keyof typeof MAX_LINES;
   onResize?: (data: boolean) => void;
   text: string;
 }
 
 export function ExpandCharacters({
-  length = 512,
+  maxLength = 512,
+  maxLines = 3,
   text,
   onResize,
   className,
@@ -18,12 +29,12 @@ export function ExpandCharacters({
   const tCommon = useTranslations("common");
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const isActive = text.length > length;
+  const isActive = text.length > maxLength;
 
   const content = useMemo(() => {
     if (isExpanded || !isActive) return text;
 
-    let truncated = text.slice(0, length);
+    let truncated = text.slice(0, maxLength);
 
     const lastSpace = truncated.lastIndexOf(" ");
     if (lastSpace > 0) {
@@ -31,11 +42,11 @@ export function ExpandCharacters({
     }
 
     return `${truncated}...`;
-  }, [isExpanded, length, text, isActive]);
+  }, [isExpanded, maxLength, text, isActive]);
 
   return (
     <div className={cn("inline", className)} {...props}>
-      <span>
+      <span className={cn(!isExpanded && MAX_LINES[maxLines])}>
         {content}
         {isActive && " "}
       </span>

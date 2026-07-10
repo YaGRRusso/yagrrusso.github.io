@@ -61,7 +61,6 @@ export function ProjectCard({
             </h3>
             <ExpandCharacters
               className="text-muted-foreground"
-              length={128}
               onResize={(isExpanded) => setIsOpen(isExpanded)}
               text={description}
             >
@@ -115,7 +114,7 @@ export function ProjectCard({
           <Dialog.Header>
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Description asChild>
-              <ExpandCharacters length={768} text={description}>
+              <ExpandCharacters text={description}>
                 {description}
               </ExpandCharacters>
             </Dialog.Description>
