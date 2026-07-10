@@ -109,5 +109,5 @@ npm run test     # Vitest (requires a prior build for the SEO smoke test)
 ```
 
 CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API with
-`X-Api-Key`, builds with secrets (`API_URL`, `API_KEY`), runs tests, and deploys
+`X-Api-Key`, builds with repository variables (`API_URL`, `API_KEY`), runs tests, and deploys
 `out/` to GitHub Pages.

@@ -262,8 +262,7 @@ runtime).
   in the footer "updated at" line.
 
 Local: `.env.development` (copy from `.env.example`). Production build reads
-`.env.production` or CI env. CI secrets: `API_URL`, `API_KEY`.
-Rename GitHub secret `API_TOKEN` → `API_KEY` with a `pi_…` token value.
+`.env.production` or CI env. CI repository variables: `API_URL`, `API_KEY`.
 
 ## Scripts / commands
 

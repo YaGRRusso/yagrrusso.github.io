@@ -21,9 +21,9 @@ jobs:
       - name: Wake up API
         run: |
           curl --retry 5 --retry-delay 30 \
-            -X POST ${{ secrets.API_URL }} \
+            -X POST ${{ vars.API_URL }} \
             -H "Content-Type: application/json" \
-            -H "X-Api-Key: ${{ secrets.API_KEY }}" \
+            -H "X-Api-Key: ${{ vars.API_KEY }}" \
             -d '{"query":"{ __typename }"}' \
             -s -o /dev/null || exit 1
 
@@ -42,8 +42,8 @@ jobs:
       - name: Build Next.js site
         run: npm run build
         env:
-          NEXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.API_URL }}
+          NEXT_PUBLIC_API_KEY: ${{ vars.API_KEY }}
+          NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
 
       - name: Run tests
         run: npm run test
