@@ -7,24 +7,18 @@ import { Accordion } from "@/components/ui/accordion";
 import { Avatar } from "@/components/ui/avatar";
 import { Timeline } from "@/components/ui/timeline";
 import { cn } from "@/lib/utils";
+import type { OrganizationProps, PeriodProps } from "./card-props";
 
 interface Props
   extends Omit<
     Extract<ComponentProps<typeof Accordion.Root>, { type: "multiple" }>,
     "type"
   > {
-  organization: {
-    name: string;
-    website?: string | null;
-    logo?: string | null;
-  };
+  organization: OrganizationProps;
   roles: {
     title: string;
     description: string;
-    period?: {
-      from?: Date | null;
-      to?: Date | null;
-    };
+    period?: PeriodProps;
     skills?: SkillItem[];
   }[];
 }

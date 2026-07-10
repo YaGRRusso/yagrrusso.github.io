@@ -5,17 +5,14 @@ import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { CourseStatus } from "@/graphql/graphql";
+import type { OrganizationProps } from "./card-props";
 import { StatusBadge } from "./status-badge";
 
 interface Props extends ComponentProps<"a"> {
   description: string;
   hours?: number;
   image?: string;
-  organization: {
-    name: string;
-    website?: string | null;
-    logo?: string | null;
-  };
+  organization: OrganizationProps;
   skills?: SkillItem[];
   status: CourseStatus;
   title: string;

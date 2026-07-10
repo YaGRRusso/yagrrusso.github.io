@@ -4,6 +4,7 @@ import { SectionTitle } from "@/components/section-title";
 import { useFindManyExperiences } from "@/hooks/queries/experiences";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { HOME_EXPERIENCES_VARS } from "../../queries";
+import { mapOrganization, mapPeriod } from "../card-props";
 import { ExperienceCard } from "../experience-card";
 
 export function ExperienceSection() {
@@ -29,7 +30,7 @@ export function ExperienceSection() {
           .map((experience) => (
             <AnimateOnScroll key={experience.id} y={16}>
               <ExperienceCard
-                organization={experience.organization!}
+                organization={mapOrganization(experience.organization!)}
                 roles={experience.roles.map((role) => ({
                   title: getMessages(role.i18n)?.title ?? "",
                   description: getMessages(role.i18n)?.description ?? "",
@@ -38,7 +39,7 @@ export function ExperienceSection() {
                     slug: skill.slug,
                     title: getMessages(skill.i18n)?.title ?? skill.slug,
                   })),
-                  period: role.period ?? undefined,
+                  period: mapPeriod(role.period),
                 }))}
               />
             </AnimateOnScroll>

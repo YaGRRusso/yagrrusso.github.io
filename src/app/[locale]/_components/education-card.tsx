@@ -9,21 +9,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { EducationLevel, EducationStatus } from "@/graphql/graphql";
 import { cn } from "@/lib/utils";
+import type { OrganizationProps, PeriodProps } from "./card-props";
 import { StatusBadge } from "./status-badge";
 
 interface Props extends ComponentProps<"a"> {
   description?: string;
   image?: string;
   level: EducationLevel;
-  organization: {
-    name: string;
-    website?: string | null;
-    logo?: string | null;
-  };
-  period?: {
-    from?: Date | null;
-    to?: Date | null;
-  };
+  organization: OrganizationProps;
+  period?: PeriodProps;
   skills?: SkillItem[];
   status: EducationStatus;
   title: string;

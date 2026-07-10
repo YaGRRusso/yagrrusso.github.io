@@ -4,6 +4,7 @@ import { SectionTitle } from "@/components/section-title";
 import { useFindManyCourses } from "@/hooks/queries/courses";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { HOME_COURSES_VARS } from "../../queries";
+import { mapOrganization } from "../card-props";
 import { CourseCard } from "../course-card";
 
 export function CoursesSection() {
@@ -33,7 +34,7 @@ export function CoursesSection() {
                   description={getMessages(course.i18n)?.description ?? ""}
                   hours={course.hours ?? undefined}
                   image={course.image ?? undefined}
-                  organization={course.organization!}
+                  organization={mapOrganization(course.organization!)}
                   skills={course.skills?.map((skill) => ({
                     id: skill.id,
                     slug: skill.slug,

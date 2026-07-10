@@ -44,7 +44,7 @@ export function PortfolioSection() {
               <ProjectCard
                 description={getMessages(proj.i18n)?.description}
                 direction={index % 2 === 0 ? "left" : "right"}
-                images={proj.images}
+                images={proj.images ?? []}
                 skills={proj.skills?.map((skill) => ({
                   id: skill.id,
                   slug: skill.slug,

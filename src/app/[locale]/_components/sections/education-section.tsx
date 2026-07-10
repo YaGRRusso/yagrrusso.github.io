@@ -4,6 +4,7 @@ import { SectionTitle } from "@/components/section-title";
 import { useFindManyEducations } from "@/hooks/queries/educations";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { HOME_EDUCATIONS_VARS } from "../../queries";
+import { mapOrganization, mapPeriod } from "../card-props";
 import { EducationCard } from "../education-card";
 
 export function EducationSection() {
@@ -33,8 +34,8 @@ export function EducationSection() {
                   description={getMessages(education.i18n)?.description}
                   image={education.image ?? undefined}
                   level={education.level}
-                  organization={education.organization!}
-                  period={education.period ?? undefined}
+                  organization={mapOrganization(education.organization!)}
+                  period={mapPeriod(education.period)}
                   skills={education.skills?.map((skill) => ({
                     id: skill.id,
                     slug: skill.slug,

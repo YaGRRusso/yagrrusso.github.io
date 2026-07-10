@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 interface Props extends ComponentProps<"div"> {
   description: string;
   direction?: "left" | "right";
-  images?: string[] | null;
+  images?: string[];
   skills?: SkillItem[];
   slug: string;
   title: string;
