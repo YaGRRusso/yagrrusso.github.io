@@ -8,8 +8,8 @@ type MessageProps<T = Record<string, string>> = {
 export function useMessages() {
   const locale = useLocale();
 
-  return <T>(messages: MessageProps<T>[]) => {
-    const message = messages.find((msg) => msg.locale === locale);
+  return <T>(messages?: MessageProps<T>[] | null) => {
+    const message = messages?.find((msg) => msg.locale === locale);
     return message?.messages as T;
   };
 }

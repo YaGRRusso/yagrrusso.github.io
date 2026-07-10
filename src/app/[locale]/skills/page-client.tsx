@@ -21,26 +21,30 @@ import { Pagination } from "@/components/ui/pagination";
 import { Request } from "@/components/ui/request";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  SKILL_FILTER_CATEGORIES,
+  type SkillFilterCategory,
+} from "@/consts/skill-categories";
 import { getSlug } from "@/consts/slugs";
-import { SkillCategory } from "@/graphql/graphql";
 import { useFindManySkills } from "@/hooks/queries/skills";
+import { useMessages } from "@/hooks/reactive/use-messages";
 import { getPagination } from "@/lib/pagination";
 import { getSkillSkillsVars } from "./queries";
 
 export function ClientPage() {
   const t = useTranslations("skillsPage");
   const tCommon = useTranslations("common");
+  const getMessages = useMessages();
 
-  const categoryIcons: Record<SkillCategory, React.ElementType> = {
-    [SkillCategory.Backend]: CodeIcon,
-    [SkillCategory.Data]: DatabaseIcon,
-    [SkillCategory.Devops]: CloudIcon,
-    [SkillCategory.Frontend]: DevicesIcon,
-    [SkillCategory.Language]: RobotIcon,
+  const categoryIcons: Record<SkillFilterCategory, React.ElementType> = {
+    BACKEND: CodeIcon,
+    DATA: DatabaseIcon,
+    DEVOPS: CloudIcon,
+    FRONTEND: DevicesIcon,
+    LANGUAGE: RobotIcon,
   };
 
-  // const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<SkillCategory | undefined>();
+  const [category, setCategory] = useState<string | undefined>();
   const [page, setPage] = useState(1);
 
   const queryVars = getSkillSkillsVars(category, page);
@@ -65,7 +69,7 @@ export function ClientPage() {
           </span>
           <Select.Root
             onValueChange={(value) => {
-              setCategory(value ? (value as SkillCategory) : undefined);
+              setCategory(value || undefined);
               setPage(1);
             }}
             value={category ?? ""}
@@ -78,8 +82,9 @@ export function ClientPage() {
                 <PackageIcon />
                 {tCommon("categories.ALL")}
               </Select.Item>
-              {Object.values(SkillCategory).map((skillCategory) => {
-                const CategoryIcon = categoryIcons[skillCategory];
+              {SKILL_FILTER_CATEGORIES.map((skillCategory) => {
+                const CategoryIcon =
+                  categoryIcons[skillCategory] ?? PackageIcon;
 
                 return (
                   <Select.Item key={skillCategory} value={skillCategory}>
@@ -118,8 +123,10 @@ export function ClientPage() {
                   <div className="mb-2 text-3xl">
                     {getSlug(skill.slug).icon}
                   </div>
-                  <span>{skill.name}</span>
-                  <Badge variant="outline">{skill.category}</Badge>
+                  <span>{getMessages(skill.i18n)?.title ?? skill.slug}</span>
+                  {skill.category && (
+                    <Badge variant="outline">{skill.category}</Badge>
+                  )}
                 </AnimateOnScroll>
               </li>
             ))}

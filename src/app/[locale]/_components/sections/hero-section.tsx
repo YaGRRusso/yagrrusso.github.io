@@ -8,15 +8,13 @@ import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern
 import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 import { Tooltip } from "@/components/ui/tooltip";
 import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
-import { useFindOneUserById } from "@/hooks/queries/auth";
+import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
-import { PROFILE_USER_VARS } from "../../queries";
 
 export function HeroSection() {
   const t = useTranslations("homePage");
-  const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
+  const getMe = useGetMe();
   const getMessages = useMessages();
-  const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
   const locale = useLocale();
 
   return (
@@ -38,7 +36,7 @@ export function HeroSection() {
           </div>
           <Highlighter action="underline" padding={4}>
             <h1 className="font-semibold text-6xl max-md:text-5xl">
-              {getMessages(messages)?.title}
+              {getMessages(getMe.data?.getMe.i18n)?.title}
             </h1>
           </Highlighter>
         </div>

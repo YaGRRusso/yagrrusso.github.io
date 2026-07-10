@@ -257,8 +257,7 @@ runtime).
   `X-Api-Key: pi_<id>_<secret>`. Read by `execute.ts`, `codegen.ts`, and CI.
   Requires `QUERY` permission for read-only portfolio queries. Declared in
   `.env.example`. After `npm run seed` in `profile-info`, tokens are printed to
-  the console. Profile owner is resolved at build time via the `getMe` query
-  (authenticated as the token owner).
+  the console. Profile owner is resolved via `getMe` (token owner).
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
   in the footer "updated at" line.
 
@@ -300,7 +299,8 @@ Workflow: `npm run build` then `npm run test`.
 - API must be reachable at build time. CI wakes the hosted API; locally run
   `npm run back` before building or when codegen needs a fresh schema.
 - Codegen reads `.env.development` and sends `X-Api-Key` during introspection.
-  Ensure `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_API_KEY` point to a live API.
+  `getOrThrow()` in `src/lib/get-or-throw.ts` validates required env vars in
+  `execute.ts` and `codegen.ts` — missing values fail immediately.
 - Read queries require an API token with `QUERY` permission. Session-only
   operations (`dashboard`, AI mutations, API token management) reject API tokens.
   `getMe` works with API tokens and returns the token owner profile.

@@ -24,21 +24,21 @@ export function ExperienceSection() {
             title={t("sections.experience.title")}
           />
         </AnimateOnScroll>
-        {findManyExperiences.data?.findManyExperiences.nodes.map(
-          (experience) => (
+        {findManyExperiences.data?.findManyExperiences.nodes
+          .filter((experience) => experience.organization)
+          .map((experience) => (
             <AnimateOnScroll key={experience.id} y={16}>
               <ExperienceCard
-                organization={experience.organization}
+                organization={experience.organization!}
                 roles={experience.roles.map((role) => ({
-                  title: getMessages(role.i18n)?.title,
-                  description: getMessages(role.i18n)?.description,
+                  title: getMessages(role.i18n)?.title ?? "",
+                  description: getMessages(role.i18n)?.description ?? "",
                   skills: role.skills ?? undefined,
                   period: role.period ?? undefined,
                 }))}
               />
             </AnimateOnScroll>
-          )
-        )}
+          ))}
       </div>
     </div>
   );

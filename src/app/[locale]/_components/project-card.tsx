@@ -15,8 +15,8 @@ interface Props extends ComponentProps<"div"> {
   images?: string[] | null;
   skills?: {
     id: string;
-    name: string;
     slug: string;
+    i18n: { locale: string; messages: { title: string } }[];
   }[];
   slug: string;
   title: string;
@@ -75,8 +75,8 @@ export function ProjectCard({
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
                 {skills.map((skill) => (
                   <SkillBadge
+                    i18n={skill.i18n}
                     key={skill.id}
-                    name={skill.name}
                     slug={skill.slug}
                   />
                 ))}

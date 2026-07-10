@@ -3,17 +3,13 @@ import { useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { Counter } from "@/components/counter";
 import { SectionTitle } from "@/components/section-title";
-import { useFindOneUserById } from "@/hooks/queries/auth";
+import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
-import { PROFILE_USER_VARS } from "../../queries";
 
 export function AboutSection() {
   const t = useTranslations("homePage");
-  const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
+  const getMe = useGetMe();
   const getMessages = useMessages();
-
-  const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
-  // const birthDate = parseApiDate(findOneUserById.data?.findOneUserById?.birth);
 
   return (
     <div className="w-full">
@@ -27,7 +23,7 @@ export function AboutSection() {
             title={t("sections.aboutMe.title")}
           />
           <p className="text-muted-foreground">
-            {getMessages(messages)?.description}
+            {getMessages(getMe.data?.getMe.i18n)?.description}
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
             <Counter

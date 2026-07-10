@@ -8,18 +8,19 @@ import type { CourseStatus } from "@/graphql/graphql";
 import { StatusBadge } from "./status-badge";
 
 interface Props extends ComponentProps<"a"> {
+  description: string;
   hours?: number;
   image?: string;
   organization: {
     name: string;
-    website?: string;
-    logo?: string;
+    website?: string | null;
+    logo?: string | null;
   };
   skills?: {
-    category: string;
+    category?: string | null;
     id: string;
-    name: string;
     slug: string;
+    i18n: { locale: string; messages: { title: string } }[];
   }[];
   status: CourseStatus;
   title: string;
@@ -29,6 +30,7 @@ interface Props extends ComponentProps<"a"> {
 export function CourseCard({
   className,
   title,
+  description,
   organization,
   skills,
   status,
@@ -42,14 +44,17 @@ export function CourseCard({
   return (
     <a
       className="group/hover flex h-full flex-col justify-center gap-4 rounded border bg-card/40 px-8 py-12 text-card-foreground"
-      href={url ?? image ?? organization.website}
+      href={url || image || organization.website || undefined}
       rel="noopener noreferrer"
       target="_blank"
       {...props}
     >
       <div className="flex justify-between">
         <Avatar.Root className="size-12">
-          <Avatar.Image alt={organization.name} src={organization.logo} />
+          <Avatar.Image
+            alt={organization.name}
+            src={organization.logo || undefined}
+          />
           <Avatar.Fallback />
         </Avatar.Root>
         {(url || image || organization.website) && (
@@ -67,11 +72,11 @@ export function CourseCard({
         <DotIcon />
         <div>@{organization.name}</div>
       </div>
-      {/* <p className="text-muted-foreground">{description}</p> */}
+      <p className="text-muted-foreground">{description}</p>
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           {skills.map((skill) => (
-            <SkillBadge key={skill.id} name={skill.name} slug={skill.slug} />
+            <SkillBadge i18n={skill.i18n} key={skill.id} slug={skill.slug} />
           ))}
         </div>
       )}

@@ -12,7 +12,7 @@ const LOCALES = ["en", "pt"] as const;
 const OG_PROPS = ["og:title", "og:description", "og:url", "og:image"] as const;
 
 const HOME_QUERIES = [
-  "findOneUserById",
+  "getMe",
   "findManySkills",
   "findManyProjects",
   "findManyExperiences",
@@ -45,14 +45,14 @@ const ROUTES: Route[] = [
     file: "en/skills/index.html",
     locale: "en",
     url: `${BASE_URL}/en/skills/`,
-    expectQueries: ["findOneUserById", "findManySkills"],
+    expectQueries: ["getMe", "findManySkills"],
     expectListItems: true,
   },
   {
     file: "pt/skills/index.html",
     locale: "pt",
     url: `${BASE_URL}/pt/skills/`,
-    expectQueries: ["findOneUserById", "findManySkills"],
+    expectQueries: ["getMe", "findManySkills"],
     expectListItems: true,
   },
 ];
@@ -65,7 +65,7 @@ if (!existsSync(OUT_DIR)) {
 
 /** React Query embeds dehydrated query payloads (quotes escaped) in the flight stream. */
 function hasDehydratedQuery(html: string, key: string) {
-  const field = key.startsWith("findOne") ? "id" : "found";
+  const field = key.startsWith("findMany") ? "found" : "id";
   return html.includes(`${key}\\":{\\"${field}\\":`);
 }
 

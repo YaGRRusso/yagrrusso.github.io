@@ -15,8 +15,8 @@ interface Props
   > {
   organization: {
     name: string;
-    website?: string;
-    logo?: string;
+    website?: string | null;
+    logo?: string | null;
   };
   roles: {
     title: string;
@@ -26,10 +26,10 @@ interface Props
       to?: Date | null;
     };
     skills?: {
-      category: string;
+      category?: string | null;
       id: string;
-      name: string;
       slug: string;
+      i18n: { locale: string; messages: { title: string } }[];
     }[];
   }[];
 }
@@ -55,12 +55,15 @@ export function ExperienceCard({
       <div className="flex flex-col">
         <a
           className="flex flex-wrap items-center gap-4"
-          href={organization.website}
+          href={organization.website || undefined}
           rel="noopener noreferrer"
           target="_blank"
         >
           <Avatar.Root className="size-12">
-            <Avatar.Image alt={organization.name} src={organization.logo} />
+            <Avatar.Image
+              alt={organization.name}
+              src={organization.logo || undefined}
+            />
             <Avatar.Fallback />
           </Avatar.Root>
           <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">
@@ -109,8 +112,8 @@ export function ExperienceCard({
                   <div className="flex flex-wrap gap-2 py-2">
                     {role.skills.map((skill) => (
                       <SkillBadge
+                        i18n={skill.i18n}
                         key={skill.id}
-                        name={skill.name}
                         slug={skill.slug}
                       />
                     ))}

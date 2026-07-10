@@ -4,13 +4,12 @@ import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { ReactNode } from "react";
-import { prefetchFindOneUserById } from "@/hooks/queries/auth";
+import { prefetchGetMe } from "@/hooks/queries/auth";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { fontVariables } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { ClientLayout } from "./layout-client";
-import { PROFILE_USER_VARS } from "./queries";
 import "@/styles/globals.css";
 
 type Props = {
@@ -28,7 +27,7 @@ export default async function Layout({ children, params }: Props) {
   }
 
   const queryClient = new QueryClient();
-  await prefetchFindOneUserById(queryClient, PROFILE_USER_VARS);
+  await prefetchGetMe(queryClient);
 
   return (
     <html

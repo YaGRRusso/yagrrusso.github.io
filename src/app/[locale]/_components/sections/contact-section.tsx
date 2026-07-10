@@ -15,18 +15,16 @@ import { Avatar } from "@/components/ui/avatar";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Tooltip } from "@/components/ui/tooltip";
 import { ContactForm, type ContactSchema } from "@/forms/contact";
-import { useFindOneUserById } from "@/hooks/queries/auth";
+import { useGetMe } from "@/hooks/queries/auth";
 import { useGetContributions } from "@/hooks/queries/external";
 import { useMessages } from "@/hooks/reactive/use-messages";
-import { PROFILE_USER_VARS } from "../../queries";
 
 export function ContactSection() {
   const t = useTranslations("homePage");
   const tCommons = useTranslations("common");
-  const findOneUserById = useFindOneUserById(PROFILE_USER_VARS);
+  const getMe = useGetMe();
   const getMessages = useMessages();
   const getContributions = useGetContributions({ username: "yagrrusso" });
-  const messages = findOneUserById.data?.findOneUserById.i18n ?? [];
 
   const handleSendMail = useCallback(
     (data: ContactSchema) => {
@@ -52,17 +50,15 @@ export function ContactSection() {
             <div className="flex flex-col gap-4">
               <div className="flex gap-6 max-sm:flex-col">
                 <Avatar.Root className="size-20">
-                  <Avatar.Image
-                    src={findOneUserById.data?.findOneUserById?.avatar ?? ""}
-                  />
+                  <Avatar.Image src={getMe.data?.getMe?.avatar ?? ""} />
                   <Avatar.Fallback>
-                    {findOneUserById.data?.findOneUserById?.name?.charAt(0)}
+                    {getMe.data?.getMe?.name?.charAt(0)}
                   </Avatar.Fallback>
                 </Avatar.Root>
                 <div className="flex flex-col gap-2">
                   <strong className="text-4xl">Yago Russo</strong>
                   <span className="text-muted-foreground">
-                    {getMessages(messages)?.title}
+                    {getMessages(getMe.data?.getMe.i18n)?.title}
                   </span>
                 </div>
               </div>

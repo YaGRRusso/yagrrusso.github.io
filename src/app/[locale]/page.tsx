@@ -1,7 +1,7 @@
 import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import { prefetchFindOneUserById } from "@/hooks/queries/auth";
+import { prefetchGetMe } from "@/hooks/queries/auth";
 import { prefetchFindManyCourses } from "@/hooks/queries/courses";
 import { prefetchFindManyEducations } from "@/hooks/queries/educations";
 import { prefetchFindManyExperiences } from "@/hooks/queries/experiences";
@@ -17,7 +17,6 @@ import {
   HOME_EXPERIENCES_VARS,
   HOME_PROJECTS_VARS,
   HOME_SKILLS_VARS,
-  PROFILE_USER_VARS,
 } from "./queries";
 
 export function generateStaticParams() {
@@ -43,7 +42,7 @@ export default async function Page({ params }: Props) {
   setRequestLocale(locale);
 
   const queryClient = new QueryClient();
-  await prefetchFindOneUserById(queryClient, PROFILE_USER_VARS);
+  await prefetchGetMe(queryClient);
   await prefetchFindManySkills(queryClient, HOME_SKILLS_VARS);
   await prefetchFindManyProjects(queryClient, HOME_PROJECTS_VARS);
   await prefetchFindManyExperiences(queryClient, HOME_EXPERIENCES_VARS);

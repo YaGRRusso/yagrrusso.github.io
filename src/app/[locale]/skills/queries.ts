@@ -1,19 +1,15 @@
-import {
-  type FindManySkillsQueryVariables,
-  type SkillCategory,
-  SortEnum,
-} from "@/graphql/graphql";
+import { type FindManySkillsQueryVariables, SortEnum } from "@/graphql/graphql";
 import { paginationInput } from "@/lib/pagination";
 import { filterInput } from "@/lib/query-vars";
 
 export const SKILL_SKILLS_VARS: FindManySkillsQueryVariables = {
   skillFilters: {},
   skillPagination: { limit: 50, skip: 0 },
-  skillSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
+  skillSort: { updatedAt: SortEnum.Desc },
 };
 
 export function getSkillSkillsVars(
-  category?: SkillCategory,
+  category?: string,
   page = 1
 ): FindManySkillsQueryVariables {
   const limit = SKILL_SKILLS_VARS.skillPagination?.limit ?? 50;
