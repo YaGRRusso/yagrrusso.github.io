@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import { getSlug } from "@/consts/slugs";
+import { SkillIcon } from "@/components/skill-icon";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { Badge } from "./ui/badge";
 
@@ -21,7 +21,7 @@ export function SkillBadge({ i18n, slug, ...props }: Props) {
 
   return (
     <Badge variant="outline" {...props}>
-      <div className="text-[0.625rem]">{getSlug(slug).icon}</div>
+      <SkillIcon className="text-[0.625rem]" slug={slug} />
       {title}
     </Badge>
   );

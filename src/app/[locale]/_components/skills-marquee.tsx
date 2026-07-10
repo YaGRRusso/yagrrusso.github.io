@@ -1,8 +1,8 @@
 "use client";
 
 import { type ComponentProps, Fragment } from "react";
+import { SkillIcon } from "@/components/skill-icon";
 import { Marquee } from "@/components/ui/marquee";
-import { getSlug } from "@/consts/slugs";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +23,7 @@ export function SkillsMarquee({ skills, className, ...props }: Props) {
       <div className="flex items-center gap-8 px-2 py-4 text-[0.625rem] uppercase tracking-wide opacity-75">
         {skills.map((skill) => (
           <Fragment key={skill.id}>
-            {getSlug(skill.slug).icon}
+            <SkillIcon slug={skill.slug} />
             {getMessages(skill.i18n)?.title ?? skill.slug}
           </Fragment>
         ))}

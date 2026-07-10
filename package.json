@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@icons-pack/react-simple-icons": "^13.13.0",
     "@phosphor-icons/react": "^2.1.10",
     "@radix-ui/react-avatar": "^1.2.0",
     "@radix-ui/react-dialog": "^1.1.17",
@@ -35,6 +34,7 @@
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "rough-notation": "^0.5.1",
+    "simple-icons": "^16.12.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
     "validator": "^13.15.35",

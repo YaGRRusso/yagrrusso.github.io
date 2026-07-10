@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { PageTitle } from "@/components/page-title";
+import { SkillIcon } from "@/components/skill-icon";
 import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Pagination } from "@/components/ui/pagination";
@@ -25,7 +26,6 @@ import {
   SKILL_FILTER_CATEGORIES,
   type SkillFilterCategory,
 } from "@/consts/skill-categories";
-import { getSlug } from "@/consts/slugs";
 import { useFindManySkills } from "@/hooks/queries/skills";
 import { useMessages } from "@/hooks/reactive/use-messages";
 import { getPagination } from "@/lib/pagination";
@@ -121,7 +121,7 @@ export function ClientPage() {
                   y={16}
                 >
                   <div className="mb-2 text-3xl">
-                    {getSlug(skill.slug).icon}
+                    <SkillIcon slug={skill.slug} />
                   </div>
                   <span>{getMessages(skill.i18n)?.title ?? skill.slug}</span>
                   {skill.category && (

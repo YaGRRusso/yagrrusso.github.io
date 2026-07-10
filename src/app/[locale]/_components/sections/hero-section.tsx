@@ -2,6 +2,7 @@ import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import { SkillIcon } from "@/components/skill-icon";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
@@ -83,7 +84,9 @@ export function HeroSection() {
             >
               {SECONDARY_STACK.map((skill) => (
                 <Tooltip.Root key={skill.name}>
-                  <Tooltip.Trigger>{skill.icon}</Tooltip.Trigger>
+                  <Tooltip.Trigger>
+                    <SkillIcon slug={skill.slug} />
+                  </Tooltip.Trigger>
                   <Tooltip.Content>
                     <p>{skill.name}</p>
                   </Tooltip.Content>
@@ -97,7 +100,9 @@ export function HeroSection() {
             >
               {MAIN_STACK.map((skill) => (
                 <Tooltip.Root key={skill.name}>
-                  <Tooltip.Trigger>{skill.icon}</Tooltip.Trigger>
+                  <Tooltip.Trigger>
+                    <SkillIcon slug={skill.slug} />
+                  </Tooltip.Trigger>
                   <Tooltip.Content>
                     <p>{skill.name}</p>
                   </Tooltip.Content>
