@@ -72,6 +72,8 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
   Use these instead of Next.js navigation directly.
 - `src/lib/seo.ts` builds per-page metadata from translation namespaces and OG
   images in `public/images/og/`.
+- `src/app/sitemap.ts` and `src/app/robots.ts` emit crawl files into the static
+  export. Home pages include a static JSON-LD `Person` script.
 
 ### Layout composition
 

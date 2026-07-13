@@ -40,6 +40,9 @@
       },
       "performance": {
         "noNamespaceImport": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
       }
     },
     "domains": {

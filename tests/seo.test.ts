@@ -101,6 +101,18 @@ describe.each(ROUTES)("$file", (route) => {
     expect($("html").attr("lang")).toBe(route.locale);
   });
 
+  if (route.file.endsWith("index.html") && !route.file.includes("skills")) {
+    it("has Person structured data", () => {
+      const jsonLd = $('script[type="application/ld+json"]').html();
+      expect(jsonLd).toBeTruthy();
+
+      const data = JSON.parse(jsonLd ?? "{}");
+      expect(data["@type"]).toBe("Person");
+      expect(data.name).toBe("Yago Russo");
+      expect(data.url).toBe(route.url);
+    });
+  }
+
   it("is not stuck in a loading state", () => {
     expect($('[data-state="loading"]')).toHaveLength(0);
   });
@@ -116,4 +128,22 @@ describe.each(ROUTES)("$file", (route) => {
       expect($("li[id]").length).toBeGreaterThan(0);
     });
   }
+});
+
+describe("crawl files", () => {
+  it("emits robots.txt with a sitemap reference", () => {
+    const robots = readFileSync(join(OUT_DIR, "robots.txt"), "utf8");
+
+    expect(robots).toContain("User-Agent: *");
+    expect(robots).toContain("Allow: /");
+    expect(robots).toContain(`Sitemap: ${BASE_URL}/sitemap.xml`);
+  });
+
+  it("emits sitemap.xml with all localized routes", () => {
+    const sitemap = readFileSync(join(OUT_DIR, "sitemap.xml"), "utf8");
+
+    for (const path of ["/en/", "/pt/", "/en/skills/", "/pt/skills/"]) {
+      expect(sitemap).toContain(`${BASE_URL}${path}`);
+    }
+  });
 });

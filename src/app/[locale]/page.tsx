@@ -49,9 +49,26 @@ export default async function Page({ params }: Props) {
   await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
   await prefetchFindManyCourses(queryClient, HOME_COURSES_VARS);
 
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Yago Russo",
+    url: `https://yagrrusso.github.io/${locale}/`,
+    sameAs: [
+      "https://github.com/yagrrusso",
+      "https://www.linkedin.com/in/yago-russo",
+    ],
+  };
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientPage />
-    </HydrationBoundary>
+    <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        type="application/ld+json"
+      />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ClientPage />
+      </HydrationBoundary>
+    </>
   );
 }

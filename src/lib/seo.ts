@@ -41,6 +41,14 @@ export async function generateSEO({
   return {
     title,
     description,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
     alternates: {
       canonical: finalUrl,
       languages: Object.fromEntries(
