@@ -7,12 +7,12 @@ import { Badge } from "./ui/badge";
 
 export type SkillItem = {
   id: string;
-  slug: string;
+  slug?: string | null;
   title: string;
 };
 
 interface Props extends ComponentProps<typeof Badge> {
-  slug: string;
+  slug?: string | null;
   title: string;
 }
 

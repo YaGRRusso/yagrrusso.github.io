@@ -16,7 +16,7 @@ export function SkillsMarquee({ skills, className, ...props }: Props) {
       <div className="flex items-center gap-8 px-2 py-4 text-[0.625rem] uppercase tracking-wide opacity-75">
         {skills.map((skill) => (
           <Fragment key={skill.id}>
-            <SkillIcon slug={skill.slug} />
+            <SkillIcon slug={skill.slug ?? skill.id} />
             {skill.title}
           </Fragment>
         ))}

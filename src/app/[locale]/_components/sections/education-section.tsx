@@ -39,7 +39,8 @@ export function EducationSection() {
                   skills={education.skills?.map((skill) => ({
                     id: skill.id,
                     slug: skill.slug,
-                    title: getMessages(skill.i18n)?.title ?? skill.slug,
+                    title:
+                      getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id,
                   }))}
                   status={education.status}
                   title={getMessages(education.i18n)?.title ?? ""}

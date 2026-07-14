@@ -115,15 +115,17 @@ export function ClientPage() {
         <Request.Content>
           <ul className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {findManySkills.data?.findManySkills.nodes.map((skill) => (
-              <li id={skill.slug} key={skill.id}>
+              <li id={skill.id} key={skill.id}>
                 <AnimateOnScroll
                   className="relative flex h-full flex-col items-center justify-center rounded border p-4 text-center transition-colors"
                   y={16}
                 >
                   <div className="mb-2 text-3xl">
-                    <SkillIcon slug={skill.slug} />
+                    <SkillIcon slug={skill.slug ?? skill.id} />
                   </div>
-                  <span>{getMessages(skill.i18n)?.title ?? skill.slug}</span>
+                  <span>
+                    {getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id}
+                  </span>
                   {skill.category && (
                     <Badge variant="outline">{skill.category}</Badge>
                   )}

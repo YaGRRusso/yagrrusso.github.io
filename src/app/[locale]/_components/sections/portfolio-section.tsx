@@ -38,9 +38,10 @@ export function PortfolioSection() {
                 skills={proj.skills?.map((skill) => ({
                   id: skill.id,
                   slug: skill.slug,
-                  title: getMessages(skill.i18n)?.title ?? skill.slug,
+                  title:
+                    getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id,
                 }))}
-                slug={proj.slug}
+                slug={proj.slug ?? proj.id}
                 title={getMessages(proj.i18n)?.title}
                 urls={proj.urls ?? []}
               />

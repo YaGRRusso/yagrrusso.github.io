@@ -20,7 +20,11 @@ export function SkillBadgeList({ skills }: Props) {
   return (
     <>
       {visible.map((skill) => (
-        <SkillBadge key={skill.id} slug={skill.slug} title={skill.title} />
+        <SkillBadge
+          key={skill.id}
+          slug={skill.slug ?? skill.id}
+          title={skill.title}
+        />
       ))}
       {hasMore && (
         <Button

@@ -32,14 +32,15 @@ export function ExperienceSection() {
               <ExperienceCard
                 organization={mapOrganization(experience.organization!)}
                 roles={experience.roles.map((role) => ({
-                  title: getMessages(role.i18n)?.title ?? "",
                   description: getMessages(role.i18n)?.description ?? "",
+                  period: mapPeriod(role.period),
                   skills: role.skills?.map((skill) => ({
                     id: skill.id,
                     slug: skill.slug,
-                    title: getMessages(skill.i18n)?.title ?? skill.slug,
+                    title:
+                      getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id,
                   })),
-                  period: mapPeriod(role.period),
+                  title: getMessages(role.i18n)?.title ?? "",
                 }))}
               />
             </AnimateOnScroll>

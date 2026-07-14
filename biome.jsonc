@@ -36,10 +36,12 @@
         "noUnknownAtRules": "off",
         "noArrayIndexKey": "off",
         "noExplicitAny": "off",
-        "noConsole": "off"
+        "noConsole": "off",
+        "noLeakedRender": "off"
       },
       "performance": {
-        "noNamespaceImport": "off"
+        "noNamespaceImport": "off",
+        "noJsxPropsBind": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"

@@ -29,17 +29,18 @@ function resolveSkillIcon(slug: string): ReactNode {
 }
 
 type SkillIconProps = {
-  slug: string;
+  /** Prefer slug for icon resolution; pass id as fallback for cache key stability. */
+  slug?: string | null;
   className?: string;
 };
 
 export function SkillIcon({ slug, className }: SkillIconProps) {
-  const normalizedSlug = slug.trim().toLowerCase();
+  const cacheKey = slug?.trim().toLowerCase() ?? "";
 
-  if (!ICON_CACHE.has(normalizedSlug)) {
+  if (!ICON_CACHE.has(cacheKey)) {
     ICON_CACHE.set(
-      normalizedSlug,
-      normalizedSlug ? resolveSkillIcon(normalizedSlug) : FALLBACK_ICON
+      cacheKey,
+      cacheKey ? resolveSkillIcon(cacheKey) : FALLBACK_ICON
     );
   }
 
@@ -50,7 +51,7 @@ export function SkillIcon({ slug, className }: SkillIconProps) {
         className
       )}
     >
-      {ICON_CACHE.get(normalizedSlug)}
+      {ICON_CACHE.get(cacheKey)}
     </span>
   );
 }
