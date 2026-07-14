@@ -30,30 +30,30 @@ type Route = {
 
 const ROUTES: Route[] = [
   {
+    expectQueries: HOME_QUERIES,
     file: "en/index.html",
     locale: "en",
     url: `${BASE_URL}/en/`,
-    expectQueries: HOME_QUERIES,
   },
   {
+    expectQueries: HOME_QUERIES,
     file: "pt/index.html",
     locale: "pt",
     url: `${BASE_URL}/pt/`,
-    expectQueries: HOME_QUERIES,
   },
   {
+    expectListItems: true,
+    expectQueries: ["getMe", "findManySkills"],
     file: "en/skills/index.html",
     locale: "en",
     url: `${BASE_URL}/en/skills/`,
-    expectQueries: ["getMe", "findManySkills"],
-    expectListItems: true,
   },
   {
+    expectListItems: true,
+    expectQueries: ["getMe", "findManySkills"],
     file: "pt/skills/index.html",
     locale: "pt",
     url: `${BASE_URL}/pt/skills/`,
-    expectQueries: ["getMe", "findManySkills"],
-    expectListItems: true,
   },
 ];
 
@@ -124,8 +124,15 @@ describe.each(ROUTES)("$file", (route) => {
   });
 
   if (route.expectListItems) {
-    it("rendered skill items into the grid", () => {
-      expect($("li[id]").length).toBeGreaterThan(0);
+    it("rendered skill items into the grid with stable ids", () => {
+      const items = $("ul li[id]");
+
+      expect(items.length).toBeGreaterThan(0);
+
+      items.each((_, el) => {
+        expect($(el).attr("id")?.trim()).toBeTruthy();
+        expect($(el).text().trim()).toBeTruthy();
+      });
     });
   }
 });

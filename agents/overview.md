@@ -153,7 +153,18 @@ Skills, Education, Courses, Network, SkillsMarquee (repeat), Contact.
 ### `src/components/`
 
 Domain-agnostic reusable components. Must stay free of portfolio entity logic.
-Examples: `counter`, `skill-badge`, `section-title`, `social-links`.
+Examples: `counter`, `section-title`, `social-links`, `skill-badge`,
+`skill-badge-list`, `skill-icon`.
+
+- `SkillItem` (`skill-badge.tsx`): `{ id, slug?, title }`. `slug` is optional
+  (GraphQL `SkillEntity.slug` is nullable).
+- `SkillBadgeList`: renders badges only (no layout wrapper; parents own flex/gap
+  containers). Shows up to `MAX_VISIBLE` badges, then a toggle to expand or
+  collapse. Pass `slug ?? id` into `SkillBadge` / `SkillIcon` so icon cache keys
+  and fallbacks stay stable when `slug` is missing.
+- `SkillIcon`: resolves icons by slug (Simple Icons, AWS, overrides). Empty or
+  unknown slug uses a package fallback icon. Cache key is the normalized slug
+  string passed in (callers should pass `slug ?? id`).
 
 ### `src/hooks/factories/`
 
@@ -289,7 +300,8 @@ build with secrets, run `npm run test`, deploy `out/` to GitHub Pages. Node 20.
 `tests/seo.test.ts` parses built HTML from `out/`. Throws at import if `out/` is
 missing. Per route (`describe.each`): title, meta description, canonical and
 hreflang, Open Graph and Twitter tags, `<html lang>`, no stuck loading states,
-expected dehydrated query keys, skill items on `/skills`.
+expected dehydrated query keys. On `/skills`, asserts each grid `li` has a
+non-empty `id` and text (skills use `skill.id` for the DOM id, not slug).
 
 Workflow: `npm run build` then `npm run test`.
 
@@ -307,8 +319,10 @@ Workflow: `npm run build` then `npm run test`.
   `getMe` works with API tokens and returns the token owner profile.
 - `SkillEntity` no longer has `name` or `relevance`. Use `i18n { locale messages
   { title } }` and resolve with `useMessages()`. `category` is a free-form
-  `String` (no `SkillCategory` enum). `SortSkillInput` accepts only `createdAt`,
-  `slug`, `updatedAt`.
+  `String` (no `SkillCategory` enum). `slug` is optional (`string | null`). Prefer
+  `title ?? slug ?? id` for display labels, and `slug ?? id` for icon lookup or
+  DOM/cache keys. Do not coerce missing slugs to `""`. `SortSkillInput` accepts
+  only `createdAt`, `slug`, `updatedAt`.
 - Do not edit `src/graphql/`. Regenerate after query changes.
 - `dehydrate()` invalidates on purpose. Client refetches after hydration.
 - `npm run back` assumes `profile-info` is a sibling directory. Hardcoded in
