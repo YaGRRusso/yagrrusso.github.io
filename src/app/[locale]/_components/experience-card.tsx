@@ -2,7 +2,8 @@ import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge, type SkillItem } from "@/components/skill-badge";
+import type { SkillItem } from "@/components/skill-badge";
+import { SkillBadgeList } from "@/components/skill-badge-list";
 import { Accordion } from "@/components/ui/accordion";
 import { Avatar } from "@/components/ui/avatar";
 import { Timeline } from "@/components/ui/timeline";
@@ -97,13 +98,7 @@ export function ExperienceCard({
                 </Accordion.Content>
                 {role.skills && role.skills.length > 0 && (
                   <div className="flex flex-wrap gap-2 py-2">
-                    {role.skills.map((skill) => (
-                      <SkillBadge
-                        key={skill.id}
-                        slug={skill.slug}
-                        title={skill.title}
-                      />
-                    ))}
+                    <SkillBadgeList skills={role.skills} />
                   </div>
                 )}
               </Timeline.Content>

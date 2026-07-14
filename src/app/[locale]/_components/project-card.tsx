@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { type ComponentProps, useState } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge, type SkillItem } from "@/components/skill-badge";
+import type { SkillItem } from "@/components/skill-badge";
+import { SkillBadgeList } from "@/components/skill-badge-list";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { getUrl } from "@/consts/urls";
@@ -66,13 +67,7 @@ export function ProjectCard({
             />
             {skills && skills.length > 0 && (
               <div className="mt-2 flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
-                {skills.map((skill) => (
-                  <SkillBadge
-                    key={skill.id}
-                    slug={skill.slug}
-                    title={skill.title}
-                  />
-                ))}
+                <SkillBadgeList skills={skills} />
               </div>
             )}
           </div>

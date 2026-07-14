@@ -2,7 +2,8 @@ import { ArrowUpRightIcon, DotIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { ExpandCharacters } from "@/components/expand-characters";
-import { SkillBadge, type SkillItem } from "@/components/skill-badge";
+import type { SkillItem } from "@/components/skill-badge";
+import { SkillBadgeList } from "@/components/skill-badge-list";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { CourseStatus } from "@/graphql/graphql";
@@ -71,9 +72,7 @@ export function CourseCard({
       </div>
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
-          {skills.map((skill) => (
-            <SkillBadge key={skill.id} slug={skill.slug} title={skill.title} />
-          ))}
+          <SkillBadgeList skills={skills} />
         </div>
       )}
     </a>

@@ -13,6 +13,7 @@ type ApiTokenEntity {
   expiresAt: DateTime
   id: ID!
   name: String!
+  owner: UserEntity!
   ownerId: String!
   permissions: [ApiTokenPermission!]!
   updatedAt: DateTime!
@@ -74,7 +75,7 @@ type CourseEntity {
   relevance: Float!
   skillIds: [ID!]
   skills: [SkillEntity!]
-  slug: String!
+  slug: String
   status: CourseStatus!
   updatedAt: DateTime!
   url: String
@@ -109,7 +110,7 @@ input CreateCourseInput {
   organizationId: String!
   relevance: Float
   skillIds: [String!]
-  slug: String!
+  slug: String
   status: CourseStatus!
   url: String
 }
@@ -132,7 +133,7 @@ input CreateEducationInput {
   period: DateRangeInput
   relevance: Float
   skillIds: [String!]
-  slug: String!
+  slug: String
   status: EducationStatus!
   url: String
 }
@@ -152,7 +153,7 @@ input CreateExperienceInput {
   organizationId: String!
   relevance: Float
   roles: [CreateExperienceRoleInput!]!
-  slug: String!
+  slug: String
 }
 
 input CreateExperienceMessagesInput {
@@ -176,7 +177,7 @@ input CreateOrganizationInput {
   i18n: [CreateOrganizationMessagesInputTranslationInput!]!
   logo: String
   name: String!
-  slug: String!
+  slug: String
   website: String
 }
 
@@ -194,7 +195,7 @@ input CreateProjectInput {
   images: [String!]
   relevance: Float
   skillIds: [String!]
-  slug: String!
+  slug: String
   urls: [UrlInput!]
 }
 
@@ -211,7 +212,7 @@ input CreateProjectMessagesInputTranslationInput {
 input CreateSkillInput {
   category: String
   i18n: [CreateSkillMessagesInputTranslationInput!]!
-  slug: String!
+  slug: String
 }
 
 input CreateSkillMessagesInput {
@@ -249,9 +250,19 @@ input CreateUserMessagesInputTranslationInput {
 }
 
 type DashboardActivityItem {
-  label: String!
+  i18n: [DashboardActivityTranslationLocale!]!
+  slug: String
   type: DashboardActivityType!
   updatedAt: DateTime!
+}
+
+type DashboardActivityMessages {
+  title: String!
+}
+
+type DashboardActivityTranslationLocale {
+  locale: String!
+  messages: DashboardActivityMessages!
 }
 
 enum DashboardActivityType {
@@ -280,6 +291,8 @@ type DashboardTotals {
   educations: Int!
   experiences: Int!
   organizations: Int!
+  ownedLocalOrganizations: Int!
+  ownedLocalSkills: Int!
   projects: Int!
   skills: Int!
 }
@@ -318,7 +331,7 @@ type EducationEntity {
   relevance: Float!
   skillIds: [ID!]
   skills: [SkillEntity!]
-  slug: String!
+  slug: String
   status: EducationStatus!
   updatedAt: DateTime!
   url: String
@@ -367,7 +380,7 @@ type ExperienceEntity {
   relevance: Float!
   roles: [ExperienceRole!]!
   skills: [SkillEntity!]
-  slug: String!
+  slug: String
   updatedAt: DateTime!
 }
 
@@ -460,6 +473,7 @@ input FilterUserInput {
   address: String
   avatar: String
   birth: String
+  disabled: Boolean
   email: String
   i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
@@ -501,6 +515,7 @@ type Mutation {
   enableManySkills(skillIds: [ID!]!): BatchEntity!
   enableOneOrganization(organizationId: ID!): OrganizationEntity!
   enableOneSkill(skillId: ID!): SkillEntity!
+  register(registerInput: RegisterUserInput!): UserEntity!
   removeManyApiTokens(apiTokenIds: [ID!]!): BatchEntity!
   removeManyCourses(courseIds: [ID!]!): BatchEntity!
   removeManyEducations(educationIds: [ID!]!): BatchEntity!
@@ -561,7 +576,7 @@ type OrganizationEntity {
   owner: UserEntity!
   ownerId: ID!
   partition: CatalogPartition!
-  slug: String!
+  slug: String
   updatedAt: DateTime!
   website: String
 }
@@ -630,7 +645,7 @@ type ProjectEntity {
   relevance: Float!
   skillIds: [ID!]
   skills: [SkillEntity!]
-  slug: String!
+  slug: String
   updatedAt: DateTime!
   urls: [UrlEntity!]
 }
@@ -686,6 +701,13 @@ type Query {
   getMe: UserEntity!
 }
 
+input RegisterUserInput {
+  email: String!
+  name: String!
+  nickname: String!
+  password: String!
+}
+
 enum ResourceType {
   COURSE
   EDUCATION
@@ -709,7 +731,7 @@ type SkillEntity {
   owner: UserEntity!
   ownerId: ID!
   partition: CatalogPartition!
-  slug: String!
+  slug: String
   updatedAt: DateTime!
 }
 
@@ -871,6 +893,7 @@ input UpdateUserInput {
   address: String
   avatar: String
   birth: String
+  disabled: Boolean
   email: String
   i18n: [CreateUserMessagesInputTranslationInput!]
   name: String
@@ -904,6 +927,7 @@ type UserEntity {
   avatar: String
   birth: String
   createdAt: DateTime!
+  disabled: Boolean!
   email: String!
   i18n: [UserTranslationLocale!]
   id: ID!
