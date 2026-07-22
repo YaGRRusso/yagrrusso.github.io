@@ -4,15 +4,17 @@ export type OrganizationProps = {
   logo?: string;
 };
 
-export function mapOrganization(org: {
-  name: string;
-  website?: string | null;
-  logo?: string | null;
-}): OrganizationProps {
+export function mapOrganization(
+  org?: {
+    name: string;
+    website?: string | null;
+    logo?: string | null;
+  } | null
+): OrganizationProps {
   return {
-    name: org.name,
-    website: org.website ?? undefined,
-    logo: org.logo ?? undefined,
+    logo: org?.logo ?? undefined,
+    name: org ? org.name : "Unknown",
+    website: org?.website ?? undefined,
   };
 }
 

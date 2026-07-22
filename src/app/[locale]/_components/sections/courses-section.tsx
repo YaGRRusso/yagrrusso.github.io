@@ -26,27 +26,25 @@ export function CoursesSection() {
           />
         </AnimateOnScroll>
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {findManyCourses.data?.findManyCourses.nodes
-            .filter((course) => course.organization)
-            .map((course) => (
-              <AnimateOnScroll key={course.id} y={16}>
-                <CourseCard
-                  description={getMessages(course.i18n)?.description ?? ""}
-                  hours={course.hours ?? undefined}
-                  image={course.image ?? undefined}
-                  organization={mapOrganization(course.organization!)}
-                  skills={course.skills?.map((skill) => ({
-                    id: skill.id,
-                    slug: skill.slug,
-                    title:
-                      getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id,
-                  }))}
-                  status={course.status}
-                  title={getMessages(course.i18n)?.title ?? ""}
-                  url={course.url ?? undefined}
-                />
-              </AnimateOnScroll>
-            ))}
+          {findManyCourses.data?.findManyCourses.nodes.map((course) => (
+            <AnimateOnScroll key={course.id} y={16}>
+              <CourseCard
+                description={getMessages(course.i18n)?.description ?? ""}
+                hours={course.hours ?? undefined}
+                image={course.image ?? undefined}
+                organization={mapOrganization(course.organization)}
+                skills={course.skills?.map((skill) => ({
+                  id: skill.id,
+                  slug: skill.slug,
+                  title:
+                    getMessages(skill.i18n)?.title ?? skill.slug ?? skill.id,
+                }))}
+                status={course.status}
+                title={getMessages(course.i18n)?.title ?? ""}
+                url={course.url ?? undefined}
+              />
+            </AnimateOnScroll>
+          ))}
         </div>
       </div>
     </div>

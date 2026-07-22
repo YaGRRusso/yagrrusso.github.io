@@ -14,21 +14,21 @@ export const HOME_SKILLS_VARS: FindManySkillsQueryVariables = {
 };
 
 export const HOME_PROJECTS_VARS: FindManyProjectsQueryVariables = {
-  projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   projectPagination: { limit: 3 },
+  projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
 };
 
 export const HOME_EXPERIENCES_VARS: FindManyExperiencesQueryVariables = {
+  experiencePagination: { limit: 6 },
   experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
-  experiencePagination: { limit: 3 },
 };
 
 export const HOME_EDUCATIONS_VARS: FindManyEducationsQueryVariables = {
-  educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   educationPagination: { limit: 3 },
+  educationSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
 };
 
 export const HOME_COURSES_VARS: FindManyCoursesQueryVariables = {
-  courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
   coursePagination: { limit: 6 },
+  courseSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
 };

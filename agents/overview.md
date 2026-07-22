@@ -182,7 +182,7 @@ One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
 - `dehydrate.ts`: prefetch invalidation wrapper.
 - `seo.ts`: metadata from i18n namespaces.
 - `cdn.ts`: Simple Icons and Google favicon URL builders.
-- `pagination.ts` (`paginationInput`, `getPagination`), `query-vars.ts` (`filterInput` — omits `undefined`, `null`, `""`), `tc.ts`, `utils.ts` (`cn()`).
+- `pagination.ts` (`paginationInput`, `getPagination`), `query-vars.ts` (`filterInput` — omits `undefined`, `null`, `""`), `group-by-related.ts` (`groupByRelated` — lodash `groupBy` of items that share a related entity; used to nest experience roles under one organization card), `tc.ts`, `utils.ts` (`cn()`).
 
 ## The patterns to follow when extending
 
@@ -323,6 +323,14 @@ Workflow: `npm run build` then `npm run test`.
   `title ?? slug ?? id` for display labels, and `slug ?? id` for icon lookup or
   DOM/cache keys. Do not coerce missing slugs to `""`. `SortSkillInput` accepts
   only `createdAt`, `slug`, `updatedAt`.
+- `ExperienceEntity` is one role per record (no nested `roles` array). Title and
+  description live on `i18n`; date range on `period`; skills on `skills` /
+  `skillIds` at the experience root. Multiple roles at the same company are
+  separate experience nodes that share an organization — group with
+  `groupByRelated` in the experience section before passing `roles` to
+  `ExperienceCard`.
+- Do not filter out nodes missing `organization`. `mapOrganization` falls back
+  to name `"None"`; experiences group missing orgs under `{ id: "none", name: "None" }`.
 - Do not edit `src/graphql/`. Regenerate after query changes.
 - `dehydrate()` invalidates on purpose. Client refetches after hydration.
 - `npm run back` assumes `profile-info` is a sibling directory. Hardcoded in

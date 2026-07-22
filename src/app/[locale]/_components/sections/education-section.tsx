@@ -26,15 +26,14 @@ export function EducationSection() {
           />
         </AnimateOnScroll>
         <div className="flex w-full flex-col gap-4">
-          {findManyEducations.data?.findManyEducations.nodes
-            .filter((education) => education.organization)
-            .map((education) => (
+          {findManyEducations.data?.findManyEducations.nodes.map(
+            (education) => (
               <AnimateOnScroll key={education.id} y={16}>
                 <EducationCard
                   description={getMessages(education.i18n)?.description}
                   image={education.image ?? undefined}
                   level={education.level}
-                  organization={mapOrganization(education.organization!)}
+                  organization={mapOrganization(education.organization)}
                   period={mapPeriod(education.period)}
                   skills={education.skills?.map((skill) => ({
                     id: skill.id,
@@ -47,7 +46,8 @@ export function EducationSection() {
                   url={education.url ?? undefined}
                 />
               </AnimateOnScroll>
-            ))}
+            )
+          )}
         </div>
       </div>
     </div>
