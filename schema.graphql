@@ -482,6 +482,18 @@ input FilterUserInput {
   urls: [UrlInput!]
 }
 
+type GroupedExperienceEntity {
+  createdAt: DateTime!
+  experiences: [ExperienceEntity!]!
+  organization: OrganizationEntity
+  organizationId: ID
+  owner: UserEntity!
+  ownerId: ID!
+  period: DateRangeEntity
+  relevance: Float!
+  updatedAt: DateTime!
+}
+
 type MessageEntity {
   content: String!
   reasoning: String
@@ -611,6 +623,11 @@ type PaginatedExperienceEntity {
   nodes: [ExperienceEntity!]!
 }
 
+type PaginatedGroupedExperienceEntity {
+  found: Float!
+  nodes: [GroupedExperienceEntity!]!
+}
+
 type PaginatedOrganizationEntity {
   found: Float!
   nodes: [OrganizationEntity!]!
@@ -673,6 +690,7 @@ type Query {
   findManyEducations(educationFilters: FilterEducationInput, educationPagination: PaginationInput, educationSort: SortEducationInput): PaginatedEducationEntity!
   findManyExperienceById(experienceIds: [ID!]!): [ExperienceEntity!]!
   findManyExperiences(experienceFilters: FilterExperienceInput, experiencePagination: PaginationInput, experienceSort: SortExperienceInput): PaginatedExperienceEntity!
+  findManyGroupedExperiences(experienceFilters: FilterExperienceInput, experiencePagination: PaginationInput, experienceSort: SortGroupedExperienceInput): PaginatedGroupedExperienceEntity!
   findManyOrganizationById(organizationIds: [ID!]!): [OrganizationEntity!]!
   findManyOrganizations(organizationFilters: FilterOrganizationInput, organizationPagination: PaginationInput, organizationSort: SortOrganizationInput): PaginatedOrganizationEntity!
   findManyProjectById(projectIds: [ID!]!): [ProjectEntity!]!
@@ -691,6 +709,7 @@ type Query {
   findOneEducationById(educationId: ID!): EducationEntity!
   findOneExperience(experienceFilters: FilterExperienceInput): ExperienceEntity!
   findOneExperienceById(experienceId: ID!): ExperienceEntity!
+  findOneGroupedExperience(experienceFilters: FilterExperienceInput, experienceSort: SortGroupedExperienceInput): GroupedExperienceEntity!
   findOneOrganization(organizationFilters: FilterOrganizationInput): OrganizationEntity!
   findOneOrganizationById(organizationId: ID!): OrganizationEntity!
   findOneProject(projectFilters: FilterProjectInput): ProjectEntity!
@@ -770,6 +789,12 @@ enum SortEnum {
 }
 
 input SortExperienceInput {
+  createdAt: SortEnum
+  relevance: SortEnum
+  updatedAt: SortEnum
+}
+
+input SortGroupedExperienceInput {
   createdAt: SortEnum
   relevance: SortEnum
   updatedAt: SortEnum

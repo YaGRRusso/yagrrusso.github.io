@@ -15,7 +15,7 @@ const HOME_QUERIES = [
   "getMe",
   "findManySkills",
   "findManyProjects",
-  "findManyExperiences",
+  "findManyGroupedExperiences",
   "findManyEducations",
   "findManyCourses",
 ];

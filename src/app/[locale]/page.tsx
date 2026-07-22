@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { prefetchGetMe } from "@/hooks/queries/auth";
 import { prefetchFindManyCourses } from "@/hooks/queries/courses";
 import { prefetchFindManyEducations } from "@/hooks/queries/educations";
-import { prefetchFindManyExperiences } from "@/hooks/queries/experiences";
+import { prefetchFindManyGroupedExperiences } from "@/hooks/queries/experiences";
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
 import { prefetchFindManySkills } from "@/hooks/queries/skills";
 import { routing } from "@/i18n/routing";
@@ -31,9 +31,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   return await generateSEO({
+    locale,
     namespace: "homePage",
     path: "/",
-    locale,
   });
 }
 
@@ -45,7 +45,7 @@ export default async function Page({ params }: Props) {
   await prefetchGetMe(queryClient);
   await prefetchFindManySkills(queryClient, HOME_SKILLS_VARS);
   await prefetchFindManyProjects(queryClient, HOME_PROJECTS_VARS);
-  await prefetchFindManyExperiences(queryClient, HOME_EXPERIENCES_VARS);
+  await prefetchFindManyGroupedExperiences(queryClient, HOME_EXPERIENCES_VARS);
   await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
   await prefetchFindManyCourses(queryClient, HOME_COURSES_VARS);
 
@@ -53,11 +53,11 @@ export default async function Page({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Yago Russo",
-    url: `https://yagrrusso.github.io/${locale}/`,
     sameAs: [
       "https://github.com/yagrrusso",
       "https://www.linkedin.com/in/yago-russo",
     ],
+    url: `https://yagrrusso.github.io/${locale}/`,
   };
 
   return (

@@ -1,7 +1,7 @@
 import {
   type FindManyCoursesQueryVariables,
   type FindManyEducationsQueryVariables,
-  type FindManyExperiencesQueryVariables,
+  type FindManyGroupedExperiencesQueryVariables,
   type FindManyProjectsQueryVariables,
   type FindManySkillsQueryVariables,
   SortEnum,
@@ -18,8 +18,8 @@ export const HOME_PROJECTS_VARS: FindManyProjectsQueryVariables = {
   projectSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
 };
 
-export const HOME_EXPERIENCES_VARS: FindManyExperiencesQueryVariables = {
-  experiencePagination: { limit: 6 },
+export const HOME_EXPERIENCES_VARS: FindManyGroupedExperiencesQueryVariables = {
+  experiencePagination: { limit: 3 },
   experienceSort: { relevance: SortEnum.Desc, updatedAt: SortEnum.Desc },
 };
 

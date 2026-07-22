@@ -512,6 +512,19 @@ export type FilterUserInput = {
   urls?: InputMaybe<Array<UrlInput>>;
 };
 
+export type GroupedExperienceEntity = {
+  __typename?: 'GroupedExperienceEntity';
+  createdAt: Scalars['DateTime']['output'];
+  experiences: Array<ExperienceEntity>;
+  organization?: Maybe<OrganizationEntity>;
+  organizationId?: Maybe<Scalars['ID']['output']>;
+  owner: UserEntity;
+  ownerId: Scalars['ID']['output'];
+  period?: Maybe<DateRangeEntity>;
+  relevance: Scalars['Float']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type MessageEntity = {
   __typename?: 'MessageEntity';
   content: Scalars['String']['output'];
@@ -984,6 +997,12 @@ export type PaginatedExperienceEntity = {
   nodes: Array<ExperienceEntity>;
 };
 
+export type PaginatedGroupedExperienceEntity = {
+  __typename?: 'PaginatedGroupedExperienceEntity';
+  found: Scalars['Float']['output'];
+  nodes: Array<GroupedExperienceEntity>;
+};
+
 export type PaginatedOrganizationEntity = {
   __typename?: 'PaginatedOrganizationEntity';
   found: Scalars['Float']['output'];
@@ -1054,6 +1073,7 @@ export type Query = {
   findManyEducations: PaginatedEducationEntity;
   findManyExperienceById: Array<ExperienceEntity>;
   findManyExperiences: PaginatedExperienceEntity;
+  findManyGroupedExperiences: PaginatedGroupedExperienceEntity;
   findManyOrganizationById: Array<OrganizationEntity>;
   findManyOrganizations: PaginatedOrganizationEntity;
   findManyProjectById: Array<ProjectEntity>;
@@ -1072,6 +1092,7 @@ export type Query = {
   findOneEducationById: EducationEntity;
   findOneExperience: ExperienceEntity;
   findOneExperienceById: ExperienceEntity;
+  findOneGroupedExperience: GroupedExperienceEntity;
   findOneOrganization: OrganizationEntity;
   findOneOrganizationById: OrganizationEntity;
   findOneProject: ProjectEntity;
@@ -1143,6 +1164,13 @@ export type QueryFindManyExperiencesArgs = {
   experienceFilters?: InputMaybe<FilterExperienceInput>;
   experiencePagination?: InputMaybe<PaginationInput>;
   experienceSort?: InputMaybe<SortExperienceInput>;
+};
+
+
+export type QueryFindManyGroupedExperiencesArgs = {
+  experienceFilters?: InputMaybe<FilterExperienceInput>;
+  experiencePagination?: InputMaybe<PaginationInput>;
+  experienceSort?: InputMaybe<SortGroupedExperienceInput>;
 };
 
 
@@ -1241,6 +1269,12 @@ export type QueryFindOneExperienceArgs = {
 
 export type QueryFindOneExperienceByIdArgs = {
   experienceId: Scalars['ID']['input'];
+};
+
+
+export type QueryFindOneGroupedExperienceArgs = {
+  experienceFilters?: InputMaybe<FilterExperienceInput>;
+  experienceSort?: InputMaybe<SortGroupedExperienceInput>;
 };
 
 
@@ -1354,6 +1388,12 @@ export enum SortEnum {
 }
 
 export type SortExperienceInput = {
+  createdAt?: InputMaybe<SortEnum>;
+  relevance?: InputMaybe<SortEnum>;
+  updatedAt?: InputMaybe<SortEnum>;
+};
+
+export type SortGroupedExperienceInput = {
   createdAt?: InputMaybe<SortEnum>;
   relevance?: InputMaybe<SortEnum>;
   updatedAt?: InputMaybe<SortEnum>;
@@ -1579,14 +1619,14 @@ export type FindManyEducationsQueryVariables = Exact<{
 
 export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', found: number, nodes: Array<{ __typename?: 'EducationEntity', level: EducationLevel, url?: string | null, status: EducationStatus, id: string, image?: string | null, slug?: string | null, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
-export type FindManyExperiencesQueryVariables = Exact<{
+export type FindManyGroupedExperiencesQueryVariables = Exact<{
   experienceFilters?: InputMaybe<FilterExperienceInput>;
   experiencePagination?: InputMaybe<PaginationInput>;
-  experienceSort?: InputMaybe<SortExperienceInput>;
+  experienceSort?: InputMaybe<SortGroupedExperienceInput>;
 }>;
 
 
-export type FindManyExperiencesQuery = { __typename?: 'Query', findManyExperiences: { __typename?: 'PaginatedExperienceEntity', found: number, nodes: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug?: string | null, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
+export type FindManyGroupedExperiencesQuery = { __typename?: 'Query', findManyGroupedExperiences: { __typename?: 'PaginatedGroupedExperienceEntity', found: number, nodes: Array<{ __typename?: 'GroupedExperienceEntity', organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, experiences: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug?: string | null, i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> }> } };
 
 export type FindManyOrganizationsQueryVariables = Exact<{
   organizationFilters?: InputMaybe<FilterOrganizationInput>;
@@ -1757,17 +1797,15 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<FindManyEducationsQuery, FindManyEducationsQueryVariables>;
-export const FindManyExperiencesDocument = new TypedDocumentString(`
-    query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
-  findManyExperiences(
+export const FindManyGroupedExperiencesDocument = new TypedDocumentString(`
+    query FindManyGroupedExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortGroupedExperienceInput) {
+  findManyGroupedExperiences(
     experienceFilters: $experienceFilters
     experiencePagination: $experiencePagination
     experienceSort: $experienceSort
   ) {
     found
     nodes {
-      category
-      id
       organization {
         category
         id
@@ -1776,33 +1814,37 @@ export const FindManyExperiencesDocument = new TypedDocumentString(`
         slug
         website
       }
-      i18n {
-        locale
-        messages {
-          description
-          title
-        }
-      }
-      period {
-        from
-        to
-      }
-      skills {
+      experiences {
         category
         id
-        slug
         i18n {
           locale
           messages {
+            description
             title
           }
         }
+        period {
+          from
+          to
+        }
+        skills {
+          category
+          id
+          slug
+          i18n {
+            locale
+            messages {
+              title
+            }
+          }
+        }
+        slug
       }
-      slug
     }
   }
 }
-    `) as unknown as TypedDocumentString<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>;
+    `) as unknown as TypedDocumentString<FindManyGroupedExperiencesQuery, FindManyGroupedExperiencesQueryVariables>;
 export const FindManyOrganizationsDocument = new TypedDocumentString(`
     query FindManyOrganizations($organizationFilters: FilterOrganizationInput, $organizationPagination: PaginationInput, $organizationSort: SortOrganizationInput) {
   findManyOrganizations(

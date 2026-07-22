@@ -1,18 +1,16 @@
 import { graphql } from "@/graphql";
 import type {
-  FindManyExperiencesQuery,
-  FindManyExperiencesQueryVariables,
+  FindManyGroupedExperiencesQuery,
+  FindManyGroupedExperiencesQueryVariables,
 } from "@/graphql/graphql";
 import { execute } from "../factories/execute";
 import { defineQuery } from "../factories/query";
 
-const findManyExperiences = graphql(`
-  query FindManyExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortExperienceInput) {
-    findManyExperiences(experienceFilters: $experienceFilters, experiencePagination: $experiencePagination, experienceSort: $experienceSort) {
+const findManyGroupedExperiences = graphql(`
+  query FindManyGroupedExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortGroupedExperienceInput) {
+    findManyGroupedExperiences(experienceFilters: $experienceFilters, experiencePagination: $experiencePagination, experienceSort: $experienceSort) {
       found
       nodes {
-        category
-        id
         organization {
           category
           id
@@ -21,43 +19,46 @@ const findManyExperiences = graphql(`
           slug
           website
         }
-        i18n {
-          locale
-          messages {
-            description
-            title
-          }
-        }
-        period {
-          from
-          to
-        }
-        skills {
+        experiences {
           category
           id
-          slug
           i18n {
             locale
             messages {
+              description
               title
             }
           }
+          period {
+            from
+            to
+          }
+          skills {
+            category
+            id
+            slug
+            i18n {
+              locale
+              messages {
+                title
+              }
+            }
+          }
+          slug
         }
-        slug
       }
     }
   }
 `);
 
 export const {
-  prefetch: prefetchFindManyExperiences,
-  use: useFindManyExperiences,
-} = defineQuery<FindManyExperiencesQuery, FindManyExperiencesQueryVariables>(
-  "findManyExperiences",
-  async (params: FindManyExperiencesQueryVariables = {}) => {
-    // if (!params) throw new Error("insufficient parameters");
-    return await execute(findManyExperiences, params).then(
-      (data) => data.data!
-    );
-  }
+  prefetch: prefetchFindManyGroupedExperiences,
+  use: useFindManyGroupedExperiences,
+} = defineQuery<
+  FindManyGroupedExperiencesQuery,
+  FindManyGroupedExperiencesQueryVariables
+>(
+  "findManyGroupedExperiences",
+  async (params = {}) =>
+    await execute(findManyGroupedExperiences, params).then((data) => data.data!)
 );
