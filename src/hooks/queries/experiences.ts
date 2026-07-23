@@ -9,19 +9,14 @@ import { defineQuery } from "../factories/query";
 const findManyGroupedExperiences = graphql(`
   query FindManyGroupedExperiences($experienceFilters: FilterExperienceInput, $experiencePagination: PaginationInput, $experienceSort: SortGroupedExperienceInput) {
     findManyGroupedExperiences(experienceFilters: $experienceFilters, experiencePagination: $experiencePagination, experienceSort: $experienceSort) {
-      found
       nodes {
         organization {
-          category
           id
           logo
           name
-          slug
           website
         }
         experiences {
-          category
-          id
           i18n {
             locale
             messages {
@@ -34,7 +29,6 @@ const findManyGroupedExperiences = graphql(`
             to
           }
           skills {
-            category
             id
             slug
             i18n {
@@ -44,7 +38,6 @@ const findManyGroupedExperiences = graphql(`
               }
             }
           }
-          slug
         }
       }
     }

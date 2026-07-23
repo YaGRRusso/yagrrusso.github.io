@@ -6,12 +6,8 @@ import { defineQuery } from "../factories/query";
 const getMe = graphql(`
   query GetMe {
     getMe {
-      id
-      address
-      urls {
-        title
-        value
-      }
+      name
+      avatar
       i18n {
         locale
         messages {
@@ -19,13 +15,6 @@ const getMe = graphql(`
           description
         }
       }
-      avatar
-      birth
-      email
-      name
-      nickname
-      phone
-      role
     }
   }
 `);

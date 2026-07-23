@@ -1599,7 +1599,7 @@ export type UserTranslationLocale = {
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'UserEntity', id: string, address?: string | null, avatar?: string | null, birth?: string | null, email: string, name: string, nickname: string, phone?: string | null, role: UserRole, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null } };
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'UserEntity', name: string, avatar?: string | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null } };
 
 export type FindManyCoursesQueryVariables = Exact<{
   courseFilters?: InputMaybe<FilterCourseInput>;
@@ -1608,7 +1608,7 @@ export type FindManyCoursesQueryVariables = Exact<{
 }>;
 
 
-export type FindManyCoursesQuery = { __typename?: 'Query', findManyCourses: { __typename?: 'PaginatedCourseEntity', found: number, nodes: Array<{ __typename?: 'CourseEntity', hours?: number | null, relevance: number, createdAt: any, updatedAt: any, url?: string | null, status: CourseStatus, id: string, image?: string | null, slug?: string | null, i18n: Array<{ __typename?: 'CourseTranslationLocale', locale: string, messages: { __typename?: 'CourseMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
+export type FindManyCoursesQuery = { __typename?: 'Query', findManyCourses: { __typename?: 'PaginatedCourseEntity', nodes: Array<{ __typename?: 'CourseEntity', id: string, hours?: number | null, url?: string | null, status: CourseStatus, image?: string | null, i18n: Array<{ __typename?: 'CourseTranslationLocale', locale: string, messages: { __typename?: 'CourseMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', logo?: string | null, name: string, website?: string | null } | null, skills?: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
 export type FindManyEducationsQueryVariables = Exact<{
   educationFilters?: InputMaybe<FilterEducationInput>;
@@ -1617,7 +1617,7 @@ export type FindManyEducationsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', found: number, nodes: Array<{ __typename?: 'EducationEntity', level: EducationLevel, url?: string | null, status: EducationStatus, id: string, image?: string | null, slug?: string | null, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
+export type FindManyEducationsQuery = { __typename?: 'Query', findManyEducations: { __typename?: 'PaginatedEducationEntity', nodes: Array<{ __typename?: 'EducationEntity', id: string, level: EducationLevel, url?: string | null, status: EducationStatus, image?: string | null, i18n: Array<{ __typename?: 'EducationTranslationLocale', locale: string, messages: { __typename?: 'EducationMessages', description: string, title: string } }>, organization?: { __typename?: 'OrganizationEntity', logo?: string | null, name: string, website?: string | null } | null, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> } };
 
 export type FindManyGroupedExperiencesQueryVariables = Exact<{
   experienceFilters?: InputMaybe<FilterExperienceInput>;
@@ -1626,16 +1626,7 @@ export type FindManyGroupedExperiencesQueryVariables = Exact<{
 }>;
 
 
-export type FindManyGroupedExperiencesQuery = { __typename?: 'Query', findManyGroupedExperiences: { __typename?: 'PaginatedGroupedExperienceEntity', found: number, nodes: Array<{ __typename?: 'GroupedExperienceEntity', organization?: { __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null } | null, experiences: Array<{ __typename?: 'ExperienceEntity', category: ExperienceCategory, id: string, slug?: string | null, i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> }> } };
-
-export type FindManyOrganizationsQueryVariables = Exact<{
-  organizationFilters?: InputMaybe<FilterOrganizationInput>;
-  organizationPagination?: InputMaybe<PaginationInput>;
-  organizationSort?: InputMaybe<SortOrganizationInput>;
-}>;
-
-
-export type FindManyOrganizationsQuery = { __typename?: 'Query', findManyOrganizations: { __typename?: 'PaginatedOrganizationEntity', found: number, nodes: Array<{ __typename?: 'OrganizationEntity', category: OrganizationCategory, id: string, logo?: string | null, name: string, slug?: string | null, website?: string | null }> } };
+export type FindManyGroupedExperiencesQuery = { __typename?: 'Query', findManyGroupedExperiences: { __typename?: 'PaginatedGroupedExperienceEntity', nodes: Array<{ __typename?: 'GroupedExperienceEntity', organization?: { __typename?: 'OrganizationEntity', id: string, logo?: string | null, name: string, website?: string | null } | null, experiences: Array<{ __typename?: 'ExperienceEntity', i18n: Array<{ __typename?: 'ExperienceTranslationLocale', locale: string, messages: { __typename?: 'ExperienceMessages', description: string, title: string } }>, period?: { __typename?: 'DateRangeEntity', from?: any | null, to?: any | null } | null, skills?: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null }> }> } };
 
 export type FindManyProjectsQueryVariables = Exact<{
   projectFilters?: InputMaybe<FilterProjectInput>;
@@ -1644,7 +1635,7 @@ export type FindManyProjectsQueryVariables = Exact<{
 }>;
 
 
-export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: { __typename?: 'PaginatedProjectEntity', found: number, nodes: Array<{ __typename?: 'ProjectEntity', id: string, images?: Array<string> | null, slug?: string | null, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> } };
+export type FindManyProjectsQuery = { __typename?: 'Query', findManyProjects: { __typename?: 'PaginatedProjectEntity', nodes: Array<{ __typename?: 'ProjectEntity', id: string, slug?: string | null, images?: Array<string> | null, i18n: Array<{ __typename?: 'ProjectMessagesTranslationEntity', locale: string, messages: { __typename?: 'ProjectMessages', description: string, title: string } }>, skills?: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null, urls?: Array<{ __typename?: 'UrlEntity', title: string, value: string }> | null }> } };
 
 export type FindManySkillsQueryVariables = Exact<{
   skillFilters?: InputMaybe<FilterSkillInput>;
@@ -1653,7 +1644,7 @@ export type FindManySkillsQueryVariables = Exact<{
 }>;
 
 
-export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: { __typename?: 'PaginatedSkillEntity', found: number, nodes: Array<{ __typename?: 'SkillEntity', category?: string | null, id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> } };
+export type FindManySkillsQuery = { __typename?: 'Query', findManySkills: { __typename?: 'PaginatedSkillEntity', found: number, nodes: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, category?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -1677,12 +1668,8 @@ export class TypedDocumentString<TResult, TVariables>
 export const GetMeDocument = new TypedDocumentString(`
     query GetMe {
   getMe {
-    id
-    address
-    urls {
-      title
-      value
-    }
+    name
+    avatar
     i18n {
       locale
       messages {
@@ -1690,13 +1677,6 @@ export const GetMeDocument = new TypedDocumentString(`
         description
       }
     }
-    avatar
-    birth
-    email
-    name
-    nickname
-    phone
-    role
   }
 }
     `) as unknown as TypedDocumentString<GetMeQuery, GetMeQueryVariables>;
@@ -1707,14 +1687,12 @@ export const FindManyCoursesDocument = new TypedDocumentString(`
     coursePagination: $coursePagination
     courseSort: $courseSort
   ) {
-    found
     nodes {
+      id
       hours
-      relevance
-      createdAt
-      updatedAt
       url
       status
+      image
       i18n {
         locale
         messages {
@@ -1722,18 +1700,12 @@ export const FindManyCoursesDocument = new TypedDocumentString(`
           title
         }
       }
-      id
-      image
       organization {
-        category
-        id
         logo
         name
-        slug
         website
       }
       skills {
-        category
         id
         slug
         i18n {
@@ -1743,7 +1715,6 @@ export const FindManyCoursesDocument = new TypedDocumentString(`
           }
         }
       }
-      slug
     }
   }
 }
@@ -1755,11 +1726,12 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
     educationPagination: $educationPagination
     educationSort: $educationSort
   ) {
-    found
     nodes {
+      id
       level
       url
       status
+      image
       i18n {
         locale
         messages {
@@ -1767,14 +1739,9 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
           title
         }
       }
-      id
-      image
       organization {
-        category
-        id
         logo
         name
-        slug
         website
       }
       period {
@@ -1782,7 +1749,6 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
         to
       }
       skills {
-        category
         id
         slug
         i18n {
@@ -1792,7 +1758,6 @@ export const FindManyEducationsDocument = new TypedDocumentString(`
           }
         }
       }
-      slug
     }
   }
 }
@@ -1804,19 +1769,14 @@ export const FindManyGroupedExperiencesDocument = new TypedDocumentString(`
     experiencePagination: $experiencePagination
     experienceSort: $experienceSort
   ) {
-    found
     nodes {
       organization {
-        category
         id
         logo
         name
-        slug
         website
       }
       experiences {
-        category
-        id
         i18n {
           locale
           messages {
@@ -1829,7 +1789,6 @@ export const FindManyGroupedExperiencesDocument = new TypedDocumentString(`
           to
         }
         skills {
-          category
           id
           slug
           i18n {
@@ -1839,31 +1798,11 @@ export const FindManyGroupedExperiencesDocument = new TypedDocumentString(`
             }
           }
         }
-        slug
       }
     }
   }
 }
     `) as unknown as TypedDocumentString<FindManyGroupedExperiencesQuery, FindManyGroupedExperiencesQueryVariables>;
-export const FindManyOrganizationsDocument = new TypedDocumentString(`
-    query FindManyOrganizations($organizationFilters: FilterOrganizationInput, $organizationPagination: PaginationInput, $organizationSort: SortOrganizationInput) {
-  findManyOrganizations(
-    organizationFilters: $organizationFilters
-    organizationPagination: $organizationPagination
-    organizationSort: $organizationSort
-  ) {
-    found
-    nodes {
-      category
-      id
-      logo
-      name
-      slug
-      website
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<FindManyOrganizationsQuery, FindManyOrganizationsQueryVariables>;
 export const FindManyProjectsDocument = new TypedDocumentString(`
     query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
   findManyProjects(
@@ -1871,9 +1810,10 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
     projectPagination: $projectPagination
     projectSort: $projectSort
   ) {
-    found
     nodes {
       id
+      slug
+      images
       i18n {
         locale
         messages {
@@ -1881,9 +1821,7 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
           title
         }
       }
-      images
       skills {
-        category
         id
         slug
         i18n {
@@ -1893,7 +1831,6 @@ export const FindManyProjectsDocument = new TypedDocumentString(`
           }
         }
       }
-      slug
       urls {
         title
         value
@@ -1909,11 +1846,10 @@ export const FindManySkillsDocument = new TypedDocumentString(`
     skillPagination: $skillPagination
     skillSort: $skillSort
   ) {
-    found
     nodes {
-      category
       id
       slug
+      category
       i18n {
         locale
         messages {
@@ -1921,6 +1857,7 @@ export const FindManySkillsDocument = new TypedDocumentString(`
         }
       }
     }
+    found
   }
 }
     `) as unknown as TypedDocumentString<FindManySkillsQuery, FindManySkillsQueryVariables>;

@@ -9,26 +9,22 @@ import { defineQuery } from "../factories/query";
 const findManyEducations = graphql(`
   query FindManyEducations($educationFilters: FilterEducationInput, $educationPagination: PaginationInput, $educationSort: SortEducationInput) {
     findManyEducations(educationFilters: $educationFilters, educationPagination: $educationPagination, educationSort: $educationSort) {
-      found
       nodes {
+        id
         level
         url
         status
+        image
         i18n {
           locale
           messages {
             description
             title
-            }
+          }
         }
-        id
-        image
         organization {
-          category
-          id
           logo
           name
-          slug
           website
         }
         period {
@@ -36,7 +32,6 @@ const findManyEducations = graphql(`
           to
         }
         skills {
-          category
           id
           slug
           i18n {
@@ -46,7 +41,6 @@ const findManyEducations = graphql(`
             }
           }
         }
-        slug
       }
     }
   }
@@ -57,8 +51,6 @@ export const {
   use: useFindManyEducations,
 } = defineQuery<FindManyEducationsQuery, FindManyEducationsQueryVariables>(
   "findManyEducations",
-  async (params: FindManyEducationsQueryVariables = {}) => {
-    // if (!params) throw new Error("insufficient parameters");
-    return await execute(findManyEducations, params).then((data) => data.data!);
-  }
+  async (params: FindManyEducationsQueryVariables = {}) =>
+    await execute(findManyEducations, params).then((data) => data.data!)
 );

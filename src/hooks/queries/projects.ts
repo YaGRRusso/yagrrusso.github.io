@@ -9,9 +9,10 @@ import { defineQuery } from "../factories/query";
 const findManyProjects = graphql(`
   query FindManyProjects($projectFilters: FilterProjectInput, $projectPagination: PaginationInput, $projectSort: SortProjectInput) {
     findManyProjects(projectFilters: $projectFilters, projectPagination: $projectPagination, projectSort: $projectSort) {
-      found
-      nodes{
+      nodes {
         id
+        slug
+        images
         i18n {
           locale
           messages {
@@ -19,9 +20,7 @@ const findManyProjects = graphql(`
             title
           }
         }
-        images
         skills {
-          category
           id
           slug
           i18n {
@@ -31,7 +30,6 @@ const findManyProjects = graphql(`
             }
           }
         }
-        slug
         urls {
           title
           value
@@ -44,8 +42,6 @@ const findManyProjects = graphql(`
 export const { prefetch: prefetchFindManyProjects, use: useFindManyProjects } =
   defineQuery<FindManyProjectsQuery, FindManyProjectsQueryVariables>(
     "findManyProjects",
-    async (params: FindManyProjectsQueryVariables = {}) => {
-      // if (!params) throw new Error("insufficient parameters");
-      return await execute(findManyProjects, params).then((data) => data.data!);
-    }
+    async (params: FindManyProjectsQueryVariables = {}) =>
+      await execute(findManyProjects, params).then((data) => data.data!)
   );

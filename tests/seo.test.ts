@@ -65,7 +65,7 @@ if (!existsSync(OUT_DIR)) {
 
 /** React Query embeds dehydrated query payloads (quotes escaped) in the flight stream. */
 function hasDehydratedQuery(html: string, key: string) {
-  const field = key.startsWith("findMany") ? "found" : "id";
+  const field = key.startsWith("findMany") ? "nodes" : "name";
   return html.includes(`${key}\\":{\\"${field}\\":`);
 }
 

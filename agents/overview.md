@@ -45,8 +45,9 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
    `src/graphql/`. Also writes `schema.graphql` for the `@0no-co/graphqlsp`
    TypeScript plugin.
 2. **Query modules** (`src/hooks/queries/*.ts`): GraphQL operations with the
-   `graphql()` tag, wrapped by `defineQuery` or `defineInfiniteQuery` from
+   `graphql()` tag, wrapped by `defineQuery` from
    `src/hooks/factories/query.ts`, exporting `prefetch*` and `use*` pairs.
+   Select only fields the UI reads.
 3. **Execute** (`src/hooks/factories/execute.ts`): POSTs to `NEXT_PUBLIC_API_URL`
    with `X-Api-Key` header from `NEXT_PUBLIC_API_KEY`.
 4. **Server pages** (`src/app/[locale]/**/page.tsx`): create a `QueryClient`, call
@@ -145,8 +146,8 @@ Each route follows the same split:
 **Home** (`page-client.tsx`): Hero, SkillsMarquee, About, Experience, Portfolio,
 Skills, Education, Courses, Network, SkillsMarquee (repeat), Contact.
 
-**Skills** (`skills/`): listing with infinite scroll via `defineInfiniteQuery` in
-`hooks/queries/skills.ts`.
+**Skills** (`skills/`): paginated listing via `defineQuery` in
+`hooks/queries/skills.ts` (`found` + `nodes`; client page controls `skip`/`limit`).
 
 **`_components/`**: route-local UI (entity cards, layout chrome, `sections/`).
 
@@ -168,14 +169,15 @@ Examples: `counter`, `section-title`, `social-links`, `skill-badge`,
 
 ### `src/hooks/factories/`
 
-- `query.ts`: `defineQuery` and `defineInfiniteQuery` factories.
+- `query.ts`: `defineQuery` factory.
 - `execute.ts`: typed GraphQL fetch wrapper (`X-Api-Key` auth).
 
 ### `src/hooks/queries/`
 
-One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
-`educations`, `courses`, `organizations`, plus `external.ts` for GitHub REST.
-`codegen.ts` watches `src/hooks/mutations/*.ts`, but no mutation files exist yet.
+One file per used backend entity: `auth`, `skills`, `projects`, `experiences`,
+`educations`, `courses`, plus `external.ts` for GitHub REST. Organizations are
+nested under courses/educations/experiences — there is no standalone organizations
+query. `codegen.ts` watches `src/hooks/mutations/*.ts`, but no mutation files exist yet.
 
 ### `src/lib/`
 
@@ -190,7 +192,8 @@ One file per backend entity: `auth`, `skills`, `projects`, `experiences`,
 
 1. Add the operation in `src/hooks/queries/` using the `graphql()` tag.
 2. Run codegen (`npm run dev` watches, or `graphql-codegen --config codegen.ts`).
-3. Wrap with `defineQuery` or `defineInfiniteQuery`, export `prefetch*` and `use*`.
+3. Wrap with `defineQuery`, export `prefetch*` and `use*`. Request only fields
+   consumers read (including nested org/skill shapes).
 4. Prefetch in the route's `page.tsx`; consume via `use*` in client components.
 5. Keep the hook result as the query name (e.g. `getMe`). Read payload via
    `getMe.data?.getMe` — do not alias `data` into a shorter variable (`user`,
