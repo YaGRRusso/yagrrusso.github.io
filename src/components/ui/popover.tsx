@@ -49,8 +49,8 @@ function PopoverAnchor({
 }
 
 export const Popover = {
+  Anchor: PopoverAnchor,
+  Content: PopoverContent,
   Root: PopoverRoot,
   Trigger: PopoverTrigger,
-  Content: PopoverContent,
-  Anchor: PopoverAnchor,
 };

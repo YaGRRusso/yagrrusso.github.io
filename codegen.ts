@@ -14,26 +14,26 @@ const apiKey = getOrThrow(
 );
 
 const config: CodegenConfig = {
+  documents: ["src/hooks/queries/*.ts", "src/hooks/mutations/*.ts"],
+  generates: {
+    "./schema.graphql": {
+      config: {
+        includeDirectives: true,
+      },
+      plugins: ["schema-ast"],
+    },
+    "./src/graphql/": {
+      config: {
+        documentMode: "string",
+      },
+      preset: "client",
+    },
+  },
+  ignoreNoDocuments: true,
   schema: {
     [apiUrl]: {
       headers: {
         "X-Api-Key": apiKey,
-      },
-    },
-  },
-  documents: ["src/hooks/queries/*.ts", "src/hooks/mutations/*.ts"],
-  ignoreNoDocuments: true,
-  generates: {
-    "./src/graphql/": {
-      preset: "client",
-      config: {
-        documentMode: "string",
-      },
-    },
-    "./schema.graphql": {
-      plugins: ["schema-ast"],
-      config: {
-        includeDirectives: true,
       },
     },
   },

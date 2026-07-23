@@ -79,7 +79,7 @@ export function HyperText({
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "-30% 0px -30% 0px" }
+      { rootMargin: "-30% 0px -30% 0px", threshold: 0.1 }
     );
 
     if (elementRef.current) {

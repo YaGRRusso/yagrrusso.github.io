@@ -21,9 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   return await generateSEO({
+    locale,
     namespace: "skillsPage",
     path: "/skills",
-    locale,
   });
 }
 

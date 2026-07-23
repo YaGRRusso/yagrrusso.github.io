@@ -10,6 +10,5 @@ export async function tc<T>(
   } catch (error) {
     console.error(error);
     fallback?.(error);
-    return;
   }
 }

@@ -169,11 +169,11 @@ function SelectScrollDownButton({
 }
 
 export const Select = {
-  Root: SelectRoot,
   Content: SelectContent,
   Group: SelectGroup,
   Item: SelectItem,
   Label: SelectLabel,
+  Root: SelectRoot,
   ScrollDownButton: SelectScrollDownButton,
   ScrollUpButton: SelectScrollUpButton,
   Separator: SelectSeparator,

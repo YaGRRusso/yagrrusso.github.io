@@ -41,8 +41,8 @@ export function Highlighter({
   const annotationRef = useRef<RoughAnnotation | null>(null);
 
   const isInView = useInView(elementRef, {
-    once: true,
     margin: "-10%",
+    once: true,
   });
 
   // If isView is false, always show. If isView is true, wait for inView
@@ -61,13 +61,13 @@ export function Highlighter({
         .trim();
 
     const annotationConfig = {
-      type: action,
-      color: computedColor,
-      strokeWidth,
       animationDuration,
+      color: computedColor,
       iterations,
-      padding,
       multiline,
+      padding,
+      strokeWidth,
+      type: action,
     };
 
     const annotation = annotate(element, annotationConfig);

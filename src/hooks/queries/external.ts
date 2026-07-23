@@ -30,7 +30,7 @@ export const useGetContributions = (
   options?: Omit<UseQueryOptions<GetContributionsQuery>, "queryKey" | "queryFn">
 ) =>
   useQuery({
-    queryKey: ["getContributions", data],
     queryFn: async () => await getContributions(data),
+    queryKey: ["getContributions", data],
     ...options,
   });

@@ -189,10 +189,10 @@ function TimelineTitle({ ...props }: HTMLAttributes<HTMLDivElement>) {
 }
 
 export const Timeline = {
-  Root: TimelineRoot,
   Content: TimelineContent,
   Date: TimelineDate,
   Header: TimelineHeader,
   Item: TimelineItem,
+  Root: TimelineRoot,
   Title: TimelineTitle,
 };

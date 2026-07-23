@@ -22,23 +22,23 @@ export default function RootPage() {
       <meta content={`0;url=${fallbackHref}`} httpEquiv="refresh" />
       <body
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          justifyContent: "center",
           alignItems: "center",
           backgroundColor: "black",
           color: "white",
-          height: "60vh",
+          display: "flex",
+          flexDirection: "column",
           fontFamily: "monospace",
+          gap: "1rem",
+          height: "60vh",
+          justifyContent: "center",
         }}
       >
         <span
           style={{
-            display: "flex",
-            justifyContent: "center",
             alignItems: "center",
+            display: "flex",
             gap: "0.5rem",
+            justifyContent: "center",
             opacity: 0.8,
           }}
         >
@@ -67,23 +67,23 @@ export default function RootPage() {
         </span>
         <div
           style={{
-            height: "1px",
-            width: "16rem",
             backgroundColor: "white",
+            height: "1px",
             opacity: 0.2,
+            width: "16rem",
           }}
         />
         <a
           href={fallbackHref}
           style={{
-            display: "flex",
-            justifyContent: "center",
             alignItems: "center",
             backgroundColor: "black",
             color: "white",
-            textDecoration: "none",
+            display: "flex",
             gap: "0.5rem",
+            justifyContent: "center",
             opacity: 0.4,
+            textDecoration: "none",
           }}
         >
           Continue in English

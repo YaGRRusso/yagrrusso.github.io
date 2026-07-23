@@ -49,8 +49,8 @@ function PaginationLink({
       aria-current={isActive ? "page" : undefined}
       className={cn(
         buttonVariants({
-          variant: isActive ? "outline" : "ghost",
           size,
+          variant: isActive ? "outline" : "ghost",
         }),
         className
       )}
@@ -77,8 +77,8 @@ function PaginationButton({
       aria-current={isActive ? "page" : undefined}
       className={cn(
         buttonVariants({
-          variant: isActive ? "outline" : "ghost",
           size,
+          variant: isActive ? "outline" : "ghost",
         }),
         className
       )}
@@ -90,9 +90,9 @@ function PaginationButton({
 }
 
 export const Pagination = {
-  Root: PaginationRoot,
+  Button: PaginationButton,
   Content: PaginationContent,
   Item: PaginationItem,
   Link: PaginationLink,
-  Button: PaginationButton,
+  Root: PaginationRoot,
 };

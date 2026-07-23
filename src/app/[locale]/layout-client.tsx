@@ -71,11 +71,11 @@ export function ClientLayout({
               date: new Date(
                 process.env.NEXT_PUBLIC_BUILD_DATE ?? new Date()
               ).toLocaleDateString(locale, {
-                year: "numeric",
-                month: "long",
                 day: "numeric",
                 hour: "2-digit",
                 minute: "2-digit",
+                month: "long",
+                year: "numeric",
               }),
             })}
           </span>

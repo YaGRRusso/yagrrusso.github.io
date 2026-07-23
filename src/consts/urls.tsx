@@ -12,50 +12,50 @@ import type { ReactNode } from "react";
 export type UrlType = { value: string; key: string; icon: ReactNode };
 
 export const URLS = {
-  other: {
-    value: "other",
-    key: "urls.other",
-    icon: <GlobeIcon />,
-  },
-  github: {
-    value: "github",
-    key: "urls.github",
-    icon: <GithubLogoIcon />,
-  },
-  linkedin: {
-    value: "linkedin",
-    key: "urls.linkedin",
-    icon: <LinkedinLogoIcon />,
-  },
-  whatsapp: {
-    value: "whatsapp",
-    key: "urls.whatsapp",
-    icon: <WhatsappLogoIcon />,
+  demo: {
+    icon: <ArrowUpRightIcon />,
+    key: "urls.demo",
+    value: "demo",
   },
   email: {
-    value: "email",
-    key: "urls.email",
     icon: <EnvelopeIcon />,
+    key: "urls.email",
+    value: "email",
+  },
+  github: {
+    icon: <GithubLogoIcon />,
+    key: "urls.github",
+    value: "github",
+  },
+  linkedin: {
+    icon: <LinkedinLogoIcon />,
+    key: "urls.linkedin",
+    value: "linkedin",
+  },
+  other: {
+    icon: <GlobeIcon />,
+    key: "urls.other",
+    value: "other",
   },
   phone: {
-    value: "phone",
-    key: "urls.phone",
     icon: <PhoneIcon />,
-  },
-  website: {
-    value: "website",
-    key: "urls.website",
-    icon: <GlobeIcon />,
+    key: "urls.phone",
+    value: "phone",
   },
   repository: {
-    value: "repository",
-    key: "urls.repository",
     icon: <GithubLogoIcon />,
+    key: "urls.repository",
+    value: "repository",
   },
-  demo: {
-    value: "demo",
-    key: "urls.demo",
-    icon: <ArrowUpRightIcon />,
+  website: {
+    icon: <GlobeIcon />,
+    key: "urls.website",
+    value: "website",
+  },
+  whatsapp: {
+    icon: <WhatsappLogoIcon />,
+    key: "urls.whatsapp",
+    value: "whatsapp",
   },
 } as const satisfies Record<string, UrlType>;
 

@@ -6,12 +6,6 @@ export type NetworkType = {
 };
 
 export const NETWORKS = {
-  yagrrusso: {
-    avatar: "https://github.com/yagrrusso.png?size=128",
-    name: "Yago Russo",
-    role: "Software Engineer",
-    urls: [{ title: "github", value: "https://github.com/yagrrusso" }],
-  },
   aeciobrumel: {
     avatar: "https://github.com/aeciobrumel.png?size=128",
     name: "Aecio Brumel",
@@ -20,16 +14,6 @@ export const NETWORKS = {
       { title: "github", value: "https://github.com/aeciobrumel" },
       { title: "linkedin", value: "https://www.linkedin.com/in/aeciobrumel/" },
       { title: "website", value: "https://brumel.dev/" },
-    ],
-  },
-  ftarganski: {
-    avatar: "https://github.com/ftarganski.png?size=128",
-    name: "Francis Targanski",
-    role: "Software Engineer",
-    urls: [
-      { title: "github", value: "https://github.com/ftarganski" },
-      { title: "linkedin", value: "https://www.linkedin.com/in/targanski/" },
-      { title: "website", value: "https://www.targanski.com/" },
     ],
   },
   andre94cavalcante: {
@@ -43,6 +27,16 @@ export const NETWORKS = {
         value: "https://www.linkedin.com/in/andre94cavalcante/",
       },
       { title: "website", value: "https://andre94cavalcante.github.io/" },
+    ],
+  },
+  ftarganski: {
+    avatar: "https://github.com/ftarganski.png?size=128",
+    name: "Francis Targanski",
+    role: "Software Engineer",
+    urls: [
+      { title: "github", value: "https://github.com/ftarganski" },
+      { title: "linkedin", value: "https://www.linkedin.com/in/targanski/" },
+      { title: "website", value: "https://www.targanski.com/" },
     ],
   },
   "gabrielh-silvestre": {
@@ -68,6 +62,12 @@ export const NETWORKS = {
         value: "https://www.linkedin.com/in/tiago-veronesi/",
       },
     ],
+  },
+  yagrrusso: {
+    avatar: "https://github.com/yagrrusso.png?size=128",
+    name: "Yago Russo",
+    role: "Software Engineer",
+    urls: [{ title: "github", value: "https://github.com/yagrrusso" }],
   },
 } as const satisfies Record<string, NetworkType>;
 

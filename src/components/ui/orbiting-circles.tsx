@@ -56,10 +56,10 @@ export function OrbitingCircles({
             )}
             style={
               {
-                "--duration": calculatedDuration,
-                "--radius": radius,
                 "--angle": angle,
+                "--duration": calculatedDuration,
                 "--icon-size": `${iconSize}px`,
+                "--radius": radius,
               } as React.CSSProperties
             }
             {...props}

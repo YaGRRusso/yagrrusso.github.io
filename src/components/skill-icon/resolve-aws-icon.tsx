@@ -6,16 +6,16 @@ const AWS_ICONS_BASE =
   "https://cdn.jsdelivr.net/npm/aws-icons@latest/icons/architecture-service";
 
 const AWS_ICON_SLUGS = {
-  lightsail: "AmazonLightsail.svg",
-  ec2: "AmazonEC2.svg",
-  s3: "AmazonS3onOutposts.svg",
-  lambda: "AWSLambda.svg",
-  dynamodb: "AmazonDynamoDB.svg",
-  rds: "AmazonRDS.svg",
-  route53: "AmazonRoute53.svg",
+  cloudformation: "AWSCloudFormation.svg",
   cloudfront: "AmazonCloudFront.svg",
   cloudwatch: "AmazonCloudWatch.svg",
-  cloudformation: "AWSCloudFormation.svg",
+  dynamodb: "AmazonDynamoDB.svg",
+  ec2: "AmazonEC2.svg",
+  lambda: "AWSLambda.svg",
+  lightsail: "AmazonLightsail.svg",
+  rds: "AmazonRDS.svg",
+  route53: "AmazonRoute53.svg",
+  s3: "AmazonS3onOutposts.svg",
 } as const;
 
 type AwsIconSlug = keyof typeof AWS_ICON_SLUGS;

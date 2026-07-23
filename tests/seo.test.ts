@@ -117,11 +117,12 @@ describe.each(ROUTES)("$file", (route) => {
     expect($('[data-state="loading"]')).toHaveLength(0);
   });
 
-  it.each(
-    route.expectQueries
-  )("server-rendered %s into the dehydrated state", (key) => {
-    expect(hasDehydratedQuery(html, key)).toBe(true);
-  });
+  it.each(route.expectQueries)(
+    "server-rendered %s into the dehydrated state",
+    (key) => {
+      expect(hasDehydratedQuery(html, key)).toBe(true);
+    }
+  );
 
   if (route.expectListItems) {
     it("rendered skill items into the grid with stable ids", () => {

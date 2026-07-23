@@ -37,7 +37,9 @@
         "noArrayIndexKey": "off",
         "noExplicitAny": "off",
         "noConsole": "off",
-        "noLeakedRender": "off"
+        "noLeakedRender": "off",
+        "noUnnecessaryConditions": "off",
+        "noShadow": "off"
       },
       "performance": {
         "noNamespaceImport": "off",

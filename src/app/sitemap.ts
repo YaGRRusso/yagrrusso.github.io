@@ -8,9 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const urls = ["/en/", "/pt/", "/en/skills/", "/pt/skills/"];
 
   return urls.map((path) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: new Date(),
     changeFrequency: "monthly",
+    lastModified: new Date(),
     priority: path.includes("skills") ? 0.5 : 1,
+    url: `${SITE_URL}${path}`,
   }));
 }

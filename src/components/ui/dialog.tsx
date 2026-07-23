@@ -155,15 +155,15 @@ function DialogDescription({
 }
 
 export const Dialog = {
-  Root: DialogRoot,
+  Body: DialogBody,
   Close: DialogClose,
   Content: DialogContent,
   Description: DialogDescription,
   Footer: DialogFooter,
   Header: DialogHeader,
-  Body: DialogBody,
   Overlay: DialogOverlay,
   Portal: DialogPortal,
+  Root: DialogRoot,
   Title: DialogTitle,
   Trigger: DialogTrigger,
 };

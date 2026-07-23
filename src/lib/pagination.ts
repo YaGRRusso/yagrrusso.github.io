@@ -19,10 +19,10 @@ export function getPagination(
 
   return {
     currentPage,
-    totalPages,
     hasNextPage: currentPage < totalPages,
     hasPreviousPage: currentPage > 1,
     nextPage: currentPage < totalPages ? currentPage + 1 : null,
     previousPage: currentPage > 1 ? currentPage - 1 : null,
+    totalPages,
   };
 }

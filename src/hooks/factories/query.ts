@@ -17,8 +17,8 @@ export const defineQuery = <Data, Params = undefined>(
 
   const options = (params?: Params) =>
     queryOptions({
-      queryKey: key(params),
       queryFn: () => queryFn(params),
+      queryKey: key(params),
     });
 
   const prefetch = (client: QueryClient, params?: Params) =>
@@ -63,8 +63,8 @@ export const defineInfiniteQuery = <
 
   const options = (params?: Params) =>
     infiniteQueryOptions({
-      queryKey: key(params),
       queryFn: ({ pageParam }) => queryFn(params, pageParam as PageParam),
+      queryKey: key(params),
       ...getPaginationOptions(params),
     });
 

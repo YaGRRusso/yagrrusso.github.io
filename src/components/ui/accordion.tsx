@@ -61,8 +61,8 @@ function AccordionContent({
 }
 
 export const Accordion = {
-  Root: AccordionRoot,
-  Item: AccordionItem,
-  Trigger: AccordionTrigger,
   Content: AccordionContent,
+  Item: AccordionItem,
+  Root: AccordionRoot,
+  Trigger: AccordionTrigger,
 };

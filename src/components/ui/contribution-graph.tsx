@@ -62,13 +62,13 @@ const DEFAULT_MONTH_LABELS = [
 ];
 
 const DEFAULT_LABELS: Labels = {
-  months: DEFAULT_MONTH_LABELS,
-  weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  totalCount: "{{count}} activities in {{year}}",
   legend: {
     less: "Less",
     more: "More",
   },
+  months: DEFAULT_MONTH_LABELS,
+  totalCount: "{{count}} activities in {{year}}",
+  weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 };
 
 type ContributionGraphContextType = {
@@ -125,8 +125,8 @@ const fillHoles = (activities: Activity[]): Activity[] => {
   }
 
   return eachDayOfInterval({
-    start: parseISO(firstActivity.date),
     end: parseISO(lastActivity.date),
+    start: parseISO(firstActivity.date),
   }).map((day) => {
     const date = formatISO(day, { representation: "date" });
 
@@ -135,8 +135,8 @@ const fillHoles = (activities: Activity[]): Activity[] => {
     }
 
     return {
-      date,
       count: 0,
+      date,
       level: 0,
     };
   });
@@ -202,7 +202,7 @@ const getMonthLabels = (
       const prevLabel = labels.at(-1);
 
       if (weekIndex === 0 || !prevLabel || prevLabel.label !== month) {
-        return labels.concat({ weekIndex, label: month });
+        return labels.concat({ label: month, weekIndex });
       }
 
       return labels;
@@ -277,20 +277,20 @@ const ContributionGraphRoot = ({
   return (
     <ContributionGraphContext.Provider
       value={{
-        data,
-        weeks,
         blockMargin,
         blockRadius,
         blockSize,
+        data,
         fontSize,
-        labels,
+        height,
         labelHeight,
+        labels,
         maxLevel,
         totalCount,
         weekStart,
-        year,
+        weeks,
         width,
-        height,
+        year,
       }}
     >
       <div
@@ -509,10 +509,10 @@ const ContributionGraphLegend = ({
 };
 
 export const ContributionGraph = {
-  Root: ContributionGraphRoot,
   Block: ContributionGraphBlock,
   Calendar: ContributionGraphCalendar,
   Footer: ContributionGraphFooter,
-  TotalCount: ContributionGraphTotalCount,
   Legend: ContributionGraphLegend,
+  Root: ContributionGraphRoot,
+  TotalCount: ContributionGraphTotalCount,
 };

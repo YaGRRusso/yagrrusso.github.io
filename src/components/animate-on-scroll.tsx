@@ -26,13 +26,13 @@ export function AnimateOnScroll({
   return (
     <motion.div
       animate={controls}
-      initial={{ opacity, filter: `blur(${blur}px)`, y, x }}
+      initial={{ filter: `blur(${blur}px)`, opacity, x, y }}
       onViewportEnter={() =>
-        controls.start({ opacity: 1, filter: "blur(0px)", y: 0, x: 0 })
+        controls.start({ filter: "blur(0px)", opacity: 1, x: 0, y: 0 })
       }
       onViewportLeave={(entry) => {
         if (entry?.boundingClientRect.top && entry.boundingClientRect.top > 0)
-          controls.start({ opacity, filter: `blur(${blur}px)`, y, x });
+          controls.start({ filter: `blur(${blur}px)`, opacity, x, y });
       }}
       transition={transition}
       viewport={viewport}

@@ -44,14 +44,14 @@ const createRays = (count: number, cycle: number): LightRay[] => {
     const intensity = 0.6 + Math.random() * 0.5;
 
     return {
-      id: `${index}-${Math.round(left * 10)}`,
-      left,
-      rotate,
-      width,
-      swing,
       delay,
       duration,
+      id: `${index}-${Math.round(left * 10)}`,
       intensity,
+      left,
+      rotate,
+      swing,
+      width,
     };
   });
 };
@@ -79,10 +79,10 @@ const Ray = ({
       } as CSSProperties
     }
     transition={{
-      duration,
-      repeat: Number.POSITIVE_INFINITY,
-      ease: "easeInOut",
       delay,
+      duration,
+      ease: "easeInOut",
+      repeat: Number.POSITIVE_INFINITY,
       repeatDelay: duration * 0.1,
     }}
   />
@@ -115,8 +115,8 @@ export function LightRays({
       ref={ref}
       style={
         {
-          "--light-rays-color": color,
           "--light-rays-blur": `${blur}px`,
+          "--light-rays-color": color,
           "--light-rays-length": length,
           ...style,
         } as CSSProperties

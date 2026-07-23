@@ -11,8 +11,8 @@ type PreferencesStore = {
 export const usePreferencesStore = create<PreferencesStore>()(
   persist(
     (set) => ({
-      theme: "system",
       setTheme: (theme: ThemePreference) => set({ theme }),
+      theme: "system",
     }),
     { name: "preference", storage: createJSONStorage(() => localStorage) }
   )

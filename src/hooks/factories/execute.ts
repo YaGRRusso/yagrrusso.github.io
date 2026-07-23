@@ -16,16 +16,16 @@ export async function execute<TResult, TVariables>(
   );
 
   const response = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/graphql-response+json",
-      "X-Api-Key": apiKey,
-    },
     body: JSON.stringify({
       query: query.toString(),
       variables,
     }),
+    headers: {
+      Accept: "application/graphql-response+json",
+      "Content-Type": "application/json",
+      "X-Api-Key": apiKey,
+    },
+    method: "POST",
   });
 
   if (!response.ok) {

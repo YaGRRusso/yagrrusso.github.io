@@ -58,8 +58,8 @@ function TooltipContent({
 }
 
 export const Tooltip = {
-  Root: TooltipRoot,
-  Trigger: TooltipTrigger,
   Content: TooltipContent,
   Provider: TooltipProvider,
+  Root: TooltipRoot,
+  Trigger: TooltipTrigger,
 };

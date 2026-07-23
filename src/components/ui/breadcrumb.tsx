@@ -98,11 +98,11 @@ function BreadcrumbEllipsis({ className, ...props }: ComponentProps<"span">) {
 }
 
 export const Breadcrumb = {
-  Root: BreadcrumbRoot,
-  List: BreadcrumbList,
+  Ellipsis: BreadcrumbEllipsis,
   Item: BreadcrumbItem,
   Link: BreadcrumbLink,
+  List: BreadcrumbList,
   Page: BreadcrumbPage,
+  Root: BreadcrumbRoot,
   Separator: BreadcrumbSeparator,
-  Ellipsis: BreadcrumbEllipsis,
 };

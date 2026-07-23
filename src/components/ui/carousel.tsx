@@ -114,15 +114,15 @@ function CarouselRoot({
   return (
     <CarouselContext.Provider
       value={{
-        carouselRef,
         api,
+        canScrollNext,
+        canScrollPrev,
+        carouselRef,
         opts,
         orientation:
           orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
-        scrollPrev,
         scrollNext,
-        canScrollPrev,
-        canScrollNext,
+        scrollPrev,
       }}
     >
       {/** biome-ignore lint/a11y/useSemanticElements: shadcn generated */}
@@ -225,9 +225,9 @@ function CarouselNext({
 }
 
 export const Carousel = {
-  Root: CarouselRoot,
   Content: CarouselContent,
   Item: CarouselItem,
-  Previous: CarouselPrevious,
   Next: CarouselNext,
+  Previous: CarouselPrevious,
+  Root: CarouselRoot,
 };

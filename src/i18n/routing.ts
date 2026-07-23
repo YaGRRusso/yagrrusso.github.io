@@ -2,8 +2,8 @@ import { defineRouting } from "next-intl/routing";
 import messages from "../../messages/en.json" with { type: "json" };
 
 export const routing = defineRouting({
-  locales: ["en", "pt"],
   defaultLocale: "en",
+  locales: ["en", "pt"],
 });
 
 export type Locale = (typeof routing.locales)[number];
@@ -23,13 +23,13 @@ export const locales: {
   flag: string;
 }[] = [
   {
-    value: "en",
-    name: "English",
     flag: "🇺🇸",
+    name: "English",
+    value: "en",
   },
   {
-    value: "pt",
-    name: "Português",
     flag: "🇧🇷",
+    name: "Português",
+    value: "pt",
   },
 ];

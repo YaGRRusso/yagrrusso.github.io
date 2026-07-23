@@ -62,8 +62,8 @@ function RequestContent(props: ComponentProps<typeof Slot>) {
 }
 
 export const Request = {
-  Root: RequestRoot,
-  Loading: RequestLoading,
-  Empty: RequestEmpty,
   Content: RequestContent,
+  Empty: RequestEmpty,
+  Loading: RequestLoading,
+  Root: RequestRoot,
 };

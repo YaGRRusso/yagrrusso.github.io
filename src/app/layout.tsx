@@ -8,14 +8,14 @@ type Props = {
 export const metadata: Metadata = {
   icons: [
     {
+      media: "(prefers-color-scheme: light)",
       rel: "icon",
       url: "/favicon-black.svg",
-      media: "(prefers-color-scheme: light)",
     },
     {
+      media: "(prefers-color-scheme: dark)",
       rel: "icon",
       url: "/favicon-white.svg",
-      media: "(prefers-color-scheme: dark)",
     },
   ],
 };

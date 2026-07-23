@@ -235,19 +235,19 @@ function DropdownMenuSubContent({
 }
 
 export const DropdownMenu = {
-  Root: DropdownMenuRoot,
-  Portal: DropdownMenuPortal,
-  Trigger: DropdownMenuTrigger,
+  CheckboxItem: DropdownMenuCheckboxItem,
   Content: DropdownMenuContent,
   Group: DropdownMenuGroup,
-  Label: DropdownMenuLabel,
   Item: DropdownMenuItem,
-  CheckboxItem: DropdownMenuCheckboxItem,
+  Label: DropdownMenuLabel,
+  Portal: DropdownMenuPortal,
   RadioGroup: DropdownMenuRadioGroup,
   RadioItem: DropdownMenuRadioItem,
+  Root: DropdownMenuRoot,
   Separator: DropdownMenuSeparator,
   Shortcut: DropdownMenuShortcut,
   Sub: DropdownMenuSub,
-  SubTrigger: DropdownMenuSubTrigger,
   SubContent: DropdownMenuSubContent,
+  SubTrigger: DropdownMenuSubTrigger,
+  Trigger: DropdownMenuTrigger,
 };

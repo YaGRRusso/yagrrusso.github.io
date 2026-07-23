@@ -9,11 +9,11 @@ import type { ReactNode } from "react";
 
 const SIZE_CLASS = "size-[1em]";
 const SLUG_OVERRIDES = {
-  codegen: <GraphIcon className={SIZE_CLASS} />,
-  typesense: <DatabaseIcon className={SIZE_CLASS} />,
-  nuqs: <ListMagnifyingGlassIcon className={SIZE_CLASS} />,
-  zustand: <PawPrintIcon className={SIZE_CLASS} />,
   aws: <CloudIcon className={SIZE_CLASS} />,
+  codegen: <GraphIcon className={SIZE_CLASS} />,
+  nuqs: <ListMagnifyingGlassIcon className={SIZE_CLASS} />,
+  typesense: <DatabaseIcon className={SIZE_CLASS} />,
+  zustand: <PawPrintIcon className={SIZE_CLASS} />,
 } as const satisfies Record<string, ReactNode>;
 
 export function resolveSlugOverride(slug: string): ReactNode | null {

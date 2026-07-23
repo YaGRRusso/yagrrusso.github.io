@@ -6,10 +6,10 @@ import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
 export const contactSchema = z.object({
-  name: z.string().min(2).max(100),
-  phone: z.string().refine(validator.isMobilePhone),
   email: z.email(),
   message: z.string().min(8).max(1000),
+  name: z.string().min(2).max(100),
+  phone: z.string().refine(validator.isMobilePhone),
 });
 
 export type ContactSchema = z.infer<typeof contactSchema>;
@@ -32,17 +32,17 @@ export function ContactForm({
   const tCommons = useTranslations("form.common");
 
   const form = useForm({
-    onSubmit: (data) => onSub?.(data.value),
     defaultValues: {
-      name: "",
-      phone: "",
       email: "",
       message: "",
+      name: "",
+      phone: "",
       ...defaultValues,
     },
+    onSubmit: (data) => onSub?.(data.value),
     validators: {
-      onSubmit: contactSchema,
       onChange: contactSchema,
+      onSubmit: contactSchema,
     },
   });
   return (

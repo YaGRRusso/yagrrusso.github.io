@@ -54,7 +54,7 @@ function AvatarFallback({
 }
 
 export const Avatar = {
-  Root: AvatarRoot,
-  Image: AvatarImage,
   Fallback: AvatarFallback,
+  Image: AvatarImage,
+  Root: AvatarRoot,
 };

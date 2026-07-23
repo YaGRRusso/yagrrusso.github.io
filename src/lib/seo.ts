@@ -39,16 +39,6 @@ export async function generateSEO({
   const imageUrl = mainImageExists ? mainImageUrl : fallbackImageUrl;
 
   return {
-    title,
-    description,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-      },
-    },
     alternates: {
       canonical: finalUrl,
       languages: Object.fromEntries(
@@ -58,27 +48,37 @@ export async function generateSEO({
         ])
       ),
     },
+    description,
     openGraph: {
-      siteName: title,
-      type: "website",
-      title,
       description,
-      url: finalUrl,
-      locale,
       images: [
         {
+          alt: title,
+          height: 630,
           url: imageUrl,
           width: 1200,
-          height: 630,
-          alt: title,
         },
       ],
+      locale,
+      siteName: title,
+      title,
+      type: "website",
+      url: finalUrl,
     },
+    robots: {
+      follow: true,
+      googleBot: {
+        follow: true,
+        index: true,
+      },
+      index: true,
+    },
+    title,
     twitter: {
       card: "summary_large_image",
-      title,
       description,
       images: [imageUrl],
+      title,
     },
   };
 }

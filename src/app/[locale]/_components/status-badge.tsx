@@ -17,18 +17,18 @@ type StatusVariant = {
 const variants: Record<EducationStatus | CourseStatus, StatusVariant> = {
   [EducationStatus.Complete]: {
     color: "border-transparent bg-success/80 text-success-foreground",
-    label: "status.completed",
     icon: <CheckCircleIcon />,
+    label: "status.completed",
   },
   [EducationStatus.InProgress]: {
     color: "border-transparent bg-warning/80 text-warning-foreground",
-    label: "status.inProgress",
     icon: <ClockIcon />,
+    label: "status.inProgress",
   },
   [EducationStatus.Incomplete]: {
     color: "border-transparent bg-destructive/80 text-destructive-foreground",
-    label: "status.paused",
     icon: <WarningCircleIcon />,
+    label: "status.paused",
   },
 };
 

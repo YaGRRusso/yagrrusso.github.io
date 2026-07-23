@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noUnnecessaryConditions: shadcn generated */
 "use client";
 
 import { type MotionProps, motion, useInView } from "motion/react";
