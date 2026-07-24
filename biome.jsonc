@@ -12,7 +12,8 @@
       "!!**/.next",
       "!!**/node_modules",
       "!!**/graphql",
-      "!!**/*.graphql"
+      "!!**/*.graphql",
+      "!!**/*.svg"
     ]
   },
   "linter": {
@@ -47,9 +48,6 @@
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
-      },
-      "a11y": {
-        "noSvgWithoutTitle": "off"
       }
     },
     "domains": {

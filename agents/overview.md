@@ -122,6 +122,8 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - **Zustand**: theme preference only (`src/stores/theme.ts`).
 - **TanStack Form + Zod + validator**: contact form in `src/forms/contact.tsx`.
 - **Biome + Ultracite**: `biome.jsonc`. Pre-commit runs lint-staged (Ultracite on staged files).
+  SVG assets under `public/` are ignored — Biome attribute sorting can break XML
+  declarations (`version` must be first).
 - **Vitest + cheerio**: `tests/seo.test.ts`, post-build smoke test on `out/`.
 
 ## Module / directory breakdown
