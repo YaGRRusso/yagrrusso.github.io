@@ -3,15 +3,8 @@ import {
   type FindManyEducationsQueryVariables,
   type FindManyGroupedExperiencesQueryVariables,
   type FindManyProjectsQueryVariables,
-  type FindManySkillsQueryVariables,
   SortEnum,
 } from "@/graphql/graphql";
-
-export const HOME_SKILLS_VARS: FindManySkillsQueryVariables = {
-  skillFilters: {},
-  skillPagination: { limit: 50, skip: 0 },
-  skillSort: { updatedAt: SortEnum.Desc },
-};
 
 export const HOME_PROJECTS_VARS: FindManyProjectsQueryVariables = {
   projectPagination: { limit: 3 },

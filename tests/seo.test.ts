@@ -13,13 +13,11 @@ const OG_PROPS = ["og:title", "og:description", "og:url", "og:image"] as const;
 
 const HOME_QUERIES = [
   "getMe",
-  "findManySkills",
   "findManyProjects",
   "findManyGroupedExperiences",
   "findManyEducations",
   "findManyCourses",
 ];
-
 type Route = {
   file: string;
   locale: string;

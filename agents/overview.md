@@ -143,8 +143,9 @@ Each route follows the same split:
 - `page-client.tsx`: client composition root.
 - `queries.ts` (where present): typed variable constants for prefetch.
 
-**Home** (`page-client.tsx`): Hero, SkillsMarquee, About, Experience, Portfolio,
-Skills, Education, Courses, Network, SkillsMarquee (repeat), Contact.
+**Home** (`page-client.tsx`): Hero, SkillsMarquee (from `getMe.skills`), About,
+Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
+(repeat), Contact.
 
 **Skills** (`skills/`): paginated listing via `defineQuery` in
 `hooks/queries/skills.ts` (`found` + `nodes`; client page controls `skip`/`limit`).

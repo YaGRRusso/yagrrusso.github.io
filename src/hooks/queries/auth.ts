@@ -15,6 +15,16 @@ const getMe = graphql(`
           description
         }
       }
+      skills {
+        id
+        slug
+        i18n {
+          locale
+          messages {
+            title
+          }
+        }
+      }
     }
   }
 `);

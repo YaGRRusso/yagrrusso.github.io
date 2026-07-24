@@ -1599,7 +1599,7 @@ export type UserTranslationLocale = {
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'UserEntity', name: string, avatar?: string | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null } };
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'UserEntity', name: string, avatar?: string | null, i18n?: Array<{ __typename?: 'UserTranslationLocale', locale: string, messages: { __typename?: 'UserMessages', title?: string | null, description?: string | null } }> | null, skills?: Array<{ __typename?: 'SkillEntity', id: string, slug?: string | null, i18n: Array<{ __typename?: 'SkillTranslationLocale', locale: string, messages: { __typename?: 'SkillMessages', title: string } }> }> | null } };
 
 export type FindManyCoursesQueryVariables = Exact<{
   courseFilters?: InputMaybe<FilterCourseInput>;
@@ -1675,6 +1675,16 @@ export const GetMeDocument = new TypedDocumentString(`
       messages {
         title
         description
+      }
+    }
+    skills {
+      id
+      slug
+      i18n {
+        locale
+        messages {
+          title
+        }
       }
     }
   }

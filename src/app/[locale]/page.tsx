@@ -6,7 +6,6 @@ import { prefetchFindManyCourses } from "@/hooks/queries/courses";
 import { prefetchFindManyEducations } from "@/hooks/queries/educations";
 import { prefetchFindManyGroupedExperiences } from "@/hooks/queries/experiences";
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
-import { prefetchFindManySkills } from "@/hooks/queries/skills";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
 import { generateSEO } from "@/lib/seo";
@@ -16,7 +15,6 @@ import {
   HOME_EDUCATIONS_VARS,
   HOME_EXPERIENCES_VARS,
   HOME_PROJECTS_VARS,
-  HOME_SKILLS_VARS,
 } from "./queries";
 
 export function generateStaticParams() {
@@ -43,7 +41,6 @@ export default async function Page({ params }: Props) {
 
   const queryClient = new QueryClient();
   await prefetchGetMe(queryClient);
-  await prefetchFindManySkills(queryClient, HOME_SKILLS_VARS);
   await prefetchFindManyProjects(queryClient, HOME_PROJECTS_VARS);
   await prefetchFindManyGroupedExperiences(queryClient, HOME_EXPERIENCES_VARS);
   await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
