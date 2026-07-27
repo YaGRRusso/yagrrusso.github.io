@@ -1,4 +1,4 @@
-name: Deploy Next.js to GitHub Pages
+name: CI
 
 on:
   push:
@@ -11,17 +11,19 @@ concurrency:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_KEY: ${{ vars.API_KEY }}
+      NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
+      NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL }}
     steps:
       - name: Wake up API
         run: |
           curl --retry 5 --retry-delay 30 \
-            -X POST ${{ vars.API_URL }} \
+            -X POST "${NEXT_PUBLIC_API_URL}" \
             -H "Content-Type: application/json" \
             -H "X-Api-Key: ${{ vars.API_KEY }}" \
             -d '{"query":"{ __typename }"}' \
@@ -41,17 +43,9 @@ jobs:
 
       - name: Build Next.js site
         run: npm run build
-        env:
-          NEXT_PUBLIC_API_KEY: ${{ vars.API_KEY }}
-          NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
 
       - name: Run tests
         run: npm run test
-
-      - name: Upload build output
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
 
   deploy:
     needs: build

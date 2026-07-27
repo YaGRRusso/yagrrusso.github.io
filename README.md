@@ -1,9 +1,9 @@
 # yagrrusso
 
 Personal portfolio site for Yago Russo. A statically exported Next.js app deployed
-to GitHub Pages, localized in English and Portuguese, that renders profile content
-(skills, projects, experience, education, courses) fetched from a GraphQL API at
-build time.
+to Cloudflare (Workers static assets), localized in English and Portuguese, that
+renders profile content (skills, projects, experience, education, courses) fetched
+from a GraphQL API at build time.
 
 ## Tech stack
 
@@ -109,5 +109,14 @@ npm run test     # Vitest (requires a prior build for the SEO smoke test)
 ```
 
 CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API with
-`X-Api-Key`, builds with repository variables (`API_URL`, `API_KEY`), runs tests, and deploys
-`out/` to GitHub Pages.
+`X-Api-Key`, builds with repository variables (`API_URL`, `API_KEY`, `SITE_URL`),
+and runs tests. It does not deploy.
+
+Deploy locally (or from your Cloudflare pipeline) after a successful build:
+
+```bash
+npm run build
+npm run deploy   # wrangler deploy — serves ./out via wrangler.jsonc
+```
+
+Requires Cloudflare auth (`npx wrangler login` or an API token).

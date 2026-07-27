@@ -23,18 +23,19 @@ when setup, run, or extension changes. Agent files go deeper; README stays conci
 
 ## Overview
 
-Personal portfolio site for Yago Russo. Static Next.js 16 app deployed to GitHub
-Pages at `https://yagrrusso.github.io`. Profile content is fetched from an
-external GraphQL API at **build time** and embedded into static HTML via server
-prefetch and React Query dehydration. Localized in English and Portuguese through
-`next-intl`.
+Personal portfolio site for Yago Russo. Static Next.js 16 app deployed to
+Cloudflare Workers static assets via `wrangler.jsonc` (`assets.directory`: `./out`).
+Profile content is fetched from an external GraphQL API at **build time** and
+embedded into static HTML via server prefetch and React Query dehydration.
+Localized in English and Portuguese through `next-intl`.
 
 The GraphQL API lives in the sibling `../profile-info` repo. Local dev starts it
 with `npm run back`. Production CI wakes the hosted API before building (see
 `.github/workflows/nextjs.yml`).
 
 There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
-`npm run build` writes static files to `out/`.
+`npm run build` writes static files to `out/`. Deploy with `npm run deploy`
+(`wrangler deploy`) after building.
 
 ## Architecture & flow
 
@@ -49,7 +50,7 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
    `src/hooks/factories/query.ts`, exporting `prefetch*` and `use*` pairs.
    Select only fields the UI reads.
 3. **Execute** (`src/hooks/factories/execute.ts`): POSTs to `NEXT_PUBLIC_API_URL`
-   with `X-Api-Key` header from `NEXT_PUBLIC_API_KEY`.
+   with `X-Api-Key` from `NEXT_PUBLIC_API_KEY`.
 4. **Server pages** (`src/app/[locale]/**/page.tsx`): create a `QueryClient`, call
    prefetch functions, wrap the client page in `HydrationBoundary` with state from
    `dehydrate()` in `src/lib/dehydrate.ts`.
@@ -252,6 +253,7 @@ Entity-specific cards stay in `_components/`. Generic reusables go in
 
 ```
 .
+├── wrangler.jsonc              # Cloudflare Workers static assets (./out).
 ├── codegen.ts                  # GraphQL Code Generator config.
 ├── next.config.ts              # Static export, next-intl plugin, build date env.
 ├── biome.jsonc                 # Ultracite/Biome config.
@@ -270,8 +272,12 @@ Entity-specific cards stay in `_components/`. Generic reusables go in
 All `NEXT_PUBLIC_*` vars are embedded at build time (no server-side secrets at
 runtime).
 
-- `NEXT_PUBLIC_API_URL` (required): GraphQL endpoint. Read by `execute.ts`,
-  `codegen.ts`, and CI. Declared in `.env.example`.
+Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
+**build time**. Production: `https://yagorusso.com`. Local: `http://localhost:3000`.
+
+- `NEXT_PUBLIC_SITE_URL` (required): Public site origin, no trailing slash.
+- `NEXT_PUBLIC_API_URL` (required): GraphQL endpoint. Local:
+  `http://localhost:8080/graphql`. Production: `https://api.yagorusso.com/graphql`.
 - `NEXT_PUBLIC_API_KEY` (required): API token for the GraphQL API. Sent as
   `X-Api-Key: pi_<id>_<secret>`. Read by `execute.ts`, `codegen.ts`, and CI.
   Requires `QUERY` permission for read-only portfolio queries. Declared in
@@ -281,7 +287,8 @@ runtime).
   in the footer "updated at" line.
 
 Local: `.env.development` (copy from `.env.example`). Production build reads
-`.env.production` or CI env. CI repository variables: `API_URL`, `API_KEY`.
+`.env.production` or CI env. CI repository variables: `API_URL` (GraphQL
+endpoint), `API_KEY`, `SITE_URL` (production site origin).
 
 ## Scripts / commands
 
@@ -290,6 +297,7 @@ Local: `.env.development` (copy from `.env.example`). Production build reads
 - `npm run build`: `next build --turbopack`, static export to `out/`.
 - `npm run serve`: serves `out/` on port 4000 (no SPA fallback — static HTML
   per route).
+- `npm run deploy`: `wrangler deploy` (upload `./out` per `wrangler.jsonc`).
 - `npm run back`: `cd ../profile-info && npm run api:dev`.
 - `npm run check` / `npm run fix`: Ultracite check/fix.
 - `npm run test`: `vitest run` (requires prior build for SEO test).
@@ -301,7 +309,11 @@ Local: `.env.development` (copy from `.env.example`). Production build reads
 Static export: `npm run build` writes `out/`. Preview with `npm run serve`.
 
 CI (`.github/workflows/nextjs.yml`) on push to `main`: wake hosted API, `npm ci`,
-build with secrets, run `npm run test`, deploy `out/` to GitHub Pages. Node 20.
+build with secrets, run `npm run test`. Does not deploy — production hosting is
+Cloudflare via `wrangler.jsonc` / `npm run deploy`. Node 20.
+
+`wrangler.jsonc`: assets-only Worker, `./out`, `force-trailing-slash` (matches
+`trailingSlash: true` in `next.config.ts`), `404-page` for missing routes.
 
 `tests/seo.test.ts` parses built HTML from `out/`. Throws at import if `out/` is
 missing. Per route (`describe.each`): title, meta description, canonical and
@@ -319,7 +331,8 @@ Workflow: `npm run build` then `npm run test`.
   `npm run back` before building or when codegen needs a fresh schema.
 - Codegen reads `.env.development` and sends `X-Api-Key` during introspection.
   `getOrThrow()` in `src/lib/get-or-throw.ts` validates required env vars in
-  `execute.ts` and `codegen.ts` — missing values fail immediately.
+  `execute.ts`, `codegen.ts`, SEO/sitemap/robots, and the SEO smoke test —
+  missing values fail immediately.
 - Read queries require an API token with `QUERY` permission. Session-only
   operations (`dashboard`, AI mutations, API token management) reject API tokens.
   `getMe` works with API tokens and returns the token owner profile.

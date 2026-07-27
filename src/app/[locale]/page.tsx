@@ -8,6 +8,7 @@ import { prefetchFindManyGroupedExperiences } from "@/hooks/queries/experiences"
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
+import { getOrThrow } from "@/lib/get-or-throw";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
 import {
@@ -46,6 +47,10 @@ export default async function Page({ params }: Props) {
   await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
   await prefetchFindManyCourses(queryClient, HOME_COURSES_VARS);
 
+  const siteUrl = getOrThrow(
+    process.env.NEXT_PUBLIC_SITE_URL,
+    "NEXT_PUBLIC_SITE_URL environment variable"
+  );
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -54,7 +59,7 @@ export default async function Page({ params }: Props) {
       "https://github.com/yagrrusso",
       "https://www.linkedin.com/in/yago-russo",
     ],
-    url: `https://yagrrusso.github.io/${locale}/`,
+    url: `${siteUrl}/${locale}/`,
   };
 
   return (

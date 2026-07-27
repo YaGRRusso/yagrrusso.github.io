@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale, Namespace } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
+import { getOrThrow } from "@/lib/get-or-throw";
 
 type SEOOptions = {
   namespace: Namespace;
@@ -20,10 +21,13 @@ export async function generateSEO({
 
   const title = t("title");
   const description = t("description");
+  const siteUrl = getOrThrow(
+    process.env.NEXT_PUBLIC_SITE_URL,
+    "NEXT_PUBLIC_SITE_URL environment variable"
+  );
 
-  const baseUrl = "https://yagrrusso.github.io";
   const formattedPath = path.startsWith("/") ? path : `/${path}`;
-  const finalUrl = `${baseUrl}/${locale}${formattedPath}`;
+  const finalUrl = `${siteUrl}/${locale}${formattedPath}`;
 
   const mainImagePath = ph.join(
     process.cwd(),
@@ -34,8 +38,8 @@ export async function generateSEO({
   );
   const mainImageExists = fs.existsSync(mainImagePath);
 
-  const mainImageUrl = `${baseUrl}/images/og/${namespace.toLowerCase()}-${locale}.png`;
-  const fallbackImageUrl = `${baseUrl}/images/og/default-${locale}.png`;
+  const mainImageUrl = `${siteUrl}/images/og/${namespace.toLowerCase()}-${locale}.png`;
+  const fallbackImageUrl = `${siteUrl}/images/og/default-${locale}.png`;
   const imageUrl = mainImageExists ? mainImageUrl : fallbackImageUrl;
 
   return {
@@ -44,7 +48,7 @@ export async function generateSEO({
       languages: Object.fromEntries(
         routing.locales.map((lang) => [
           lang,
-          `${baseUrl}/${lang}${formattedPath}`,
+          `${siteUrl}/${lang}${formattedPath}`,
         ])
       ),
     },

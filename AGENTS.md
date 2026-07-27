@@ -5,8 +5,8 @@
 ## What this repo is
 
 Personal portfolio site for Yago Russo. A statically exported Next.js app deployed to
-GitHub Pages, localized in English and Portuguese, with profile content fetched from
-a GraphQL API at build time.
+Cloudflare (Workers static assets), localized in English and Portuguese, with profile
+content fetched from a GraphQL API at build time.
 
 ## Where to find context
 

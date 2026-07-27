@@ -5,9 +5,13 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { load } from "cheerio";
 import { describe, expect, it } from "vitest";
+import { getOrThrow } from "@/lib/get-or-throw";
 
 const OUT_DIR = resolve("out");
-const BASE_URL = "https://yagrrusso.github.io";
+const BASE_URL = getOrThrow(
+  process.env.NEXT_PUBLIC_SITE_URL,
+  "NEXT_PUBLIC_SITE_URL environment variable"
+);
 const LOCALES = ["en", "pt"] as const;
 const OG_PROPS = ["og:title", "og:description", "og:url", "og:image"] as const;
 
