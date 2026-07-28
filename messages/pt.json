@@ -34,11 +34,12 @@
     "category": "Categoria",
     "contributions": "{count, plural, =0 {Nenhuma contribuição} =1 {1 contribuição} other {# contribuições}}",
     "time": {
-      "minutes": "{count, plural, =1 {um minuto} other {# minutos}}",
-      "hours": "{count, plural, =1 {uma hora} other {# horas}}",
-      "days": "{count, plural, =1 {um dia} other {# dias}}",
-      "months": "{count, plural, =1 {um mês} other {# meses}}",
-      "years": "{count, plural, =1 {um ano} other {# anos}}"
+      "present": "Presente",
+      "minutes": "{count, plural, =0 {menos de um minuto} =1 {um minuto} other {# minutos}}",
+      "hours": "{count, plural, =0 {menos de uma hora} =1 {uma hora} other {# horas}}",
+      "days": "{count, plural, =0 {menos de um dia} =1 {um dia} other {# dias}}",
+      "months": "{count, plural, =0 {menos de um mês} =1 {um mês} other {# meses}}",
+      "years": "{count, plural, =0 {menos de um ano} =1 {um ano} other {# anos}}"
     },
     "status": {
       "completed": "Concluído",

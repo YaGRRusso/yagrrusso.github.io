@@ -1,8 +1,10 @@
-import { ArrowUpRightIcon, DotIcon, MedalIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon, AtIcon, MedalIcon } from "@phosphor-icons/react";
 import dayjs from "dayjs";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { DottedList } from "@/components/dotted-list";
 import { ExpandCharacters } from "@/components/expand-characters";
+import { Period } from "@/components/period";
 import type { SkillItem } from "@/components/skill-badge";
 import { SkillBadgeList } from "@/components/skill-badge-list";
 import { Avatar } from "@/components/ui/avatar";
@@ -39,6 +41,7 @@ export function EducationCard({
   ...props
 }: Props) {
   const tCommon = useTranslations("common");
+  const duration = dayjs(period?.to).diff(dayjs(period?.from), "month");
 
   return (
     <a
@@ -79,19 +82,13 @@ export function EducationCard({
           {tCommon(`level.${level}`)}
         </Badge>
       </div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground text-sm">
-        {period && (
-          <div>
-            {dayjs(period.from).format("MM/YYYY")}
-            {" - "}
-            {period.to
-              ? dayjs(period.to).format("MM/YYYY")
-              : tCommon("present")}
-          </div>
-        )}
-        <DotIcon />
-        <div>@{organization.name}</div>
-      </div>
+      <DottedList>
+        <div className="inline-block gap-8">
+          <AtIcon className="inline-block" /> <span>{organization.name}</span>
+        </div>
+        <Period from={period?.from} to={period?.to} />
+        <span>{tCommon("time.months", { count: duration })}</span>
+      </DottedList>
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           <SkillBadgeList skills={skills} />

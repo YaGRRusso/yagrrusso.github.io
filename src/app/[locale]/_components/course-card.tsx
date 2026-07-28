@@ -1,6 +1,7 @@
-import { ArrowUpRightIcon, DotIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon, AtIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
+import { DottedList } from "@/components/dotted-list";
 import { ExpandCharacters } from "@/components/expand-characters";
 import type { SkillItem } from "@/components/skill-badge";
 import { SkillBadgeList } from "@/components/skill-badge-list";
@@ -65,11 +66,12 @@ export function CourseCard({
       <div className="flex items-center gap-2">
         <StatusBadge status={status} />
       </div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-muted-foreground text-sm">
+      <DottedList>
+        <div className="inline-block gap-8">
+          <AtIcon className="inline-block" /> <span>{organization.name}</span>
+        </div>
         {hours && <div>{tCommon("time.hours", { count: hours })}</div>}
-        <DotIcon />
-        <div>@{organization.name}</div>
-      </div>
+      </DottedList>
       {skills && skills.length > 0 && (
         <div className="flex max-w-11/12 flex-wrap items-center gap-1 text-sm">
           <SkillBadgeList skills={skills} />
