@@ -1,6 +1,6 @@
 import { MinusIcon } from "@phosphor-icons/react";
 import dayjs from "dayjs";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +9,15 @@ interface Props extends ComponentProps<"div"> {
   to?: string | Date;
 }
 
+function formatMonthYear(value: string | Date, locale: string) {
+  return dayjs(value).toDate().toLocaleDateString(locale, {
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
 export function Period({ children, className, from, to, ...props }: Props) {
+  const locale = useLocale();
   const tCommon = useTranslations("common");
 
   return (
@@ -20,9 +28,9 @@ export function Period({ children, className, from, to, ...props }: Props) {
       )}
       {...props}
     >
-      {dayjs(from).format("MM/YYYY")}
+      {from ? formatMonthYear(from, locale) : null}
       <MinusIcon />
-      {to ? dayjs(to).format("MM/YYYY") : tCommon("time.present")}
+      {to ? formatMonthYear(to, locale) : tCommon("time.present")}
     </div>
   );
 }

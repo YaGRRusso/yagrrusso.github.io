@@ -1,7 +1,6 @@
-import dayjs from "dayjs";
-import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { DottedList } from "@/components/dotted-list";
+import { Duration } from "@/components/duration";
 import { ExpandCharacters } from "@/components/expand-characters";
 import { Period } from "@/components/period";
 import type { SkillItem } from "@/components/skill-badge";
@@ -24,17 +23,11 @@ interface Props extends ComponentProps<"div"> {
 }
 
 function RoleContent({ role }: { role: Role }) {
-  const tCommon = useTranslations("common");
-  const duration = dayjs(role.period?.to).diff(
-    dayjs(role.period?.from),
-    "month"
-  );
-
   return (
     <div className="flex flex-col gap-2">
       <DottedList>
         <Period from={role.period?.from} to={role.period?.to} />
-        <span>{tCommon("time.months", { count: duration })}</span>
+        <Duration from={role.period?.from} to={role.period?.to} />
       </DottedList>
       <h3 className="hyphens-auto font-semibold text-2xl">{role.title}</h3>
       <ExpandCharacters
