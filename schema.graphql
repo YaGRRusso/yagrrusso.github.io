@@ -231,6 +231,8 @@ input CreateUserInput {
   birth: String
   email: String!
   i18n: [CreateUserMessagesInputTranslationInput!]
+  locale: Locale
+  locales: [Locale!]
   name: String!
   nickname: String!
   password: String!
@@ -494,6 +496,12 @@ type GroupedExperienceEntity {
   updatedAt: DateTime!
 }
 
+enum Locale {
+  en
+  es
+  pt
+}
+
 type MessageEntity {
   content: String!
   reasoning: String
@@ -723,6 +731,8 @@ type Query {
 
 input RegisterUserInput {
   email: String!
+  locale: Locale!
+  locales: [Locale!]
   name: String!
   nickname: String!
   password: String!
@@ -883,6 +893,8 @@ input UpdateMeInput {
   birth: String
   email: String
   i18n: [CreateUserMessagesInputTranslationInput!]
+  locale: Locale
+  locales: [Locale!]
   name: String
   nickname: String
   password: String
@@ -923,6 +935,8 @@ input UpdateUserInput {
   birth: String
   email: String
   i18n: [CreateUserMessagesInputTranslationInput!]
+  locale: Locale
+  locales: [Locale!]
   name: String
   nickname: String
   password: String
@@ -958,6 +972,8 @@ type UserEntity {
   email: String!
   i18n: [UserTranslationLocale!]
   id: ID!
+  locale: Locale
+  locales: [Locale!]
   name: String!
   nickname: String!
   ownedCounts: UserOwnedCounts!

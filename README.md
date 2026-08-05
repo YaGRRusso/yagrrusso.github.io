@@ -109,8 +109,7 @@ npm run test     # Vitest (requires a prior build for the SEO smoke test)
 ```
 
 CI (`.github/workflows/nextjs.yml`) on push to `main`: wakes the hosted API with
-`X-Api-Key`, builds with repository variables (`API_URL`, `API_KEY`, `SITE_URL`),
-and runs tests. It does not deploy.
+`X-Api-Key`, builds with repository variables, and runs tests. It does not deploy.
 
 Deploy locally (or from your Cloudflare pipeline) after a successful build:
 
@@ -120,3 +119,20 @@ npm run deploy   # wrangler deploy — serves ./out via wrangler.jsonc
 ```
 
 Requires Cloudflare auth (`npx wrangler login` or an API token).
+
+## Environment variables
+
+All of these are **build-time** (`NEXT_PUBLIC_*`). They are baked into the static
+export. Cloudflare does not need them as Worker secrets — only the machine that
+runs `npm run build` (local or CI) does.
+
+| Variable | CI repository variable | Required | Purpose |
+| --- | --- | --- | --- |
+| `NEXT_PUBLIC_API_URL` | `API_URL` | Yes | GraphQL endpoint used at build to prefetch profile data into static HTML. |
+| `NEXT_PUBLIC_API_KEY` | `API_KEY` | Yes | API token (`X-Api-Key`) for that GraphQL request during build/codegen. |
+| `NEXT_PUBLIC_SITE_URL` | `SITE_URL` | Yes | Public site origin (no trailing slash). Used by sitemap, robots.txt, and SEO metadata. Example: `https://yago.example.com`. |
+| `NEXT_PUBLIC_BUILD_DATE` | — | No | Set automatically in `next.config.ts`. |
+
+Local: copy `.env.example` to `.env.development` (and `.env.production` for local
+production builds). GitHub Actions: set `API_URL`, `API_KEY`, and `SITE_URL` under
+**Settings → Secrets and variables → Actions → Variables**.

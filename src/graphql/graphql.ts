@@ -253,6 +253,8 @@ export type CreateUserInput = {
   birth?: InputMaybe<Scalars['String']['input']>;
   email: Scalars['String']['input'];
   i18n?: InputMaybe<Array<CreateUserMessagesInputTranslationInput>>;
+  locale?: InputMaybe<Locale>;
+  locales?: InputMaybe<Array<Locale>>;
   name: Scalars['String']['input'];
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -524,6 +526,12 @@ export type GroupedExperienceEntity = {
   relevance: Scalars['Float']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
+
+export enum Locale {
+  En = 'en',
+  Es = 'es',
+  Pt = 'pt'
+}
 
 export type MessageEntity = {
   __typename?: 'MessageEntity';
@@ -1319,6 +1327,8 @@ export type QueryFindOneUserByIdArgs = {
 
 export type RegisterUserInput = {
   email: Scalars['String']['input'];
+  locale: Locale;
+  locales?: InputMaybe<Array<Locale>>;
   name: Scalars['String']['input'];
   nickname: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -1482,6 +1492,8 @@ export type UpdateMeInput = {
   birth?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<Array<CreateUserMessagesInputTranslationInput>>;
+  locale?: InputMaybe<Locale>;
+  locales?: InputMaybe<Array<Locale>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -1522,6 +1534,8 @@ export type UpdateUserInput = {
   birth?: InputMaybe<Scalars['String']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<Array<CreateUserMessagesInputTranslationInput>>;
+  locale?: InputMaybe<Locale>;
+  locales?: InputMaybe<Array<Locale>>;
   name?: InputMaybe<Scalars['String']['input']>;
   nickname?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -1560,6 +1574,8 @@ export type UserEntity = {
   email: Scalars['String']['output'];
   i18n?: Maybe<Array<UserTranslationLocale>>;
   id: Scalars['ID']['output'];
+  locale?: Maybe<Locale>;
+  locales?: Maybe<Array<Locale>>;
   name: Scalars['String']['output'];
   nickname: Scalars['String']['output'];
   ownedCounts: UserOwnedCounts;
