@@ -17,16 +17,11 @@ export function PortfolioSection() {
   return (
     <div className="w-full">
       <div className="container relative flex w-full flex-col justify-center gap-8">
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
-          <SectionTitle
-            description={t("sections.portfolio.description")}
-            id="my-portfolio"
-            title={t("sections.portfolio.title")}
-          />
-        </AnimateOnScroll>
+        <SectionTitle
+          description={t("sections.portfolio.description")}
+          id="my-portfolio"
+          title={t("sections.portfolio.title")}
+        />
         {findManyProjects.data?.findManyProjects.nodes
           .slice(0, 3)
           ?.map((proj, index) => (

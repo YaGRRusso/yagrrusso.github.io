@@ -17,16 +17,11 @@ export function ExperienceSection() {
   return (
     <div className="w-full">
       <div className="container relative flex w-full flex-col justify-center gap-8">
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
-          <SectionTitle
-            description={t("sections.experience.description")}
-            id="my-experience"
-            title={t("sections.experience.title")}
-          />
-        </AnimateOnScroll>
+        <SectionTitle
+          description={t("sections.experience.description")}
+          id="my-experience"
+          title={t("sections.experience.title")}
+        />
         {findManyGroupedExperiences.data?.findManyGroupedExperiences.nodes.map(
           (group) => (
             <AnimateOnScroll key={group.organization?.id ?? "none"} y={16}>

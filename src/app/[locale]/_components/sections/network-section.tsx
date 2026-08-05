@@ -17,10 +17,7 @@ export function NetworkSection() {
           loop: true,
         }}
       >
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
+        <div className="flex flex-1 flex-wrap justify-between gap-8">
           <SectionTitle
             description={t("sections.network.description")}
             id="my-network"
@@ -30,7 +27,7 @@ export function NetworkSection() {
             <Carousel.Previous />
             <Carousel.Next />
           </div>
-        </AnimateOnScroll>
+        </div>
         <AnimateOnScroll y={16}>
           <Carousel.Content>
             <NetworkCard

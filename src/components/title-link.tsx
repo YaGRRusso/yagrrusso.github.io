@@ -17,13 +17,32 @@ export function TitleLink({
   icon = <CaretRightIcon className="-mx-1" weight="bold" />,
   size = "sm",
   variant = "outline",
+  href,
   ...props
 }: Props) {
+  const content = (
+    <>
+      {icon}
+      {title}
+      {children}
+    </>
+  );
+
+  // Hash links must stay native — Next Link's scroll handler misses the target.
+  if (typeof href === "string" && href.startsWith("#")) {
+    return (
+      <Button asChild size={size} variant={variant}>
+        <a className={className} href={href}>
+          {content}
+        </a>
+      </Button>
+    );
+  }
+
   return (
     <Button asChild size={size} variant={variant}>
-      <Link {...props}>
-        {icon}
-        {title}
+      <Link className={className} href={href} {...props}>
+        {content}
       </Link>
     </Button>
   );

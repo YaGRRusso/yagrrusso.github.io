@@ -15,16 +15,11 @@ export function CoursesSection() {
   return (
     <div className="w-full">
       <div className="container relative flex w-full flex-col justify-center gap-8">
-        <AnimateOnScroll
-          className="flex flex-1 flex-wrap justify-between gap-8"
-          y={16}
-        >
-          <SectionTitle
-            description={t("sections.course.description")}
-            id="my-courses"
-            title={t("sections.course.title")}
-          />
-        </AnimateOnScroll>
+        <SectionTitle
+          description={t("sections.course.description")}
+          id="my-courses"
+          title={t("sections.course.title")}
+        />
         <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {findManyCourses.data?.findManyCourses.nodes.map((course) => (
             <AnimateOnScroll key={course.id} y={16}>

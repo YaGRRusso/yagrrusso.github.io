@@ -27,10 +27,7 @@ export function SkillsSection() {
             loop: true,
           }}
         >
-          <AnimateOnScroll
-            className="flex flex-1 flex-wrap justify-between gap-8"
-            y={16}
-          >
+          <div className="flex flex-1 flex-wrap justify-between gap-8">
             <SectionTitle
               description={t("sections.skills.description")}
               id="my-skills"
@@ -40,7 +37,7 @@ export function SkillsSection() {
               <Carousel.Previous />
               <Carousel.Next />
             </div>
-          </AnimateOnScroll>
+          </div>
           <AnimateOnScroll y={16}>
             <Carousel.Content>
               <SkillCard

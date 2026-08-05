@@ -220,6 +220,9 @@ query. `codegen.ts` watches `src/hooks/mutations/*.ts`, but no mutation files ex
 1. Create a component in `src/app/[locale]/_components/sections/`.
 2. Place it in `page-client.tsx`.
 3. If it needs server data, add prefetch to `page.tsx` and vars to `queries.ts`.
+4. Keep `SectionTitle` (the hash `id`) outside `AnimateOnScroll`. Same-page
+   `#` links use a native `<a>` via `TitleLink` / `SectionTitle` — not
+   next-intl `Link`.
 
 ### Shared vs route-local components
 
