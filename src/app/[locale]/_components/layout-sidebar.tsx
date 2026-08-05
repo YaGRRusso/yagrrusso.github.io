@@ -25,18 +25,18 @@ export function LayoutSidebar({ locale }: { locale: Locale }) {
             <Button
               asChild
               className={cn(
-                "opacity-40 transition-all hover:opacity-100",
+                "group h-4 w-fit justify-start px-2 opacity-40 transition-all hover:opacity-100",
                 activeId === section.id && "opacity-100"
               )}
-              size="icon-sm"
               variant="ghost"
             >
               <a href={`/${locale}/#${section.id}`}>
                 <div
                   className={cn(
+                    "h-px transition-all",
                     activeId === section.id
-                      ? "h-0.5 w-6 bg-primary"
-                      : "h-px w-4 bg-muted-foreground"
+                      ? "w-6 bg-primary"
+                      : "w-4 bg-muted-foreground group-hover:w-5"
                   )}
                 />
               </a>

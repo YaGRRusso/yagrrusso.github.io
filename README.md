@@ -61,7 +61,7 @@ overview.
 
 ## Requirements
 
-- Node.js 20
+- Node.js 20+ (CI uses Node 24)
 - npm >= 11
 
 ## Getting started

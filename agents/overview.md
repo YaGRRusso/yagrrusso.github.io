@@ -320,7 +320,7 @@ Static export: `npm run build` writes `out/`. Preview with `npm run serve`.
 
 CI (`.github/workflows/nextjs.yml`) on push to `main`: wake hosted API, `npm ci`,
 build with secrets, run `npm run test`. Does not deploy — production hosting is
-Cloudflare via `wrangler.jsonc` / `npm run deploy`. Node 20.
+Cloudflare via `wrangler.jsonc` / `npm run deploy`. Node 24 in CI.
 
 `wrangler.jsonc`: assets-only Worker, `./out`, `force-trailing-slash` (matches
 `trailingSlash: true` in `next.config.ts`), `404-page` for missing routes.
@@ -362,7 +362,7 @@ Workflow: `npm run build` then `npm run test`.
 - `dehydrate()` invalidates on purpose. Client refetches after hydration.
 - `npm run back` assumes `profile-info` is a sibling directory. Hardcoded in
   `package.json`.
-- Node 20 is the CI and `scripts/setup.sh` target.
+- Node 24 is the CI target; `scripts/setup.sh` still bootstraps Node 20+ locally.
 - SEO test fails without `out/`. Build first.
 - OG images optional per namespace. Falls back to `default-{locale}.png`.
 - Root redirect uses `navigator.language`. Static export still generates
