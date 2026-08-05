@@ -8,6 +8,7 @@ import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { OrbitingCircles } from "@/components/ui/orbiting-circles";
 import { Tooltip } from "@/components/ui/tooltip";
+import { HOME_HERO_SECTIONS } from "@/consts/home-sections";
 import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
 import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
@@ -51,25 +52,13 @@ export function HeroSection() {
             title={t("openCv")}
             variant="default"
           />
-          <TitleLink href="#about-me" title={t("sections.aboutMe.title")} />
-          <TitleLink
-            href="#my-portfolio"
-            title={t("sections.portfolio.title")}
-          />
-          <TitleLink href="#my-skills" title={t("sections.skills.title")} />
-          <TitleLink
-            href="#my-experience"
-            title={t("sections.experience.title")}
-          />
-          <TitleLink
-            href="#my-education"
-            title={t("sections.education.title")}
-          />
-          <TitleLink href="#my-courses" title={t("sections.course.title")} />
-          <TitleLink
-            href="#get-in-touch"
-            title={t("sections.getInTouch.title")}
-          />
+          {HOME_HERO_SECTIONS.map((section) => (
+            <TitleLink
+              href={`#${section.id}`}
+              key={section.id}
+              title={t(`sections.${section.titleKey}.title`)}
+            />
+          ))}
         </div>
       </AnimateOnScroll>
       <AnimateOnScroll

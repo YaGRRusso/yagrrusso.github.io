@@ -28,6 +28,8 @@
 
 /* size variables */
 @theme inline {
+  --breakpoint-3xl: 90rem; /* 1440px — layout menu collapses below this */
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

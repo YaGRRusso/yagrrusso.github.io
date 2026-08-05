@@ -85,7 +85,10 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - `src/app/[locale]/layout-client.tsx`: client shell with header, footer, scroll
   progress, toast (`sonner`), `QueryClientProvider` (via `getQueryClient()` in
   `src/lib/get-query-client.ts` — one client per SSR request, singleton in the
-  browser), `ThemeProvider`.
+  browser), `ThemeProvider`. Header menu (`layout-menu.tsx`): hamburger below
+  `3xl` (1440px) with section links; theme/locale controls move into that menu
+  only below `sm` (640px). Custom breakpoint `--breakpoint-3xl` is in
+  `src/styles/tailwind/configs.css`.
 
 ### Theme
 
@@ -223,6 +226,8 @@ query. `codegen.ts` watches `src/hooks/mutations/*.ts`, but no mutation files ex
 4. Keep `SectionTitle` (the hash `id`) outside `AnimateOnScroll`. Same-page
    `#` links use a native `<a>` via `TitleLink` / `SectionTitle` — not
    next-intl `Link`.
+5. Section nav lists live in `src/consts/home-sections.ts`
+   (`HOME_SECTIONS` for the header menu, `HOME_HERO_SECTIONS` for hero chips).
 
 ### Shared vs route-local components
 

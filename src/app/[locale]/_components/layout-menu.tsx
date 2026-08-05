@@ -10,7 +10,9 @@ import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@/components/ui/popover";
 import { Select } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { ToggleGroup } from "@/components/ui/toggle-group";
+import { HOME_SECTIONS } from "@/consts/home-sections";
 import { redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, locales } from "@/i18n/routing";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
@@ -20,6 +22,8 @@ interface Props extends ComponentProps<"div"> {
 }
 
 export function LayoutMenu({ locale, ...props }: Props) {
+  const t = useTranslations("homePage");
+
   return (
     <div className="flex items-center gap-2" {...props}>
       <div className="flex items-center gap-2 max-sm:hidden">
@@ -27,12 +31,35 @@ export function LayoutMenu({ locale, ...props }: Props) {
       </div>
       <Popover.Root>
         <Popover.Trigger asChild>
-          <Button className="sm:hidden" size="icon" variant="ghost">
+          <Button className="3xl:hidden" size="icon" variant="ghost">
             <ListIcon className="size-6" weight="bold" />
           </Button>
         </Popover.Trigger>
-        <Popover.Content className="flex gap-2" collisionPadding={4}>
-          <LayoutMenuControls locale={locale} />
+        <Popover.Content
+          align="end"
+          className="flex w-56 flex-col gap-3"
+          collisionPadding={4}
+        >
+          <div className="flex flex-col gap-2 sm:hidden">
+            <LayoutMenuControls locale={locale} />
+          </div>
+          <Separator className="sm:hidden" />
+          <nav className="flex flex-col gap-1">
+            {HOME_SECTIONS.map((section) => (
+              <Popover.Close asChild key={section.id}>
+                <Button
+                  asChild
+                  className="justify-start"
+                  size="sm"
+                  variant="ghost"
+                >
+                  <a href={`/${locale}/#${section.id}`}>
+                    {t(`sections.${section.titleKey}.title`)}
+                  </a>
+                </Button>
+              </Popover.Close>
+            ))}
+          </nav>
         </Popover.Content>
       </Popover.Root>
     </div>
@@ -96,7 +123,7 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         onValueChange={(ev) => redirect({ href: pathname, locale: ev })}
         value={locale}
       >
-        <Select.Trigger aria-label="language" className="flex-1">
+        <Select.Trigger aria-label="language" className="w-full flex-1">
           <Select.Value placeholder={t("language")} />
         </Select.Trigger>
         <Select.Content>
@@ -114,7 +141,7 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         </Select.Content>
       </Select.Root>
       <ToggleGroup.Root
-        className="flex-1"
+        className="w-full flex-1"
         onPointerDown={(e) => {
           lastInteractionRef.current = { x: e.clientX, y: e.clientY };
         }}
