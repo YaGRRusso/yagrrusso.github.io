@@ -20,7 +20,7 @@ export function HeroSection() {
   const locale = useLocale();
 
   return (
-    <div className="container relative flex min-h-[92vh] w-full items-center gap-8 max-md:flex-col-reverse">
+    <div className="container relative flex min-h-[calc(100vh-var(--layout-header-height))] w-full items-center gap-8 max-md:flex-col-reverse">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <InteractiveGridPattern className="mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] -skew-y-7 max-md:h-1/2 md:ml-64" />
       </div>

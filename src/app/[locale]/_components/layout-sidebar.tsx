@@ -17,7 +17,7 @@ export function LayoutSidebar({ locale }: { locale: Locale }) {
   return (
     <nav
       aria-label="Sections"
-      className="fixed left-0 z-100 3xl:flex hidden h-[calc(100vh-8vh)] flex-col justify-center gap-1 px-2"
+      className="fixed top-(--layout-header-height) left-0 z-100 3xl:flex hidden h-[calc(100vh-var(--layout-header-height))] flex-col justify-center gap-1 px-2"
     >
       {HOME_SECTIONS.map((section) => (
         <Tooltip.Root key={section.id}>

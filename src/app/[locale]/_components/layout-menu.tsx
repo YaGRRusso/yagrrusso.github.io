@@ -5,7 +5,13 @@ import {
   SunIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { type ComponentProps, Fragment, useCallback, useRef } from "react";
+import {
+  type ComponentProps,
+  Fragment,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { flushSync } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Popover } from "@/components/ui/popover";
@@ -28,13 +34,22 @@ const SECTION_IDS = HOME_SECTIONS.map((section) => section.id);
 export function LayoutMenu({ locale, ...props }: Props) {
   const t = useTranslations("homePage");
   const activeId = useActiveSection(SECTION_IDS);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="flex items-center gap-2" {...props}>
       <div className="flex items-center gap-2 max-sm:hidden">
         <LayoutMenuControls locale={locale} />
       </div>
-      <Popover.Root>
+      {open && (
+        <button
+          aria-label="close menu"
+          className="fixed inset-x-0 top-(--layout-header-height) bottom-0 z-40 bg-black/40 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+          type="button"
+        />
+      )}
+      <Popover.Root onOpenChange={setOpen} open={open}>
         <Popover.Trigger asChild>
           <Button className="3xl:hidden" size="icon" variant="ghost">
             <ListIcon className="size-6" weight="bold" />
@@ -42,7 +57,7 @@ export function LayoutMenu({ locale, ...props }: Props) {
         </Popover.Trigger>
         <Popover.Content
           align="end"
-          className="flex w-56 flex-col gap-3"
+          className="z-50 flex w-56 flex-col gap-3"
           collisionPadding={4}
         >
           <div className="flex flex-col gap-2 sm:hidden">

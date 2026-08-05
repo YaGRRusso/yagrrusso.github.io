@@ -40,7 +40,7 @@ export function ClientLayout({
     >
       <LayoutLoading />
       <Toaster />
-      <header className="sticky top-0 z-10 flex h-[8vh] w-full items-center border-b bg-background text-foreground">
+      <header className="sticky top-0 z-10 flex h-(--layout-header-height) w-full items-center border-b bg-background text-foreground">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">
             <Image

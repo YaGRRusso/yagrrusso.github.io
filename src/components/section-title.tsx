@@ -18,7 +18,7 @@ export function SectionTitle({
   return (
     <div
       className={cn(
-        "flex max-w-lg scroll-mt-[12vh] flex-col gap-2 tracking-wide",
+        "flex max-w-lg scroll-mt-[calc(var(--layout-header-height)+2rem)] flex-col gap-2 tracking-wide",
         className
       )}
       id={id}

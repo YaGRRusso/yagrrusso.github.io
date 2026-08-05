@@ -1,3 +1,7 @@
+:root {
+  --layout-header-height: 4rem;
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   mix-blend-mode: normal;

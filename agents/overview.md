@@ -85,11 +85,12 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - `src/app/[locale]/layout-client.tsx`: client shell with header, footer, scroll
   progress, toast (`sonner`), `QueryClientProvider` (via `getQueryClient()` in
   `src/lib/get-query-client.ts` — one client per SSR request, singleton in the
-  browser), `ThemeProvider`. Header menu (`layout-menu.tsx`): hamburger below
-  `3xl` (1440px) with section links; theme/locale controls move into that menu
-  only below `sm` (640px). At `3xl+`, a fixed left rail (`layout-sidebar.tsx`)
-  lists `HOME_SECTIONS`. Custom breakpoint `--breakpoint-3xl` is in
-  `src/styles/tailwind/configs.css`.
+  browser), `ThemeProvider`. Header height is `--layout-header-height` in
+  `src/styles/base.css`: `max(10vh, 64px)` mobile, `max(8vh, 56px)` from `sm`
+  (640px) up. Header menu (`layout-menu.tsx`): hamburger below `3xl` (1440px)
+  with section links; theme/locale controls move into that menu only below `sm`.
+  At `3xl+`, a fixed left rail (`layout-sidebar.tsx`) lists `HOME_SECTIONS`.
+  Custom breakpoint `--breakpoint-3xl` is in `src/styles/tailwind/configs.css`.
 
 ### Theme
 
