@@ -57,8 +57,8 @@ export function LayoutMenu({ locale, ...props }: Props) {
         </Popover.Trigger>
         <Popover.Content
           align="end"
-          className="z-50 flex w-56 flex-col gap-3"
-          collisionPadding={4}
+          className="z-50 flex max-h-[calc(100dvh-var(--layout-header-height)-1rem)] w-56 flex-col gap-3 overflow-y-auto"
+          collisionPadding={8}
         >
           <div className="flex flex-col gap-2 sm:hidden">
             <LayoutMenuControls locale={locale} />
