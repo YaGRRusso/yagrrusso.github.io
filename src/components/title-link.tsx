@@ -28,8 +28,7 @@ export function TitleLink({
     </>
   );
 
-  // Hash links must stay native — Next Link's scroll handler misses the target.
-  if (typeof href === "string" && href.startsWith("#")) {
+  if (typeof href === "string" && href.includes("#")) {
     return (
       <Button asChild size={size} variant={variant}>
         <a className={className} href={href}>

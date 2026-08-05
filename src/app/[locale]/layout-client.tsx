@@ -16,6 +16,7 @@ import type { Locale } from "@/i18n/routing";
 import { getQueryClient } from "@/lib/get-query-client";
 import { LayoutLoading } from "./_components/layout-loading";
 import { LayoutMenu } from "./_components/layout-menu";
+import { LayoutSidebar } from "./_components/layout-sidebar";
 
 interface Props extends ComponentProps<"body"> {
   children: ReactNode;
@@ -55,6 +56,7 @@ export function ClientLayout({
         </div>
         <ScrollProgress />
       </header>
+      <LayoutSidebar locale={locale} />
       <QueryClientProvider client={queryClient}>
         <HydrationBoundary state={dehydratedState}>
           <ThemeProvider>

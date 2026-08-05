@@ -13,16 +13,21 @@ import { Select } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { HOME_SECTIONS } from "@/consts/home-sections";
+import { useActiveSection } from "@/hooks/reactive/use-active-section";
 import { redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, locales } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
 
 interface Props extends ComponentProps<"div"> {
   locale: Locale;
 }
 
+const SECTION_IDS = HOME_SECTIONS.map((section) => section.id);
+
 export function LayoutMenu({ locale, ...props }: Props) {
   const t = useTranslations("homePage");
+  const activeId = useActiveSection(SECTION_IDS);
 
   return (
     <div className="flex items-center gap-2" {...props}>
@@ -49,7 +54,10 @@ export function LayoutMenu({ locale, ...props }: Props) {
               <Popover.Close asChild key={section.id}>
                 <Button
                   asChild
-                  className="justify-start"
+                  className={cn(
+                    "justify-start font-normal",
+                    activeId === section.id && "font-bold text-primary"
+                  )}
                   size="sm"
                   variant="ghost"
                 >
