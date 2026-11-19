@@ -31,6 +31,18 @@ export function NetworkSection() {
         <AnimateOnScroll y={16}>
           <Carousel.Content>
             <NetworkCard
+              avatar={getNetwork("aeciobrumel")?.avatar}
+              name={getNetwork("aeciobrumel")?.name}
+              role={getNetwork("aeciobrumel")?.role}
+              urls={getNetwork("aeciobrumel")?.urls}
+            />
+            <NetworkCard
+              avatar={getNetwork("lucas-fulber")?.avatar}
+              name={getNetwork("lucas-fulber")?.name}
+              role={getNetwork("lucas-fulber")?.role}
+              urls={getNetwork("lucas-fulber")?.urls}
+            />
+            <NetworkCard
               avatar={getNetwork("ftarganski")?.avatar}
               name={getNetwork("ftarganski")?.name}
               role={getNetwork("ftarganski")?.role}
@@ -43,10 +55,10 @@ export function NetworkSection() {
               urls={getNetwork("andre94cavalcante")?.urls}
             />
             <NetworkCard
-              avatar={getNetwork("aeciobrumel")?.avatar}
-              name={getNetwork("aeciobrumel")?.name}
-              role={getNetwork("aeciobrumel")?.role}
-              urls={getNetwork("aeciobrumel")?.urls}
+              avatar={getNetwork("kbuczynski")?.avatar}
+              name={getNetwork("kbuczynski")?.name}
+              role={getNetwork("kbuczynski")?.role}
+              urls={getNetwork("kbuczynski")?.urls}
             />
             <NetworkCard
               avatar={getNetwork("gabrielh-silvestre")?.avatar}
@@ -55,10 +67,10 @@ export function NetworkSection() {
               urls={getNetwork("gabrielh-silvestre")?.urls}
             />
             <NetworkCard
-              avatar={getNetwork("TVInacio")?.avatar}
-              name={getNetwork("TVInacio")?.name}
-              role={getNetwork("TVInacio")?.role}
-              urls={getNetwork("TVInacio")?.urls}
+              avatar={getNetwork("tvinacio")?.avatar}
+              name={getNetwork("tvinacio")?.name}
+              role={getNetwork("tvinacio")?.role}
+              urls={getNetwork("tvinacio")?.urls}
             />
           </Carousel.Content>
         </AnimateOnScroll>

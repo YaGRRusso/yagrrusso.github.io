@@ -51,7 +51,27 @@ export const NETWORKS = {
       },
     ],
   },
-  TVInacio: {
+  kbuczynski: {
+    avatar: "https://github.com/Kbuczynski.png?size=128",
+    name: "Kamil Buczynski",
+    role: "Software Engineer",
+    urls: [
+      { title: "github", value: "https://github.com/Kbuczynski" },
+      { title: "linkedin", value: "https://www.linkedin.com/in/kbuczynski/" },
+      // { title: "website", value: "https://kbuczynski.pl/" },
+    ],
+  },
+  "lucas-fulber": {
+    avatar: "https://github.com/Lucas-Fulber.png?size=128",
+    name: "Lucas Fulber",
+    role: "Software Engineer",
+    urls: [
+      { title: "github", value: "https://github.com/Lucas-Fulber" },
+      { title: "linkedin", value: "https://www.linkedin.com/in/lucasfulber/" },
+      { title: "website", value: "https://devfulber.vercel.app/" },
+    ],
+  },
+  tvinacio: {
     avatar: "https://github.com/TVInacio.png?size=128",
     name: "Thiago Veronesi",
     role: "Software Engineer",

@@ -17,7 +17,7 @@ export function LayoutSidebar({ locale }: { locale: Locale }) {
   return (
     <nav
       aria-label="Sections"
-      className="fixed top-(--layout-header-height) left-0 z-100 3xl:flex hidden h-[calc(100vh-var(--layout-header-height))] flex-col justify-center gap-1 px-2"
+      className="fixed top-(--layout-header-height) left-0 z-100 3xl:flex hidden h-[calc(100vh-var(--layout-header-height))] flex-col justify-center gap-0.5 px-2"
     >
       {HOME_SECTIONS.map((section) => (
         <Tooltip.Root key={section.id}>
@@ -25,7 +25,7 @@ export function LayoutSidebar({ locale }: { locale: Locale }) {
             <Button
               asChild
               className={cn(
-                "group h-4 w-fit justify-start px-2 opacity-40 transition-all hover:opacity-100",
+                "group h-4 w-fit justify-start px-2 opacity-25 transition-all hover:opacity-100",
                 activeId === section.id && "opacity-100"
               )}
               variant="ghost"
