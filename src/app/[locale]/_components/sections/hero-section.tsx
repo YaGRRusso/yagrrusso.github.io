@@ -1,15 +1,11 @@
 import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
-import { SkillIcon } from "@/components/skill-icon";
+import { PortfolioAvatar } from "@/components/avatar-scene";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
-import { OrbitingCircles } from "@/components/ui/orbiting-circles";
-import { Tooltip } from "@/components/ui/tooltip";
 import { HOME_HERO_SECTIONS } from "@/consts/home-sections";
-import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
 import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
 
@@ -65,7 +61,7 @@ export function HeroSection() {
         className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
         y={16}
       >
-        <div className="max-md:mask-b-from-65% max-md:mask-b-to-85% absolute inset-0 -top-[60%]">
+        {/* <div className="max-md:mask-b-from-65% max-md:mask-b-to-85% absolute inset-0 -top-[60%]">
           <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
             <OrbitingCircles
               className="size-8 border border-foreground/5 bg-foreground/3 p-1 shadow-lg backdrop-blur-lg"
@@ -99,15 +95,16 @@ export function HeroSection() {
               ))}
             </OrbitingCircles>
           </div>
-        </div>
-        <Image
+        </div> */}
+        {/* <Image
           alt="sticker"
           className="max-md:mask-b-from-75% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
           height={460}
           priority={true}
           src="/images/sticker.png"
           width={460}
-        />
+        /> */}
+        <PortfolioAvatar />
       </AnimateOnScroll>
     </div>
   );
