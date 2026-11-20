@@ -51,13 +51,15 @@ export default async function Page({ params }: Props) {
     process.env.NEXT_PUBLIC_SITE_URL,
     "NEXT_PUBLIC_SITE_URL environment variable"
   );
+
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Yago Russo",
     sameAs: [
       "https://github.com/yagrrusso",
-      "https://www.linkedin.com/in/yago-russo",
+      "https://instagram.com/yagrrusso",
+      "https://linkedin.com/in/yago-russo",
     ],
     url: `${siteUrl}/${locale}/`,
   };
