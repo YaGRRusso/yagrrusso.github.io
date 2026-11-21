@@ -143,6 +143,7 @@ export function PortfolioAvatar({
           onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}
           pointerRef={pointerRef}
+          restGaze={scene.restGaze}
         />
       </Canvas>
     </div>

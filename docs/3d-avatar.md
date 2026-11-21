@@ -107,8 +107,13 @@ hero: {
     torso: { dampSpeed: 2, pitchLimit: 0.15, targetDepth: 0.5, weight: 0.35, yawLimit: 0.35 },
   },
   model: "avaturn",
+  restGaze: { x: 0, y: 0 },
 },
 ```
+
+`restGaze` is where the head looks when there is no pointer (on load, after a touch,
+on touchscreens), in canvas coordinates: `{ x: 0, y: 0 }` is the center, `x` grows
+right, `y` grows up, `±1` are the edges.
 
 2. Render it with its poster:
 

@@ -169,6 +169,8 @@ model, one HDRI, its animations, a camera and its head/torso look settings, and
 `PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
 its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in the
 same suspend step as the model (no T-pose), other clips load in the background.
+Without a pointer (load, touch end, touchscreens) the head aims at the scene's
+`restGaze` (canvas coordinates, `{ x: 0, y: 0 }` = center) instead of the raw idle pose.
 Animations embedded in model files are ignored, so static and animated models work
 the same and a model file can be swapped without config changes. Every clip file
 holds exactly one clip (`assertSingleClip` in `src/lib/`). The config mirrors `public/` (`models/`, `animations/`,

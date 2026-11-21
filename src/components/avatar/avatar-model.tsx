@@ -39,6 +39,7 @@ interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
   model: ModelAsset;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
+  restGaze: NormalizedPointer;
 }
 
 export function AvatarModel({
@@ -49,6 +50,7 @@ export function AvatarModel({
   model,
   onReady,
   pointerRef,
+  restGaze,
   ...props
 }: AvatarModelProps): ReactNode {
   const gltf = useGLTF(model.path);
@@ -106,6 +108,7 @@ export function AvatarModel({
     ],
     gazeTarget,
     pointerRef,
+    restPointer: restGaze,
     rootRef: rigRef,
   });
 

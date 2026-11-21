@@ -1,4 +1,5 @@
 import type { Vector3Tuple } from "three";
+import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
 
 export type AvatarLookBone = "head" | "torso";
@@ -41,12 +42,13 @@ export type Scene = {
   idle: AnimationId;
   look: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelId;
+  restGaze: NormalizedPointer;
 };
 
 export const SCENES = {
   hero: {
     animations: ["waving"],
-    camera: { fov: 30, position: [0.8, 0.6, 1.2], target: [0, 0.6, 0] },
+    camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
     idle: "idle",
     look: {
@@ -59,13 +61,14 @@ export const SCENES = {
       },
       torso: {
         dampSpeed: 2,
-        pitchLimit: 1.6,
+        pitchLimit: 0.5,
         targetDepth: 0.5,
         weight: 0.35,
         yawLimit: 0.35,
       },
     },
     model: "avaturn",
+    restGaze: { x: 0, y: 0 },
   },
 } satisfies Record<string, Scene>;
 

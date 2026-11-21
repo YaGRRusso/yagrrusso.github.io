@@ -203,7 +203,7 @@ type BoneFrame = {
   camera: Camera;
   delta: number;
   gazeTarget: Vector3;
-  pointer: NormalizedPointer | null;
+  pointer: NormalizedPointer;
   root: Object3D;
 };
 
@@ -221,19 +221,14 @@ function updateBoneLook(
   frame.root.getWorldQuaternion(rootWorldQuat);
   inverseRootQuat.copy(rootWorldQuat).invert();
 
-  if (frame.pointer) {
-    projectPointerToGazePlane(
-      frame.camera,
-      frame.pointer,
-      boneWorld,
-      settings.targetDepth,
-      frame.gazeTarget
-    );
-    aimCorrection(look.boneForward, frame.gazeTarget, settings);
-  } else {
-    targetCorrection.yaw = 0;
-    targetCorrection.pitch = 0;
-  }
+  projectPointerToGazePlane(
+    frame.camera,
+    frame.pointer,
+    boneWorld,
+    settings.targetDepth,
+    frame.gazeTarget
+  );
+  aimCorrection(look.boneForward, frame.gazeTarget, settings);
 
   dampCorrection(look, settings.dampSpeed, frame.delta);
   applyCorrection(bone, look.boneForward, look);
@@ -245,6 +240,7 @@ type UseBoneLookAtOptions = {
   bones: BoneLookAt[];
   gazeTarget: Vector3;
   pointerRef: RefObject<NormalizedPointer | null>;
+  restPointer: NormalizedPointer;
   rootRef: RefObject<Object3D | null>;
 };
 
@@ -252,6 +248,7 @@ export function useBoneLookAt({
   bones,
   gazeTarget,
   pointerRef,
+  restPointer,
   rootRef,
 }: UseBoneLookAtOptions): void {
   const statesRef = useRef(new Map<Object3D, BoneLookAtState>());
@@ -264,7 +261,7 @@ export function useBoneLookAt({
       camera,
       delta: Math.min(delta, MAX_FRAME_DELTA),
       gazeTarget,
-      pointer: pointerRef.current,
+      pointer: pointerRef.current ?? restPointer,
       root,
     };
 
