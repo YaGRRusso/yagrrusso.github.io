@@ -30,18 +30,23 @@ function MixamoClipLoader({
 }
 
 interface MixamoClipsLoaderProps {
-  clipPaths: Record<string, string>;
+  clips: { name: string; path: string }[];
   onLoad: ClipLoadHandler;
 }
 
 export function MixamoClipsLoader({
-  clipPaths,
+  clips,
   onLoad,
 }: MixamoClipsLoaderProps): ReactNode {
   return (
     <Suspense fallback={null}>
-      {Object.entries(clipPaths).map(([name, path]) => (
-        <MixamoClipLoader key={name} name={name} onLoad={onLoad} path={path} />
+      {clips.map((clip) => (
+        <MixamoClipLoader
+          key={clip.name}
+          name={clip.name}
+          onLoad={onLoad}
+          path={clip.path}
+        />
       ))}
     </Suspense>
   );

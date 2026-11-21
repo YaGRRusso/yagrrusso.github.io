@@ -1,16 +1,16 @@
 import Image from "next/image";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { getSnapshotPath, type SceneId } from "./avatar-config";
 
-const MODEL_POSTER_SRC = "/images/model-poster.webp";
-
-type AvatarPosterProps = Omit<
-  ComponentProps<typeof Image>,
-  "alt" | "fill" | "src"
->;
+interface AvatarPosterProps
+  extends Omit<ComponentProps<typeof Image>, "alt" | "fill" | "src"> {
+  sceneId: SceneId;
+}
 
 export function AvatarPoster({
   className,
+  sceneId,
   ...props
 }: AvatarPosterProps): ReactNode {
   return (
@@ -20,7 +20,7 @@ export function AvatarPoster({
       fetchPriority="high"
       fill
       priority
-      src={MODEL_POSTER_SRC}
+      src={getSnapshotPath(sceneId)}
       {...props}
     />
   );

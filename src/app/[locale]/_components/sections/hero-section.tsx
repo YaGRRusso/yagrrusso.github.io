@@ -116,13 +116,14 @@ export function HeroSection() {
         </div>
         <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] relative aspect-square w-full">
           {!env.NEXT_PUBLIC_DISABLE_3D && (
-            <PortfolioAvatar onReady={handleAvatarReady} />
+            <PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
           )}
           <AvatarPoster
             className={cn(
               "transition-opacity duration-500",
               isAvatarReady && "opacity-0"
             )}
+            sceneId="hero"
           />
         </div>
       </AnimateOnScroll>

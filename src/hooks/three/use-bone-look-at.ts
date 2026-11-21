@@ -27,6 +27,14 @@ export type BoneLookAtSettings = {
   yawLimit: number;
 };
 
+export const BONE_LOOK_AT_RANGES = {
+  dampSpeed: { max: 30, min: 1 },
+  pitchLimit: { max: 1.6, min: 0 },
+  targetDepth: { max: 3, min: 0.05 },
+  weight: { max: 1, min: 0 },
+  yawLimit: { max: 1.6, min: 0 },
+} satisfies Record<keyof BoneLookAtSettings, { max: number; min: number }>;
+
 type BoneLookAtState = {
   animatedQuat: Quaternion;
   appliedQuat: Quaternion;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Environment, useCursor, useGLTF } from "@react-three/drei";
+import { Environment, useCursor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
 import { mapValues } from "lodash";
@@ -12,48 +12,82 @@ import { OrbitDebugControls } from "@/components/three/orbit-debug-controls";
 import { SnapshotDebugControls } from "@/components/three/snapshot-debug-controls";
 import { useInViewport } from "@/hooks/reactive/use-in-viewport";
 import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
+import { BONE_LOOK_AT_RANGES } from "@/hooks/three/use-bone-look-at";
 import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/stores/avatar";
 import { useDebugStore } from "@/stores/debug";
-import { AVATAR_CAMERA, AVATAR_MODEL, DEFAULT_LOOK } from "./avatar-config";
+import {
+  HDRI_ASSETS,
+  MODEL_ASSETS,
+  SCENES,
+  type Scene,
+  type SceneId,
+} from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
 
-useGLTF.preload(AVATAR_MODEL.path);
-
-function logLook(get: (path: string) => number): void {
+function logLook(get: (path: string) => number, look: Scene["look"]): void {
   console.log({
-    head: mapValues(DEFAULT_LOOK.head, (_, key) => get(`head.${key}`)),
-    torso: mapValues(DEFAULT_LOOK.torso, (_, key) => get(`torso.${key}`)),
+    head: mapValues(look.head, (_, key) => get(`head.${key}`)),
+    torso: mapValues(look.torso, (_, key) => get(`torso.${key}`)),
   });
 }
 
 interface PortfolioAvatarProps extends Omit<ComponentProps<"div">, "ref"> {
   onReady: () => void;
+  sceneId: SceneId;
 }
 
 export function PortfolioAvatar({
   className,
   onReady,
+  sceneId,
   ...props
 }: PortfolioAvatarProps): ReactNode {
+  const scene = SCENES[sceneId];
+  const model = MODEL_ASSETS[scene.model];
+  const hdri = HDRI_ASSETS[scene.hdri];
   const containerRef = useRef<HTMLDivElement>(null);
   const isInViewport = useInViewport(containerRef);
   const headLook = useControls("head", {
-    dampSpeed: { max: 30, min: 1, value: DEFAULT_LOOK.head.dampSpeed },
-    pitchLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.head.pitchLimit },
-    targetDepth: { max: 3, min: 0.05, value: DEFAULT_LOOK.head.targetDepth },
-    weight: { max: 1, min: 0, value: DEFAULT_LOOK.head.weight },
-    yawLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.head.yawLimit },
+    dampSpeed: {
+      ...BONE_LOOK_AT_RANGES.dampSpeed,
+      value: scene.look.head.dampSpeed,
+    },
+    pitchLimit: {
+      ...BONE_LOOK_AT_RANGES.pitchLimit,
+      value: scene.look.head.pitchLimit,
+    },
+    targetDepth: {
+      ...BONE_LOOK_AT_RANGES.targetDepth,
+      value: scene.look.head.targetDepth,
+    },
+    weight: { ...BONE_LOOK_AT_RANGES.weight, value: scene.look.head.weight },
+    yawLimit: {
+      ...BONE_LOOK_AT_RANGES.yawLimit,
+      value: scene.look.head.yawLimit,
+    },
   });
   const torsoLook = useControls("torso", {
-    dampSpeed: { max: 30, min: 1, value: DEFAULT_LOOK.torso.dampSpeed },
-    pitchLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.torso.pitchLimit },
-    targetDepth: { max: 3, min: 0.05, value: DEFAULT_LOOK.torso.targetDepth },
-    weight: { max: 1, min: 0, value: DEFAULT_LOOK.torso.weight },
-    yawLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.torso.yawLimit },
+    dampSpeed: {
+      ...BONE_LOOK_AT_RANGES.dampSpeed,
+      value: scene.look.torso.dampSpeed,
+    },
+    pitchLimit: {
+      ...BONE_LOOK_AT_RANGES.pitchLimit,
+      value: scene.look.torso.pitchLimit,
+    },
+    targetDepth: {
+      ...BONE_LOOK_AT_RANGES.targetDepth,
+      value: scene.look.torso.targetDepth,
+    },
+    weight: { ...BONE_LOOK_AT_RANGES.weight, value: scene.look.torso.weight },
+    yawLimit: {
+      ...BONE_LOOK_AT_RANGES.yawLimit,
+      value: scene.look.torso.yawLimit,
+    },
   });
-  useControls({ "log look": button(logLook) });
+  useControls({ "log look": button((get) => logLook(get, scene.look)) });
   const debugStore = useDebugStore();
   const playClip = useAvatarStore((store) => store.playClip);
   useControls("animation", {
@@ -80,16 +114,16 @@ export function PortfolioAvatar({
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
       >
         <LookAtCamera
-          fov={AVATAR_CAMERA.fov}
+          fov={scene.camera.fov}
           makeDefault
-          position={AVATAR_CAMERA.position}
-          target={AVATAR_CAMERA.target}
+          position={scene.camera.position}
+          target={scene.camera.target}
         />
         {env.NEXT_PUBLIC_DEBUG && (
           <>
             <OrbitDebugControls
-              cameraPosition={AVATAR_CAMERA.position}
-              target={AVATAR_CAMERA.target}
+              cameraPosition={scene.camera.position}
+              target={scene.camera.target}
             />
             <DebugMarker color="red" target={gazeTarget} />
             <SnapshotDebugControls />
@@ -97,15 +131,13 @@ export function PortfolioAvatar({
         )}
         <ambientLight intensity={0.85} />
         <directionalLight intensity={1.3} position={[2, 3, 2]} />
-        <Environment files="/hdri/city.hdr" frames={1} />
+        <Environment files={hdri.path} frames={1} />
         <AvatarModel
-          boneNames={AVATAR_MODEL.boneNames}
+          animationIds={scene.animations}
           gazeTarget={gazeTarget}
-          idleClipName={AVATAR_MODEL.idleClipName}
           lookSettings={{ head: headLook, torso: torsoLook }}
-          mixamoClipPaths={AVATAR_MODEL.mixamoClipPaths}
-          modelPath={AVATAR_MODEL.path}
-          onClick={() => playClip("wave", { repetitions: 1 })}
+          model={model}
+          onClick={() => playClip("waving", { repetitions: 1 })}
           onPointerOut={() => setIsAvatarHovered(false)}
           onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}

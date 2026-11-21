@@ -22,31 +22,32 @@ import { useClipPlayer } from "@/hooks/three/use-clip-player";
 import { disableFrustumCulling } from "@/lib/disable-frustum-culling";
 import { getOrThrow } from "@/lib/get-or-throw";
 import { useAvatarStore } from "@/stores/avatar";
-import type { AvatarClipName, AvatarLookBone } from "./avatar-config";
+import {
+  ANIMATION_ASSETS,
+  type AnimationId,
+  type AvatarLookBone,
+  type ModelAsset,
+} from "./avatar-config";
 
 interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
-  boneNames: Record<AvatarLookBone, string>;
+  animationIds: AnimationId[];
   gazeTarget: Vector3;
-  idleClipName: string;
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
-  mixamoClipPaths: Record<AvatarClipName, string>;
-  modelPath: string;
+  model: ModelAsset;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
 }
 
 export function AvatarModel({
-  boneNames,
+  animationIds,
   gazeTarget,
-  idleClipName,
   lookSettings,
-  mixamoClipPaths,
-  modelPath,
+  model,
   onReady,
   pointerRef,
   ...props
 }: AvatarModelProps): ReactNode {
-  const gltf = useGLTF(modelPath);
+  const gltf = useGLTF(model.path);
   const rigRef = useRef<Group>(null);
   const animations = useAnimations(gltf.animations, rigRef);
   const [loadedClips] = useState(() => new Map<string, AnimationClip>());
@@ -59,15 +60,15 @@ export function AvatarModel({
   const bones = useMemo(
     () => ({
       head: getOrThrow(
-        gltf.scene.getObjectByName(boneNames.head),
-        `head bone "${boneNames.head}" in ${modelPath}`
+        gltf.scene.getObjectByName(model.boneNames.head),
+        `head bone "${model.boneNames.head}" in ${model.path}`
       ),
       torso: getOrThrow(
-        gltf.scene.getObjectByName(boneNames.torso),
-        `torso bone "${boneNames.torso}" in ${modelPath}`
+        gltf.scene.getObjectByName(model.boneNames.torso),
+        `torso bone "${model.boneNames.torso}" in ${model.path}`
       ),
     }),
-    [boneNames, gltf.scene, modelPath]
+    [gltf.scene, model]
   );
 
   useEffect(() => disableFrustumCulling(gltf.scene), [gltf.scene]);
@@ -76,7 +77,7 @@ export function AvatarModel({
 
   useClipPlayer({
     actions: animations.actions,
-    baseClipName: idleClipName,
+    baseClipName: model.idleClipName,
     clips: loadedClips,
     mixer: animations.mixer,
     request: clipRequest,
@@ -99,7 +100,13 @@ export function AvatarModel({
       <Center>
         <primitive object={gltf.scene} />
       </Center>
-      <MixamoClipsLoader clipPaths={mixamoClipPaths} onLoad={handleClipLoad} />
+      <MixamoClipsLoader
+        clips={animationIds.map((id) => ({
+          name: id,
+          path: ANIMATION_ASSETS[id].path,
+        }))}
+        onLoad={handleClipLoad}
+      />
     </group>
   );
 }

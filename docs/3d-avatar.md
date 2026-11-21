@@ -97,6 +97,10 @@ hero: {
   animations: ["waving"],
   camera: { fov: 30, position: [0, 0.6, 1.6], target: [0, 0.6, 0] },
   hdri: "city",
+  look: {
+    head: { dampSpeed: 4, pitchLimit: 0.45, targetDepth: 0.5, weight: 1, yawLimit: 0.6 },
+    torso: { dampSpeed: 2, pitchLimit: 0.15, targetDepth: 0.5, weight: 0.35, yawLimit: 0.35 },
+  },
   model: "avaturn",
 },
 ```
@@ -116,7 +120,7 @@ hero: {
 
 3. Tune the `head` and `torso` sliders (the red dot is where the head looks).
 
-4. Click `log look` and paste the output into `DEFAULT_LOOK`.
+4. Click `log look` and paste the output into the scene's `look` in `SCENES` (`weight: 0` on head and torso turns the follow off).
 
 ## Snapshots
 

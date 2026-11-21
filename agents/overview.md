@@ -164,7 +164,7 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 3D avatar (react-three-fiber, lazy-loaded with `next/dynamic`), shared across pages.
 `avatar-config.ts` holds primitive registries keyed by id (`MODEL_ASSETS`,
 `ANIMATION_ASSETS`, `HDRI_ASSETS`, ids = file names), `SCENES` composing one
-model, one HDRI, its animations and a camera, the shared `DEFAULT_LOOK`, and
+model, one HDRI, its animations, a camera and its head/torso look settings, and
 `getSnapshotPath(sceneId)` (one snapshot per scene, `snapshots/[scene].webp`).
 `PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
 its own clips. The config mirrors `public/` (`models/`, `animations/`,
@@ -314,7 +314,7 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
   orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
   click `log camera` and paste into the scene's `camera` in `SCENES`; tune the look sliders,
-  click `log look` and paste into `DEFAULT_LOOK` (head and torso).
+  click `log look` and paste into the scene's `look` in `SCENES` (head and torso).
 - `NEXT_PUBLIC_DISABLE_3D` (optional, boolean): `true` renders only the hero
   avatar poster; `PortfolioAvatar` is not rendered, so its lazy 3D chunk is never
   downloaded. Off when unset.
