@@ -90,9 +90,10 @@ npm install
 cp .env.example .env.development
 ```
 
-Set `NEXT_PUBLIC_API_KEY` to a dev token (`pi_<id>_<secret>`). After seeding
-`profile-info`, tokens are printed to the console. The profile owner is resolved
-via the `getMe` query (no separate user ID env var).
+`NEXT_PUBLIC_API_KEY` defaults to the fixed `joao` QUERY token that
+`npm run seed` in `profile-info` recreates on every run. Other seed tokens are
+printed to the console. The profile owner is resolved via the `getMe` query
+(no separate user ID env var).
 
 4. Start the GraphQL API (sibling `profile-info` repo):
 

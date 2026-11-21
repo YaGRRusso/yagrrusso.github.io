@@ -313,8 +313,10 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
 - `NEXT_PUBLIC_API_KEY` (required): API token for the GraphQL API. Sent as
   `X-Api-Key: pi_<id>_<secret>`. Read by `execute.ts`, `codegen.ts`, and CI.
   Requires `QUERY` permission for read-only portfolio queries. Declared in
-  `.env.example`. After `npm run seed` in `profile-info`, tokens are printed to
-  the console. Profile owner is resolved via `getMe` (token owner).
+  `.env.example`, which defaults to the fixed `joao` QUERY seed token
+  (`SEED_API_TOKENS` in `profile-info/apps/api/seed/constants.ts`). Other seed
+  tokens are printed to the console after `npm run seed`. Profile owner is
+  resolved via `getMe` (token owner).
 - `NEXT_PUBLIC_DEBUG` (optional, boolean): `true` enables debug tools. Shows the
   leva panel (mounted in
   `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
