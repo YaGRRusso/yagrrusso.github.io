@@ -15,8 +15,9 @@ import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
 import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
+import { useAvatarStore } from "@/stores/avatar";
 import { useDebugStore } from "@/stores/debug";
-import { AvatarModel } from "./avatar-model";
+import { type AvatarLookBone, AvatarModel } from "./avatar-model";
 
 const AVATAR_CAMERA = {
   fov: 30,
@@ -25,26 +26,36 @@ const AVATAR_CAMERA = {
 } satisfies { fov: number; position: Vector3Tuple; target: Vector3Tuple };
 
 const AVATAR_MODEL = {
-  headBoneName: "Head",
+  boneNames: { head: "Head", torso: "Spine2" },
   idleClipName: "IdleV4.2(maya_head)",
+  mixamoClipPaths: { wave: "/animations/wave.glb" },
   path: "/model.glb",
 } as const;
 
 useGLTF.preload(AVATAR_MODEL.path);
 
-const LOOK_FOLDER = "look";
+const DEFAULT_LOOK = {
+  head: {
+    dampSpeed: 4,
+    pitchLimit: 0.45,
+    targetDepth: 0.5,
+    weight: 1,
+    yawLimit: 0.6,
+  },
+  torso: {
+    dampSpeed: 2,
+    pitchLimit: 0.15,
+    targetDepth: 0.5,
+    weight: 0.35,
+    yawLimit: 0.35,
+  },
+} satisfies Record<AvatarLookBone, BoneLookAtSettings>;
 
-const DEFAULT_HEAD_LOOK: BoneLookAtSettings = {
-  dampSpeed: 4,
-  pitchLimit: 0.45,
-  targetDepth: 0.5,
-  yawLimit: 0.6,
-};
-
-function logHeadLook(get: (path: string) => number): void {
-  console.log(
-    mapValues(DEFAULT_HEAD_LOOK, (_, key) => get(`${LOOK_FOLDER}.${key}`))
-  );
+function logLook(get: (path: string) => number): void {
+  console.log({
+    head: mapValues(DEFAULT_LOOK.head, (_, key) => get(`head.${key}`)),
+    torso: mapValues(DEFAULT_LOOK.torso, (_, key) => get(`torso.${key}`)),
+  });
 }
 
 interface PortfolioAvatarProps extends Omit<ComponentProps<"div">, "ref"> {
@@ -58,22 +69,30 @@ export function PortfolioAvatar({
 }: PortfolioAvatarProps): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInViewport = useInViewport(containerRef);
-  const headLook = useControls(LOOK_FOLDER, {
-    dampSpeed: { max: 30, min: 1, value: DEFAULT_HEAD_LOOK.dampSpeed },
-    pitchLimit: { max: 1.57, min: 0, value: DEFAULT_HEAD_LOOK.pitchLimit },
-    targetDepth: { max: 3, min: 0.05, value: DEFAULT_HEAD_LOOK.targetDepth },
-    yawLimit: { max: 1.57, min: 0, value: DEFAULT_HEAD_LOOK.yawLimit },
+  const headLook = useControls("head", {
+    dampSpeed: { max: 30, min: 1, value: DEFAULT_LOOK.head.dampSpeed },
+    pitchLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.head.pitchLimit },
+    targetDepth: { max: 3, min: 0.05, value: DEFAULT_LOOK.head.targetDepth },
+    weight: { max: 1, min: 0, value: DEFAULT_LOOK.head.weight },
+    yawLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.head.yawLimit },
   });
-  useControls({ "log look": button(logHeadLook) });
+  const torsoLook = useControls("torso", {
+    dampSpeed: { max: 30, min: 1, value: DEFAULT_LOOK.torso.dampSpeed },
+    pitchLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.torso.pitchLimit },
+    targetDepth: { max: 3, min: 0.05, value: DEFAULT_LOOK.torso.targetDepth },
+    weight: { max: 1, min: 0, value: DEFAULT_LOOK.torso.weight },
+    yawLimit: { max: 1.57, min: 0, value: DEFAULT_LOOK.torso.yawLimit },
+  });
+  useControls({ "log look": button(logLook) });
   const debugStore = useDebugStore();
-  const animation = useControls("animation", {
+  const playClip = useAvatarStore((store) => store.playClip);
+  useControls("animation", {
     paused: {
       onChange: debugStore.setIsAnimationPaused,
-      transient: false,
       value: debugStore.isAnimationPaused,
     },
   });
-  const isAnimating = isInViewport && !animation.paused;
+  const isAnimating = isInViewport && !debugStore.isAnimationPaused;
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
   const [gazeTarget] = useState(() => new Vector3());
 
@@ -87,11 +106,6 @@ export function PortfolioAvatar({
         dpr={[1, 1.5]}
         frameloop={isAnimating ? "always" : "demand"}
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
-        onCreated={({ gl }) => {
-          gl.domElement.addEventListener("webglcontextlost", (event) =>
-            event.preventDefault()
-          );
-        }}
       >
         <LookAtCamera
           fov={AVATAR_CAMERA.fov}
@@ -113,11 +127,13 @@ export function PortfolioAvatar({
         <directionalLight intensity={1.3} position={[2, 3, 2]} />
         <Environment files="/hdri/city.hdr" frames={1} />
         <AvatarModel
+          boneNames={AVATAR_MODEL.boneNames}
           gazeTarget={gazeTarget}
-          headBoneName={AVATAR_MODEL.headBoneName}
           idleClipName={AVATAR_MODEL.idleClipName}
-          lookSettings={headLook}
+          lookSettings={{ head: headLook, torso: torsoLook }}
+          mixamoClipPaths={AVATAR_MODEL.mixamoClipPaths}
           modelPath={AVATAR_MODEL.path}
+          onClick={() => playClip("wave", { repetitions: 1 })}
           onReady={onReady}
           pointerRef={pointerRef}
         />

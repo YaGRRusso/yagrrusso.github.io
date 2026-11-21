@@ -23,13 +23,14 @@ export type BoneLookAtSettings = {
   dampSpeed: number;
   pitchLimit: number;
   targetDepth: number;
+  weight: number;
   yawLimit: number;
 };
 
 type BoneLookAtState = {
   animatedQuat: Quaternion;
   appliedQuat: Quaternion;
-  boneForward: Vector3 | null;
+  boneForward: Vector3;
   pitch: number;
   yaw: number;
 };
@@ -144,8 +145,8 @@ function aimCorrection(
     -settings.pitchLimit,
     settings.pitchLimit
   );
-  targetCorrection.yaw = wrapAngle(yaw - face.yaw);
-  targetCorrection.pitch = pitch - face.pitch;
+  targetCorrection.yaw = wrapAngle(yaw - face.yaw) * settings.weight;
+  targetCorrection.pitch = (pitch - face.pitch) * settings.weight;
 }
 
 function dampCorrection(
@@ -180,59 +181,92 @@ function applyCorrection(
   look.appliedQuat.copy(bone.quaternion);
 }
 
+function createBoneLookAtState(bone: Object3D): BoneLookAtState {
+  return {
+    animatedQuat: new Quaternion(),
+    appliedQuat: new Quaternion(),
+    boneForward: findBindForward(bone),
+    pitch: 0,
+    yaw: 0,
+  };
+}
+
+type BoneFrame = {
+  camera: Camera;
+  delta: number;
+  gazeTarget: Vector3;
+  pointer: NormalizedPointer | null;
+  root: Object3D;
+};
+
+function updateBoneLook(
+  bone: Object3D,
+  settings: BoneLookAtSettings,
+  look: BoneLookAtState,
+  frame: BoneFrame
+): void {
+  restoreAnimatedPose(bone, look);
+
+  bone.updateWorldMatrix(true, false);
+  bone.getWorldPosition(boneWorld);
+  bone.getWorldQuaternion(boneWorldQuat);
+  frame.root.getWorldQuaternion(rootWorldQuat);
+  inverseRootQuat.copy(rootWorldQuat).invert();
+
+  if (frame.pointer) {
+    projectPointerToGazePlane(
+      frame.camera,
+      frame.pointer,
+      boneWorld,
+      settings.targetDepth,
+      frame.gazeTarget
+    );
+    aimCorrection(look.boneForward, frame.gazeTarget, settings);
+  } else {
+    targetCorrection.yaw = 0;
+    targetCorrection.pitch = 0;
+  }
+
+  dampCorrection(look, settings.dampSpeed, frame.delta);
+  applyCorrection(bone, look.boneForward, look);
+}
+
+export type BoneLookAt = { bone: Object3D; settings: BoneLookAtSettings };
+
 type UseBoneLookAtOptions = {
-  bone: Object3D;
+  bones: BoneLookAt[];
   gazeTarget: Vector3;
   pointerRef: RefObject<NormalizedPointer | null>;
   rootRef: RefObject<Object3D | null>;
-  settings: BoneLookAtSettings;
 };
 
 export function useBoneLookAt({
-  bone,
+  bones,
   gazeTarget,
   pointerRef,
   rootRef,
-  settings,
 }: UseBoneLookAtOptions): void {
-  const lookRef = useRef<BoneLookAtState>({
-    animatedQuat: new Quaternion(),
-    appliedQuat: new Quaternion(),
-    boneForward: null,
-    pitch: 0,
-    yaw: 0,
-  });
+  const statesRef = useRef(new Map<Object3D, BoneLookAtState>());
 
   useFrame(({ camera }, delta) => {
     const root = rootRef.current;
     if (!root) return;
 
-    const look = lookRef.current;
-    look.boneForward ??= findBindForward(bone);
-    restoreAnimatedPose(bone, look);
+    const frame: BoneFrame = {
+      camera,
+      delta: Math.min(delta, MAX_FRAME_DELTA),
+      gazeTarget,
+      pointer: pointerRef.current,
+      root,
+    };
 
-    bone.updateWorldMatrix(true, false);
-    bone.getWorldPosition(boneWorld);
-    bone.getWorldQuaternion(boneWorldQuat);
-    root.getWorldQuaternion(rootWorldQuat);
-    inverseRootQuat.copy(rootWorldQuat).invert();
-
-    const pointer = pointerRef.current;
-    if (pointer) {
-      projectPointerToGazePlane(
-        camera,
-        pointer,
-        boneWorld,
-        settings.targetDepth,
-        gazeTarget
-      );
-      aimCorrection(look.boneForward, gazeTarget, settings);
-    } else {
-      targetCorrection.yaw = 0;
-      targetCorrection.pitch = 0;
+    for (const { bone, settings } of bones) {
+      let look = statesRef.current.get(bone);
+      if (!look) {
+        look = createBoneLookAtState(bone);
+        statesRef.current.set(bone, look);
+      }
+      updateBoneLook(bone, settings, look, frame);
     }
-
-    dampCorrection(look, settings.dampSpeed, Math.min(delta, MAX_FRAME_DELTA));
-    applyCorrection(bone, look.boneForward, look);
   });
 }

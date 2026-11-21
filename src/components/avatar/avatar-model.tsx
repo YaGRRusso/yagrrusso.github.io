@@ -6,7 +6,6 @@ import {
   type ReactNode,
   type RefObject,
   useEffect,
-  useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
@@ -16,7 +15,10 @@ import {
   type BoneLookAtSettings,
   useBoneLookAt,
 } from "@/hooks/three/use-bone-look-at";
+import { useClipPlayer } from "@/hooks/three/use-clip-player";
+import { useMixamoClips } from "@/hooks/three/use-mixamo-clips";
 import { getOrThrow } from "@/lib/get-or-throw";
+import { useAvatarStore } from "@/stores/avatar";
 
 function disableFrustumCulling(root: Object3D): void {
   root.traverse((object) => {
@@ -24,62 +26,74 @@ function disableFrustumCulling(root: Object3D): void {
   });
 }
 
+export type AvatarLookBone = "head" | "torso";
+
 interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
+  boneNames: Record<AvatarLookBone, string>;
   gazeTarget: Vector3;
-  headBoneName: string;
   idleClipName: string;
-  lookSettings: BoneLookAtSettings;
+  lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
+  mixamoClipPaths: Record<string, string>;
   modelPath: string;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
 }
 
 export function AvatarModel({
+  boneNames,
   gazeTarget,
-  headBoneName,
   idleClipName,
   lookSettings,
+  mixamoClipPaths,
   modelPath,
   onReady,
   pointerRef,
   ...props
 }: AvatarModelProps): ReactNode {
   const gltf = useGLTF(modelPath);
+  const mixamoClips = useMixamoClips(mixamoClipPaths);
   const rigRef = useRef<Group>(null);
-  const animations = useAnimations(gltf.animations, rigRef);
+  const clips = useMemo(
+    () => [...gltf.animations, ...mixamoClips],
+    [gltf.animations, mixamoClips]
+  );
+  const animations = useAnimations(clips, rigRef);
+  const clipRequest = useAvatarStore((store) => store.clipRequest);
 
-  const headBone = useMemo(
-    () =>
-      getOrThrow(
-        gltf.scene.getObjectByName(headBoneName),
-        `head bone "${headBoneName}" in ${modelPath}`
+  const bones = useMemo(
+    () => ({
+      head: getOrThrow(
+        gltf.scene.getObjectByName(boneNames.head),
+        `head bone "${boneNames.head}" in ${modelPath}`
       ),
-    [gltf.scene, headBoneName, modelPath]
+      torso: getOrThrow(
+        gltf.scene.getObjectByName(boneNames.torso),
+        `torso bone "${boneNames.torso}" in ${modelPath}`
+      ),
+    }),
+    [boneNames, gltf.scene, modelPath]
   );
 
   useEffect(() => disableFrustumCulling(gltf.scene), [gltf.scene]);
 
   useEffect(() => onReady(), [onReady]);
 
-  useLayoutEffect(() => {
-    const idle = getOrThrow(
-      animations.actions[idleClipName],
-      `animation clip "${idleClipName}" in ${modelPath}`
-    );
-    idle.reset().play();
+  useClipPlayer({
+    actions: animations.actions,
+    baseClipName: idleClipName,
+    mixer: animations.mixer,
+    request: clipRequest,
+  });
 
-    return () => {
-      idle.stop();
-    };
-  }, [animations.actions, idleClipName, modelPath]);
-
-  // intentionally after useAnimations: the look offset must run after the mixer each frame
+  // intentionally after useAnimations and torso before head: each builds on the previous pose
   useBoneLookAt({
-    bone: headBone,
+    bones: [
+      { bone: bones.torso, settings: lookSettings.torso },
+      { bone: bones.head, settings: lookSettings.head },
+    ],
     gazeTarget,
     pointerRef,
     rootRef: rigRef,
-    settings: lookSettings,
   });
 
   return (

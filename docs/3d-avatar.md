@@ -25,7 +25,7 @@ npx @gltf-transform/cli optimize source.glb public/model.glb --compress meshopt 
 bone and idle clip names into `AVATAR_MODEL`.
 
 4. In the debug panel, paste `log camera` into `AVATAR_CAMERA` and `log look` into
-`DEFAULT_HEAD_LOOK`.
+`DEFAULT_LOOK`.
 
 5. Click `save snapshot` and convert it to the poster:
 

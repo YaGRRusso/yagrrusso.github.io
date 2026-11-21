@@ -163,7 +163,7 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 
 Hero 3D avatar (react-three-fiber, lazy-loaded with `next/dynamic` in the hero).
 `avatar/` holds the avatar-specific pieces and config (`AVATAR_MODEL`,
-`AVATAR_CAMERA`, `DEFAULT_HEAD_LOOK` in `portfolio-avatar.tsx`); `three/` and
+`AVATAR_CAMERA`, `DEFAULT_LOOK` in `portfolio-avatar.tsx`); `three/` and
 `src/hooks/three/` hold generic pieces. Workflow for swapping the model,
 poster or lighting: `docs/3d-avatar.md`.
 
@@ -307,7 +307,7 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
   orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
   click `log camera` and paste into `AVATAR_CAMERA`; tune the look sliders,
-  click `log look` and paste into `DEFAULT_HEAD_LOOK`.
+  click `log look` and paste into `DEFAULT_LOOK` (head and torso).
 - `NEXT_PUBLIC_DISABLE_3D` (optional, boolean): `true` renders only the hero
   avatar poster; `PortfolioAvatar` is not rendered, so its lazy 3D chunk is never
   downloaded. Off when unset.
