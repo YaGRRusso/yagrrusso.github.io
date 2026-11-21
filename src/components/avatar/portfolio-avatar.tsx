@@ -12,6 +12,7 @@ import { OrbitDebugControls } from "@/components/three/orbit-debug-controls";
 import { SnapshotDebugControls } from "@/components/three/snapshot-debug-controls";
 import { useInViewport } from "@/hooks/reactive/use-in-viewport";
 import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
+import { useRandomInterval } from "@/hooks/reactive/use-random-interval";
 import { BONE_LOOK_AT_RANGES } from "@/hooks/three/use-bone-look-at";
 import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
@@ -98,6 +99,11 @@ export function PortfolioAvatar({
   });
   const isAnimating = isInViewport && !debugStore.isAnimationPaused;
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
+  useRandomInterval(() => playClip("bored"), {
+    isEnabled: isAnimating,
+    maxMs: 30_000,
+    minMs: 10_000,
+  });
   const [gazeTarget] = useState(() => new Vector3());
   const [isAvatarHovered, setIsAvatarHovered] = useState(false);
   useCursor(isAvatarHovered);
