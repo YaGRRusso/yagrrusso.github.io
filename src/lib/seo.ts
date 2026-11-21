@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale, Namespace } from "@/i18n/routing";
 import { routing } from "@/i18n/routing";
-import { getOrThrow } from "@/lib/get-or-throw";
+import { env } from "@/lib/env";
 
 type SEOOptions = {
   namespace: Namespace;
@@ -21,10 +21,7 @@ export async function generateSEO({
 
   const title = t("title");
   const description = t("description");
-  const siteUrl = getOrThrow(
-    process.env.NEXT_PUBLIC_SITE_URL,
-    "NEXT_PUBLIC_SITE_URL environment variable"
-  );
+  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
 
   const formattedPath = path.startsWith("/") ? path : `/${path}`;
   const finalUrl = `${siteUrl}/${locale}${formattedPath}`;

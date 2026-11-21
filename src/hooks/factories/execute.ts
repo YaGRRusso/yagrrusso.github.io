@@ -1,21 +1,12 @@
 import type { ExecutionResult } from "graphql";
-import { getOrThrow } from "@/lib/get-or-throw";
+import { env } from "@/lib/env";
 import type { TypedDocumentString } from "../../graphql/graphql";
 
 export async function execute<TResult, TVariables>(
   query: TypedDocumentString<TResult, TVariables>,
   ...[variables]: TVariables extends Record<string, never> ? [] : [TVariables]
 ) {
-  const apiUrl = getOrThrow(
-    process.env.NEXT_PUBLIC_API_URL,
-    "NEXT_PUBLIC_API_URL environment variable"
-  );
-  const apiKey = getOrThrow(
-    process.env.NEXT_PUBLIC_API_KEY,
-    "NEXT_PUBLIC_API_KEY environment variable"
-  );
-
-  const response = await fetch(apiUrl, {
+  const response = await fetch(env.NEXT_PUBLIC_API_URL, {
     body: JSON.stringify({
       query: query.toString(),
       variables,
@@ -23,7 +14,7 @@ export async function execute<TResult, TVariables>(
     headers: {
       Accept: "application/graphql-response+json",
       "Content-Type": "application/json",
-      "X-Api-Key": apiKey,
+      "X-Api-Key": env.NEXT_PUBLIC_API_KEY,
     },
     method: "POST",
   });

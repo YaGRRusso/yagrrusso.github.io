@@ -14,7 +14,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { IS_DEBUG } from "@/lib/debug";
+import { env } from "@/lib/env";
 import { getQueryClient } from "@/lib/get-query-client";
 import { LayoutLoading } from "./_components/layout-loading";
 import { LayoutMenu } from "./_components/layout-menu";
@@ -46,7 +46,7 @@ export function ClientLayout({
     >
       <LayoutLoading />
       <Toaster />
-      <Leva hidden={!IS_DEBUG} />
+      <Leva hidden={!env.NEXT_PUBLIC_DEBUG} />
       <header className="sticky top-0 z-10 flex h-(--layout-header-height) w-full items-center border-b bg-background text-foreground">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">

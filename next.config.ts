@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import "./src/lib/env";
 
 const nextConfig: NextConfig = {
   env: { NEXT_PUBLIC_BUILD_DATE: new Date().toISOString() },

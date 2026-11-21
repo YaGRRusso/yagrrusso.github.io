@@ -8,7 +8,7 @@ import { prefetchFindManyGroupedExperiences } from "@/hooks/queries/experiences"
 import { prefetchFindManyProjects } from "@/hooks/queries/projects";
 import { routing } from "@/i18n/routing";
 import { dehydrate } from "@/lib/dehydrate";
-import { getOrThrow } from "@/lib/get-or-throw";
+import { env } from "@/lib/env";
 import { generateSEO } from "@/lib/seo";
 import { ClientPage } from "./page-client";
 import {
@@ -47,10 +47,7 @@ export default async function Page({ params }: Props) {
   await prefetchFindManyEducations(queryClient, HOME_EDUCATIONS_VARS);
   await prefetchFindManyCourses(queryClient, HOME_COURSES_VARS);
 
-  const siteUrl = getOrThrow(
-    process.env.NEXT_PUBLIC_SITE_URL,
-    "NEXT_PUBLIC_SITE_URL environment variable"
-  );
+  const siteUrl = env.NEXT_PUBLIC_SITE_URL;
 
   const personJsonLd = {
     "@context": "https://schema.org",

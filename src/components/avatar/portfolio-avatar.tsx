@@ -19,7 +19,7 @@ import { SnapshotDebugControls } from "@/components/three/snapshot-debug-control
 import { useInViewport } from "@/hooks/reactive/use-in-viewport";
 import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
-import { IS_DEBUG } from "@/lib/debug";
+import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import { useDebugStore } from "@/stores/debug";
 import { AvatarModel } from "./avatar-model";
@@ -115,7 +115,7 @@ export function PortfolioAvatar({
           position={AVATAR_CAMERA.position}
           target={AVATAR_CAMERA.target}
         />
-        {IS_DEBUG && (
+        {env.NEXT_PUBLIC_DEBUG && (
           <>
             <OrbitDebugControls
               cameraPosition={AVATAR_CAMERA.position}

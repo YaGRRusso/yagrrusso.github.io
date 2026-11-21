@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { IS_DEBUG } from "@/lib/debug";
+import { env } from "@/lib/env";
 
 type DebugStore = {
   isAnimationPaused: boolean;
@@ -10,7 +10,7 @@ type DebugStore = {
 export const useDebugStore = create<DebugStore>()(
   persist(
     (set) => ({
-      isAnimationPaused: IS_DEBUG,
+      isAnimationPaused: env.NEXT_PUBLIC_DEBUG,
       setIsAnimationPaused: (isAnimationPaused: boolean) =>
         set({ isAnimationPaused }),
     }),

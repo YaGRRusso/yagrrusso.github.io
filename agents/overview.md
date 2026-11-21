@@ -287,7 +287,9 @@ Entity-specific cards stay in `_components/`. Generic reusables go in
 ## Environment variables
 
 All `NEXT_PUBLIC_*` vars are embedded at build time (no server-side secrets at
-runtime).
+runtime). App code reads them only through `env` in `src/lib/env.ts`
+(`@t3-oss/env-nextjs` + Zod), imported by `next.config.ts` so a missing or invalid
+var fails `next dev` / `next build` at startup.
 
 Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
 **build time**. Production: `https://yagorusso.com`. Local: `http://localhost:3000`.
@@ -300,14 +302,15 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   Requires `QUERY` permission for read-only portfolio queries. Declared in
   `.env.example`. After `npm run seed` in `profile-info`, tokens are printed to
   the console. Profile owner is resolved via `getMe` (token owner).
-- `NEXT_PUBLIC_DEBUG` (optional): `true` enables debug tools, read once as
-  `IS_DEBUG` in `src/lib/debug.ts`. Shows the leva panel (mounted in
+- `NEXT_PUBLIC_DEBUG` (optional, boolean): `true` enables debug tools. Shows the
+  leva panel (mounted in
   `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
   orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
   click `log camera` and paste into `AVATAR_CAMERA`; tune the look sliders,
   click `log look` and paste into `DEFAULT_HEAD_LOOK`.
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
-  in the footer "updated at" line.
+  in the footer "updated at" line. Not in the `env` schema: `next.config.ts` sets it,
+  so it doesn't exist yet when the config validates.
 
 Local: `.env.development` (copy from `.env.example`). Production build reads
 `.env.production` or CI env. CI repository variables: `API_URL` (GraphQL
@@ -353,9 +356,9 @@ Workflow: `npm run build` then `npm run test`.
 - API must be reachable at build time. CI wakes the hosted API; locally run
   `npm run back` before building or when codegen needs a fresh schema.
 - Codegen reads `.env.development` and sends `X-Api-Key` during introspection.
-  `getOrThrow()` in `src/lib/get-or-throw.ts` validates required env vars in
-  `execute.ts`, `codegen.ts`, SEO/sitemap/robots, and the SEO smoke test —
-  missing values fail immediately.
+  `codegen.ts` and `tests/seo.test.ts` run outside Next.js, so they keep reading
+  `process.env` with `getOrThrow()` instead of the `env` schema (`codegen.ts` loads
+  dotenv after imports run; Vitest doesn't load `.env` files).
 - Read queries require an API token with `QUERY` permission. Session-only
   operations (`dashboard`, AI mutations, API token management) reject API tokens.
   `getMe` works with API tokens and returns the token owner profile.
