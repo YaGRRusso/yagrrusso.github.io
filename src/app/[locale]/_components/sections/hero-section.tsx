@@ -1,13 +1,25 @@
 import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
+import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
-import { PortfolioAvatar } from "@/components/avatar-scene";
+import { SkillIcon } from "@/components/skill-icon";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
+import { OrbitingCircles } from "@/components/ui/orbiting-circles";
+import { Tooltip } from "@/components/ui/tooltip";
 import { HOME_HERO_SECTIONS } from "@/consts/home-sections";
+import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
 import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
+
+const PortfolioAvatar = dynamic(
+  () =>
+    import("@/components/avatar/portfolio-avatar").then(
+      (module) => module.PortfolioAvatar
+    ),
+  { ssr: false }
+);
 
 export function HeroSection() {
   const t = useTranslations("homePage");
@@ -61,7 +73,7 @@ export function HeroSection() {
         className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
         y={16}
       >
-        {/* <div className="max-md:mask-b-from-65% max-md:mask-b-to-85% absolute inset-0 -top-[60%]">
+        <div className="absolute inset-0 -top-[40%]">
           <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
             <OrbitingCircles
               className="size-8 border border-foreground/5 bg-foreground/3 p-1 shadow-lg backdrop-blur-lg"
@@ -95,16 +107,10 @@ export function HeroSection() {
               ))}
             </OrbitingCircles>
           </div>
-        </div> */}
-        {/* <Image
-          alt="sticker"
-          className="max-md:mask-b-from-75% max-md:mask-b-to-100% animate-astronaut-float object-contain object-center drop-shadow-primary/25 drop-shadow-xl saturate-75"
-          height={460}
-          priority={true}
-          src="/images/sticker.png"
-          width={460}
-        /> */}
-        <PortfolioAvatar />
+        </div>
+        <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] aspect-square w-full">
+          <PortfolioAvatar />
+        </div>
       </AnimateOnScroll>
     </div>
   );

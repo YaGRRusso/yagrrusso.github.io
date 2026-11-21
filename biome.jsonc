@@ -61,5 +61,18 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      // react-three-fiber JSX elements are three.js objects, not DOM elements
+      "includes": ["src/components/avatar/**", "src/components/three/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAttribute": "off"
+          }
+        }
+      }
+    }
+  ]
 }
