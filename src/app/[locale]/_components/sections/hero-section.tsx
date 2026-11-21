@@ -71,7 +71,7 @@ export function HeroSection() {
         </div>
       </AnimateOnScroll>
       <AnimateOnScroll
-        className="relative flex flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
+        className="relative flex w-full flex-1 items-center justify-center max-md:-mb-16 max-md:justify-center"
         y={16}
       >
         <div className="absolute inset-0 -top-[40%]">
