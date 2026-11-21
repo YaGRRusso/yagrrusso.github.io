@@ -33,21 +33,26 @@ src/
 │       ├── _components/      # Route-local cards, chrome, sections/.
 │       └── skills/           # Skills listing route.
 ├── components/               # Domain-agnostic reusable components.
+│   ├── avatar/               # Hero 3D avatar (see docs/3d-avatar.md).
+│   ├── three/                # Generic react-three-fiber pieces (camera, debug tools).
 │   └── ui/                   # shadcn/Radix/Magic UI primitives.
 ├── hooks/
 │   ├── factories/            # defineQuery, defineInfiniteQuery, execute.
 │   ├── queries/              # One GraphQL module per entity.
-│   └── reactive/             # useDebounce, useMessages.
+│   ├── reactive/             # useDebounce, useMessages, pointer, viewport.
+│   └── three/                # useBoneLookAt.
 ├── graphql/                  # Generated (do not edit).
 ├── forms/                    # Contact form + Zod schema.
 ├── i18n/                     # next-intl routing, request, navigation.
 ├── lib/                      # SEO, dehydrate, cdn, pagination, utils.
 ├── classes/query.ts          # Client-side array filter/sort helper.
-├── stores/theme.ts           # Zustand theme preference.
+├── stores/                   # Zustand: theme preference, debug flags.
 ├── contexts/theme.tsx        # DOM theme application.
 ├── consts/                   # Static icon/slug/network mappings.
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```
+
+Swapping the 3D avatar model, poster or lighting: [`docs/3d-avatar.md`](docs/3d-avatar.md).
 
 ## AI context
 

@@ -137,7 +137,6 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 ### `scripts/`
 
 - `setup.sh`: idempotent Ubuntu/WSL bootstrap for Node 20 and npm 11.
-
 ### `.cursor/rules/` (local, gitignored)
 
 Optional thin Cursor routers (`overview.mdc` with `alwaysApply`) that instruct the
@@ -159,6 +158,14 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 `hooks/queries/skills.ts` (`found` + `nodes`; client page controls `skip`/`limit`).
 
 **`_components/`**: route-local UI (entity cards, layout chrome, `sections/`).
+
+### `src/components/avatar/` and `src/components/three/`
+
+Hero 3D avatar (react-three-fiber, lazy-loaded with `next/dynamic` in the hero).
+`avatar/` holds the avatar-specific pieces and config (`AVATAR_MODEL`,
+`AVATAR_CAMERA`, `DEFAULT_HEAD_LOOK` in `portfolio-avatar.tsx`); `three/` and
+`src/hooks/three/` hold generic pieces. Workflow for swapping the model,
+poster or lighting: `docs/3d-avatar.md`.
 
 ### `src/components/`
 
