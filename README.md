@@ -53,7 +53,7 @@ src/
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```
 
-Producing the 3D avatar assets (model, animations, lighting, camera, poster): [`docs/3d-avatar.md`](docs/3d-avatar.md). Uncompressed originals live in `assets/avatar/`.
+Producing the 3D avatar assets (model, animations, lighting, camera, poster): [`docs/3d-avatar.md`](docs/3d-avatar.md). Uncompressed originals live in `public/_dev/originals/`, skipped on deploy.
 
 ## AI context
 

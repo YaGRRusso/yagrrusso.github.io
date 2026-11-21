@@ -161,14 +161,18 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 
 ### `src/components/avatar/` and `src/components/three/`
 
-Hero 3D avatar (react-three-fiber, lazy-loaded with `next/dynamic` in the hero).
-`avatar/` holds the avatar-specific pieces and config (`AVATAR_MODEL`,
-`AVATAR_CAMERA`, `DEFAULT_LOOK` in `avatar-config.ts`, which also derives the
-`AvatarClipName` and `AvatarLookBone` types). Uncompressed source assets (model,
-clips, 1k HDR) are committed in `assets/avatar/` and compressed into `public/`;
-`three/` and
-`src/hooks/three/` hold generic pieces. Workflow for swapping the model,
-poster or lighting: `docs/3d-avatar.md`.
+3D avatar (react-three-fiber, lazy-loaded with `next/dynamic`), shared across pages.
+`avatar-config.ts` holds primitive registries keyed by id (`MODEL_ASSETS`,
+`ANIMATION_ASSETS`, `HDRI_ASSETS`, ids = file names), `SCENES` composing one
+model, one HDRI, its animations and a camera, the shared `DEFAULT_LOOK`, and
+`getSnapshotPath(sceneId)` (one snapshot per scene, `snapshots/[scene].webp`).
+`PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
+its own clips. The config mirrors `public/` (`models/`, `animations/`,
+`hdri/`, `snapshots/`); uncompressed originals use the same layout under
+`public/_dev/originals/`. `public/_dev/` is development-only: `public/.assetsignore`
+excludes it from the Cloudflare upload.
+`three/` and `src/hooks/three/` hold generic pieces. Workflow:
+`docs/3d-avatar.md`.
 
 ### `src/components/`
 
@@ -309,7 +313,7 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   leva panel (mounted in
   `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
   orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
-  click `log camera` and paste into `AVATAR_CAMERA`; tune the look sliders,
+  click `log camera` and paste into the scene's `camera` in `SCENES`; tune the look sliders,
   click `log look` and paste into `DEFAULT_LOOK` (head and torso).
 - `NEXT_PUBLIC_DISABLE_3D` (optional, boolean): `true` renders only the hero
   avatar poster; `PortfolioAvatar` is not rendered, so its lazy 3D chunk is never
@@ -356,6 +360,8 @@ expected dehydrated query keys. On `/skills`, asserts each grid `li` has a
 non-empty `id` and text (skills use `skill.id` for the DOM id, not slug).
 
 Workflow: `npm run build` then `npm run test`.
+
+No unit tests yet: the SEO smoke test is the only suite.
 
 ## Gotchas & notes
 

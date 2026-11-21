@@ -1,9 +1,16 @@
 # 3D avatar
 
-How to produce and optimize every asset of the hero avatar: model, animations,
-lighting, camera framing and loading poster. Config lives in
-`src/components/avatar/avatar-config.ts`. The uncompressed originals live in
-`assets/avatar/` (committed, never deployed) and are compressed into `public/`.
+How to produce and optimize every asset of the 3D avatar: models, animations,
+lighting, scenes and snapshots. Primitives live in `src/components/avatar/avatar-config.ts`
+(`MODEL_ASSETS`, `ANIMATION_ASSETS`, `HDRI_ASSETS`), keyed by an id that matches their
+file name. A scene in `SCENES` composes one model, one HDRI, its animations and a
+camera, and a snapshot is the poster of one scene.
+
+The config mirrors `public/`: compressed files in `public/models/`, `public/animations/`,
+`public/hdri/` and `public/snapshots/`, uncompressed originals in the same layout under
+`public/_dev/originals/` (committed, development only: `public/.assetsignore` skips
+`_dev/` on deploy). To compare an original with its compressed version, point that
+entry's `path` to `/_dev/originals/...`.
 
 ## Requirements
 
@@ -14,17 +21,25 @@ lighting, camera framing and loading poster. Config lives in
 
 1. Export the avatar from [Avaturn](https://avaturn.me) as GLB.
 
-2. Remove off-screen meshes (`avaturn_shoes_0`) in the [three.js editor](https://threejs.org/editor/), export with File → Export → GLB and save it as `assets/avatar/model.glb`.
+2. Remove off-screen meshes (`avaturn_shoes_0`) in the [three.js editor](https://threejs.org/editor/), export with File → Export → GLB and save it as `public/_dev/originals/models/avaturn.glb`.
 
 3. Compress it (add `--simplify false` if the face or hair lose detail):
 
 ```bash
-npx @gltf-transform/cli optimize assets/avatar/model.glb public/model.glb --compress meshopt --texture-compress webp
+npx @gltf-transform/cli optimize public/_dev/originals/models/avaturn.glb public/models/avaturn.glb --compress meshopt --texture-compress webp
 ```
 
-4. Set the bone names (Outliner) and idle clip name (Animation) from the three.js editor in `AVATAR_MODEL`.
+4. Add it to `MODEL_ASSETS` with its bone names (Outliner) and idle clip name (Animation) from the three.js editor:
 
-5. Reframe the camera, retune the look and retake the poster (sections below).
+```ts
+avaturn: {
+  boneNames: { head: "Head", torso: "Spine2" },
+  idleClipName: "IdleV4.2(maya_head)",
+  path: "/models/avaturn.glb",
+},
+```
+
+5. Use it in a scene, frame the camera and take the snapshot (sections below).
 
 ## Animations
 
@@ -34,57 +49,83 @@ skeleton, bone names prefixed with `mixamorig`.
 
 1. Download a clip from [Mixamo](https://www.mixamo.com) on that avatar (`FBX Binary`, `Without Skin`, `30` fps, no keyframe reduction).
 
-2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `assets/avatar/animations/dance.glb`.
+2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `public/_dev/originals/animations/dancing.glb`.
 
 3. Compress it:
 
 ```bash
-npx @gltf-transform/cli optimize assets/avatar/animations/dance.glb public/animations/dance.glb --compress meshopt
+npx @gltf-transform/cli optimize public/_dev/originals/animations/dancing.glb public/animations/dancing.glb --compress meshopt
 ```
 
-4. Register it in `AVATAR_MODEL.mixamoClipPaths`:
+4. Add it to `ANIMATION_ASSETS` and to the `animations` of each scene that uses it:
 
 ```ts
-mixamoClipPaths: { wave: "/animations/wave.glb", dance: "/animations/dance.glb" },
+dancing: { path: "/animations/dancing.glb" },
 ```
 
 5. Play it from anywhere:
 
 ```ts
-playClip("dance", { repetitions: 2 });
+playClip("dancing", { repetitions: 2 });
 ```
 
-Clips load in the background after the model shows, and play in place (the
-`mixamorig` prefix and the hips position track are removed on load).
+A scene loads only its own clips, in the background after the model shows, and they
+play in place (the `mixamorig` prefix and the hips position track are removed on load).
 
 ## Lighting
 
-1. Download a 1k equirectangular HDR from [Poly Haven](https://polyhaven.com/hdris) and save it as `assets/avatar/hdri/city-1k.hdr`.
+1. Download a 1k equirectangular HDR from [Poly Haven](https://polyhaven.com/hdris) and save it as `public/_dev/originals/hdri/city.hdr`.
 
 2. Shrink it to 256 wide (not with `magick`: it clamps HDR values and flattens the lighting):
 
 ```bash
-oiiotool assets/avatar/hdri/city-1k.hdr --resize 256x128 -o public/hdri/city.hdr
+oiiotool public/_dev/originals/hdri/city.hdr --resize 256x128 -o public/hdri/city.hdr
+```
+
+3. Add it to `HDRI_ASSETS`:
+
+```ts
+city: { path: "/hdri/city.hdr" },
+```
+
+## Scenes
+
+1. Compose the scene in `SCENES`:
+
+```ts
+hero: {
+  animations: ["waving"],
+  camera: { fov: 30, position: [0, 0.6, 1.6], target: [0, 0.6, 0] },
+  hdri: "city",
+  model: "avaturn",
+},
+```
+
+2. Render it with its poster:
+
+```tsx
+<PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
+<AvatarPoster sceneId="hero" />
 ```
 
 ## Camera and look
 
 1. Frame the avatar in the debug view (left drag orbits, right drag pans, scroll zooms, the blue dot is the pivot).
 
-2. Click `log camera` and paste the output into `AVATAR_CAMERA`.
+2. Click `log camera` and paste the output into the scene's `camera` in `SCENES`.
 
 3. Tune the `head` and `torso` sliders (the red dot is where the head looks).
 
 4. Click `log look` and paste the output into `DEFAULT_LOOK`.
 
-## Poster
+## Snapshots
 
-Retake it after changing the model, lighting or camera.
+Snapshots are named after their scene. Retake one after changing anything in its scene.
 
-1. Reload the debug view, click `reset camera`, then `save snapshot` and save it as `assets/avatar/snapshot.png`.
+1. Reload the debug view, click `reset camera`, then `save snapshot` and save it as `public/_dev/originals/snapshots/hero.png`.
 
 2. Convert it (take the snapshot on a 2x screen for a sharper poster):
 
 ```bash
-magick assets/avatar/snapshot.png -quality 85 public/images/model-poster.webp
+magick public/_dev/originals/snapshots/hero.png -quality 85 public/snapshots/hero.webp
 ```
