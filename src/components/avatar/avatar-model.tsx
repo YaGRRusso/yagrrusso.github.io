@@ -6,19 +6,17 @@ import {
   type ReactNode,
   type RefObject,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
 } from "react";
 import type { Group, Object3D, Vector3 } from "three";
-import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-mouse";
+import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import {
   type BoneLookAtSettings,
   useBoneLookAt,
 } from "@/hooks/three/use-bone-look-at";
 import { getOrThrow } from "@/lib/get-or-throw";
-
-const IDLE_FADE_IN_SECONDS = 0.25;
-const IDLE_FADE_OUT_SECONDS = 0.2;
 
 function disableFrustumCulling(root: Object3D): void {
   root.traverse((object) => {
@@ -32,6 +30,7 @@ interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
   idleClipName: string;
   lookSettings: BoneLookAtSettings;
   modelPath: string;
+  onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
 }
 
@@ -41,6 +40,7 @@ export function AvatarModel({
   idleClipName,
   lookSettings,
   modelPath,
+  onReady,
   pointerRef,
   ...props
 }: AvatarModelProps): ReactNode {
@@ -59,15 +59,17 @@ export function AvatarModel({
 
   useEffect(() => disableFrustumCulling(gltf.scene), [gltf.scene]);
 
-  useEffect(() => {
+  useEffect(() => onReady(), [onReady]);
+
+  useLayoutEffect(() => {
     const idle = getOrThrow(
       animations.actions[idleClipName],
       `animation clip "${idleClipName}" in ${modelPath}`
     );
-    idle.reset().fadeIn(IDLE_FADE_IN_SECONDS).play();
+    idle.reset().play();
 
     return () => {
-      idle.fadeOut(IDLE_FADE_OUT_SECONDS);
+      idle.stop();
     };
   }, [animations.actions, idleClipName, modelPath]);
 

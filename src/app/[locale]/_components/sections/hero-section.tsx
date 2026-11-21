@@ -2,6 +2,7 @@ import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
+import { AvatarPoster } from "@/components/avatar/avatar-poster";
 import { SkillIcon } from "@/components/skill-icon";
 import { TitleLink } from "@/components/title-link";
 import { Highlighter } from "@/components/ui/highlighter";
@@ -18,7 +19,7 @@ const PortfolioAvatar = dynamic(
     import("@/components/avatar/portfolio-avatar").then(
       (module) => module.PortfolioAvatar
     ),
-  { ssr: false }
+  { loading: () => <AvatarPoster />, ssr: false }
 );
 
 export function HeroSection() {
@@ -108,7 +109,7 @@ export function HeroSection() {
             </OrbitingCircles>
           </div>
         </div>
-        <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] aspect-square w-full">
+        <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] relative aspect-square w-full">
           <PortfolioAvatar />
         </div>
       </AnimateOnScroll>

@@ -78,6 +78,7 @@
   },
   "name": "yagrrusso",
   "scripts": {
+    "all": "concurrently -c \"blue,yellow,green\" -n \"docker,back,dev\" \"npm run docker\" \"npm run back\" \"npm run dev\"",
     "setup": "bash scripts/setup.sh",
     "prepare": "husky || true",
     "dev": "graphql-codegen --config codegen.ts --watch & next dev --turbopack",
@@ -89,7 +90,8 @@
     "fix": "ultracite fix",
     "test": "vitest run",
     "test:watch": "vitest",
-    "back": "cd ../profile-info && npm run dev"
+    "back": "cd ../profile-info && npm run dev",
+    "docker": "cd ../profile-info && npm run docker:up"
   },
   "version": "0.1.0",
   "private": true
