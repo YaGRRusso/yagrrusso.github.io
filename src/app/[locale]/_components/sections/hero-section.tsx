@@ -1,6 +1,7 @@
 import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { AvatarPoster } from "@/components/avatar/avatar-poster";
 import { SkillIcon } from "@/components/skill-icon";
@@ -13,16 +14,20 @@ import { HOME_HERO_SECTIONS } from "@/consts/home-sections";
 import { MAIN_STACK, SECONDARY_STACK } from "@/consts/stack";
 import { useGetMe } from "@/hooks/queries/auth";
 import { useMessages } from "@/hooks/reactive/use-messages";
+import { env } from "@/lib/env";
+import { cn } from "@/lib/utils";
 
 const PortfolioAvatar = dynamic(
   () =>
     import("@/components/avatar/portfolio-avatar").then(
       (module) => module.PortfolioAvatar
     ),
-  { loading: () => <AvatarPoster />, ssr: false }
+  { ssr: false }
 );
 
 export function HeroSection() {
+  const [isAvatarReady, setIsAvatarReady] = useState(false);
+  const handleAvatarReady = useCallback(() => setIsAvatarReady(true), []);
   const t = useTranslations("homePage");
   const getMe = useGetMe();
   const getMessages = useMessages();
@@ -110,7 +115,15 @@ export function HeroSection() {
           </div>
         </div>
         <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] relative aspect-square w-full">
-          <PortfolioAvatar />
+          {!env.NEXT_PUBLIC_DISABLE_3D && (
+            <PortfolioAvatar onReady={handleAvatarReady} />
+          )}
+          <AvatarPoster
+            className={cn(
+              "transition-opacity duration-500",
+              isAvatarReady && "opacity-0"
+            )}
+          />
         </div>
       </AnimateOnScroll>
     </div>

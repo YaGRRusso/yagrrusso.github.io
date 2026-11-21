@@ -308,6 +308,9 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
   click `log camera` and paste into `AVATAR_CAMERA`; tune the look sliders,
   click `log look` and paste into `DEFAULT_HEAD_LOOK`.
+- `NEXT_PUBLIC_DISABLE_3D` (optional, boolean): `true` renders only the hero
+  avatar poster; `PortfolioAvatar` is not rendered, so its lazy 3D chunk is never
+  downloaded. Off when unset.
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
   in the footer "updated at" line. Not in the `env` schema: `next.config.ts` sets it,
   so it doesn't exist yet when the config validates.
@@ -323,6 +326,8 @@ endpoint), `API_KEY`, `SITE_URL` (production site origin).
 - `npm run build`: `next build --turbopack`, static export to `out/`.
 - `npm run serve`: serves `out/` on port 4000 (no SPA fallback — static HTML
   per route).
+- `npm run preview`: `build` then `serve`. Use it to judge performance; dev mode
+  on :3000 adds React dev instrumentation and is much slower.
 - `npm run deploy`: `wrangler deploy` (upload `./out` per `wrangler.jsonc`).
 - `npm run back`: `cd ../profile-info && npm run api:dev`.
 - `npm run check` / `npm run fix`: Ultracite check/fix.

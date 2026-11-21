@@ -86,6 +86,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "serve": "serve out -l 4000",
+    "preview": "npm run build && npm run serve",
     "deploy": "wrangler deploy",
     "check": "ultracite check",
     "fix": "ultracite fix",

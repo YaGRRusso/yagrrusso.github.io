@@ -6,6 +6,7 @@ export const env = createEnv({
     NEXT_PUBLIC_API_KEY: z.string().min(1),
     NEXT_PUBLIC_API_URL: z.url(),
     NEXT_PUBLIC_DEBUG: z.stringbool().default(false),
+    NEXT_PUBLIC_DISABLE_3D: z.stringbool().default(false),
     NEXT_PUBLIC_SITE_URL: z.url(),
   },
   emptyStringAsUndefined: true,
@@ -13,6 +14,7 @@ export const env = createEnv({
     NEXT_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
     NEXT_PUBLIC_DEBUG: process.env.NEXT_PUBLIC_DEBUG,
+    NEXT_PUBLIC_DISABLE_3D: process.env.NEXT_PUBLIC_DISABLE_3D,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   },
 });

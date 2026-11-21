@@ -17,6 +17,7 @@ export function AvatarPoster({
     <Image
       alt=""
       className={cn("pointer-events-none object-contain", className)}
+      fetchPriority="high"
       fill
       priority
       src={MODEL_POSTER_SRC}
