@@ -11,7 +11,7 @@ import {
   Vector2,
   Vector3,
 } from "three";
-import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-mouse";
+import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 
 const MAX_FRAME_DELTA = 0.05;
 
