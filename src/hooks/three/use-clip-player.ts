@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { type AnimationAction, type AnimationMixer, LoopRepeat } from "three";
 import { getOrThrow } from "@/lib/get-or-throw";
 
@@ -29,20 +29,32 @@ export function useClipPlayer({
   mixer,
   request,
 }: UseClipPlayerOptions): void {
+  const currentRef = useRef<AnimationAction | null>(null);
+
   useLayoutEffect(() => {
     const base = getAction(actions, baseClipName);
     base.reset().play();
+    currentRef.current = base;
+
+    const returnToBase = (event: { action: AnimationAction }) => {
+      if (event.action !== currentRef.current) return;
+      base.reset().play();
+      event.action.crossFadeTo(base, CLIP_FADE_SECONDS, false);
+      currentRef.current = base;
+    };
+    mixer.addEventListener("finished", returnToBase);
 
     return () => {
+      mixer.removeEventListener("finished", returnToBase);
       base.stop();
     };
-  }, [actions, baseClipName]);
+  }, [actions, baseClipName, mixer]);
 
   useEffect(() => {
     if (!request) return;
 
-    const base = getAction(actions, baseClipName);
     const clip = getAction(actions, request.name);
+    const { current } = currentRef;
     const {
       loop = LoopRepeat,
       repetitions = 1,
@@ -53,17 +65,12 @@ export function useClipPlayer({
     clip.clampWhenFinished = true;
     clip.timeScale = timeScale;
     clip.play();
-    base.crossFadeTo(clip, CLIP_FADE_SECONDS, false);
 
-    const returnToBase = (event: { action: AnimationAction }) => {
-      if (event.action !== clip) return;
-      base.reset().play();
-      clip.crossFadeTo(base, CLIP_FADE_SECONDS, false);
-    };
-    mixer.addEventListener("finished", returnToBase);
-
-    return () => {
-      mixer.removeEventListener("finished", returnToBase);
-    };
-  }, [actions, baseClipName, mixer, request]);
+    if (current === clip) {
+      clip.setEffectiveWeight(1);
+    } else {
+      current?.crossFadeTo(clip, CLIP_FADE_SECONDS, false);
+    }
+    currentRef.current = clip;
+  }, [actions, request]);
 }
