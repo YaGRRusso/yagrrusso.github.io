@@ -21,8 +21,9 @@ export const MODEL_ASSETS = {
 } satisfies Record<string, ModelAsset>;
 
 export const ANIMATION_ASSETS = {
-  bored: { path: "/animations/bored.glb" },
+  "arm-stretching": { path: "/animations/arm-stretching.glb" },
   idle: { path: "/animations/idle.glb" },
+  "neck-stretching": { path: "/animations/neck-stretching.glb" },
   waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
@@ -48,7 +49,7 @@ export type Scene = {
 
 export const SCENES = {
   hero: {
-    animations: ["bored", "waving"],
+    animations: ["arm-stretching", "neck-stretching", "waving"],
     camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
     idle: "idle",

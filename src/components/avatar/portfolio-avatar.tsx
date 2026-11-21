@@ -3,7 +3,7 @@
 import { Environment, useCursor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
-import { mapValues } from "lodash";
+import { mapValues, sample } from "lodash";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Vector3 } from "three";
 import { DebugMarker } from "@/components/three/debug-marker";
@@ -26,6 +26,8 @@ import {
   type SceneId,
 } from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
+
+const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
 
 function logLook(get: (path: string) => number, look: Scene["look"]): void {
   console.log({
@@ -99,7 +101,7 @@ export function PortfolioAvatar({
   });
   const isAnimating = isInViewport && !debugStore.isAnimationPaused;
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
-  useRandomInterval(() => playClip("bored"), {
+  useRandomInterval(() => playClip(sample(IDLE_BREAK_ANIMATIONS)), {
     isEnabled: isAnimating,
     maxMs: 30_000,
     minMs: 10_000,
