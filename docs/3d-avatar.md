@@ -29,15 +29,18 @@ entry's `path` to `/_dev/originals/...`.
 npx @gltf-transform/cli optimize public/_dev/originals/models/avaturn.glb public/models/avaturn.glb --compress meshopt --texture-compress webp
 ```
 
-4. Add it to `MODEL_ASSETS` with its bone names (Outliner) and idle clip name (Animation) from the three.js editor:
+4. Add it to `MODEL_ASSETS` with its head and torso bone names (Outliner in the three.js editor):
 
 ```ts
 avaturn: {
   boneNames: { head: "Head", torso: "Spine2" },
-  idleClipName: "IdleV4.2(maya_head)",
   path: "/models/avaturn.glb",
 },
 ```
+
+Animations embedded in a model file are ignored: the scene picks its idle. Models
+from other sources need standard bone names: re-rig them with
+[Mixamo's auto-rigger](https://www.mixamo.com).
 
 5. Use it in a scene, frame the camera and take the snapshot (sections below).
 
@@ -57,7 +60,7 @@ skeleton, bone names prefixed with `mixamorig`.
 npx @gltf-transform/cli optimize public/_dev/originals/animations/dancing.glb public/animations/dancing.glb --compress meshopt
 ```
 
-4. Add it to `ANIMATION_ASSETS` and to the `animations` of each scene that uses it:
+4. Add it to `ANIMATION_ASSETS`, then use it as a scene's `idle` or in its `animations`:
 
 ```ts
 dancing: { path: "/animations/dancing.glb" },
@@ -69,8 +72,9 @@ dancing: { path: "/animations/dancing.glb" },
 playClip("dancing", { repetitions: 2 });
 ```
 
-A scene loads only its own clips, in the background after the model shows, and they
-play in place (the `mixamorig` prefix and the hips position track are removed on load).
+A scene's idle loads together with the model; its other clips load in the background
+after the model shows. All clips play in place (the `mixamorig` prefix and the hips
+position track are removed on load).
 
 ## Lighting
 
@@ -97,6 +101,7 @@ hero: {
   animations: ["waving"],
   camera: { fov: 30, position: [0, 0.6, 1.6], target: [0, 0.6, 0] },
   hdri: "city",
+  idle: "breathing",
   look: {
     head: { dampSpeed: 4, pitchLimit: 0.45, targetDepth: 0.5, weight: 1, yawLimit: 0.6 },
     torso: { dampSpeed: 2, pitchLimit: 0.15, targetDepth: 0.5, weight: 0.35, yawLimit: 0.35 },

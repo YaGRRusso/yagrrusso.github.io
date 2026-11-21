@@ -3,7 +3,7 @@
 import { useGLTF } from "@react-three/drei";
 import { type ReactNode, Suspense, useEffect } from "react";
 import type { AnimationClip } from "three";
-import { getOrThrow } from "@/lib/get-or-throw";
+import { assertSingleClip } from "@/lib/assert-single-clip";
 import { toInPlaceMixamoClip } from "@/lib/mixamo";
 
 type ClipLoadHandler = (name: string, clip: AnimationClip) => void;
@@ -22,7 +22,7 @@ function MixamoClipLoader({
   const gltf = useGLTF(path);
 
   useEffect(() => {
-    const clip = getOrThrow(gltf.animations[0], `animation clip in ${path}`);
+    const clip = assertSingleClip(gltf.animations, path);
     onLoad(name, toInPlaceMixamoClip(clip, name));
   }, [gltf.animations, name, onLoad, path]);
 

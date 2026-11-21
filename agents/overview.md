@@ -167,7 +167,11 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 model, one HDRI, its animations, a camera and its head/torso look settings, and
 `getSnapshotPath(sceneId)` (one snapshot per scene, `snapshots/[scene].webp`).
 `PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
-its own clips. The config mirrors `public/` (`models/`, `animations/`,
+its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in the
+same suspend step as the model (no T-pose), other clips load in the background.
+Animations embedded in model files are ignored, so static and animated models work
+the same and a model file can be swapped without config changes. Every clip file
+holds exactly one clip (`assertSingleClip` in `src/lib/`). The config mirrors `public/` (`models/`, `animations/`,
 `hdri/`, `snapshots/`); uncompressed originals use the same layout under
 `public/_dev/originals/`. `public/_dev/` is development-only: `public/.assetsignore`
 excludes it from the Cloudflare upload.

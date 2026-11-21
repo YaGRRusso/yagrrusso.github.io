@@ -19,8 +19,10 @@ import {
   useBoneLookAt,
 } from "@/hooks/three/use-bone-look-at";
 import { useClipPlayer } from "@/hooks/three/use-clip-player";
+import { assertSingleClip } from "@/lib/assert-single-clip";
 import { disableFrustumCulling } from "@/lib/disable-frustum-culling";
 import { getOrThrow } from "@/lib/get-or-throw";
+import { toInPlaceMixamoClip } from "@/lib/mixamo";
 import { useAvatarStore } from "@/stores/avatar";
 import {
   ANIMATION_ASSETS,
@@ -32,6 +34,7 @@ import {
 interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
   animationIds: AnimationId[];
   gazeTarget: Vector3;
+  idleId: AnimationId;
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelAsset;
   onReady: () => void;
@@ -41,6 +44,7 @@ interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
 export function AvatarModel({
   animationIds,
   gazeTarget,
+  idleId,
   lookSettings,
   model,
   onReady,
@@ -48,8 +52,18 @@ export function AvatarModel({
   ...props
 }: AvatarModelProps): ReactNode {
   const gltf = useGLTF(model.path);
+  const idleGltf = useGLTF(ANIMATION_ASSETS[idleId].path);
   const rigRef = useRef<Group>(null);
-  const animations = useAnimations(gltf.animations, rigRef);
+  const idleClips = useMemo(
+    () => [
+      toInPlaceMixamoClip(
+        assertSingleClip(idleGltf.animations, ANIMATION_ASSETS[idleId].path),
+        idleId
+      ),
+    ],
+    [idleGltf.animations, idleId]
+  );
+  const animations = useAnimations(idleClips, rigRef);
   const [loadedClips] = useState(() => new Map<string, AnimationClip>());
   const handleClipLoad = useCallback(
     (name: string, clip: AnimationClip) => loadedClips.set(name, clip),
@@ -77,7 +91,7 @@ export function AvatarModel({
 
   useClipPlayer({
     actions: animations.actions,
-    baseClipName: model.idleClipName,
+    baseClipName: idleId,
     clips: loadedClips,
     mixer: animations.mixer,
     request: clipRequest,

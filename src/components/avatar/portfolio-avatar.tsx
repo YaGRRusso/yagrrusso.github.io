@@ -135,6 +135,7 @@ export function PortfolioAvatar({
         <AvatarModel
           animationIds={scene.animations}
           gazeTarget={gazeTarget}
+          idleId={scene.idle}
           lookSettings={{ head: headLook, torso: torsoLook }}
           model={model}
           onClick={() => playClip("waving", { repetitions: 1 })}

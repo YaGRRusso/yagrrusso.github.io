@@ -5,7 +5,6 @@ export type AvatarLookBone = "head" | "torso";
 
 export type ModelAsset = {
   boneNames: Record<AvatarLookBone, string>;
-  idleClipName: string;
   path: string;
 };
 
@@ -16,12 +15,12 @@ export type HdriAsset = { path: string };
 export const MODEL_ASSETS = {
   avaturn: {
     boneNames: { head: "Head", torso: "Spine2" },
-    idleClipName: "IdleV4.2(maya_head)",
     path: "/models/avaturn.glb",
   },
 } satisfies Record<string, ModelAsset>;
 
 export const ANIMATION_ASSETS = {
+  idle: { path: "/animations/idle.glb" },
   waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
@@ -39,6 +38,7 @@ export type Scene = {
   animations: AnimationId[];
   camera: { fov: number; position: Vector3Tuple; target: Vector3Tuple };
   hdri: HdriId;
+  idle: AnimationId;
   look: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelId;
 };
@@ -46,8 +46,9 @@ export type Scene = {
 export const SCENES = {
   hero: {
     animations: ["waving"],
-    camera: { fov: 30, position: [0, 0.6, 1.6], target: [0, 0.6, 0] },
+    camera: { fov: 30, position: [0.8, 0.6, 1.2], target: [0, 0.6, 0] },
     hdri: "city",
+    idle: "idle",
     look: {
       head: {
         dampSpeed: 4,
@@ -58,7 +59,7 @@ export const SCENES = {
       },
       torso: {
         dampSpeed: 2,
-        pitchLimit: 0.15,
+        pitchLimit: 1.6,
         targetDepth: 0.5,
         weight: 0.35,
         yawLimit: 0.35,
