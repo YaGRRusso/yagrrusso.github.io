@@ -169,6 +169,9 @@ model, one HDRI, its animations, a camera and its head/torso look settings, and
 `PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
 its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in the
 same suspend step as the model (no T-pose), other clips load in the background.
+`playClip` (`src/stores/avatar.ts`) plays a loaded clip once and fades back to the
+idle; `PortfolioAvatar` triggers `waving` on click and a random clip from
+`IDLE_BREAK_ANIMATIONS` every 10–30s (`useRandomInterval`, only while on screen).
 Without a pointer (load, touch end, touchscreens) the head aims at the scene's
 `restGaze` (canvas coordinates, `{ x: 0, y: 0 }` = center) instead of the raw idle pose.
 Animations embedded in model files are ignored, so static and animated models work

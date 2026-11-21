@@ -52,24 +52,31 @@ skeleton, bone names prefixed with `mixamorig`.
 
 1. Download a clip from [Mixamo](https://www.mixamo.com) on that avatar (`FBX Binary`, `Without Skin`, `30` fps, no keyframe reduction).
 
-2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `public/_dev/originals/animations/dancing.glb`.
+2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `public/_dev/originals/animations/neck-stretching.glb`.
 
 3. Compress it:
 
 ```bash
-npx @gltf-transform/cli optimize public/_dev/originals/animations/dancing.glb public/animations/dancing.glb --compress meshopt
+npx @gltf-transform/cli optimize public/_dev/originals/animations/neck-stretching.glb public/animations/neck-stretching.glb --compress meshopt
 ```
 
 4. Add it to `ANIMATION_ASSETS`, then use it as a scene's `idle` or in its `animations`:
 
 ```ts
-dancing: { path: "/animations/dancing.glb" },
+"neck-stretching": { path: "/animations/neck-stretching.glb" },
 ```
 
-5. Play it from anywhere:
+5. Play it from anywhere (once by default, then back to the idle):
 
 ```ts
-playClip("dancing", { repetitions: 2 });
+playClip("neck-stretching", { repetitions: 2 });
+```
+
+`PortfolioAvatar` plays one random clip from `IDLE_BREAK_ANIMATIONS` every 10–30s
+while it is on screen; add the id there to include it:
+
+```ts
+const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
 ```
 
 A scene's idle loads together with the model; its other clips load in the background
@@ -98,13 +105,13 @@ city: { path: "/hdri/city.hdr" },
 
 ```ts
 hero: {
-  animations: ["waving"],
-  camera: { fov: 30, position: [0, 0.6, 1.6], target: [0, 0.6, 0] },
+  animations: ["arm-stretching", "neck-stretching", "waving"],
+  camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
   hdri: "city",
-  idle: "breathing",
+  idle: "idle",
   look: {
     head: { dampSpeed: 4, pitchLimit: 0.45, targetDepth: 0.5, weight: 1, yawLimit: 0.6 },
-    torso: { dampSpeed: 2, pitchLimit: 0.15, targetDepth: 0.5, weight: 0.35, yawLimit: 0.35 },
+    torso: { dampSpeed: 2, pitchLimit: 0.5, targetDepth: 0.5, weight: 0.35, yawLimit: 0.35 },
   },
   model: "avaturn",
   restGaze: { x: 0, y: 0 },

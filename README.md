@@ -40,7 +40,7 @@ src/
 ├── hooks/
 │   ├── factories/            # defineQuery, defineInfiniteQuery, execute.
 │   ├── queries/              # One GraphQL module per entity.
-│   ├── reactive/             # useDebounce, useMessages, pointer, viewport.
+│   ├── reactive/             # useDebounce, useMessages, pointer, viewport, random interval.
 │   └── three/                # useBoneLookAt, useClipPlayer.
 ├── graphql/                  # Generated (do not edit).
 ├── forms/                    # Contact form + Zod schema.
