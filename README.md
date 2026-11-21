@@ -131,7 +131,7 @@ runs `npm run build` (local or CI) does.
 | `NEXT_PUBLIC_API_URL` | `API_URL` | Yes | GraphQL endpoint used at build to prefetch profile data into static HTML. |
 | `NEXT_PUBLIC_API_KEY` | `API_KEY` | Yes | API token (`X-Api-Key`) for that GraphQL request during build/codegen. |
 | `NEXT_PUBLIC_SITE_URL` | `SITE_URL` | Yes | Public site origin (no trailing slash). Used by sitemap, robots.txt, and SEO metadata. Example: `https://yago.example.com`. |
-| `NEXT_PUBLIC_AVATAR_DEBUG` | `AVATAR_DEBUG` | No | `true` shows the leva tuning panel and orbit controls on the hero 3D avatar. Off when unset. |
+| `NEXT_PUBLIC_DEBUG` | `DEBUG` | No | `true` shows debug tools: the leva panel, plus orbit controls and markers on the hero 3D avatar. Off when unset. |
 | `NEXT_PUBLIC_BUILD_DATE` | — | No | Set automatically in `next.config.ts`. |
 
 Local: copy `.env.example` to `.env.development` (and `.env.production` for local

@@ -10,9 +10,12 @@ import {
   useRef,
 } from "react";
 import type { Group, Object3D, Vector3 } from "three";
-import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
+import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-mouse";
+import {
+  type BoneLookAtSettings,
+  useBoneLookAt,
+} from "@/hooks/three/use-bone-look-at";
 import { getOrThrow } from "@/lib/get-or-throw";
-import { type HeadLookSettings, useHeadLook } from "./use-head-look";
 
 const IDLE_FADE_IN_SECONDS = 0.25;
 const IDLE_FADE_OUT_SECONDS = 0.2;
@@ -23,13 +26,13 @@ function disableFrustumCulling(root: Object3D): void {
   });
 }
 
-interface AvatarModelProps extends ComponentProps<"group"> {
+interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
   gazeTarget: Vector3;
   headBoneName: string;
   idleClipName: string;
-  lookSettings: HeadLookSettings;
+  lookSettings: BoneLookAtSettings;
   modelPath: string;
-  pointerRef: RefObject<NormalizedPointer>;
+  pointerRef: RefObject<NormalizedPointer | null>;
 }
 
 export function AvatarModel({
@@ -69,11 +72,11 @@ export function AvatarModel({
   }, [animations.actions, idleClipName, modelPath]);
 
   // intentionally after useAnimations: the look offset must run after the mixer each frame
-  useHeadLook({
+  useBoneLookAt({
+    bone: headBone,
     gazeTarget,
-    headBone,
     pointerRef,
-    rigRef,
+    rootRef: rigRef,
     settings: lookSettings,
   });
 

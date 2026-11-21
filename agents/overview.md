@@ -293,10 +293,12 @@ Public site origin is `NEXT_PUBLIC_SITE_URL`. Embedded into static HTML at
   Requires `QUERY` permission for read-only portfolio queries. Declared in
   `.env.example`. After `npm run seed` in `profile-info`, tokens are printed to
   the console. Profile owner is resolved via `getMe` (token owner).
-- `NEXT_PUBLIC_AVATAR_DEBUG` (optional): `true` shows the leva panel and
-  `OrbitControls` for the hero avatar (`src/components/avatar/`). Off when unset.
-  Frame by dragging, click `log camera` and paste into `AVATAR_CAMERA`; tune the
-  look sliders, click `log look` and paste into `DEFAULT_HEAD_LOOK`.
+- `NEXT_PUBLIC_DEBUG` (optional): `true` enables debug tools, read once as
+  `IS_DEBUG` in `src/lib/debug.ts`. Shows the leva panel (mounted in
+  `layout-client.tsx`) and, on the hero avatar (`src/components/avatar/`),
+  orbit controls plus gaze/pivot markers. Off when unset. Frame by dragging,
+  click `log camera` and paste into `AVATAR_CAMERA`; tune the look sliders,
+  click `log look` and paste into `DEFAULT_HEAD_LOOK`.
 - `NEXT_PUBLIC_BUILD_DATE` (automatic): ISO timestamp from `next.config.ts`. Shown
   in the footer "updated at" line.
 

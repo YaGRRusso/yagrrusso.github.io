@@ -2,19 +2,19 @@
 
 import { Environment } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Leva } from "leva";
-import { type ReactNode, useRef, useState } from "react";
+import { button, useControls } from "leva";
+import { mapValues } from "lodash";
+import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Vector3, type Vector3Tuple } from "three";
 import { DebugMarker } from "@/components/three/debug-marker";
+import { LookAtCamera } from "@/components/three/look-at-camera";
+import { OrbitDebugControls } from "@/components/three/orbit-debug-controls";
 import { useInViewport } from "@/hooks/reactive/use-in-viewport";
-import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
-import { useWindowActive } from "@/hooks/reactive/use-window-active";
-import { AvatarCamera } from "./avatar-camera";
+import { useNormalizedMouse } from "@/hooks/reactive/use-normalized-mouse";
+import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
+import { IS_DEBUG } from "@/lib/debug";
+import { cn } from "@/lib/utils";
 import { AvatarModel } from "./avatar-model";
-import { CameraDebugControls } from "./camera-debug-controls";
-import { useHeadLookTuning } from "./use-head-look-tuning";
-
-const IS_AVATAR_DEBUG = process.env.NEXT_PUBLIC_AVATAR_DEBUG === "true";
 
 const AVATAR_CAMERA = {
   fov: 30,
@@ -28,21 +28,56 @@ const AVATAR_MODEL = {
   path: "/model.glb",
 } as const;
 
-export function PortfolioAvatar(): ReactNode {
+const LOOK_FOLDER = "look";
+
+const DEFAULT_HEAD_LOOK: BoneLookAtSettings = {
+  dampSpeed: 8,
+  pitchLimit: 0.45,
+  pitchOffset: 0,
+  targetDepth: 0.5,
+  yawLimit: 0.7,
+  yawOffset: 0,
+};
+
+function logHeadLook(get: (path: string) => number): void {
+  console.log(
+    mapValues(DEFAULT_HEAD_LOOK, (_, key) => get(`${LOOK_FOLDER}.${key}`))
+  );
+}
+
+function slider(value: number, min: number, max: number, step = 0.01) {
+  return { max, min, step, value };
+}
+
+type PortfolioAvatarProps = Omit<ComponentProps<"div">, "ref">;
+
+export function PortfolioAvatar({
+  className,
+  ...props
+}: PortfolioAvatarProps): ReactNode {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInViewport = useInViewport(containerRef);
-  const isWindowActive = useWindowActive();
-  const isAnimating = isInViewport && isWindowActive;
-  const pointerRef = useNormalizedPointer(containerRef, isAnimating);
-  const headLook = useHeadLookTuning();
+  const mouseRef = useNormalizedMouse(containerRef, isInViewport);
+  const headLook = useControls(LOOK_FOLDER, {
+    dampSpeed: slider(DEFAULT_HEAD_LOOK.dampSpeed, 1, 30, 0.5),
+    pitchLimit: slider(DEFAULT_HEAD_LOOK.pitchLimit, 0, Math.PI / 2),
+    pitchOffset: slider(DEFAULT_HEAD_LOOK.pitchOffset, -1, 1),
+    targetDepth: slider(DEFAULT_HEAD_LOOK.targetDepth, 0.05, 3),
+    yawLimit: slider(DEFAULT_HEAD_LOOK.yawLimit, 0, Math.PI / 2),
+    yawOffset: slider(DEFAULT_HEAD_LOOK.yawOffset, -1, 1),
+  });
+  useControls({ "log look": button(logHeadLook) });
   const [gazeTarget] = useState(() => new Vector3());
 
   return (
-    <div className="h-full w-full" ref={containerRef}>
-      <Leva hidden={!IS_AVATAR_DEBUG} />
+    <div
+      className={cn("h-full w-full", className)}
+      ref={containerRef}
+      {...props}
+    >
       <Canvas
         dpr={[1, 1.5]}
-        frameloop={isAnimating ? "always" : "never"}
+        frameloop={isInViewport ? "always" : "demand"}
         gl={{ alpha: true, antialias: true, powerPreference: "default" }}
         onCreated={({ gl }) => {
           gl.domElement.addEventListener("webglcontextlost", (event) =>
@@ -50,15 +85,16 @@ export function PortfolioAvatar(): ReactNode {
           );
         }}
       >
-        <AvatarCamera
+        <LookAtCamera
           fov={AVATAR_CAMERA.fov}
+          makeDefault
           position={AVATAR_CAMERA.position}
           target={AVATAR_CAMERA.target}
         />
-        {IS_AVATAR_DEBUG && (
+        {IS_DEBUG && (
           <>
-            <CameraDebugControls
-              position={AVATAR_CAMERA.position}
+            <OrbitDebugControls
+              cameraPosition={AVATAR_CAMERA.position}
               target={AVATAR_CAMERA.target}
             />
             <DebugMarker color="red" target={gazeTarget} />
@@ -73,7 +109,7 @@ export function PortfolioAvatar(): ReactNode {
           idleClipName={AVATAR_MODEL.idleClipName}
           lookSettings={headLook}
           modelPath={AVATAR_MODEL.path}
-          pointerRef={pointerRef}
+          pointerRef={mouseRef}
         />
       </Canvas>
     </div>

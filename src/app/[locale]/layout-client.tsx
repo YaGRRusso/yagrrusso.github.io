@@ -5,6 +5,7 @@ import {
   HydrationBoundary,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { type ComponentProps, type ReactNode, useState } from "react";
@@ -13,10 +14,15 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/contexts/theme";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
+import { IS_DEBUG } from "@/lib/debug";
 import { getQueryClient } from "@/lib/get-query-client";
 import { LayoutLoading } from "./_components/layout-loading";
 import { LayoutMenu } from "./_components/layout-menu";
 import { LayoutSidebar } from "./_components/layout-sidebar";
+
+const Leva = dynamic(() => import("leva").then((module) => module.Leva), {
+  ssr: false,
+});
 
 interface Props extends ComponentProps<"body"> {
   children: ReactNode;
@@ -40,6 +46,7 @@ export function ClientLayout({
     >
       <LayoutLoading />
       <Toaster />
+      <Leva hidden={!IS_DEBUG} />
       <header className="sticky top-0 z-10 flex h-(--layout-header-height) w-full items-center border-b bg-background text-foreground">
         <div className="container flex items-center justify-between gap-4 py-4">
           <Link className="flex items-center justify-center gap-x-2" href="/">

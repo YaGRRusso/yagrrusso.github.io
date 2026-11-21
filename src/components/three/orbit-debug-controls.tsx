@@ -3,7 +3,13 @@
 import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { button, useControls } from "leva";
-import { type ComponentRef, type ReactNode, useRef, useState } from "react";
+import {
+  type ComponentProps,
+  type ComponentRef,
+  type ReactNode,
+  useRef,
+  useState,
+} from "react";
 import { type Camera, Vector3, type Vector3Tuple } from "three";
 import { DebugMarker } from "@/components/three/debug-marker";
 
@@ -33,23 +39,28 @@ function logCamera(
 function resetCamera(
   camera: Camera,
   controls: OrbitControlsInstance | null,
-  position: Vector3Tuple,
+  cameraPosition: Vector3Tuple,
   target: Vector3Tuple
 ): void {
-  camera.position.set(...position);
+  camera.position.set(...cameraPosition);
   controls?.target.set(...target);
   controls?.update();
 }
 
-interface CameraDebugControlsProps {
-  position: Vector3Tuple;
+interface OrbitDebugControlsProps
+  extends Omit<
+    ComponentProps<typeof OrbitControls>,
+    "onChange" | "ref" | "target"
+  > {
+  cameraPosition: Vector3Tuple;
   target: Vector3Tuple;
 }
 
-export function CameraDebugControls({
-  position,
+export function OrbitDebugControls({
+  cameraPosition,
   target,
-}: CameraDebugControlsProps): ReactNode {
+  ...props
+}: OrbitDebugControlsProps): ReactNode {
   const controlsRef = useRef<OrbitControlsInstance>(null);
   const [pivot] = useState(() => new Vector3(...target));
   const getThree = useThree((state) => state.get);
@@ -59,7 +70,12 @@ export function CameraDebugControls({
       logCamera(getThree().camera, controlsRef.current)
     ),
     "reset camera": button(() =>
-      resetCamera(getThree().camera, controlsRef.current, position, target)
+      resetCamera(
+        getThree().camera,
+        controlsRef.current,
+        cameraPosition,
+        target
+      )
     ),
   });
 
@@ -71,6 +87,7 @@ export function CameraDebugControls({
         }}
         ref={controlsRef}
         target={target}
+        {...props}
       />
       <DebugMarker color="dodgerblue" target={pivot} />
     </>
