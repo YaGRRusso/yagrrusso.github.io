@@ -69,7 +69,7 @@ export const SCENES = {
       },
     },
     model: "avaturn",
-    restGaze: { x: -10, y: 0 },
+    restGaze: { x: -10, y: 1 },
   },
 } satisfies Record<string, Scene>;
 
