@@ -15,6 +15,7 @@ from a GraphQL API at build time.
 - **GraphQL Code Generator (client preset)**: `codegen.ts`, `src/graphql/`. Typed operations from the API schema.
 - **Tailwind CSS v4**: `src/styles/globals.css`. Utilities merged through `cn()` in `src/lib/utils.ts`.
 - **Radix UI + shadcn/ui**: `src/components/ui` (new-york style, Phosphor icons).
+- **React Three Fiber + drei**: `src/components/avatar`, `src/components/three`, `src/hooks/three`. The hero 3D avatar, lazy-loaded.
 - **Biome + Ultracite**: `biome.jsonc`, lint and format via `npm run fix` / `npm run check`.
 
 ## Project structure
@@ -33,26 +34,26 @@ src/
 │       ├── _components/      # Route-local cards, chrome, sections/.
 │       └── skills/           # Skills listing route.
 ├── components/               # Domain-agnostic reusable components.
-│   ├── avatar/               # Hero 3D avatar (see docs/3d-avatar.md).
-│   ├── three/                # Generic react-three-fiber pieces (camera, debug tools).
+│   ├── avatar/               # 3D avatar, shared across pages (see docs/3d-avatar.md).
+│   ├── three/                # Generic react-three-fiber pieces (camera, clip loader, debug tools).
 │   └── ui/                   # shadcn/Radix/Magic UI primitives.
 ├── hooks/
 │   ├── factories/            # defineQuery, defineInfiniteQuery, execute.
 │   ├── queries/              # One GraphQL module per entity.
 │   ├── reactive/             # useDebounce, useMessages, pointer, viewport.
-│   └── three/                # useBoneLookAt.
+│   └── three/                # useBoneLookAt, useClipPlayer.
 ├── graphql/                  # Generated (do not edit).
 ├── forms/                    # Contact form + Zod schema.
 ├── i18n/                     # next-intl routing, request, navigation.
-├── lib/                      # SEO, dehydrate, cdn, pagination, utils.
+├── lib/                      # Typed env, SEO, dehydrate, cdn, pagination, utils.
 ├── classes/query.ts          # Client-side array filter/sort helper.
-├── stores/                   # Zustand: theme preference, debug flags.
+├── stores/                   # Zustand: theme preference, debug flags, avatar clips.
 ├── contexts/theme.tsx        # DOM theme application.
 ├── consts/                   # Static icon/slug/network mappings.
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```
 
-Swapping the 3D avatar model, poster or lighting: [`docs/3d-avatar.md`](docs/3d-avatar.md).
+Producing the 3D avatar assets (model, animations, lighting, camera, poster): [`docs/3d-avatar.md`](docs/3d-avatar.md). Uncompressed originals live in `assets/avatar/`.
 
 ## AI context
 
@@ -132,15 +133,19 @@ All of these are **build-time** (`NEXT_PUBLIC_*`). They are baked into the stati
 export. Cloudflare does not need them as Worker secrets — only the machine that
 runs `npm run build` (local or CI) does.
 
-| Variable | CI repository variable | Required | Purpose |
-| --- | --- | --- | --- |
-| `NEXT_PUBLIC_API_URL` | `API_URL` | Yes | GraphQL endpoint used at build to prefetch profile data into static HTML. |
-| `NEXT_PUBLIC_API_KEY` | `API_KEY` | Yes | API token (`X-Api-Key`) for that GraphQL request during build/codegen. |
-| `NEXT_PUBLIC_SITE_URL` | `SITE_URL` | Yes | Public site origin (no trailing slash). Used by sitemap, robots.txt, and SEO metadata. Example: `https://yago.example.com`. |
-| `NEXT_PUBLIC_DEBUG` | `DEBUG` | No | `true` shows debug tools: the leva panel, plus orbit controls and markers on the hero 3D avatar. Off when unset. |
-| `NEXT_PUBLIC_DISABLE_3D` | `DISABLE_3D` | No | `true` shows only the hero avatar poster and never loads the 3D code. Off when unset. |
-| `NEXT_PUBLIC_BUILD_DATE` | — | No | Set automatically in `next.config.ts`. |
+Required:
+
+- `NEXT_PUBLIC_API_URL` (CI: `API_URL`): GraphQL endpoint used at build to prefetch profile data into static HTML.
+- `NEXT_PUBLIC_API_KEY` (CI: `API_KEY`): API token (`X-Api-Key`) for that GraphQL request during build and codegen.
+- `NEXT_PUBLIC_SITE_URL` (CI: `SITE_URL`): public site origin, no trailing slash. Used by sitemap, robots.txt and SEO metadata.
+
+Optional:
+
+- `NEXT_PUBLIC_DEBUG` (CI: `DEBUG`): `true` shows debug tools, the leva panel plus orbit controls and markers on the hero 3D avatar.
+- `NEXT_PUBLIC_DISABLE_3D` (CI: `DISABLE_3D`): `true` shows only the hero avatar poster and never loads the 3D code.
+- `NEXT_PUBLIC_BUILD_DATE`: set automatically in `next.config.ts`.
 
 Local: copy `.env.example` to `.env.development` (and `.env.production` for local
-production builds). GitHub Actions: set `API_URL`, `API_KEY`, and `SITE_URL` under
+production builds). GitHub Actions: set `API_URL`, `API_KEY`, and `SITE_URL` (plus
+`DEBUG` or `DISABLE_3D` when needed) under
 **Settings → Secrets and variables → Actions → Variables**.

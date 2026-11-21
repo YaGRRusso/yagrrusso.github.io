@@ -10,7 +10,7 @@ export const AVATAR_CAMERA = {
 export const AVATAR_MODEL = {
   boneNames: { head: "Head", torso: "Spine2" },
   idleClipName: "IdleV4.2(maya_head)",
-  mixamoClipPaths: { wave: "/animations/wave.glb" },
+  mixamoClipPaths: { wave: "/animations/waving.glb" },
   path: "/model.glb",
 } as const;
 

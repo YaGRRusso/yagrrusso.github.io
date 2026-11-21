@@ -164,7 +164,9 @@ Experience, Portfolio, Skills, Education, Courses, Network, SkillsMarquee
 Hero 3D avatar (react-three-fiber, lazy-loaded with `next/dynamic` in the hero).
 `avatar/` holds the avatar-specific pieces and config (`AVATAR_MODEL`,
 `AVATAR_CAMERA`, `DEFAULT_LOOK` in `avatar-config.ts`, which also derives the
-`AvatarClipName` and `AvatarLookBone` types); `three/` and
+`AvatarClipName` and `AvatarLookBone` types). Uncompressed source assets (model,
+clips, 1k HDR) are committed in `assets/avatar/` and compressed into `public/`;
+`three/` and
 `src/hooks/three/` hold generic pieces. Workflow for swapping the model,
 poster or lighting: `docs/3d-avatar.md`.
 
