@@ -5,35 +5,31 @@ import {
   type ComponentProps,
   type ReactNode,
   type RefObject,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
-import type { Group, Object3D, Vector3 } from "three";
+import type { AnimationClip, Group, Vector3 } from "three";
+import { MixamoClipsLoader } from "@/components/three/mixamo-clips-loader";
 import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import {
   type BoneLookAtSettings,
   useBoneLookAt,
 } from "@/hooks/three/use-bone-look-at";
 import { useClipPlayer } from "@/hooks/three/use-clip-player";
-import { useMixamoClips } from "@/hooks/three/use-mixamo-clips";
+import { disableFrustumCulling } from "@/lib/disable-frustum-culling";
 import { getOrThrow } from "@/lib/get-or-throw";
 import { useAvatarStore } from "@/stores/avatar";
-
-function disableFrustumCulling(root: Object3D): void {
-  root.traverse((object) => {
-    object.frustumCulled = false;
-  });
-}
-
-export type AvatarLookBone = "head" | "torso";
+import type { AvatarClipName, AvatarLookBone } from "./avatar-config";
 
 interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
   boneNames: Record<AvatarLookBone, string>;
   gazeTarget: Vector3;
   idleClipName: string;
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
-  mixamoClipPaths: Record<string, string>;
+  mixamoClipPaths: Record<AvatarClipName, string>;
   modelPath: string;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
@@ -51,13 +47,13 @@ export function AvatarModel({
   ...props
 }: AvatarModelProps): ReactNode {
   const gltf = useGLTF(modelPath);
-  const mixamoClips = useMixamoClips(mixamoClipPaths);
   const rigRef = useRef<Group>(null);
-  const clips = useMemo(
-    () => [...gltf.animations, ...mixamoClips],
-    [gltf.animations, mixamoClips]
+  const animations = useAnimations(gltf.animations, rigRef);
+  const [loadedClips] = useState(() => new Map<string, AnimationClip>());
+  const handleClipLoad = useCallback(
+    (name: string, clip: AnimationClip) => loadedClips.set(name, clip),
+    [loadedClips]
   );
-  const animations = useAnimations(clips, rigRef);
   const clipRequest = useAvatarStore((store) => store.clipRequest);
 
   const bones = useMemo(
@@ -81,8 +77,10 @@ export function AvatarModel({
   useClipPlayer({
     actions: animations.actions,
     baseClipName: idleClipName,
+    clips: loadedClips,
     mixer: animations.mixer,
     request: clipRequest,
+    rootRef: rigRef,
   });
 
   // intentionally after useAnimations and torso before head: each builds on the previous pose
@@ -101,6 +99,7 @@ export function AvatarModel({
       <Center>
         <primitive object={gltf.scene} />
       </Center>
+      <MixamoClipsLoader clipPaths={mixamoClipPaths} onLoad={handleClipLoad} />
     </group>
   );
 }

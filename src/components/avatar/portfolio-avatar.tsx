@@ -1,55 +1,25 @@
 "use client";
 
-import { Environment, useGLTF } from "@react-three/drei";
+import { Environment, useCursor, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
 import { mapValues } from "lodash";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
-import { Vector3, type Vector3Tuple } from "three";
+import { Vector3 } from "three";
 import { DebugMarker } from "@/components/three/debug-marker";
 import { LookAtCamera } from "@/components/three/look-at-camera";
 import { OrbitDebugControls } from "@/components/three/orbit-debug-controls";
 import { SnapshotDebugControls } from "@/components/three/snapshot-debug-controls";
 import { useInViewport } from "@/hooks/reactive/use-in-viewport";
 import { useNormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
-import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
 import { env } from "@/lib/env";
 import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/stores/avatar";
 import { useDebugStore } from "@/stores/debug";
-import { type AvatarLookBone, AvatarModel } from "./avatar-model";
-
-const AVATAR_CAMERA = {
-  fov: 30,
-  position: [0, 0.6, 1.6],
-  target: [0, 0.6, 0],
-} satisfies { fov: number; position: Vector3Tuple; target: Vector3Tuple };
-
-const AVATAR_MODEL = {
-  boneNames: { head: "Head", torso: "Spine2" },
-  idleClipName: "IdleV4.2(maya_head)",
-  mixamoClipPaths: { wave: "/animations/wave.glb" },
-  path: "/model.glb",
-} as const;
+import { AVATAR_CAMERA, AVATAR_MODEL, DEFAULT_LOOK } from "./avatar-config";
+import { AvatarModel } from "./avatar-model";
 
 useGLTF.preload(AVATAR_MODEL.path);
-
-const DEFAULT_LOOK = {
-  head: {
-    dampSpeed: 4,
-    pitchLimit: 0.45,
-    targetDepth: 0.5,
-    weight: 1,
-    yawLimit: 0.6,
-  },
-  torso: {
-    dampSpeed: 2,
-    pitchLimit: 0.15,
-    targetDepth: 0.5,
-    weight: 0.35,
-    yawLimit: 0.35,
-  },
-} satisfies Record<AvatarLookBone, BoneLookAtSettings>;
 
 function logLook(get: (path: string) => number): void {
   console.log({
@@ -95,6 +65,8 @@ export function PortfolioAvatar({
   const isAnimating = isInViewport && !debugStore.isAnimationPaused;
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
   const [gazeTarget] = useState(() => new Vector3());
+  const [isAvatarHovered, setIsAvatarHovered] = useState(false);
+  useCursor(isAvatarHovered);
 
   return (
     <div
@@ -134,6 +106,8 @@ export function PortfolioAvatar({
           mixamoClipPaths={AVATAR_MODEL.mixamoClipPaths}
           modelPath={AVATAR_MODEL.path}
           onClick={() => playClip("wave", { repetitions: 1 })}
+          onPointerOut={() => setIsAvatarHovered(false)}
+          onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}
           pointerRef={pointerRef}
         />

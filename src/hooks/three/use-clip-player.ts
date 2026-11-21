@@ -1,5 +1,11 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
-import { type AnimationAction, type AnimationMixer, LoopRepeat } from "three";
+import { type RefObject, useEffect, useLayoutEffect, useRef } from "react";
+import {
+  type AnimationAction,
+  type AnimationClip,
+  type AnimationMixer,
+  LoopRepeat,
+  type Object3D,
+} from "three";
 import { getOrThrow } from "@/lib/get-or-throw";
 
 const CLIP_FADE_SECONDS = 0.3;
@@ -19,15 +25,19 @@ function getAction(actions: Actions, name: string): AnimationAction {
 type UseClipPlayerOptions = {
   actions: Actions;
   baseClipName: string;
+  clips: Map<string, AnimationClip>;
   mixer: AnimationMixer;
   request: ClipRequest | null;
+  rootRef: RefObject<Object3D | null>;
 };
 
 export function useClipPlayer({
   actions,
   baseClipName,
+  clips,
   mixer,
   request,
+  rootRef,
 }: UseClipPlayerOptions): void {
   const currentRef = useRef<AnimationAction | null>(null);
 
@@ -53,7 +63,10 @@ export function useClipPlayer({
   useEffect(() => {
     if (!request) return;
 
-    const clip = getAction(actions, request.name);
+    const loadedClip = clips.get(request.name);
+    if (!loadedClip) return;
+
+    const clip = mixer.clipAction(loadedClip, rootRef.current ?? undefined);
     const { current } = currentRef;
     const {
       loop = LoopRepeat,
@@ -72,5 +85,5 @@ export function useClipPlayer({
       current?.crossFadeTo(clip, CLIP_FADE_SECONDS, false);
     }
     currentRef.current = clip;
-  }, [actions, request]);
+  }, [clips, mixer, request, rootRef]);
 }

@@ -1,9 +1,10 @@
 import { create } from "zustand";
+import type { AvatarClipName } from "@/components/avatar/avatar-config";
 import type { ClipOptions, ClipRequest } from "@/hooks/three/use-clip-player";
 
 type AvatarStore = {
   clipRequest: ClipRequest | null;
-  playClip: (name: string, options?: ClipOptions) => void;
+  playClip: (name: AvatarClipName, options?: ClipOptions) => void;
 };
 
 export const useAvatarStore = create<AvatarStore>()((set) => ({
