@@ -3,7 +3,8 @@
 import { Environment, useCursor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
-import { mapValues, sample } from "lodash";
+import { sample } from "lodash";
+import { useReducedMotion } from "motion/react";
 import { type ComponentProps, type ReactNode, useRef, useState } from "react";
 import { Vector3 } from "three";
 import { DebugMarker } from "@/components/three/debug-marker";
@@ -22,17 +23,28 @@ import {
   HDRI_ASSETS,
   MODEL_ASSETS,
   SCENES,
-  type Scene,
   type SceneId,
 } from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
 
 const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
 
-function logLook(get: (path: string) => number, look: Scene["look"]): void {
+function logLook(get: (path: string) => number): void {
   console.log({
-    head: mapValues(look.head, (_, key) => get(`head.${key}`)),
-    torso: mapValues(look.torso, (_, key) => get(`torso.${key}`)),
+    head: {
+      dampSpeed: get("head.dampSpeed"),
+      pitchLimit: get("head.pitchLimit"),
+      targetDepth: get("head.targetDepth"),
+      weight: get("head.weight"),
+      yawLimit: get("head.yawLimit"),
+    },
+    torso: {
+      dampSpeed: get("torso.dampSpeed"),
+      pitchLimit: get("torso.pitchLimit"),
+      targetDepth: get("torso.targetDepth"),
+      weight: get("torso.weight"),
+      yawLimit: get("torso.yawLimit"),
+    },
   });
 }
 
@@ -90,21 +102,24 @@ export function PortfolioAvatar({
       value: scene.look.torso.yawLimit,
     },
   });
-  useControls({ "log look": button((get) => logLook(get, scene.look)) });
+  useControls({ "log look": button(logLook) });
   const debugStore = useDebugStore();
   const playClip = useAvatarStore((store) => store.playClip);
+  const playClipWhenIdle = useAvatarStore((store) => store.playClipWhenIdle);
+  const isReducedMotion = useReducedMotion();
   useControls("animation", {
     paused: {
       onChange: debugStore.setIsAnimationPaused,
       value: debugStore.isAnimationPaused,
     },
   });
-  const isAnimating = isInViewport && !debugStore.isAnimationPaused;
+  const isAnimating =
+    isInViewport && !(env.NEXT_PUBLIC_DEBUG && debugStore.isAnimationPaused);
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
-  useRandomInterval(() => playClip(sample(IDLE_BREAK_ANIMATIONS)), {
-    isEnabled: isAnimating,
-    maxMs: 30_000,
-    minMs: 10_000,
+  useRandomInterval(() => playClipWhenIdle(sample(IDLE_BREAK_ANIMATIONS)), {
+    isEnabled: isAnimating && !isReducedMotion,
+    maxMs: 60_000,
+    minMs: 30_000,
   });
   const [gazeTarget] = useState(() => new Vector3());
   const [isAvatarHovered, setIsAvatarHovered] = useState(false);
@@ -146,7 +161,7 @@ export function PortfolioAvatar({
           idleId={scene.idle}
           lookSettings={{ head: headLook, torso: torsoLook }}
           model={model}
-          onClick={() => playClip("waving", { repetitions: 1 })}
+          onClick={() => playClip("waving")}
           onPointerOut={() => setIsAvatarHovered(false)}
           onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}

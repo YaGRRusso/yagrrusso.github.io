@@ -114,7 +114,8 @@ export function AvatarModel({
 
   return (
     <group ref={rigRef} {...props}>
-      <Center>
+      {/* intentionally not precise: precise measures the posed skeleton, which includes the previous centering offset */}
+      <Center precise={false}>
         <primitive object={gltf.scene} />
       </Center>
       <MixamoClipsLoader

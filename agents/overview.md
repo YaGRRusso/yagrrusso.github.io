@@ -171,7 +171,9 @@ its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in 
 same suspend step as the model (no T-pose), other clips load in the background.
 `playClip` (`src/stores/avatar.ts`) plays a loaded clip once and fades back to the
 idle; `PortfolioAvatar` triggers `waving` on click and a random clip from
-`IDLE_BREAK_ANIMATIONS` every 10–30s (`useRandomInterval`, only while on screen).
+`IDLE_BREAK_ANIMATIONS` every 30–60s (`useRandomInterval`, only while on screen,
+only from the idle, off with `prefers-reduced-motion`). An error boundary in the hero
+keeps the poster if the 3D fails.
 Without a pointer (load, touch end, touchscreens) the head aims at the scene's
 `restGaze` (canvas coordinates, `{ x: 0, y: 0 }` = center) instead of the raw idle pose.
 Animations embedded in model files are ignored, so static and animated models work

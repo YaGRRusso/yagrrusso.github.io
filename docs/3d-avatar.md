@@ -1,6 +1,6 @@
 # 3D avatar
 
-How to produce and optimize every asset of the 3D avatar: models, animations,
+Commands and steps to produce the 3D avatar's assets: models, animations,
 lighting, scenes and snapshots. Primitives live in `src/components/avatar/avatar-config.ts`
 (`MODEL_ASSETS`, `ANIMATION_ASSETS`, `HDRI_ASSETS`), keyed by an id that matches their
 file name. A scene in `SCENES` composes one model, one HDRI, its animations and a
@@ -72,8 +72,10 @@ npx @gltf-transform/cli optimize public/_dev/originals/animations/neck-stretchin
 playClip("neck-stretching", { repetitions: 2 });
 ```
 
-`PortfolioAvatar` plays one random clip from `IDLE_BREAK_ANIMATIONS` every 10–30s
-while it is on screen; add the id there to include it:
+`playClipWhenIdle` does the same, but only when the idle is playing (no clip is cut off).
+
+`PortfolioAvatar` plays one random clip from `IDLE_BREAK_ANIMATIONS` every 30–60s
+while it is on screen (not with `prefers-reduced-motion`); add the id there to include it:
 
 ```ts
 const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;

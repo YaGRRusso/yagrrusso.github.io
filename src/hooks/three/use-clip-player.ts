@@ -14,7 +14,12 @@ export type ClipOptions = Partial<
   Pick<AnimationAction, "loop" | "repetitions" | "timeScale">
 >;
 
-export type ClipRequest = { id: number; name: string; options: ClipOptions };
+export type ClipRequest = {
+  id: number;
+  mode: "interrupt" | "whenIdle";
+  name: string;
+  options: ClipOptions;
+};
 
 type Actions = Record<string, AnimationAction | null>;
 
@@ -66,8 +71,11 @@ export function useClipPlayer({
     const loadedClip = clips.get(request.name);
     if (!loadedClip) return;
 
-    const clip = mixer.clipAction(loadedClip, rootRef.current ?? undefined);
     const { current } = currentRef;
+    const base = getAction(actions, baseClipName);
+    if (request.mode === "whenIdle" && current !== base) return;
+
+    const clip = mixer.clipAction(loadedClip, rootRef.current ?? undefined);
     const {
       loop = LoopRepeat,
       repetitions = 1,
@@ -85,5 +93,5 @@ export function useClipPlayer({
       current?.crossFadeTo(clip, CLIP_FADE_SECONDS, false);
     }
     currentRef.current = clip;
-  }, [clips, mixer, request, rootRef]);
+  }, [actions, baseClipName, clips, mixer, request, rootRef]);
 }

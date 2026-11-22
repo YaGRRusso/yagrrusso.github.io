@@ -2,6 +2,7 @@ import { CaretRightIcon, ReadCvLogoIcon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { AnimateOnScroll } from "@/components/animate-on-scroll";
 import { AvatarPoster } from "@/components/avatar/avatar-poster";
 import { SkillIcon } from "@/components/skill-icon";
@@ -51,7 +52,7 @@ export function HeroSection() {
             <h2>Yago Russo</h2>
           </div>
           <Highlighter action="underline" padding={4}>
-            <h1 className="font-semibold text-6xl max-md:text-5xl">
+            <h1 className="line-clamp-2 font-semibold text-6xl max-md:text-5xl">
               {getMessages(getMe.data?.getMe.i18n)?.title}
             </h1>
           </Highlighter>
@@ -116,7 +117,9 @@ export function HeroSection() {
         </div>
         <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] relative aspect-square w-full">
           {!env.NEXT_PUBLIC_DISABLE_3D && (
-            <PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
+            <ErrorBoundary fallback={null}>
+              <PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
+            </ErrorBoundary>
           )}
           <AvatarPoster
             className={cn(
