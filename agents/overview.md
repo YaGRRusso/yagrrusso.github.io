@@ -94,10 +94,15 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 
 ### Theme
 
-- Preference in Zustand with `persist` (`src/stores/theme.ts`, localStorage key
-  `preference`).
-- `src/contexts/theme.tsx` toggles the `dark` class on `document.documentElement`.
-  Supports `light`, `dark`, and `system`.
+- `next-themes` (`ThemeProvider attribute="class"` in `layout-client.tsx`): its inline
+  script sets the `dark` class before the first paint, so there is no theme flash.
+  Supports `light`, `dark`, and `system`; `useTheme()` in `layout-menu.tsx` and
+  `components/ui/sonner.tsx`.
+
+### Images
+
+- Every image has `alt=""`: its name is the visible text next to it, or the
+  `aria-label` of the control around it (hero skill tooltips).
 
 ### Client-side-only data
 
@@ -125,7 +130,8 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - **shadcn/ui (new-york) + Radix UI**: `src/components/ui/`, `components.json`.
   Use Tailwind `font-sans` / `font-mono` / `font-serif`.
   Magic UI and Kibo UI registries for animated components.
-- **Zustand**: theme preference only (`src/stores/theme.ts`).
+- **Zustand**: debug flags (`src/stores/debug.ts`) and avatar clip requests (`src/stores/avatar.ts`).
+- **next-themes**: light, dark and system theme.
 - **TanStack Form + Zod + validator**: contact form in `src/forms/contact.tsx`.
 - **Biome + Ultracite**: `biome.jsonc`. Pre-commit runs lint-staged (Ultracite on staged files).
   SVG assets under `public/` are ignored — Biome attribute sorting can break XML

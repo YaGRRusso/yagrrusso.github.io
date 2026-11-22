@@ -5,6 +5,7 @@ import {
   SunIcon,
 } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 import {
   type ComponentProps,
   Fragment,
@@ -20,10 +21,10 @@ import { Separator } from "@/components/ui/separator";
 import { ToggleGroup } from "@/components/ui/toggle-group";
 import { HOME_SECTIONS } from "@/consts/home-sections";
 import { useActiveSection } from "@/hooks/reactive/use-active-section";
+import { useIsMounted } from "@/hooks/reactive/use-is-mounted";
 import { redirect, usePathname } from "@/i18n/navigation";
 import { type Locale, locales } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import { type ThemePreference, usePreferencesStore } from "@/stores/theme";
 
 interface Props extends ComponentProps<"div"> {
   locale: Locale;
@@ -98,24 +99,24 @@ export function LayoutMenu({ locale, ...props }: Props) {
 export function LayoutMenuControls({ locale }: { locale: Locale }) {
   const t = useTranslations("common");
   const pathname = usePathname();
-  const { theme: preferredTheme, setTheme: setPreferredTheme } =
-    usePreferencesStore();
+  const theme = useTheme();
+  const isMounted = useIsMounted();
 
   const lastInteractionRef = useRef<{ x: number; y: number } | null>(null);
 
   const changeTheme = useCallback(
-    async (preference: ThemePreference) => {
+    async (preference: string) => {
       if (
         !document.startViewTransition ||
         window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ) {
-        setPreferredTheme(preference);
+        theme.setTheme(preference);
         return;
       }
 
       const transition = document.startViewTransition(() => {
         flushSync(() => {
-          setPreferredTheme(preference);
+          theme.setTheme(preference);
         });
       });
 
@@ -143,7 +144,7 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         }
       );
     },
-    [setPreferredTheme]
+    [theme.setTheme]
   );
 
   return (
@@ -174,9 +175,11 @@ export function LayoutMenuControls({ locale }: { locale: Locale }) {
         onPointerDown={(e) => {
           lastInteractionRef.current = { x: e.clientX, y: e.clientY };
         }}
-        onValueChange={(value) => changeTheme(value as ThemePreference)}
+        onValueChange={(value) => {
+          if (value) changeTheme(value);
+        }}
         type="single"
-        value={preferredTheme}
+        value={isMounted ? theme.theme : ""}
         variant="outline"
       >
         <ToggleGroup.Item aria-label="light" value="light">

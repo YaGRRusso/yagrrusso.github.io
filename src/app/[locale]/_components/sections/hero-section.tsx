@@ -88,7 +88,7 @@ export function HeroSection() {
             >
               {SECONDARY_STACK.map((skill) => (
                 <Tooltip.Root key={skill.name}>
-                  <Tooltip.Trigger>
+                  <Tooltip.Trigger aria-label={skill.name}>
                     <SkillIcon slug={skill.slug} />
                   </Tooltip.Trigger>
                   <Tooltip.Content>
@@ -104,7 +104,7 @@ export function HeroSection() {
             >
               {MAIN_STACK.map((skill) => (
                 <Tooltip.Root key={skill.name}>
-                  <Tooltip.Trigger>
+                  <Tooltip.Trigger aria-label={skill.name}>
                     <SkillIcon slug={skill.slug} />
                   </Tooltip.Trigger>
                   <Tooltip.Content>

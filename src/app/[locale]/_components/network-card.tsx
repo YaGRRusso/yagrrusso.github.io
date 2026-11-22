@@ -22,7 +22,7 @@ export function NetworkCard({ avatar, urls, name, role, ...props }: Props) {
     >
       <div className="flex h-full flex-col items-center justify-center gap-4 rounded border bg-card/40 px-8 py-12 text-card-foreground">
         <Avatar.Root className="size-20">
-          <Avatar.Image alt={name} src={avatar} />
+          <Avatar.Image alt="" src={avatar} />
           <Avatar.Fallback>{name.charAt(0)}</Avatar.Fallback>
         </Avatar.Root>
         <div className="flex flex-col items-center justify-center">

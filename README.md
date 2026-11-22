@@ -47,8 +47,7 @@ src/
 ├── i18n/                     # next-intl routing, request, navigation.
 ├── lib/                      # Typed env, SEO, dehydrate, cdn, pagination, utils.
 ├── classes/query.ts          # Client-side array filter/sort helper.
-├── stores/                   # Zustand: theme preference, debug flags, avatar clips.
-├── contexts/theme.tsx        # DOM theme application.
+├── stores/                   # Zustand: debug flags, avatar clips.
 ├── consts/                   # Static icon/slug/network mappings.
 └── styles/globals.css        # Tailwind v4 entry and design tokens.
 ```

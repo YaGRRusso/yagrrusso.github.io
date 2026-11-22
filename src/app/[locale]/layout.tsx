@@ -31,9 +31,10 @@ export default async function Layout({ children, params }: Props) {
 
   return (
     <html
-      className={cn("theme-original dark scroll-smooth", ...fontVariables)}
+      className={cn("theme-original scroll-smooth", ...fontVariables)}
       data-scroll-behavior="smooth"
       lang={locale ?? routing.defaultLocale}
+      suppressHydrationWarning
     >
       <Script
         data-website-id="73f73caf-1063-405d-9e17-ada211458cf9"

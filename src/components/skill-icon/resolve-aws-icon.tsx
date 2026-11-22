@@ -20,10 +20,10 @@ const AWS_ICON_SLUGS = {
 
 type AwsIconSlug = keyof typeof AWS_ICON_SLUGS;
 
-function AwsServiceIcon({ file, slug }: { file: string; slug: string }) {
+function AwsServiceIcon({ file }: { file: string }) {
   return (
     <Image
-      alt={slug}
+      alt=""
       className={SIZE_CLASS}
       height={32}
       src={`${AWS_ICONS_BASE}/${file}`}
@@ -39,5 +39,5 @@ export function resolveAwsIcon(slug: string): ReactNode | null {
 
   const file = AWS_ICON_SLUGS[slug as AwsIconSlug];
 
-  return <AwsServiceIcon file={file} slug={slug} />;
+  return <AwsServiceIcon file={file} />;
 }

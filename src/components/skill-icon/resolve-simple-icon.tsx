@@ -16,7 +16,7 @@ function SimpleIcon({ slug }: { slug: string }): ReactNode {
 
   return (
     <Image
-      alt={slug}
+      alt=""
       className={SIZE_CLASS}
       height={24}
       onError={() => setHasFailed(true)}

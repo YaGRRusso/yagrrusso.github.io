@@ -91,7 +91,7 @@ export function ProjectCard({
       <Dialog.Root onOpenChange={setIsOpen} open={isOpen}>
         <div className="group relative h-full w-full min-w-0 flex-2">
           <Image
-            alt={slug}
+            alt=""
             className={cn(
               "max-lg:mask-b-from-75% max-lg:mask-b-to-100% h-full w-full rounded object-cover object-top max-lg:max-h-96"
             )}
@@ -115,7 +115,7 @@ export function ProjectCard({
           </Dialog.Header>
           <Dialog.Body>
             <Image
-              alt={slug}
+              alt=""
               className="h-full w-full object-cover object-top"
               height={720}
               src={images?.[0] ?? "https://picsum.photos/1280/720"}
