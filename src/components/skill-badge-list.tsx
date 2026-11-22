@@ -1,6 +1,7 @@
 "use client";
 
 import { DotsThreeIcon } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { SkillBadge, type SkillItem } from "@/components/skill-badge";
 import { Button } from "./ui/button";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function SkillBadgeList({ skills }: Props) {
+  const tCommon = useTranslations("common");
   const [isOpen, setIsOpen] = useState(false);
 
   const visible = isOpen ? skills : skills.slice(0, MAX_VISIBLE);
@@ -28,6 +30,8 @@ export function SkillBadgeList({ skills }: Props) {
       ))}
       {hasMore && (
         <Button
+          aria-expanded={isOpen}
+          aria-label={tCommon(isOpen ? "showLess" : "showMore")}
           className="size-5 cursor-pointer"
           onClick={(ev) => {
             ev.preventDefault();

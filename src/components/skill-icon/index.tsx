@@ -1,14 +1,11 @@
-import { PackageIcon } from "@phosphor-icons/react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { FALLBACK_ICON } from "./fallback-icon";
 import { resolveAwsIcon } from "./resolve-aws-icon";
 import { resolveSimpleIcon } from "./resolve-simple-icon";
 import { resolveSlugOverride } from "./resolve-slug-override";
 
 const ICON_CACHE = new Map<string, ReactNode>();
-
-const SIZE_CLASS = "size-[1em]";
-const FALLBACK_ICON = <PackageIcon className={SIZE_CLASS} />;
 
 const ICON_RESOLVERS: ((slug: string) => ReactNode | null)[] = [
   resolveAwsIcon,

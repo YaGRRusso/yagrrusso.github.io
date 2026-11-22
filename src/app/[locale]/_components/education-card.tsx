@@ -55,15 +55,14 @@ export function EducationCard({
     >
       <div className="flex justify-between">
         <Avatar.Root className="size-12">
-          <Avatar.Image
-            alt={organization.name}
-            src={organization.logo || undefined}
-          />
+          <Avatar.Image alt="" src={organization.logo || undefined} />
           <Avatar.Fallback />
         </Avatar.Root>
         {(url || image || organization.website) && (
-          <Button size="icon" variant="ghost">
-            <ArrowUpRightIcon />
+          <Button asChild size="icon" variant="ghost">
+            <span aria-hidden="true">
+              <ArrowUpRightIcon />
+            </span>
           </Button>
         )}
       </div>

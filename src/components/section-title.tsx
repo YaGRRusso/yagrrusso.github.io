@@ -38,7 +38,7 @@ export function SectionTitle({
         />
         <span>{title}</span>
       </a>
-      <h3 className="font-bold text-4xl">{description}</h3>
+      <h2 className="font-bold text-4xl">{description}</h2>
     </div>
   );
 }

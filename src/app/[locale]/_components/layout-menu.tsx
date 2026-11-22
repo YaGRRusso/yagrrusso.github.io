@@ -33,6 +33,7 @@ const SECTION_IDS = HOME_SECTIONS.map((section) => section.id);
 
 export function LayoutMenu({ locale, ...props }: Props) {
   const t = useTranslations("homePage");
+  const tCommon = useTranslations("common");
   const activeId = useActiveSection(SECTION_IDS);
   const [open, setOpen] = useState(false);
 
@@ -51,7 +52,12 @@ export function LayoutMenu({ locale, ...props }: Props) {
       )}
       <Popover.Root onOpenChange={setOpen} open={open}>
         <Popover.Trigger asChild>
-          <Button className="3xl:hidden" size="icon" variant="ghost">
+          <Button
+            aria-label={tCommon("menu")}
+            className="3xl:hidden"
+            size="icon"
+            variant="ghost"
+          >
             <ListIcon className="size-6" weight="bold" />
           </Button>
         </Popover.Trigger>

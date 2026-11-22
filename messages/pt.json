@@ -30,6 +30,7 @@
     "showLess": "Mostrar menos",
     "home": "Início",
     "menu": "Menu",
+    "expandImage": "Ampliar imagem",
     "language": "Idioma",
     "category": "Categoria",
     "contributions": "{count, plural, =0 {Nenhuma contribuição} =1 {1 contribuição} other {# contribuições}}",

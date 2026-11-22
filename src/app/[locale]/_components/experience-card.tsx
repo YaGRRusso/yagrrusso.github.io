@@ -66,10 +66,7 @@ export function ExperienceCard({
         target="_blank"
       >
         <Avatar.Root className="size-12">
-          <Avatar.Image
-            alt={organization.name}
-            src={organization.logo || undefined}
-          />
+          <Avatar.Image alt="" src={organization.logo || undefined} />
           <Avatar.Fallback />
         </Avatar.Root>
         <div className="flex items-center gap-4 font-semibold text-4xl max-md:text-3xl">

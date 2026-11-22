@@ -7,7 +7,6 @@ interface Props extends ComponentProps<"a"> {
 
 export function SocialLink({
   icon,
-  title,
   rel = "noopener",
   target = "_blank",
   ...props

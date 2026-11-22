@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,8 @@ interface Props extends ComponentProps<typeof Carousel.Item> {
 }
 
 export function NetworkCard({ avatar, urls, name, role, ...props }: Props) {
+  const tCommon = useTranslations("common");
+
   return (
     <Carousel.Item
       className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
@@ -35,7 +38,12 @@ export function NetworkCard({ avatar, urls, name, role, ...props }: Props) {
                 size="icon"
                 variant="outline"
               >
-                <a href={url.value} rel="noopener noreferrer" target="_blank">
+                <a
+                  aria-label={tCommon(getUrl(url.title).key)}
+                  href={url.value}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   {getUrl(url.title).icon}
                 </a>
               </Button>

@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/correctness/noChildrenProp: tanstack router core */
 import type { ComponentProps } from "react";
-import validator from "validator";
+import isMobilePhone from "validator/es/lib/isMobilePhone";
 import { z } from "zod";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ export const contactSchema = z.object({
   email: z.email(),
   message: z.string().min(8).max(1000),
   name: z.string().min(2).max(100),
-  phone: z.string().refine(validator.isMobilePhone),
+  phone: z.string().refine(isMobilePhone),
 });
 
 export type ContactSchema = z.infer<typeof contactSchema>;

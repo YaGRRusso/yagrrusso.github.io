@@ -48,7 +48,10 @@ export function ContactSection() {
               <div className="flex flex-col gap-4">
                 <div className="flex gap-6 max-sm:flex-col">
                   <Avatar.Root className="size-20">
-                    <Avatar.Image src={getMe.data?.getMe?.avatar ?? ""} />
+                    <Avatar.Image
+                      alt=""
+                      src={getMe.data?.getMe?.avatar ?? ""}
+                    />
                     <Avatar.Fallback>
                       {getMe.data?.getMe?.name?.charAt(0)}
                     </Avatar.Fallback>
@@ -62,23 +65,27 @@ export function ContactSection() {
                 </div>
                 <div className="flex gap-2">
                   <SocialLink
+                    aria-label={tCommons("urls.github")}
                     href="https://github.com/yagrrusso"
                     icon={<GithubLogoIcon className="size-6" />}
-                    title="GitHub"
                   />
                   <SocialLink
+                    aria-label={tCommons("urls.linkedin")}
                     href="https://www.linkedin.com/in/yago-russo"
                     icon={<LinkedinLogoIcon className="size-6" />}
                   />
                   <SocialLink
+                    aria-label={tCommons("urls.whatsapp")}
                     href="https://wa.me/5551986824203"
                     icon={<WhatsappLogoIcon className="size-6" />}
                   />
                   <SocialLink
+                    aria-label={tCommons("urls.email")}
                     href="mailto:yagrrusso@gmail.com"
                     icon={<EnvelopeIcon className="size-6" />}
                   />
                   <SocialLink
+                    aria-label={tCommons("urls.phone")}
                     href="tel:51986824203"
                     icon={<PhoneIcon className="size-6" />}
                   />

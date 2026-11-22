@@ -1,16 +1,17 @@
+"use client";
+
 import Image from "next/image";
-import type { ReactNode } from "react";
-import icons from "simple-icons/icons.json";
+import { type ReactNode, useState } from "react";
 import { simpleIconsCdn } from "@/lib/cdn";
+import { FALLBACK_ICON } from "./fallback-icon";
 
 const SIZE_CLASS = "size-[1em]";
-const SIMPLE_ICON_SLUGS = new Set(
-  (icons as { slug: string }[]).map((icon) => icon.slug)
-);
 
-export function resolveSimpleIcon(slug: string): ReactNode | null {
-  if (!SIMPLE_ICON_SLUGS.has(slug)) {
-    return null;
+function SimpleIcon({ slug }: { slug: string }): ReactNode {
+  const [hasFailed, setHasFailed] = useState(false);
+
+  if (hasFailed) {
+    return FALLBACK_ICON;
   }
 
   return (
@@ -18,8 +19,13 @@ export function resolveSimpleIcon(slug: string): ReactNode | null {
       alt={slug}
       className={SIZE_CLASS}
       height={24}
+      onError={() => setHasFailed(true)}
       src={simpleIconsCdn(slug)}
       width={24}
     />
   );
+}
+
+export function resolveSimpleIcon(slug: string): ReactNode {
+  return <SimpleIcon slug={slug} />;
 }

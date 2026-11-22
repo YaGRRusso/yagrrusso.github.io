@@ -99,7 +99,10 @@ export function ProjectCard({
             src={images?.[0] ?? "https://picsum.photos/1280/720"}
             width={720}
           />
-          <Dialog.Trigger className="absolute inset-0 flex cursor-pointer items-center justify-center bg-background/20 opacity-0 transition-opacity group-hover:opacity-100">
+          <Dialog.Trigger
+            aria-label={tCommon("expandImage")}
+            className="absolute inset-0 flex cursor-pointer items-center justify-center bg-background/20 opacity-0 transition-opacity group-hover:opacity-100"
+          >
             <FrameCornersIcon className="size-8" />
           </Dialog.Trigger>
         </div>
