@@ -120,8 +120,8 @@ hero: {
 },
 ```
 
-`restGaze` is where the head looks when there is no pointer (on load, after a touch,
-on touchscreens), in canvas coordinates: `{ x: 0, y: 0 }` is the center, `x` grows
+`restGaze` is where the head looks before the first mouse move or touch (on touch,
+it keeps looking at the last touch point), in canvas coordinates: `{ x: 0, y: 0 }` is the center, `x` grows
 right, `y` grows up, `±1` are the edges.
 
 2. Render it with its poster:

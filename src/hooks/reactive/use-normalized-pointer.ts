@@ -26,23 +26,19 @@ export function useNormalizedPointer(
       };
     };
 
-    const releaseTouch = (event: PointerEvent) => {
-      if (event.pointerType === "mouse") return;
-      pointerRef.current = null;
-    };
+    // const releaseTouch = (event: PointerEvent) => {
+    //   if (event.pointerType === "mouse") return;
+    //   pointerRef.current = null;
+    // };
 
     const options = { passive: true };
     window.addEventListener("pointerdown", trackPointer, options);
     window.addEventListener("pointermove", trackPointer, options);
-    window.addEventListener("pointerup", releaseTouch, options);
-    window.addEventListener("pointercancel", releaseTouch, options);
 
     return () => {
       pointerRef.current = null;
       window.removeEventListener("pointerdown", trackPointer);
       window.removeEventListener("pointermove", trackPointer);
-      window.removeEventListener("pointerup", releaseTouch);
-      window.removeEventListener("pointercancel", releaseTouch);
     };
   }, [elementRef, isEnabled]);
 
