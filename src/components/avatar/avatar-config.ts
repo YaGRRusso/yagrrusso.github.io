@@ -25,7 +25,7 @@ export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
   "head-hit-a": { path: "/animations/head-hit-a.glb", timeScale: 1.5 },
   "head-hit-b": { path: "/animations/head-hit-b.glb", timeScale: 1.5 },
-  idle: { path: "/animations/idle.glb" },
+  idle: { path: "/animations/idle.glb", timeScale: 0.5 },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
   "spin-in-place": { path: "/animations/spin-in-place.glb" },
   "torso-hit-a": { path: "/animations/torso-hit-a.glb", timeScale: 1.5 },
@@ -65,7 +65,7 @@ export const SCENES = {
       "torso-hit-a",
       "torso-hit-b",
     ],
-    camera: { fov: 30, position: [0, 0.6, 1.5], target: [0.01, 0.6, 0] },
+    camera: { fov: 30, position: [0.6, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
     idle: "idle",
     look: {
@@ -78,7 +78,7 @@ export const SCENES = {
       },
       torso: {
         dampSpeed: 2,
-        pitchLimit: 0.5,
+        pitchLimit: 0,
         targetDepth: 0.5,
         weight: 0.35,
         yawLimit: 0.35,
