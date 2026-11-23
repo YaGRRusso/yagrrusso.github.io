@@ -66,6 +66,7 @@ npx @gltf-transform/cli optimize public/_dev/originals/animations/$name.glb publ
 
 ```ts
 dancing: { path: "/animations/dancing.glb" },
+dancing: { path: "/animations/dancing.glb", timeScale: 1.5 },
 ```
 
 5. Play it from anywhere (once by default, then back to the idle):

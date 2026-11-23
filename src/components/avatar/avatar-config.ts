@@ -1,6 +1,7 @@
 import type { Vector3Tuple } from "three";
 import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import type { BoneLookAtSettings } from "@/hooks/three/use-bone-look-at";
+import type { ClipOptions } from "@/hooks/three/use-clip-player";
 
 export type AvatarLookBone = "head" | "torso";
 
@@ -9,7 +10,7 @@ export type ModelAsset = {
   path: string;
 };
 
-export type AnimationAsset = { path: string };
+export type AnimationAsset = { path: string } & ClipOptions;
 
 export type HdriAsset = { path: string };
 
@@ -22,13 +23,14 @@ export const MODEL_ASSETS = {
 
 export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
-  "head-hit-a": { path: "/animations/head-hit-a.glb" },
-  "head-hit-b": { path: "/animations/head-hit-b.glb" },
+  "head-hit-a": { path: "/animations/head-hit-a.glb", timeScale: 2 },
+  "head-hit-b": { path: "/animations/head-hit-b.glb", timeScale: 2 },
   idle: { path: "/animations/idle.glb" },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
   "spin-in-place": { path: "/animations/spin-in-place.glb" },
-  "torso-hit-a": { path: "/animations/torso-hit-a.glb" },
-  "torso-hit-b": { path: "/animations/torso-hit-b.glb" },
+  "torso-hit-a": { path: "/animations/torso-hit-a.glb", timeScale: 2 },
+  "torso-hit-b": { path: "/animations/torso-hit-b.glb", timeScale: 2 },
+  waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
 export const HDRI_ASSETS = {
@@ -55,6 +57,7 @@ export const SCENES = {
   hero: {
     animations: [
       "arm-stretching",
+      "waving",
       "head-hit-a",
       "head-hit-b",
       "neck-stretching",

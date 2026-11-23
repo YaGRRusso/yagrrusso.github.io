@@ -36,7 +36,7 @@ const BODY_CLICK_ANIMATIONS = {
   torso: ["torso-hit-a", "torso-hit-b"],
 } as const satisfies Record<AvatarLookBone, readonly AnimationId[]>;
 
-const GREETING_ANIMATION: AnimationId = "spin-in-place";
+const GREETING_ANIMATION: AnimationId = "waving";
 
 function logLook(get: (path: string) => number): void {
   console.log({
@@ -173,7 +173,7 @@ export function PortfolioAvatar({
           onBodyClick={(part) => playClip(sample(BODY_CLICK_ANIMATIONS[part]))}
           onClipLoad={(name) => {
             if (name === GREETING_ANIMATION && !isReducedMotion) {
-              setTimeout(() => playClip(GREETING_ANIMATION), 100);
+              setTimeout(() => playClip(GREETING_ANIMATION), 300);
             }
           }}
           onPointerOut={() => setIsAvatarHovered(false)}
