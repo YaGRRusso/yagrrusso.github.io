@@ -36,8 +36,8 @@ const IDLE_BREAK_ANIMATIONS = [
 ] as const satisfies readonly AnimationId[];
 
 const BODY_CLICK_ANIMATIONS = {
-  head: ["head-hit-a", "head-hit-b"],
-  torso: ["torso-hit-a", "torso-hit-b"],
+  head: ["head-hit"],
+  torso: ["torso-hit"],
 } as const satisfies Record<AvatarLookBone, readonly AnimationId[]>;
 
 const GREETING_ANIMATION: AnimationId = "waving";

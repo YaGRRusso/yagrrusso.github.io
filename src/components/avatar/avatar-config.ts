@@ -23,13 +23,11 @@ export const MODEL_ASSETS = {
 
 export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
-  "head-hit-a": { path: "/animations/head-hit-a.glb", timeScale: 1.5 },
-  "head-hit-b": { path: "/animations/head-hit-b.glb", timeScale: 1.5 },
+  "head-hit": { path: "/animations/head-hit.glb", timeScale: 1.5 },
   idle: { path: "/animations/idle.glb", timeScale: 0.5 },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
   "spin-in-place": { path: "/animations/spin-in-place.glb" },
-  "torso-hit-a": { path: "/animations/torso-hit-a.glb", timeScale: 1.5 },
-  "torso-hit-b": { path: "/animations/torso-hit-b.glb", timeScale: 1.5 },
+  "torso-hit": { path: "/animations/torso-hit.glb", timeScale: 1.5 },
   waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
@@ -58,12 +56,10 @@ export const SCENES = {
     animations: [
       "arm-stretching",
       "waving",
-      "head-hit-a",
-      "head-hit-b",
+      "head-hit",
       "neck-stretching",
       "spin-in-place",
-      "torso-hit-a",
-      "torso-hit-b",
+      "torso-hit",
     ],
     camera: { fov: 30, position: [0.6, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
