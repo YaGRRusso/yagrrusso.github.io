@@ -26,7 +26,8 @@ entry's `path` to `/_dev/originals/...`.
 3. Compress it (add `--simplify false` if the face or hair lose detail):
 
 ```bash
-npx @gltf-transform/cli optimize public/_dev/originals/models/avaturn.glb public/models/avaturn.glb --compress meshopt --texture-compress webp
+name=avaturn
+npx @gltf-transform/cli optimize public/_dev/originals/models/$name.glb public/models/$name.glb --compress meshopt --texture-compress webp
 ```
 
 4. Add it to `MODEL_ASSETS` with its head and torso bone names (Outliner in the three.js editor):
@@ -57,7 +58,8 @@ skeleton, bone names prefixed with `mixamorig`.
 3. Compress it:
 
 ```bash
-npx @gltf-transform/cli optimize public/_dev/originals/animations/dancing.glb public/animations/dancing.glb --compress meshopt
+name=dancing
+npx @gltf-transform/cli optimize public/_dev/originals/animations/$name.glb public/animations/$name.glb --compress meshopt
 ```
 
 4. Add it to `ANIMATION_ASSETS`, then use it as a scene's `idle` or in its `animations`:
@@ -89,7 +91,8 @@ position track are removed on load).
 2. Shrink it to 256 wide (not with `magick`: it clamps HDR values and flattens the lighting):
 
 ```bash
-oiiotool public/_dev/originals/hdri/city.hdr --resize 256x128 -o public/hdri/city.hdr
+name=city
+oiiotool public/_dev/originals/hdri/$name.hdr --resize 256x128 -o public/hdri/$name.hdr
 ```
 
 3. Add it to `HDRI_ASSETS`:
@@ -147,5 +150,6 @@ Snapshots are named after their scene. Retake one after changing anything in its
 2. Convert it (take the snapshot on a 2x screen for a sharper poster):
 
 ```bash
-magick public/_dev/originals/snapshots/hero.png -quality 85 public/snapshots/hero.webp
+name=hero
+magick public/_dev/originals/snapshots/$name.png -quality 85 public/snapshots/$name.webp
 ```
