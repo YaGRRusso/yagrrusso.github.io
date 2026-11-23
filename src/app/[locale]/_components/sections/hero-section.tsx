@@ -35,12 +35,12 @@ export function HeroSection() {
   const locale = useLocale();
 
   return (
-    <div className="container relative flex min-h-[calc(100vh-var(--layout-header-height))] w-full items-center gap-8 max-md:flex-col-reverse">
+    <div className="container relative flex min-h-[calc(100vh-var(--layout-header-height))] w-full items-center gap-8 overflow-x-clip max-md:flex-col-reverse">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <InteractiveGridPattern className="mask-[radial-gradient(24rem_circle_at_center,white,transparent)] max-md:mask-[radial-gradient(50vw_circle_at_center,white,transparent)] -skew-y-7 max-md:h-1/2 md:ml-64" />
       </div>
       <AnimateOnScroll
-        className="flex w-full min-w-0 flex-1 flex-col gap-4"
+        className="relative flex w-full min-w-0 flex-1 flex-col gap-4"
         y={16}
       >
         <div className="flex flex-col gap-2 tracking-wide">
@@ -115,15 +115,19 @@ export function HeroSection() {
             </OrbitingCircles>
           </div>
         </div>
-        <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] relative aspect-square w-full">
+        <div className="relative aspect-square w-full">
           {!env.NEXT_PUBLIC_DISABLE_3D && (
             <ErrorBoundary fallback={null}>
-              <PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
+              <PortfolioAvatar
+                className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] absolute -inset-x-1/4 inset-y-0 h-auto w-auto"
+                onReady={handleAvatarReady}
+                sceneId="hero"
+              />
             </ErrorBoundary>
           )}
           <AvatarPoster
             className={cn(
-              "transition-opacity duration-500",
+              "mask-[linear-gradient(to_top,transparent_0%,white_10%)] transition-opacity duration-500",
               isAvatarReady && "opacity-0"
             )}
             sceneId="hero"
