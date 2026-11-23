@@ -183,7 +183,9 @@ The head follows the pointer; before the first mouse move or touch it aims at th
 scene's `restGaze`.
 Animations embedded in model files are ignored, so static and animated models work
 the same and a model file can be swapped without config changes. Every clip file
-holds exactly one clip (`assertSingleClip` in `src/lib/`). The config mirrors `public/` (`models/`, `animations/`,
+holds exactly one clip, and every track must target a node of the model: both are
+asserted on load, so a bad clip fails loudly (the hero keeps the poster) instead of
+T-posing. The config mirrors `public/` (`models/`, `animations/`,
 `hdri/`, `snapshots/`); uncompressed originals use the same layout under
 `public/_dev/originals/`. `public/_dev/` is development-only: `public/.assetsignore`
 excludes it from the Cloudflare upload.

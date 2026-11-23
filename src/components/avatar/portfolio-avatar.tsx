@@ -20,6 +20,8 @@ import { cn } from "@/lib/utils";
 import { useAvatarStore } from "@/stores/avatar";
 import { useDebugStore } from "@/stores/debug";
 import {
+  type AnimationId,
+  type AvatarLookBone,
   HDRI_ASSETS,
   MODEL_ASSETS,
   SCENES,
@@ -27,7 +29,17 @@ import {
 } from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
 
-const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
+const IDLE_BREAK_ANIMATIONS = [
+  "arm-stretching",
+  "neck-stretching",
+  "spin-in-place",
+  "waving",
+] as const;
+
+const BODY_CLICK_ANIMATIONS = {
+  head: "taking-punch-head",
+  torso: "taking-punch-torso",
+} as const satisfies Record<AvatarLookBone, AnimationId>;
 
 function logLook(get: (path: string) => number): void {
   console.log({
@@ -161,7 +173,7 @@ export function PortfolioAvatar({
           idleId={scene.idle}
           lookSettings={{ head: headLook, torso: torsoLook }}
           model={model}
-          onClick={() => playClip("waving")}
+          onBodyClick={(part) => playClip(BODY_CLICK_ANIMATIONS[part])}
           onPointerOut={() => setIsAvatarHovered(false)}
           onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}

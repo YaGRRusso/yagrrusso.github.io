@@ -24,6 +24,9 @@ export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
   idle: { path: "/animations/idle.glb" },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
+  "spin-in-place": { path: "/animations/spin-in-place.glb" },
+  "taking-punch-head": { path: "/animations/taking-punch-head.glb" },
+  "taking-punch-torso": { path: "/animations/taking-punch-torso.glb" },
   waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
@@ -49,7 +52,14 @@ export type Scene = {
 
 export const SCENES = {
   hero: {
-    animations: ["arm-stretching", "neck-stretching", "waving"],
+    animations: [
+      "arm-stretching",
+      "neck-stretching",
+      "spin-in-place",
+      "taking-punch-torso",
+      "taking-punch-head",
+      "waving",
+    ],
     camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
     idle: "idle",

@@ -1,6 +1,7 @@
 "use client";
 
 import { Center, useAnimations, useGLTF } from "@react-three/drei";
+import type { ThreeEvent } from "@react-three/fiber";
 import {
   type ComponentProps,
   type ReactNode,
@@ -11,7 +12,12 @@ import {
   useRef,
   useState,
 } from "react";
-import type { AnimationClip, Group, Vector3 } from "three";
+import {
+  type AnimationClip,
+  type Group,
+  SkinnedMesh,
+  type Vector3,
+} from "three";
 import { MixamoClipsLoader } from "@/components/three/mixamo-clips-loader";
 import type { NormalizedPointer } from "@/hooks/reactive/use-normalized-pointer";
 import {
@@ -19,8 +25,10 @@ import {
   useBoneLookAt,
 } from "@/hooks/three/use-bone-look-at";
 import { useClipPlayer } from "@/hooks/three/use-clip-player";
+import { assertClipMatchesModel } from "@/lib/assert-clip-matches-model";
 import { assertSingleClip } from "@/lib/assert-single-clip";
 import { disableFrustumCulling } from "@/lib/disable-frustum-culling";
+import { getDominantBone } from "@/lib/get-dominant-bone";
 import { getOrThrow } from "@/lib/get-or-throw";
 import { toInPlaceMixamoClip } from "@/lib/mixamo";
 import { useAvatarStore } from "@/stores/avatar";
@@ -31,12 +39,14 @@ import {
   type ModelAsset,
 } from "./avatar-config";
 
-interface AvatarModelProps extends Omit<ComponentProps<"group">, "ref"> {
+interface AvatarModelProps
+  extends Omit<ComponentProps<"group">, "onClick" | "ref"> {
   animationIds: AnimationId[];
   gazeTarget: Vector3;
   idleId: AnimationId;
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelAsset;
+  onBodyClick: (part: AvatarLookBone) => void;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
   restGaze: NormalizedPointer;
@@ -48,6 +58,7 @@ export function AvatarModel({
   idleId,
   lookSettings,
   model,
+  onBodyClick,
   onReady,
   pointerRef,
   restGaze,
@@ -58,18 +69,26 @@ export function AvatarModel({
   const rigRef = useRef<Group>(null);
   const idleClips = useMemo(
     () => [
-      toInPlaceMixamoClip(
-        assertSingleClip(idleGltf.animations, ANIMATION_ASSETS[idleId].path),
-        idleId
+      assertClipMatchesModel(
+        toInPlaceMixamoClip(
+          assertSingleClip(idleGltf.animations, ANIMATION_ASSETS[idleId].path),
+          idleId
+        ),
+        gltf.scene,
+        ANIMATION_ASSETS[idleId].path
       ),
     ],
-    [idleGltf.animations, idleId]
+    [gltf.scene, idleGltf.animations, idleId]
   );
   const animations = useAnimations(idleClips, rigRef);
   const [loadedClips] = useState(() => new Map<string, AnimationClip>());
   const handleClipLoad = useCallback(
-    (name: string, clip: AnimationClip) => loadedClips.set(name, clip),
-    [loadedClips]
+    (name: string, clip: AnimationClip) =>
+      loadedClips.set(
+        name,
+        assertClipMatchesModel(clip, gltf.scene, `animation "${name}"`)
+      ),
+    [gltf.scene, loadedClips]
   );
   const clipRequest = useAvatarStore((store) => store.clipRequest);
 
@@ -112,8 +131,18 @@ export function AvatarModel({
     rootRef: rigRef,
   });
 
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+    event.stopPropagation();
+    if (!(event.object instanceof SkinnedMesh && event.face)) return;
+
+    const bone = getDominantBone(event.object, event.face.a);
+    const isHead = bones.head.getObjectById(bone.id) !== undefined;
+    onBodyClick(isHead ? "head" : "torso");
+  };
+
   return (
-    <group ref={rigRef} {...props}>
+    // biome-ignore lint/a11y/noStaticElementInteractions: three.js group, not a DOM element
+    <group onClick={handleClick} ref={rigRef} {...props}>
       {/* intentionally not precise: precise measures the posed skeleton, which includes the previous centering offset */}
       <Center precise={false}>
         <primitive object={gltf.scene} />
