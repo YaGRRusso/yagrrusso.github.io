@@ -12,6 +12,7 @@ import { ThemeProvider } from "next-themes";
 import { type ComponentProps, type ReactNode, useState } from "react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/sonner";
+import { useIsMounted } from "@/hooks/reactive/use-is-mounted";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { env } from "@/lib/env";
@@ -37,6 +38,7 @@ export function ClientLayout({
 }: Props) {
   const [queryClient] = useState(() => getQueryClient());
   const t = useTranslations("layout");
+  const isMounted = useIsMounted();
 
   return (
     <body
@@ -77,17 +79,18 @@ export function ClientLayout({
             </span>
 
             <span>
-              {t("updatedAt", {
-                date: new Date(
-                  process.env.NEXT_PUBLIC_BUILD_DATE ?? new Date()
-                ).toLocaleDateString(locale, {
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                }),
-              })}
+              {isMounted &&
+                t("updatedAt", {
+                  date: new Date(
+                    process.env.NEXT_PUBLIC_BUILD_DATE ?? new Date()
+                  ).toLocaleDateString(locale, {
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }),
+                })}
             </span>
           </div>
         </footer>
