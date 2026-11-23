@@ -176,6 +176,8 @@ its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in 
 same suspend step as the model (no T-pose), other clips load in the background.
 Clips are requested through the avatar store (`playClip` interrupts,
 `playClipWhenIdle` only plays from the idle) and fade back to the idle when done.
+The poster is swapped out instantly (no crossfade) when the 3D is ready: its first
+frame is the snapshot, so a fade would only blend two different poses.
 `PortfolioAvatar` triggers them with a greeting when its clip loads, from user
 clicks (a random variation per body part, from the clicked vertex's skin weights)
 and from random idle breaks while on screen. An error

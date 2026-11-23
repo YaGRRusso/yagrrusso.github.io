@@ -61,7 +61,7 @@ export const SCENES = {
       "spin-in-place",
       "torso-hit",
     ],
-    camera: { fov: 30, position: [0.6, 0.6, 1.4], target: [0.03, 0.6, 0] },
+    camera: { fov: 30, position: [0.5, 0.6, 1.4], target: [0.03, 0.6, 0] },
     hdri: "city",
     idle: "idle",
     look: {

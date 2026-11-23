@@ -123,10 +123,7 @@ export function HeroSection() {
               </ErrorBoundary>
             )}
             <AvatarPoster
-              className={cn(
-                "transition-opacity duration-500",
-                isAvatarReady && "opacity-0"
-              )}
+              className={cn(isAvatarReady && "opacity-0")}
               sceneId="hero"
             />
           </div>
