@@ -1,6 +1,6 @@
 import { AnimationClip } from "three";
 
-const MIXAMO_BONE_PREFIX = /^mixamorig\d*/;
+const MIXAMO_BONE_PREFIX = /^mixamorig\d*[:_]?/;
 
 function toModelTrackName(trackName: string): string {
   return trackName.replace(MIXAMO_BONE_PREFIX, "");

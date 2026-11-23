@@ -29,17 +29,14 @@ import {
 } from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
 
-const IDLE_BREAK_ANIMATIONS = [
-  "arm-stretching",
-  "neck-stretching",
-  "spin-in-place",
-  "waving",
-] as const;
+const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
 
 const BODY_CLICK_ANIMATIONS = {
-  head: "taking-punch-head",
-  torso: "taking-punch-torso",
-} as const satisfies Record<AvatarLookBone, AnimationId>;
+  head: ["head-hit-a", "head-hit-b"],
+  torso: ["torso-hit-a", "torso-hit-b"],
+} as const satisfies Record<AvatarLookBone, readonly AnimationId[]>;
+
+const GREETING_ANIMATION: AnimationId = "spin-in-place";
 
 function logLook(get: (path: string) => number): void {
   console.log({
@@ -173,7 +170,12 @@ export function PortfolioAvatar({
           idleId={scene.idle}
           lookSettings={{ head: headLook, torso: torsoLook }}
           model={model}
-          onBodyClick={(part) => playClip(BODY_CLICK_ANIMATIONS[part])}
+          onBodyClick={(part) => playClip(sample(BODY_CLICK_ANIMATIONS[part]))}
+          onClipLoad={(name) => {
+            if (name === GREETING_ANIMATION && !isReducedMotion) {
+              setTimeout(() => playClip(GREETING_ANIMATION), 100);
+            }
+          }}
           onPointerOut={() => setIsAvatarHovered(false)}
           onPointerOver={() => setIsAvatarHovered(true)}
           onReady={onReady}

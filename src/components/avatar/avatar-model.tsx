@@ -47,6 +47,7 @@ interface AvatarModelProps
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelAsset;
   onBodyClick: (part: AvatarLookBone) => void;
+  onClipLoad: (name: string) => void;
   onReady: () => void;
   pointerRef: RefObject<NormalizedPointer | null>;
   restGaze: NormalizedPointer;
@@ -59,6 +60,7 @@ export function AvatarModel({
   lookSettings,
   model,
   onBodyClick,
+  onClipLoad,
   onReady,
   pointerRef,
   restGaze,
@@ -82,12 +84,16 @@ export function AvatarModel({
   );
   const animations = useAnimations(idleClips, rigRef);
   const [loadedClips] = useState(() => new Map<string, AnimationClip>());
+  const onClipLoadRef = useRef(onClipLoad);
+  onClipLoadRef.current = onClipLoad;
   const handleClipLoad = useCallback(
-    (name: string, clip: AnimationClip) =>
+    (name: string, clip: AnimationClip) => {
       loadedClips.set(
         name,
         assertClipMatchesModel(clip, gltf.scene, `animation "${name}"`)
-      ),
+      );
+      onClipLoadRef.current(name);
+    },
     [gltf.scene, loadedClips]
   );
   const clipRequest = useAvatarStore((store) => store.clipRequest);

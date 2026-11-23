@@ -75,10 +75,13 @@ playClip("dancing", { repetitions: 2 });
 playClipWhenIdle("dancing"); // skipped if another clip is playing
 ```
 
-`PortfolioAvatar` triggers clips in two ways: a random idle break from time to time
-while it is on screen (`playClipWhenIdle`, off with `prefers-reduced-motion`), and a
-click on the head or the torso (`playClip`, the part is the clicked vertex's dominant
-skin bone). Each maps to a list of animation ids in that file.
+`PortfolioAvatar` triggers clips in three ways:
+
+- a greeting as soon as its clip loads (off with `prefers-reduced-motion`);
+- a random idle break from time to time while it is on screen (`playClipWhenIdle`, off with `prefers-reduced-motion`);
+- a click on the head or the torso (`playClip`, the part is the clicked vertex's dominant skin bone), with a random variation per part.
+
+Each trigger maps to animation ids in that file.
 
 A scene's idle loads together with the model; its other clips load in the background
 after the model shows. All clips play in place (the `mixamorig` prefix and the hips

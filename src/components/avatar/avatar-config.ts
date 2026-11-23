@@ -22,12 +22,13 @@ export const MODEL_ASSETS = {
 
 export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
+  "head-hit-a": { path: "/animations/head-hit-a.glb" },
+  "head-hit-b": { path: "/animations/head-hit-b.glb" },
   idle: { path: "/animations/idle.glb" },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
   "spin-in-place": { path: "/animations/spin-in-place.glb" },
-  "taking-punch-head": { path: "/animations/taking-punch-head.glb" },
-  "taking-punch-torso": { path: "/animations/taking-punch-torso.glb" },
-  waving: { path: "/animations/waving.glb" },
+  "torso-hit-a": { path: "/animations/torso-hit-a.glb" },
+  "torso-hit-b": { path: "/animations/torso-hit-b.glb" },
 } satisfies Record<string, AnimationAsset>;
 
 export const HDRI_ASSETS = {
@@ -54,11 +55,12 @@ export const SCENES = {
   hero: {
     animations: [
       "arm-stretching",
+      "head-hit-a",
+      "head-hit-b",
       "neck-stretching",
       "spin-in-place",
-      "taking-punch-torso",
-      "taking-punch-head",
-      "waving",
+      "torso-hit-a",
+      "torso-hit-b",
     ],
     camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
     hdri: "city",
