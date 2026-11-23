@@ -239,6 +239,7 @@ export type BoneLookAt = { bone: Object3D; settings: BoneLookAtSettings };
 type UseBoneLookAtOptions = {
   bones: BoneLookAt[];
   gazeTarget: Vector3;
+  isEnabled: boolean;
   pointerRef: RefObject<NormalizedPointer | null>;
   restPointer: NormalizedPointer;
   rootRef: RefObject<Object3D | null>;
@@ -247,6 +248,7 @@ type UseBoneLookAtOptions = {
 export function useBoneLookAt({
   bones,
   gazeTarget,
+  isEnabled,
   pointerRef,
   restPointer,
   rootRef,
@@ -255,7 +257,7 @@ export function useBoneLookAt({
 
   useFrame(({ camera }, delta) => {
     const root = rootRef.current;
-    if (!root) return;
+    if (!(isEnabled && root)) return;
 
     const frame: BoneFrame = {
       camera,

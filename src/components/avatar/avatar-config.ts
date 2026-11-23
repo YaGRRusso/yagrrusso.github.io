@@ -65,7 +65,7 @@ export const SCENES = {
       "torso-hit-a",
       "torso-hit-b",
     ],
-    camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
+    camera: { fov: 30, position: [0, 0.6, 1.5], target: [0.01, 0.6, 0] },
     hdri: "city",
     idle: "idle",
     look: {

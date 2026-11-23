@@ -122,11 +122,12 @@ export function PortfolioAvatar({
       value: debugStore.isAnimationPaused,
     },
   });
-  const isAnimating =
-    isInViewport && !(env.NEXT_PUBLIC_DEBUG && debugStore.isAnimationPaused);
+  const isPaused = env.NEXT_PUBLIC_DEBUG && debugStore.isAnimationPaused;
+  const isAnimating = isInViewport && !isPaused;
+  const canAutoPlay = isAnimating && !isReducedMotion;
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
   useRandomInterval(() => playClipWhenIdle(sample(IDLE_BREAK_ANIMATIONS)), {
-    isEnabled: isAnimating && !isReducedMotion,
+    isEnabled: canAutoPlay,
     maxMs: 60_000,
     minMs: 30_000,
   });
@@ -168,11 +169,12 @@ export function PortfolioAvatar({
           animationIds={scene.animations}
           gazeTarget={gazeTarget}
           idleId={scene.idle}
+          isPaused={isPaused}
           lookSettings={{ head: headLook, torso: torsoLook }}
           model={model}
           onBodyClick={(part) => playClip(sample(BODY_CLICK_ANIMATIONS[part]))}
           onClipLoad={(name) => {
-            if (name === GREETING_ANIMATION && !isReducedMotion) {
+            if (name === GREETING_ANIMATION && canAutoPlay) {
               setTimeout(() => playClip(GREETING_ANIMATION), 300);
             }
           }}

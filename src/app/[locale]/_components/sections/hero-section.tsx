@@ -116,22 +116,20 @@ export function HeroSection() {
           </div>
         </div>
         <div className="relative aspect-square w-full">
-          {!env.NEXT_PUBLIC_DISABLE_3D && (
-            <ErrorBoundary fallback={null}>
-              <PortfolioAvatar
-                className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] absolute -inset-x-1/4 inset-y-0 h-auto w-auto"
-                onReady={handleAvatarReady}
-                sceneId="hero"
-              />
-            </ErrorBoundary>
-          )}
-          <AvatarPoster
-            className={cn(
-              "mask-[linear-gradient(to_top,transparent_0%,white_10%)] transition-opacity duration-500",
-              isAvatarReady && "opacity-0"
+          <div className="mask-[linear-gradient(to_top,transparent_0%,white_10%)] absolute -inset-x-1/4 inset-y-0">
+            {!env.NEXT_PUBLIC_DISABLE_3D && (
+              <ErrorBoundary fallback={null}>
+                <PortfolioAvatar onReady={handleAvatarReady} sceneId="hero" />
+              </ErrorBoundary>
             )}
-            sceneId="hero"
-          />
+            <AvatarPoster
+              className={cn(
+                "transition-opacity duration-500",
+                isAvatarReady && "opacity-0"
+              )}
+              sceneId="hero"
+            />
+          </div>
         </div>
       </AnimateOnScroll>
     </div>

@@ -44,6 +44,7 @@ interface AvatarModelProps
   animationIds: AnimationId[];
   gazeTarget: Vector3;
   idleId: AnimationId;
+  isPaused: boolean;
   lookSettings: Record<AvatarLookBone, BoneLookAtSettings>;
   model: ModelAsset;
   onBodyClick: (part: AvatarLookBone) => void;
@@ -57,6 +58,7 @@ export function AvatarModel({
   animationIds,
   gazeTarget,
   idleId,
+  isPaused,
   lookSettings,
   model,
   onBodyClick,
@@ -132,13 +134,19 @@ export function AvatarModel({
       { bone: bones.head, settings: lookSettings.head },
     ],
     gazeTarget,
+    isEnabled: !isPaused,
     pointerRef,
     restPointer: restGaze,
     rootRef: rigRef,
   });
 
+  useEffect(() => {
+    animations.mixer.timeScale = isPaused ? 0 : 1;
+  }, [animations.mixer, isPaused]);
+
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     event.stopPropagation();
+    if (isPaused) return;
     if (!(event.object instanceof SkinnedMesh && event.face)) return;
 
     const bone = getDominantBone(event.object, event.face.a);
