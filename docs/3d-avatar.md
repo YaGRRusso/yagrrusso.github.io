@@ -52,34 +52,31 @@ skeleton, bone names prefixed with `mixamorig`.
 
 1. Download a clip from [Mixamo](https://www.mixamo.com) on that avatar (`FBX Binary`, `Without Skin`, `30` fps, no keyframe reduction).
 
-2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `public/_dev/originals/animations/neck-stretching.glb`.
+2. Convert the FBX in the [three.js editor](https://threejs.org/editor/) with File → Export → GLB and save it as `public/_dev/originals/animations/dancing.glb`.
 
 3. Compress it:
 
 ```bash
-npx @gltf-transform/cli optimize public/_dev/originals/animations/neck-stretching.glb public/animations/neck-stretching.glb --compress meshopt
+npx @gltf-transform/cli optimize public/_dev/originals/animations/dancing.glb public/animations/dancing.glb --compress meshopt
 ```
 
 4. Add it to `ANIMATION_ASSETS`, then use it as a scene's `idle` or in its `animations`:
 
 ```ts
-"neck-stretching": { path: "/animations/neck-stretching.glb" },
+dancing: { path: "/animations/dancing.glb" },
 ```
 
 5. Play it from anywhere (once by default, then back to the idle):
 
 ```ts
-playClip("neck-stretching", { repetitions: 2 });
+playClip("dancing", { repetitions: 2 });
+playClipWhenIdle("dancing"); // skipped if another clip is playing
 ```
 
-`playClipWhenIdle` does the same, but only when the idle is playing (no clip is cut off).
-
-`PortfolioAvatar` plays one random clip from `IDLE_BREAK_ANIMATIONS` every 30–60s
-while it is on screen (not with `prefers-reduced-motion`); add the id there to include it:
-
-```ts
-const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
-```
+`PortfolioAvatar` triggers clips in two ways: a random idle break from time to time
+while it is on screen (`playClipWhenIdle`, off with `prefers-reduced-motion`), and a
+click on the head or the torso (`playClip`, the part is the clicked vertex's dominant
+skin bone). Each maps to a list of animation ids in that file.
 
 A scene's idle loads together with the model; its other clips load in the background
 after the model shows. All clips play in place (the `mixamorig` prefix and the hips
@@ -107,7 +104,7 @@ city: { path: "/hdri/city.hdr" },
 
 ```ts
 hero: {
-  animations: ["arm-stretching", "neck-stretching", "waving"],
+  animations: ["dancing"],
   camera: { fov: 30, position: [0, 0.6, 1.4], target: [0, 0.6, 0] },
   hdri: "city",
   idle: "idle",
@@ -120,9 +117,9 @@ hero: {
 },
 ```
 
-`restGaze` is where the head looks before the first mouse move or touch (on touch,
-it keeps looking at the last touch point), in canvas coordinates: `{ x: 0, y: 0 }` is the center, `x` grows
-right, `y` grows up, `±1` are the edges.
+`restGaze` is where the head looks before the first mouse move or touch, in canvas
+coordinates: `{ x: 0, y: 0 }` is the center, `x` grows right, `y` grows up, `±1` are
+the edges.
 
 2. Render it with its poster:
 

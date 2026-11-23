@@ -94,15 +94,14 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 
 ### Theme
 
-- `next-themes` (`ThemeProvider attribute="class"` in `layout-client.tsx`): its inline
-  script sets the `dark` class before the first paint, so there is no theme flash.
-  Supports `light`, `dark`, and `system`; `useTheme()` in `layout-menu.tsx` and
-  `components/ui/sonner.tsx`.
+- `next-themes` with `attribute="class"`: its inline script sets the `dark` class
+  before the first paint, so there is no theme flash. Read and set the theme with
+  its `useTheme()`.
 
 ### Images
 
 - Every image has `alt=""`: its name is the visible text next to it, or the
-  `aria-label` of the control around it (hero skill tooltips).
+  `aria-label` of the control around it.
 
 ### Client-side-only data
 
@@ -130,7 +129,7 @@ There is no Node server at runtime. `next.config.ts` sets `output: "export"`, so
 - **shadcn/ui (new-york) + Radix UI**: `src/components/ui/`, `components.json`.
   Use Tailwind `font-sans` / `font-mono` / `font-serif`.
   Magic UI and Kibo UI registries for animated components.
-- **Zustand**: debug flags (`src/stores/debug.ts`) and avatar clip requests (`src/stores/avatar.ts`).
+- **Zustand**: small client stores in `src/stores/`.
 - **next-themes**: light, dark and system theme.
 - **TanStack Form + Zod + validator**: contact form in `src/forms/contact.tsx`.
 - **Biome + Ultracite**: `biome.jsonc`. Pre-commit runs lint-staged (Ultracite on staged files).
@@ -175,14 +174,13 @@ model, one HDRI, its animations, a camera and its head/torso look settings, and
 `PortfolioAvatar` and `AvatarPoster` take a required `sceneId`; a scene loads only
 its own clips. Each scene picks its `idle` from `ANIMATION_ASSETS`; it loads in the
 same suspend step as the model (no T-pose), other clips load in the background.
-`playClip` (`src/stores/avatar.ts`) plays a loaded clip once and fades back to the
-idle; `PortfolioAvatar` triggers `waving` on click and a random clip from
-`IDLE_BREAK_ANIMATIONS` every 30–60s (`useRandomInterval`, only while on screen,
-only from the idle, off with `prefers-reduced-motion`). An error boundary in the hero
-keeps the poster if the 3D fails.
-Before the first mouse move or touch the head aims at the scene's
-`restGaze` (canvas coordinates, `{ x: 0, y: 0 }` = center) instead of the raw idle pose;
-after a touch it keeps looking at the last touch point.
+Clips are requested through the avatar store (`playClip` interrupts,
+`playClipWhenIdle` only plays from the idle) and fade back to the idle when done.
+`PortfolioAvatar` triggers them from user clicks (by body part, from the clicked
+vertex's skin weights) and from random idle breaks while on screen. An error
+boundary in the hero keeps the poster if the 3D fails.
+The head follows the pointer; before the first mouse move or touch it aims at the
+scene's `restGaze`.
 Animations embedded in model files are ignored, so static and animated models work
 the same and a model file can be swapped without config changes. Every clip file
 holds exactly one clip (`assertSingleClip` in `src/lib/`). The config mirrors `public/` (`models/`, `animations/`,
