@@ -29,7 +29,11 @@ import {
 } from "./avatar-config";
 import { AvatarModel } from "./avatar-model";
 
-const IDLE_BREAK_ANIMATIONS = ["arm-stretching", "neck-stretching"] as const;
+const IDLE_BREAK_ANIMATIONS = [
+  "arm-stretching",
+  "neck-stretching",
+  "spin-in-place",
+] as const satisfies readonly AnimationId[];
 
 const BODY_CLICK_ANIMATIONS = {
   head: ["head-hit-a", "head-hit-b"],
@@ -128,8 +132,8 @@ export function PortfolioAvatar({
   const pointerRef = useNormalizedPointer(containerRef, isAnimating);
   useRandomInterval(() => playClipWhenIdle(sample(IDLE_BREAK_ANIMATIONS)), {
     isEnabled: canAutoPlay,
-    maxMs: 60_000,
-    minMs: 30_000,
+    maxMs: 30_000,
+    minMs: 15_000,
   });
   const [gazeTarget] = useState(() => new Vector3());
   const [isAvatarHovered, setIsAvatarHovered] = useState(false);

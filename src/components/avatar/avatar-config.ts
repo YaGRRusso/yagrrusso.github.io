@@ -23,13 +23,13 @@ export const MODEL_ASSETS = {
 
 export const ANIMATION_ASSETS = {
   "arm-stretching": { path: "/animations/arm-stretching.glb" },
-  "head-hit-a": { path: "/animations/head-hit-a.glb", timeScale: 2 },
-  "head-hit-b": { path: "/animations/head-hit-b.glb", timeScale: 2 },
+  "head-hit-a": { path: "/animations/head-hit-a.glb", timeScale: 1.5 },
+  "head-hit-b": { path: "/animations/head-hit-b.glb", timeScale: 1.5 },
   idle: { path: "/animations/idle.glb" },
   "neck-stretching": { path: "/animations/neck-stretching.glb" },
   "spin-in-place": { path: "/animations/spin-in-place.glb" },
-  "torso-hit-a": { path: "/animations/torso-hit-a.glb", timeScale: 2 },
-  "torso-hit-b": { path: "/animations/torso-hit-b.glb", timeScale: 2 },
+  "torso-hit-a": { path: "/animations/torso-hit-a.glb", timeScale: 1.5 },
+  "torso-hit-b": { path: "/animations/torso-hit-b.glb", timeScale: 1.5 },
   waving: { path: "/animations/waving.glb" },
 } satisfies Record<string, AnimationAsset>;
 
