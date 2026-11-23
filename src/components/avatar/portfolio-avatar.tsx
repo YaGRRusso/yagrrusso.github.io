@@ -179,7 +179,7 @@ export function PortfolioAvatar({
           onBodyClick={(part) => playClip(sample(BODY_CLICK_ANIMATIONS[part]))}
           onClipLoad={(name) => {
             if (name === GREETING_ANIMATION && canAutoPlay) {
-              setTimeout(() => playClip(GREETING_ANIMATION), 300);
+              setTimeout(() => playClip(GREETING_ANIMATION), 500);
             }
           }}
           onPointerOut={() => setIsAvatarHovered(false)}
